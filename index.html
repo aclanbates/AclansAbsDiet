@@ -278,6 +278,20 @@ li{margin:4px 0}
 }
 .suggestionActions{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:10px}
 @media(max-width:560px){.suggestionActions{grid-template-columns:1fr}}
+.suggestionAnswer{
+  display:none;
+  margin-top:12px;
+  background:#fffdf6;
+  border:2px solid var(--ink);
+  border-radius:14px;
+  padding:13px;
+  line-height:1.45;
+}
+.suggestionAnswer.show{display:block}
+.suggestionAnswer h4{margin:0 0 8px;text-transform:uppercase}
+.suggestionAnswer p{margin:8px 0}
+.suggestionAnswer ul{margin-top:8px}
+.sourceList a{color:#0d6569;font-weight:1000}
 .legend{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-top:14px}
 .legend div{background:#fff;border:2px solid var(--ink);border-radius:12px;padding:10px;font-weight:800}
 .reminderList{display:grid;gap:8px;margin-top:12px}
@@ -352,13 +366,14 @@ li{margin:4px 0}
       <div id="quickPlan" class="quickPlan"></div>
       <div id="timeline" class="timeline"></div>
       <section class="suggestionTab" aria-labelledby="suggestionTitle">
-        <h3 id="suggestionTitle">ChatGPT suggestions</h3>
-        <div class="micro">Use this question when you want help choosing swaps, alternatives, or calories for the selected date.</div>
+        <h3 id="suggestionTitle">Ask ChatGPT</h3>
+        <div class="micro">Type a question about today's meals, swaps, calories, exercise, or weight progress. The answer uses your selected date and science-backed nutrition guidance.</div>
         <textarea id="suggestionPrompt" aria-label="ChatGPT suggestion question"></textarea>
         <div class="suggestionActions">
-          <button id="refreshSuggestionBtn" class="light">Refresh question</button>
-          <button id="copySuggestionBtn">Copy question</button>
+          <button id="refreshSuggestionBtn" class="light">Reset question</button>
+          <button id="tellMeBtn">Tell me</button>
         </div>
+        <div id="suggestionAnswer" class="suggestionAnswer" aria-live="polite"></div>
       </section>
     </main>
 
@@ -687,6 +702,7 @@ const modalImage = document.getElementById("modalImage");
 const modalScroll = document.getElementById("modalScroll");
 const modalTitle = document.getElementById("modalTitle");
 const suggestionPrompt = document.getElementById("suggestionPrompt");
+const suggestionAnswer = document.getElementById("suggestionAnswer");
 const calendarGrid = document.getElementById("calendarGrid");
 const calendarTitle = document.getElementById("calendarTitle");
 
@@ -963,8 +979,77 @@ function buildSuggestionPrompt(){
   ].join("\n\n");
 }
 
-function updateSuggestionPrompt(){
+function updateSuggestionPrompt(force=false){
+  if(!force && suggestionPrompt.dataset.generated === "0" && suggestionPrompt.value.trim()) return;
+  suggestionPrompt.dataset.generated = "1";
   suggestionPrompt.value = buildSuggestionPrompt();
+}
+
+function escapeHtml(text){
+  return String(text).replace(/[&<>"']/g, char=>({"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;","'":"&#39;"}[char]));
+}
+
+function sourceLinks(){
+  return `
+    <ul class="sourceList">
+      <li><a href="https://www.dietaryguidelines.gov/" target="_blank" rel="noopener">Dietary Guidelines for Americans</a>: emphasizes nutrient-dense foods, vegetables, fruits, whole grains, lean proteins, and limiting excess added sugar/saturated fat.</li>
+      <li><a href="https://www.cdc.gov/healthy-weight-growth/losing-weight/index.html" target="_blank" rel="noopener">CDC healthy weight loss guidance</a>: favors gradual, sustainable habit changes over crash dieting.</li>
+      <li><a href="https://www.niddk.nih.gov/health-information/weight-management/changing-habits-better-health" target="_blank" rel="noopener">NIH/NIDDK behavior-change guidance</a>: supports tracking, planning, realistic goals, and replacing habits step by step.</li>
+      <li><a href="https://www.cdc.gov/physical-activity-basics/guidelines/adults.html" target="_blank" rel="noopener">CDC adult physical activity guidelines</a>: recommends regular aerobic activity plus muscle-strengthening work.</li>
+    </ul>`;
+}
+
+function buildCoachAnswer(question){
+  const day = currentDay();
+  const goal = Number(target.value || 2000);
+  const meals = resolvedMeals(day,selectedDate);
+  const eaten = consumed(day,selectedDate);
+  const needRest = goal - eaten;
+  const leftPlan = remainingPlanned(day,selectedDate);
+  const unchecked = meals.filter(meal=>!isDone(selectedDate,meal));
+  const next = unchecked[0];
+  const lowerSwaps = next ? switchOptionsFor(next.slot)
+    .map(option=>option.meal)
+    .filter(meal=>meal.cal <= Math.max(needRest,0))
+    .sort((a,b)=>b.cal - a.cal)
+    .slice(0,3) : [];
+  const alternatives = meals.filter(meal=>meal.isOverride);
+  const exercise = exerciseEntries().filter(entry=>entry.date === selectedDate).reduce((sum,entry)=>sum + Number(entry.calories || 0),0);
+  const q = question.toLowerCase();
+  const asksWeight = /weight|kg|scale|fat|loss|lose|burn|exercise|workout/.test(q);
+  const asksSwap = /swap|replace|alternative|instead|choose|eat|meal|snack|hungry|dinner|lunch|breakfast/.test(q);
+  const status = needRest >= 0
+    ? `You have about <b>${fmt(needRest)} kcal</b> left against a <b>${fmt(goal)} kcal</b> target.`
+    : `You are about <b>${fmt(Math.abs(needRest))} kcal over</b> the selected target, so the rest of the day should be lighter if that target matters today.`;
+  const nextAdvice = next
+    ? `Your next unchecked item is <b>${next.slot}: ${next.name}</b> (${fmt(next.cal)} kcal).`
+    : "All scheduled items are checked off for this date.";
+  const swapAdvice = lowerSwaps.length
+    ? `If you want a replacement that fits the remaining target better, consider ${lowerSwaps.map(meal=>`<b>${escapeHtml(meal.name)}</b> (${fmt(meal.cal)} kcal)`).join(", ")}.`
+    : next ? "The planned item may exceed the remaining calorie target. Choose a half portion, a lean-protein-and-vegetable plate, or one of the lower-calorie healthier alternatives shown on the meal card." : "No swap is needed unless you are genuinely hungry.";
+  const weightAdvice = asksWeight
+    ? `<li>For weight loss, connect the food target and exercise log gently: today's logged exercise is <b>${fmt(exercise)} kcal</b>. Treat that as an estimate, not permission to automatically eat it all back. Scale changes are noisy because water, sodium, sleep, and muscle soreness can hide fat loss for several days.</li>`
+    : "";
+  const swapFocus = asksSwap
+    ? `<li>For the actual food choice, prioritize a meal with <b>lean protein + fiber</b>: turkey/chicken/tuna/Greek yogurt/beans plus vegetables, fruit, oats, or whole grain. That combination is the most useful pattern here because it supports fullness while keeping calories easier to control.</li>`
+    : "";
+  return `
+    <h4>Deep-thinking answer</h4>
+    <p><b>Your question:</b> ${escapeHtml(question)}</p>
+    <p>${status} ${nextAdvice} The unchecked plan totals <b>${fmt(leftPlan)} kcal</b>.</p>
+    <ul>
+      ${swapFocus}
+      <li>${swapAdvice}</li>
+      <li>If hunger is high, do not just chase the lowest calorie number. Pick the most filling option under your remaining target: protein first, then vegetables/fruit, then measured whole-grain or starchy carb.</li>
+      <li>If you are already close to target, use a smaller portion or a lighter ABS-style equivalent rather than skipping protein completely.</li>
+      ${weightAdvice}
+      ${alternatives.length ? `<li>You already picked alternatives today: ${alternatives.map(meal=>`<b>${escapeHtml(meal.slot)}</b> ${escapeHtml(meal.name)}`).join("; ")}. Keep those visible notes so your checkboxes match what you actually ate.</li>` : ""}
+    </ul>
+    <p><b>Best next move:</b> ${next ? `Decide whether ${escapeHtml(next.name)} fits your remaining calories. If it does, eat it and check it off. If not, choose the closest lower-calorie swap and keep protein in the meal.` : "Log weight/exercise if needed, then stop adding food unless hunger is real."}</p>
+    <p class="micro">General wellness guidance only, not medical advice. For medical conditions, medications, eating-disorder history, pregnancy, or aggressive weight-loss goals, use a qualified clinician.</p>
+    <h4>Scientific source notes</h4>
+    ${sourceLinks()}
+  `;
 }
 
 function renderQuickPlan(day,iso){
@@ -1232,17 +1317,19 @@ document.getElementById("nextMonthBtn").onclick = ()=>{
   renderCalendar();
 };
 
-document.getElementById("refreshSuggestionBtn").onclick = updateSuggestionPrompt;
-document.getElementById("copySuggestionBtn").onclick = async()=>{
-  updateSuggestionPrompt();
-  try{
-    await navigator.clipboard.writeText(suggestionPrompt.value);
-    rewardToast.innerHTML = "Question copied.<small>Paste it into ChatGPT for suggestions.</small>";
-  } catch(_err){
-    suggestionPrompt.select();
-    rewardToast.innerHTML = "Question ready.<small>Select and copy it from the box.</small>";
-  }
+suggestionPrompt.addEventListener("input",()=>{ suggestionPrompt.dataset.generated = "0"; });
+document.getElementById("refreshSuggestionBtn").onclick = ()=>updateSuggestionPrompt(true);
+document.getElementById("tellMeBtn").onclick = ()=>{
+  const question = suggestionPrompt.value.trim() || buildSuggestionPrompt();
+  suggestionPrompt.value = question;
+  suggestionPrompt.dataset.generated = "0";
+  suggestionAnswer.classList.add("show");
+  suggestionAnswer.innerHTML = "<h4>Thinking...</h4><p>Reading your selected date, calories, checked meals, swaps, and exercise log.</p>";
+  window.setTimeout(()=>{
+    suggestionAnswer.innerHTML = buildCoachAnswer(question);
+  },280);
   rewardToast.classList.add("show");
+  rewardToast.innerHTML = "Answer ready.<small>Scientific source notes included below.</small>";
   clearTimeout(window.rewardTimer);
   window.rewardTimer = setTimeout(()=>rewardToast.classList.remove("show"),2300);
 };
