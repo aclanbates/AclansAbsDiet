@@ -82,6 +82,44 @@ button.light{background:#fff;color:var(--ink)}
 .daySub{font-size:22px;font-weight:800;background:#ffe268;display:inline-block;padding:3px 12px;transform:rotate(-1deg)}
 .badge{border:3px solid var(--ink);border-radius:999px;padding:12px 16px;background:#f3aac0;font-size:22px;font-weight:1000}
 .timeline{display:grid;gap:12px}
+.quickPlan{
+  display:grid;
+  gap:8px;
+  margin:0 0 16px;
+  padding:12px;
+  border:3px solid var(--ink);
+  border-radius:18px;
+  background:#fff7df;
+}
+.quickPlanTitle{
+  display:flex;
+  justify-content:space-between;
+  gap:10px;
+  align-items:center;
+  font-size:13px;
+  font-weight:1000;
+  text-transform:uppercase;
+  letter-spacing:.06em;
+}
+.quickMeal{
+  display:grid;
+  grid-template-columns:72px 88px 1fr auto;
+  gap:8px;
+  align-items:center;
+  background:#fff;
+  border:2px solid var(--ink);
+  border-radius:12px;
+  padding:8px 10px;
+  font-weight:900;
+}
+.quickMeal.done{opacity:.48;filter:grayscale(.7);text-decoration:line-through}
+.quickTime{color:var(--accent)}
+.quickSlot{text-transform:uppercase;font-size:12px;color:var(--muted)}
+.quickCal{white-space:nowrap}
+@media(max-width:620px){
+  .quickMeal{grid-template-columns:62px 1fr auto}
+  .quickSlot{grid-column:2 / 4}
+}
 .meal{position:relative;overflow:hidden;transition:opacity .18s ease,filter .18s ease,transform .18s ease}
 .meal::before{content:"";position:absolute;inset:0 auto 0 0;width:10px;background:var(--accent)}
 .meal.done{opacity:.42;filter:grayscale(.78);transform:scale(.992)}
@@ -235,6 +273,7 @@ li{margin:4px 0}
         </div>
         <div class="badge" id="dayNum"></div>
       </div>
+      <div id="quickPlan" class="quickPlan"></div>
       <div id="timeline" class="timeline"></div>
     </main>
 
@@ -471,6 +510,7 @@ function recipe(ingredients,steps){return {ingredients,steps};}
 const daySelect = document.getElementById("daySelect");
 const target = document.getElementById("target");
 const timeline = document.getElementById("timeline");
+const quickPlan = document.getElementById("quickPlan");
 const rewardToast = document.getElementById("rewardToast");
 const weightKg = document.getElementById("weightKg");
 const targetKg = document.getElementById("targetKg");
@@ -580,6 +620,20 @@ function render(){
   document.getElementById("posterCaption").textContent = `${day.day} visual recipe sheet`;
 
   timeline.innerHTML = "";
+  quickPlan.innerHTML = `
+    <div class="quickPlanTitle">
+      <span>Today's meal plan</span>
+      <span>${day.meals.length} items • Snack 3 after dinner</span>
+    </div>
+    ${day.meals.map(m=>`
+      <div class="quickMeal ${isDone(day,m) ? "done" : ""}">
+        <span class="quickTime">${m.time}</span>
+        <span class="quickSlot">${m.slot}</span>
+        <span>${m.icon} ${m.name}</span>
+        <span class="quickCal">${m.cal} kcal</span>
+      </div>
+    `).join("")}
+  `;
   const eaten = consumed(day);
   const needRest = goal - eaten;
 
