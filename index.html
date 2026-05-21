@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>ABS Diet Weekly Food Zine App 3.0 ACLBTH</title>
+<title>ABS Diet Weekly Food Zine App 3.01 ACLBTH</title>
 <style>
 :root{
   --ink:#191515;
@@ -254,25 +254,30 @@ li{margin:4px 0}
 .modalTop button{width:auto;padding:8px 12px}
 .modalScroll{overflow:auto;background:#303236;text-align:center}
 .modalScroll img{max-width:1400px;width:100%;height:auto;display:block;margin:0 auto}
-.modalScroll.sectionZoom img{width:170%;max-width:2200px}
 .rewardModal .modalBox{width:min(92vw,620px)}
 .rewardPanel{background:#fffaf0;padding:22px;text-align:center}
 .rewardPanel img{width:160px;height:auto;margin:10px auto 16px;display:block;border-radius:16px}
 .rewardPanel h2{font-size:36px;margin:0 0 8px;text-transform:uppercase}
 .posterFrame{position:relative}
-.posterHotspot{
-  position:absolute;
-  border:2px solid rgba(25,21,21,.65);
-  border-radius:999px;
-  background:rgba(255,226,104,.72);
-  color:var(--ink);
-  width:auto;
-  min-width:34px;
-  padding:4px 7px;
-  font-size:11px;
-  font-weight:1000;
-  box-shadow:0 2px 0 rgba(25,21,21,.65);
+.suggestionTab{
+  margin-top:16px;
+  background:#eef6f7;
+  border:3px solid var(--ink);
+  border-radius:18px;
+  padding:14px;
+  box-shadow:0 5px 0 var(--ink);
 }
+.suggestionTab h3{margin:0 0 8px;text-transform:uppercase;font-size:20px}
+.suggestionTab textarea{
+  width:100%;
+  min-height:128px;
+  resize:vertical;
+  margin-top:8px;
+  font-family:inherit;
+  line-height:1.35;
+}
+.suggestionActions{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:10px}
+@media(max-width:560px){.suggestionActions{grid-template-columns:1fr}}
 .legend{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-top:14px}
 .legend div{background:#fff;border:2px solid var(--ink);border-radius:12px;padding:10px;font-weight:800}
 .reminderList{display:grid;gap:8px;margin-top:12px}
@@ -297,7 +302,7 @@ li{margin:4px 0}
   <section class="hero">
     <div class="heroGrid">
       <div>
-        <div class="versionTag">3.0 ACLBTH Edition</div>
+        <div class="versionTag">3.01 ACLBTH Edition</div>
         <div class="ribbon">Meal Swaps • ABS Equivalents • Section Popups • Full-Day Reward</div>
         <h1>ABS Diet<br>Weekly App</h1>
         <p>Check each meal or snack as you finish it. Tap any card to see recipes, swaps, healthier alternatives, and live rest-of-day calorie math.</p>
@@ -346,6 +351,15 @@ li{margin:4px 0}
       </div>
       <div id="quickPlan" class="quickPlan"></div>
       <div id="timeline" class="timeline"></div>
+      <section class="suggestionTab" aria-labelledby="suggestionTitle">
+        <h3 id="suggestionTitle">ChatGPT suggestions</h3>
+        <div class="micro">Use this question when you want help choosing swaps, alternatives, or calories for the selected date.</div>
+        <textarea id="suggestionPrompt" aria-label="ChatGPT suggestion question"></textarea>
+        <div class="suggestionActions">
+          <button id="refreshSuggestionBtn" class="light">Refresh question</button>
+          <button id="copySuggestionBtn">Copy question</button>
+        </div>
+      </section>
     </main>
 
     <aside class="panel">
@@ -353,12 +367,6 @@ li{margin:4px 0}
       <div class="card posterCard">
         <div class="posterFrame" id="posterFrame">
           <img id="dayPoster" class="zoomable" src="assets/weekly-cover.png" alt="Selected day food zine poster" data-zoom-title="Selected day recipe collage">
-          <button class="posterHotspot" data-poster-slot="Breakfast" style="left:13%;top:21%">B</button>
-          <button class="posterHotspot" data-poster-slot="Snack 1" style="left:13%;top:34%">S1</button>
-          <button class="posterHotspot" data-poster-slot="Lunch" style="left:13%;top:47%">L</button>
-          <button class="posterHotspot" data-poster-slot="Snack 2" style="left:13%;top:60%">S2</button>
-          <button class="posterHotspot" data-poster-slot="Dinner" style="left:13%;top:73%">D</button>
-          <button class="posterHotspot" data-poster-slot="Snack 3" style="left:13%;top:86%">S3</button>
         </div>
         <div class="posterCaption" id="posterCaption">Weekly visual guide</div>
       </div>
@@ -433,7 +441,7 @@ li{margin:4px 0}
     </aside>
   </section>
 
-  <div class="footer"><span class="tape">ABS DIET 3.0 ACLBTH.</span><span class="tape">SWAP BY SLOT.</span><span class="tape">FINISH THE DAY.</span></div>
+  <div class="footer"><span class="tape">ABS DIET 3.01 ACLBTH.</span><span class="tape">SWAP BY SLOT.</span><span class="tape">ASK FOR IDEAS.</span></div>
 </div>
 
 <div id="dayRewardModal" class="modal rewardModal" aria-hidden="true">
@@ -678,6 +686,7 @@ const imageModal = document.getElementById("imageModal");
 const modalImage = document.getElementById("modalImage");
 const modalScroll = document.getElementById("modalScroll");
 const modalTitle = document.getElementById("modalTitle");
+const suggestionPrompt = document.getElementById("suggestionPrompt");
 const calendarGrid = document.getElementById("calendarGrid");
 const calendarTitle = document.getElementById("calendarTitle");
 
@@ -922,7 +931,6 @@ function renderWeightTracker(){
 }
 
 function openImageModal(img){
-  modalScroll.classList.remove("sectionZoom");
   modalScroll.scrollTop = 0;
   modalScroll.scrollLeft = 0;
   modalImage.src = img.src;
@@ -932,33 +940,31 @@ function openImageModal(img){
   imageModal.setAttribute("aria-hidden","false");
 }
 
-function openPosterSlot(slot){
-  const slotFocus = {
-    "Breakfast":0.16,
-    "Snack 1":0.30,
-    "Lunch":0.45,
-    "Snack 2":0.58,
-    "Dinner":0.72,
-    "Snack 3":0.88
-  };
-  modalScroll.classList.add("sectionZoom");
-  modalImage.src = document.getElementById("dayPoster").src;
-  modalImage.alt = `${slot} section on ${currentDay().day} food zine`;
-  modalTitle.textContent = `${slot} section • ${currentDay().day} collage`;
-  imageModal.classList.add("open");
-  imageModal.setAttribute("aria-hidden","false");
-  requestAnimationFrame(()=>{
-    const targetTop = Math.max(0,(modalScroll.scrollHeight - modalScroll.clientHeight) * (slotFocus[slot] || 0));
-    modalScroll.scrollTop = targetTop;
-    modalScroll.scrollLeft = Math.max(0,(modalScroll.scrollWidth - modalScroll.clientWidth) * 0.18);
-  });
-}
-
 function closeImageModal(){
   imageModal.classList.remove("open");
   imageModal.setAttribute("aria-hidden","true");
-  modalScroll.classList.remove("sectionZoom");
   modalImage.src = "";
+}
+
+function buildSuggestionPrompt(){
+  const day = currentDay();
+  const goal = Number(target.value || 2000);
+  const meals = resolvedMeals(day,selectedDate);
+  const eaten = consumed(day,selectedDate);
+  const needRest = goal - eaten;
+  const unchecked = meals.filter(meal=>!isDone(selectedDate,meal));
+  const alternatives = meals.filter(meal=>meal.isOverride);
+  return [
+    `I am using my ABS Diet 3.01 ACLBTH tracker for ${day.day}, ${displayDate(selectedDate)}.`,
+    `Daily calorie target: ${fmt(goal)} kcal. Checked/eaten so far: ${fmt(eaten)} kcal. Remaining target: ${needRest >= 0 ? fmt(needRest) + " kcal" : fmt(Math.abs(needRest)) + " kcal over target"}.`,
+    `Unchecked meals/snacks: ${unchecked.length ? unchecked.map(meal=>`${meal.slot} at ${meal.time}: ${meal.name} (${meal.cal} kcal)`).join("; ") : "none"}.`,
+    `Picked alternatives: ${alternatives.length ? alternatives.map(meal=>`${meal.slot}: ${meal.name} instead of ${meal.originalName}`).join("; ") : "none"}.`,
+    "Please suggest the best remaining meal choices or swaps for today, keep the advice practical, include rough calories, and keep it aligned with an ABS Diet style plan."
+  ].join("\n\n");
+}
+
+function updateSuggestionPrompt(){
+  suggestionPrompt.value = buildSuggestionPrompt();
 }
 
 function renderQuickPlan(day,iso){
@@ -1094,6 +1100,7 @@ function render(){
     r.innerHTML = `<b>${m.time}</b><span>${m.icon} ${m.slot}: ${m.name}</span><b>${m.cal}</b>`;
     rem.appendChild(r);
   });
+  updateSuggestionPrompt();
   renderWeightTracker();
   renderCalendar();
 }
@@ -1225,13 +1232,22 @@ document.getElementById("nextMonthBtn").onclick = ()=>{
   renderCalendar();
 };
 
-document.addEventListener("click",(ev)=>{
-  const hotspot = ev.target.closest("[data-poster-slot]");
-  if(hotspot){
-    ev.stopPropagation();
-    openPosterSlot(hotspot.dataset.posterSlot);
-    return;
+document.getElementById("refreshSuggestionBtn").onclick = updateSuggestionPrompt;
+document.getElementById("copySuggestionBtn").onclick = async()=>{
+  updateSuggestionPrompt();
+  try{
+    await navigator.clipboard.writeText(suggestionPrompt.value);
+    rewardToast.innerHTML = "Question copied.<small>Paste it into ChatGPT for suggestions.</small>";
+  } catch(_err){
+    suggestionPrompt.select();
+    rewardToast.innerHTML = "Question ready.<small>Select and copy it from the box.</small>";
   }
+  rewardToast.classList.add("show");
+  clearTimeout(window.rewardTimer);
+  window.rewardTimer = setTimeout(()=>rewardToast.classList.remove("show"),2300);
+};
+
+document.addEventListener("click",(ev)=>{
   const img = ev.target.closest(".zoomable");
   if(img) openImageModal(img);
 });

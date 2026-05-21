@@ -1,4 +1,4 @@
-# ABS Diet Weekly Food Zine App 3.0 ACLBTH
+# ABS Diet Weekly Food Zine App 3.01 ACLBTH
 
 Static one-page meal tracker for GitHub Pages.
 
@@ -12,8 +12,8 @@ Static one-page meal tracker for GitHub Pages.
 - KG weight tracker with target progress
 - Exercise calories burned log with daily totals and estimated kg-equivalent burn
 - Click-to-zoom cover and daily collage posters
-- Clickable day-collage section buttons for breakfast, snacks, lunch, and dinner
 - Per-slot meal switching from other weekdays or ABS-style equivalent meals
+- ChatGPT suggestions question box based on the selected date and remaining meals
 - Full-day reward image when every selected-date checkbox is complete
 - Local-only browser storage for meal checkoffs and weight entries
 
