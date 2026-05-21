@@ -9,6 +9,7 @@ Static one-page meal tracker for GitHub Pages.
 - Snack 3 scheduled after dinner
 - Recipe cards, swaps, and healthier alternatives
 - KG weight tracker with target progress
+- Exercise calories burned log with daily totals and estimated kg-equivalent burn
 - Click-to-zoom cover and daily collage posters
 - Local-only browser storage for meal checkoffs and weight entries
 
@@ -23,4 +24,4 @@ Static one-page meal tracker for GitHub Pages.
 
 ## iPhone note
 
-The app stores progress in the browser on the device where you use it. Your iPhone and computer will each keep their own local checkboxes and weight log unless you later add a cloud sync backend.
+The app stores progress in the browser on the device where you use it. Your iPhone and computer will each keep their own local checkboxes, weight log, and exercise burn log unless you later add a cloud sync backend.

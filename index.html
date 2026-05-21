@@ -62,6 +62,9 @@ h1{font-size:clamp(42px,8.5vw,104px);line-height:.85;margin:0;letter-spacing:-3p
   padding:16px;
   box-shadow:0 6px 0 rgba(25,21,21,.95);
 }
+.controlDay{background:#dbe6ec}
+.controlTarget{background:#ead6d4}
+.controlProgress{background:#efe5b9}
 label{font-size:13px;text-transform:uppercase;font-weight:900;letter-spacing:.08em}
 select,input,button{
   width:100%;
@@ -161,8 +164,9 @@ li{margin:4px 0}
 .weightGrid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-top:10px}
 .weightGrid .full{grid-column:1 / -1}
 .weightLog{display:grid;gap:8px;margin-top:10px;max-height:210px;overflow:auto;padding-right:4px}
-.weightEntry{display:grid;grid-template-columns:1fr auto;gap:8px;align-items:center;background:#fff;border:2px solid var(--ink);border-radius:12px;padding:9px 10px;font-weight:900}
-.weightEntry span{color:var(--muted);font-size:12px;text-transform:uppercase}
+.weightEntry,.exerciseEntry{display:grid;grid-template-columns:1fr auto;gap:8px;align-items:center;background:#fff;border:2px solid var(--ink);border-radius:12px;padding:9px 10px;font-weight:900}
+.weightEntry span,.exerciseEntry span{color:var(--muted);font-size:12px;text-transform:uppercase}
+.exerciseEntry{background:#eef6f7}
 .miniButton{padding:8px 10px;border-radius:10px;font-size:13px}
 .rewardToast{
   position:fixed;
@@ -241,15 +245,15 @@ li{margin:4px 0}
   </section>
 
   <section class="controls">
-    <div class="card">
+    <div class="card controlDay">
       <label for="daySelect">Choose day</label>
       <select id="daySelect"></select>
     </div>
-    <div class="card">
+    <div class="card controlTarget">
       <label for="target">Daily calorie target</label>
       <input id="target" type="number" min="1200" max="5000" step="50" value="2000">
     </div>
-    <div class="card">
+    <div class="card controlProgress">
       <label>Progress</label>
       <button id="resetDayBtn" class="light">Reset today's checkboxes</button>
     </div>
@@ -329,6 +333,18 @@ li{margin:4px 0}
         <div class="small" style="margin-top:12px">Weight progress</div>
         <div class="progressWrap"><div id="weightProgress" class="progress consumed"></div></div>
         <div id="weightLog" class="weightLog"></div>
+        <div class="weightGrid">
+          <div class="full">
+            <label for="exerciseCalories">Exercise calories burned today</label>
+            <input id="exerciseCalories" type="number" min="0" max="4000" step="10" placeholder="kcal">
+          </div>
+          <button id="saveExerciseBtn" class="full">Save exercise calories</button>
+        </div>
+        <div class="restLine"><span>Burned today</span><span id="burnedToday">0 kcal</span></div>
+        <div class="restLine"><span>Total exercise burn</span><span id="burnedTotal">0 kcal</span></div>
+        <div class="restLine"><span>Estimated weight impact</span><span id="burnedKg">0 kg</span></div>
+        <div class="micro" id="exerciseSummary">Exercise burn is an estimate. About 7,700 kcal roughly equals 1 kg of body weight change, but real results vary.</div>
+        <div id="exerciseLog" class="weightLog"></div>
       </div>
     </aside>
   </section>
@@ -515,6 +531,8 @@ const rewardToast = document.getElementById("rewardToast");
 const weightKg = document.getElementById("weightKg");
 const targetKg = document.getElementById("targetKg");
 const weightLog = document.getElementById("weightLog");
+const exerciseCalories = document.getElementById("exerciseCalories");
+const exerciseLog = document.getElementById("exerciseLog");
 const imageModal = document.getElementById("imageModal");
 const modalImage = document.getElementById("modalImage");
 const modalTitle = document.getElementById("modalTitle");
@@ -550,6 +568,16 @@ function weightEntries(){
   }
 }
 function saveWeightEntries(entries){localStorage.setItem("aclBthWeightEntries", JSON.stringify(entries));}
+function exerciseEntries(){
+  try{
+    const saved = JSON.parse(localStorage.getItem("aclBthExerciseEntries") || "[]");
+    return Array.isArray(saved) ? saved.filter(entry=>entry && entry.date && Number(entry.calories) >= 0) : [];
+  } catch(_err){
+    localStorage.removeItem("aclBthExerciseEntries");
+    return [];
+  }
+}
+function saveExerciseEntries(entries){localStorage.setItem("aclBthExerciseEntries", JSON.stringify(entries));}
 function rewardCount(){return Number(localStorage.getItem("aclBthRewardCount") || 0);}
 function setRewardCount(value){localStorage.setItem("aclBthRewardCount", String(value));}
 function safeRecipe(meal){
@@ -574,10 +602,15 @@ function showReward(meal){
 
 function renderWeightTracker(){
   const entries = weightEntries().sort((a,b)=>a.date.localeCompare(b.date));
+  const exercise = exerciseEntries().sort((a,b)=>a.date.localeCompare(b.date));
   const targetValue = Number(localStorage.getItem("aclBthTargetKg") || targetKg.value || 0);
   if(targetValue) targetKg.value = targetValue;
   const latest = entries[entries.length - 1];
   if(latest) weightKg.value = latest.kg;
+  const today = new Date().toISOString().slice(0,10);
+  const todayBurn = exercise.filter(entry=>entry.date === today).reduce((sum,entry)=>sum + Number(entry.calories),0);
+  const totalBurn = exercise.reduce((sum,entry)=>sum + Number(entry.calories),0);
+  const estimatedKg = totalBurn / 7700;
 
   let summary = "Add your current weight and target weight in kg.";
   let progress = 0;
@@ -597,12 +630,24 @@ function renderWeightTracker(){
 
   document.getElementById("weightSummary").textContent = summary;
   document.getElementById("weightProgress").style.width = `${progress}%`;
+  document.getElementById("burnedToday").textContent = `${fmt(todayBurn)} kcal`;
+  document.getElementById("burnedTotal").textContent = `${fmt(totalBurn)} kcal`;
+  document.getElementById("burnedKg").textContent = `${fmtKg(estimatedKg)} kg est.`;
+  document.getElementById("exerciseSummary").textContent = totalBurn
+    ? `Your logged exercise burn equals about ${fmtKg(estimatedKg)} kg of estimated energy deficit. Scale weight can move differently because of water, food volume, muscle, sleep, and sodium.`
+    : "Exercise burn is an estimate. About 7,700 kcal roughly equals 1 kg of body weight change, but real results vary.";
   weightLog.innerHTML = entries.length ? entries.slice().reverse().map((entry,index)=>`
     <div class="weightEntry">
       <div><b>${fmtKg(entry.kg)} kg</b><br><span>${entry.date}</span></div>
       <button class="light miniButton" data-delete-weight="${entries.length - 1 - index}">Delete</button>
     </div>
   `).join("") : `<div class="micro">No weight entries yet.</div>`;
+  exerciseLog.innerHTML = exercise.length ? exercise.slice().reverse().map((entry,index)=>`
+    <div class="exerciseEntry">
+      <div><b>${fmt(entry.calories)} kcal burned</b><br><span>${entry.date}</span></div>
+      <button class="light miniButton" data-delete-exercise="${exercise.length - 1 - index}">Delete</button>
+    </div>
+  `).join("") : `<div class="micro">No exercise entries yet.</div>`;
 }
 
 function openImageModal(img){
@@ -767,6 +812,21 @@ document.getElementById("saveWeightBtn").onclick = ()=>{
   window.rewardTimer = setTimeout(()=>rewardToast.classList.remove("show"),2300);
 };
 
+document.getElementById("saveExerciseBtn").onclick = ()=>{
+  const calories = Number(exerciseCalories.value);
+  if(Number.isNaN(calories) || calories < 0 || calories > 4000){ alert("Enter exercise calories between 0 and 4000."); return; }
+  const today = new Date().toISOString().slice(0,10);
+  const entries = exerciseEntries().filter(entry=>entry.date !== today);
+  entries.push({date:today, calories});
+  saveExerciseEntries(entries);
+  exerciseCalories.value = "";
+  renderWeightTracker();
+  rewardToast.innerHTML = `Exercise burn saved.<small>${fmt(calories)} kcal logged for ${today}</small>`;
+  rewardToast.classList.add("show");
+  clearTimeout(window.rewardTimer);
+  window.rewardTimer = setTimeout(()=>rewardToast.classList.remove("show"),2300);
+};
+
 targetKg.addEventListener("input",()=>{
   if(targetKg.value) localStorage.setItem("aclBthTargetKg", targetKg.value);
   renderWeightTracker();
@@ -778,6 +838,15 @@ weightLog.addEventListener("click",(ev)=>{
   const entries = weightEntries();
   entries.splice(Number(button.dataset.deleteWeight),1);
   saveWeightEntries(entries);
+  renderWeightTracker();
+});
+
+exerciseLog.addEventListener("click",(ev)=>{
+  const button = ev.target.closest("[data-delete-exercise]");
+  if(!button) return;
+  const entries = exerciseEntries();
+  entries.splice(Number(button.dataset.deleteExercise),1);
+  saveExerciseEntries(entries);
   renderWeightTracker();
 });
 
