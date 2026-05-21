@@ -5,6 +5,7 @@ Static one-page meal tracker for GitHub Pages.
 ## What is included
 
 - Weekly ABS Diet meal tracker
+- Calendar-linked dates for retrospective progress and future planning
 - Meal and snack checkoffs with local rewards
 - Snack 3 scheduled after dinner
 - Recipe cards, swaps, and healthier alternatives
@@ -12,6 +13,10 @@ Static one-page meal tracker for GitHub Pages.
 - Exercise calories burned log with daily totals and estimated kg-equivalent burn
 - Click-to-zoom cover and daily collage posters
 - Local-only browser storage for meal checkoffs and weight entries
+
+## Calendar behavior
+
+The app opens to the computer's current date. Picking another date changes the diet day to that calendar date's weekday. If you choose a date other than today, the app reminds you which weekday diet you are viewing.
 
 ## Host on GitHub Pages
 

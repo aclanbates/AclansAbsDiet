@@ -65,6 +65,7 @@ h1{font-size:clamp(42px,8.5vw,104px);line-height:.85;margin:0;letter-spacing:-3p
 .controlDay{background:#dbe6ec}
 .controlTarget{background:#ead6d4}
 .controlProgress{background:#efe5b9}
+.controlDate{background:#e3ece1}
 label{font-size:13px;text-transform:uppercase;font-weight:900;letter-spacing:.08em}
 select,input,button{
   width:100%;
@@ -83,6 +84,7 @@ button.light{background:#fff;color:var(--ink)}
 .dayHeader{display:flex;align-items:flex-end;justify-content:space-between;gap:12px;margin-bottom:16px}
 .dayTitle{font-size:54px;font-weight:1000;text-transform:uppercase;line-height:.9}
 .daySub{font-size:22px;font-weight:800;background:#ffe268;display:inline-block;padding:3px 12px;transform:rotate(-1deg)}
+.dateStamp{font-size:14px;font-weight:1000;text-transform:uppercase;color:var(--muted);margin-top:8px}
 .badge{border:3px solid var(--ink);border-radius:999px;padding:12px 16px;background:#f3aac0;font-size:22px;font-weight:1000}
 .timeline{display:grid;gap:12px}
 .quickPlan{
@@ -161,6 +163,35 @@ li{margin:4px 0}
 .posterCard{padding:0;overflow:hidden;background:#fff}
 .posterCard img{display:block;width:100%;max-height:620px;object-fit:cover;cursor:zoom-in}
 .posterCaption{padding:12px 14px;border-top:3px solid var(--ink);font-size:13px;font-weight:1000;text-transform:uppercase;color:var(--muted)}
+.calendarCard{margin-top:14px;background:#fff7df}
+.calendarTop{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:10px}
+.calendarTop button{width:auto;padding:8px 10px}
+.calendarTitle{font-weight:1000;text-transform:uppercase}
+.calendarGrid{display:grid;grid-template-columns:repeat(7,1fr);gap:5px}
+.calendarDow,.calendarDay{
+  min-height:36px;
+  display:grid;
+  place-items:center;
+  border:2px solid var(--ink);
+  border-radius:10px;
+  background:#fff;
+  font-weight:900;
+  font-size:12px;
+}
+.calendarDow{background:#191515;color:#fff;min-height:28px}
+.calendarDay{cursor:pointer}
+.calendarDay.outside{opacity:.35}
+.calendarDay.today{background:#dff3ef}
+.calendarDay.selected{background:#ffe268;box-shadow:inset 0 0 0 2px var(--pink)}
+.calendarDay.hasProgress::after{
+  content:"";
+  width:7px;
+  height:7px;
+  border-radius:50%;
+  background:var(--teal);
+  margin-top:2px;
+}
+.calendarLegend{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px;font-size:12px;font-weight:900;color:var(--muted);text-transform:uppercase}
 .weightGrid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-top:10px}
 .weightGrid .full{grid-column:1 / -1}
 .weightLog{display:grid;gap:8px;margin-top:10px;max-height:210px;overflow:auto;padding-right:4px}
@@ -245,6 +276,10 @@ li{margin:4px 0}
   </section>
 
   <section class="controls">
+    <div class="card controlDate">
+      <label for="dateSelect">Calendar date</label>
+      <input id="dateSelect" type="date">
+    </div>
     <div class="card controlDay">
       <label for="daySelect">Choose day</label>
       <select id="daySelect"></select>
@@ -255,7 +290,7 @@ li{margin:4px 0}
     </div>
     <div class="card controlProgress">
       <label>Progress</label>
-      <button id="resetDayBtn" class="light">Reset today's checkboxes</button>
+      <button id="resetDayBtn" class="light">Reset selected date checkboxes</button>
     </div>
     <div class="card">
       <label>Reminder engine</label>
@@ -274,6 +309,7 @@ li{margin:4px 0}
         <div>
           <div class="dayTitle" id="dayTitle"></div>
           <div class="daySub" id="daySub"></div>
+          <div class="dateStamp" id="dateStamp"></div>
         </div>
         <div class="badge" id="dayNum"></div>
       </div>
@@ -288,6 +324,15 @@ li{margin:4px 0}
         <div class="posterCaption" id="posterCaption">Weekly visual guide</div>
       </div>
       <div class="zoomHint">Tap cover or day collage to open a zoomed view.</div>
+      <div class="card calendarCard">
+        <div class="calendarTop">
+          <button id="prevMonthBtn" class="light" aria-label="Previous month">‹</button>
+          <div class="calendarTitle" id="calendarTitle"></div>
+          <button id="nextMonthBtn" class="light" aria-label="Next month">›</button>
+        </div>
+        <div id="calendarGrid" class="calendarGrid"></div>
+        <div class="calendarLegend"><span>Yellow: selected</span><span>Mint: today</span><span>Dot: saved progress</span></div>
+      </div>
       <br>
       <div class="small">Consumed progress</div>
       <div class="progressWrap"><div id="consumedProgress" class="progress consumed"></div></div>
@@ -321,7 +366,7 @@ li{margin:4px 0}
         <div class="micro" id="weightSummary">Add your current weight and target weight in kg.</div>
         <div class="weightGrid">
           <div>
-            <label for="weightKg">Today KG</label>
+            <label for="weightKg">Selected date KG</label>
             <input id="weightKg" type="number" min="30" max="250" step="0.1" placeholder="kg">
           </div>
           <div>
@@ -335,12 +380,12 @@ li{margin:4px 0}
         <div id="weightLog" class="weightLog"></div>
         <div class="weightGrid">
           <div class="full">
-            <label for="exerciseCalories">Exercise calories burned today</label>
+            <label for="exerciseCalories">Exercise calories burned on selected date</label>
             <input id="exerciseCalories" type="number" min="0" max="4000" step="10" placeholder="kcal">
           </div>
           <button id="saveExerciseBtn" class="full">Save exercise calories</button>
         </div>
-        <div class="restLine"><span>Burned today</span><span id="burnedToday">0 kcal</span></div>
+        <div class="restLine"><span>Burned on selected date</span><span id="burnedToday">0 kcal</span></div>
         <div class="restLine"><span>Total exercise burn</span><span id="burnedTotal">0 kcal</span></div>
         <div class="restLine"><span>Estimated weight impact</span><span id="burnedKg">0 kg</span></div>
         <div class="micro" id="exerciseSummary">Exercise burn is an estimate. About 7,700 kcal roughly equals 1 kg of body weight change, but real results vary.</div>
@@ -524,6 +569,7 @@ function meal(slot,icon,time,name,cal,replacement,healthy){
 function recipe(ingredients,steps){return {ingredients,steps};}
 
 const daySelect = document.getElementById("daySelect");
+const dateSelect = document.getElementById("dateSelect");
 const target = document.getElementById("target");
 const timeline = document.getElementById("timeline");
 const quickPlan = document.getElementById("quickPlan");
@@ -536,6 +582,8 @@ const exerciseLog = document.getElementById("exerciseLog");
 const imageModal = document.getElementById("imageModal");
 const modalImage = document.getElementById("modalImage");
 const modalTitle = document.getElementById("modalTitle");
+const calendarGrid = document.getElementById("calendarGrid");
+const calendarTitle = document.getElementById("calendarTitle");
 
 DAYS.forEach((d,i)=>{
   const opt = document.createElement("option");
@@ -544,19 +592,41 @@ DAYS.forEach((d,i)=>{
   daySelect.appendChild(opt);
 });
 
-const todayName = new Date().toLocaleDateString("en-US",{weekday:"long"});
-const idx = DAYS.findIndex(d=>d.day===todayName);
-if(idx >= 0) daySelect.value = idx;
+let appToday = todayIso();
+let selectedDate = appToday;
+let calendarCursor = dateFromIso(selectedDate);
+let lastAlternateNotice = "";
+dateSelect.value = selectedDate;
+daySelect.value = dayIndexForDate(selectedDate);
 
 function fmt(n){return Math.round(n).toLocaleString();}
 function fmtKg(n){return Number(n).toLocaleString(undefined,{maximumFractionDigits:1,minimumFractionDigits:Number.isInteger(Number(n)) ? 0 : 1});}
-function storageKey(day,meal){return `absDietDone:${day.day}:${meal.name}`;}
-function isDone(day,meal){return localStorage.getItem(storageKey(day,meal)) === "1";}
-function setDone(day,meal,val){val ? localStorage.setItem(storageKey(day,meal),"1") : localStorage.removeItem(storageKey(day,meal));}
+function todayIso(){return isoFromDate(new Date());}
+function isoFromDate(date){
+  const y = date.getFullYear();
+  const m = String(date.getMonth() + 1).padStart(2,"0");
+  const d = String(date.getDate()).padStart(2,"0");
+  return `${y}-${m}-${d}`;
+}
+function dateFromIso(iso){
+  const [y,m,d] = iso.split("-").map(Number);
+  return new Date(y,m - 1,d);
+}
+function displayDate(iso){
+  return dateFromIso(iso).toLocaleDateString("en-US",{weekday:"long",month:"long",day:"numeric",year:"numeric"});
+}
+function dayIndexForDate(iso){
+  const name = dateFromIso(iso).toLocaleDateString("en-US",{weekday:"long"});
+  return Math.max(0,DAYS.findIndex(d=>d.day === name));
+}
+function currentDay(){return DAYS[dayIndexForDate(selectedDate)] || DAYS[0];}
+function storageKey(iso,meal){return `absDietDone:${iso}:${meal.name}`;}
+function isDone(iso,meal){return localStorage.getItem(storageKey(iso,meal)) === "1";}
+function setDone(iso,meal,val){val ? localStorage.setItem(storageKey(iso,meal),"1") : localStorage.removeItem(storageKey(iso,meal));}
 function totalPlanned(day){return day.meals.reduce((s,m)=>s+m.cal,0);}
-function consumed(day){return day.meals.reduce((s,m)=>s+(isDone(day,m)?m.cal:0),0);}
-function remainingPlanned(day){return day.meals.reduce((s,m)=>s+(!isDone(day,m)?m.cal:0),0);}
-function nextUnchecked(day){return day.meals.find(m=>!isDone(day,m));}
+function consumed(day,iso){return day.meals.reduce((s,m)=>s+(isDone(iso,m)?m.cal:0),0);}
+function remainingPlanned(day,iso){return day.meals.reduce((s,m)=>s+(!isDone(iso,m)?m.cal:0),0);}
+function nextUnchecked(day,iso){return day.meals.find(m=>!isDone(iso,m));}
 function list(items,type){return `<${type}>${items.map(item=>`<li>${item}</li>`).join("")}</${type}>`;}
 function weightEntries(){
   try{
@@ -600,15 +670,75 @@ function showReward(meal){
   window.rewardTimer = setTimeout(()=>rewardToast.classList.remove("show"),2600);
 }
 
+function setSelectedDate(iso, shouldNotify=true){
+  selectedDate = iso;
+  dateSelect.value = iso;
+  daySelect.value = dayIndexForDate(iso);
+  calendarCursor = dateFromIso(iso);
+  render();
+  if(shouldNotify) showAlternateDayNotice(iso);
+}
+
+function showAlternateDayNotice(iso){
+  const today = todayIso();
+  if(iso === today || lastAlternateNotice === iso) return;
+  lastAlternateNotice = iso;
+  const chosenDay = dateFromIso(iso).toLocaleDateString("en-US",{weekday:"long"});
+  const actualDay = dateFromIso(today).toLocaleDateString("en-US",{weekday:"long"});
+  setTimeout(()=>{
+    alert(`Reminder: you are viewing ${chosenDay}'s diet for ${displayDate(iso)}. Today's diet is ${actualDay}'s diet for ${displayDate(today)}.`);
+  },50);
+}
+
+function selectedWeekdayDate(dayIndex){
+  const base = dateFromIso(selectedDate);
+  const currentIndex = dayIndexForDate(selectedDate);
+  base.setDate(base.getDate() + (dayIndex - currentIndex));
+  return isoFromDate(base);
+}
+
+function dateHasProgress(iso){
+  const mealProgress = DAYS[dayIndexForDate(iso)].meals.some(meal=>isDone(iso,meal));
+  const hasWeight = weightEntries().some(entry=>entry.date === iso);
+  const hasExercise = exerciseEntries().some(entry=>entry.date === iso && Number(entry.calories) > 0);
+  return mealProgress || hasWeight || hasExercise;
+}
+
+function renderCalendar(){
+  const year = calendarCursor.getFullYear();
+  const month = calendarCursor.getMonth();
+  calendarTitle.textContent = calendarCursor.toLocaleDateString("en-US",{month:"long",year:"numeric"});
+  const first = new Date(year,month,1);
+  const start = new Date(first);
+  start.setDate(first.getDate() - first.getDay());
+  const today = todayIso();
+  const dows = ["Sun","Mon","Tue","Wed","Thu","Fri","Sat"].map(day=>`<div class="calendarDow">${day}</div>`).join("");
+  const days = [];
+  for(let i=0;i<42;i++){
+    const cellDate = new Date(start);
+    cellDate.setDate(start.getDate() + i);
+    const iso = isoFromDate(cellDate);
+    const classes = [
+      "calendarDay",
+      cellDate.getMonth() !== month ? "outside" : "",
+      iso === today ? "today" : "",
+      iso === selectedDate ? "selected" : "",
+      dateHasProgress(iso) ? "hasProgress" : ""
+    ].filter(Boolean).join(" ");
+    days.push(`<button class="${classes}" data-calendar-date="${iso}" type="button">${cellDate.getDate()}</button>`);
+  }
+  calendarGrid.innerHTML = dows + days.join("");
+}
+
 function renderWeightTracker(){
   const entries = weightEntries().sort((a,b)=>a.date.localeCompare(b.date));
   const exercise = exerciseEntries().sort((a,b)=>a.date.localeCompare(b.date));
   const targetValue = Number(localStorage.getItem("aclBthTargetKg") || targetKg.value || 0);
   if(targetValue) targetKg.value = targetValue;
+  const selectedWeight = entries.find(entry=>entry.date === selectedDate);
   const latest = entries[entries.length - 1];
-  if(latest) weightKg.value = latest.kg;
-  const today = new Date().toISOString().slice(0,10);
-  const todayBurn = exercise.filter(entry=>entry.date === today).reduce((sum,entry)=>sum + Number(entry.calories),0);
+  weightKg.value = selectedWeight ? selectedWeight.kg : "";
+  const todayBurn = exercise.filter(entry=>entry.date === selectedDate).reduce((sum,entry)=>sum + Number(entry.calories),0);
   const totalBurn = exercise.reduce((sum,entry)=>sum + Number(entry.calories),0);
   const estimatedKg = totalBurn / 7700;
 
@@ -664,14 +794,14 @@ function closeImageModal(){
   modalImage.src = "";
 }
 
-function renderQuickPlan(day){
+function renderQuickPlan(day,iso){
   quickPlan.innerHTML = `
     <div class="quickPlanTitle">
       <span>Today's meal plan</span>
-      <span>${day.meals.length} items • Snack 3 after dinner</span>
+      <span>${displayDate(iso)} • ${day.meals.length} items</span>
     </div>
     ${day.meals.map(m=>`
-      <div class="quickMeal ${isDone(day,m) ? "done" : ""}">
+      <div class="quickMeal ${isDone(iso,m) ? "done" : ""}">
         <span class="quickTime">${m.time}</span>
         <span class="quickSlot">${m.slot}</span>
         <span>${m.icon} ${m.name}</span>
@@ -682,23 +812,24 @@ function renderQuickPlan(day){
 }
 
 function render(){
-  const day = DAYS[Number(daySelect.value)] || DAYS[0];
+  const day = currentDay();
   const goal = Number(target.value || 2000);
   document.documentElement.style.setProperty("--accent", day.accent);
   document.getElementById("dayTitle").textContent = day.day;
   document.getElementById("daySub").textContent = day.subtitle;
+  document.getElementById("dateStamp").textContent = `${displayDate(selectedDate)} • calendar-linked plan`;
   document.getElementById("dayNum").textContent = day.number;
   document.getElementById("dayPoster").src = day.poster;
   document.getElementById("dayPoster").alt = `${day.day} ABS Diet food zine poster`;
   document.getElementById("posterCaption").textContent = `${day.day} visual recipe sheet`;
 
   timeline.innerHTML = "";
-  renderQuickPlan(day);
-  const eaten = consumed(day);
+  renderQuickPlan(day,selectedDate);
+  const eaten = consumed(day,selectedDate);
   const needRest = goal - eaten;
 
   day.meals.forEach((m,i)=>{
-    const done = isDone(day,m);
+    const done = isDone(selectedDate,m);
     const recipeData = safeRecipe(m);
     const afterThisIfTaken = goal - (eaten + (!done ? m.cal : 0));
     const div = document.createElement("article");
@@ -737,8 +868,8 @@ function render(){
     const cb = div.querySelector(".check");
     cb.addEventListener("click",(ev)=>{
       ev.stopPropagation();
-      const wasDone = isDone(day,m);
-      setDone(day,m,cb.checked);
+      const wasDone = isDone(selectedDate,m);
+      setDone(selectedDate,m,cb.checked);
       if(cb.checked && !wasDone) showReward(m);
       render();
     });
@@ -750,8 +881,8 @@ function render(){
   });
 
   const planned = totalPlanned(day);
-  const leftPlan = remainingPlanned(day);
-  const next = nextUnchecked(day);
+  const leftPlan = remainingPlanned(day,selectedDate);
+  const next = nextUnchecked(day,selectedDate);
   const afterNext = next ? goal - eaten - next.cal : goal - eaten;
   const difference = needRest - leftPlan;
 
@@ -766,11 +897,11 @@ function render(){
 
   let msg;
   if(needRest > 0 && leftPlan > 0){
-    msg = `You have eaten ${fmt(eaten)} kcal. To reach your ${fmt(goal)} kcal target, you still need about ${fmt(needRest)} kcal today. Your unchecked planned meals/snacks add up to ${fmt(leftPlan)} kcal.`;
+    msg = `For ${displayDate(selectedDate)}, you have checked off ${fmt(eaten)} kcal. To reach your ${fmt(goal)} kcal target, this date still needs about ${fmt(needRest)} kcal. Unchecked planned meals/snacks add up to ${fmt(leftPlan)} kcal.`;
   } else if(needRest > 0 && leftPlan === 0){
-    msg = `All boxes are checked. You are still about ${fmt(needRest)} kcal below your target, so only add food if you truly need it.`;
+    msg = `All boxes are checked for ${displayDate(selectedDate)}. This date is still about ${fmt(needRest)} kcal below target, so only add food if you truly need it.`;
   } else {
-    msg = `You have reached or passed the ${fmt(goal)} kcal target by about ${fmt(Math.abs(needRest))} kcal. Keep the rest of the day lighter if that target matters today.`;
+    msg = `For ${displayDate(selectedDate)}, you have reached or passed the ${fmt(goal)} kcal target by about ${fmt(Math.abs(needRest))} kcal.`;
   }
   document.getElementById("restExplanation").textContent = msg;
 
@@ -778,19 +909,26 @@ function render(){
   rem.innerHTML = "";
   day.meals.forEach((m,i)=>{
     const r = document.createElement("div");
-    r.className = "reminder" + (isDone(day,m) ? " done" : "");
+    r.className = "reminder" + (isDone(selectedDate,m) ? " done" : "");
     r.innerHTML = `<b>${m.time}</b><span>${m.icon} ${m.slot}: ${m.name}</span><b>${m.cal}</b>`;
     rem.appendChild(r);
   });
   renderWeightTracker();
+  renderCalendar();
 }
 
-daySelect.addEventListener("change",render);
+dateSelect.addEventListener("change",()=>{
+  if(!dateSelect.value) return;
+  setSelectedDate(dateSelect.value);
+});
+daySelect.addEventListener("change",()=>{
+  setSelectedDate(selectedWeekdayDate(Number(daySelect.value)));
+});
 target.addEventListener("input",render);
 document.getElementById("printBtn").onclick = ()=>window.print();
 document.getElementById("resetDayBtn").onclick = ()=>{
-  const day = DAYS[Number(daySelect.value)];
-  day.meals.forEach(m=>localStorage.removeItem(storageKey(day,m)));
+  const day = currentDay();
+  day.meals.forEach(m=>localStorage.removeItem(storageKey(selectedDate,m)));
   render();
 };
 
@@ -801,12 +939,12 @@ document.getElementById("saveWeightBtn").onclick = ()=>{
   if(targetValue){
     localStorage.setItem("aclBthTargetKg", String(targetValue));
   }
-  const today = new Date().toISOString().slice(0,10);
-  const entries = weightEntries().filter(entry=>entry.date !== today);
-  entries.push({date:today, kg});
+  const entries = weightEntries().filter(entry=>entry.date !== selectedDate);
+  entries.push({date:selectedDate, kg});
   saveWeightEntries(entries);
   renderWeightTracker();
-  rewardToast.innerHTML = `Weight entry saved.<small>${fmtKg(kg)} kg logged for ${today}</small>`;
+  renderCalendar();
+  rewardToast.innerHTML = `Weight entry saved.<small>${fmtKg(kg)} kg logged for ${selectedDate}</small>`;
   rewardToast.classList.add("show");
   clearTimeout(window.rewardTimer);
   window.rewardTimer = setTimeout(()=>rewardToast.classList.remove("show"),2300);
@@ -815,13 +953,13 @@ document.getElementById("saveWeightBtn").onclick = ()=>{
 document.getElementById("saveExerciseBtn").onclick = ()=>{
   const calories = Number(exerciseCalories.value);
   if(Number.isNaN(calories) || calories < 0 || calories > 4000){ alert("Enter exercise calories between 0 and 4000."); return; }
-  const today = new Date().toISOString().slice(0,10);
-  const entries = exerciseEntries().filter(entry=>entry.date !== today);
-  entries.push({date:today, calories});
+  const entries = exerciseEntries().filter(entry=>entry.date !== selectedDate);
+  entries.push({date:selectedDate, calories});
   saveExerciseEntries(entries);
   exerciseCalories.value = "";
   renderWeightTracker();
-  rewardToast.innerHTML = `Exercise burn saved.<small>${fmt(calories)} kcal logged for ${today}</small>`;
+  renderCalendar();
+  rewardToast.innerHTML = `Exercise burn saved.<small>${fmt(calories)} kcal logged for ${selectedDate}</small>`;
   rewardToast.classList.add("show");
   clearTimeout(window.rewardTimer);
   window.rewardTimer = setTimeout(()=>rewardToast.classList.remove("show"),2300);
@@ -839,6 +977,7 @@ weightLog.addEventListener("click",(ev)=>{
   entries.splice(Number(button.dataset.deleteWeight),1);
   saveWeightEntries(entries);
   renderWeightTracker();
+  renderCalendar();
 });
 
 exerciseLog.addEventListener("click",(ev)=>{
@@ -848,7 +987,24 @@ exerciseLog.addEventListener("click",(ev)=>{
   entries.splice(Number(button.dataset.deleteExercise),1);
   saveExerciseEntries(entries);
   renderWeightTracker();
+  renderCalendar();
 });
+
+calendarGrid.addEventListener("click",(ev)=>{
+  const button = ev.target.closest("[data-calendar-date]");
+  if(!button) return;
+  setSelectedDate(button.dataset.calendarDate);
+});
+
+document.getElementById("prevMonthBtn").onclick = ()=>{
+  calendarCursor.setMonth(calendarCursor.getMonth() - 1);
+  renderCalendar();
+};
+
+document.getElementById("nextMonthBtn").onclick = ()=>{
+  calendarCursor.setMonth(calendarCursor.getMonth() + 1);
+  renderCalendar();
+};
 
 document.addEventListener("click",(ev)=>{
   const img = ev.target.closest(".zoomable");
@@ -888,6 +1044,17 @@ document.getElementById("notifyBtn").onclick = async()=>{
 };
 
 render();
+setInterval(()=>{
+  const now = todayIso();
+  if(now === appToday) return;
+  const wasViewingToday = selectedDate === appToday;
+  appToday = now;
+  if(wasViewingToday){
+    setSelectedDate(now,false);
+  } else {
+    renderCalendar();
+  }
+},60000);
 </script>
 </body>
 </html>
