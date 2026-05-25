@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>ABS Diet Weekly Food Zine App 4.01 ACL</title>
+<title>ABS Diet Weekly Food Zine App 4.02 ACL</title>
 <style>
 :root{
   --ink:#191515;
@@ -41,7 +41,7 @@ body{
 h1{font-size:clamp(42px,8.5vw,104px);line-height:.85;margin:0;letter-spacing:-3px;font-weight:1000;text-transform:uppercase}
 .hero p{font-size:clamp(16px,2.4vw,24px);max-width:860px;margin:15px 0 0}
 .heroWisdom{
-  display:inline-block;
+  display:block;
   max-width:760px;
   background:#dbeaf3;
   border:3px solid var(--ink);
@@ -50,10 +50,10 @@ h1{font-size:clamp(42px,8.5vw,104px);line-height:.85;margin:0;letter-spacing:-3p
   box-shadow:0 4px 0 var(--ink);
   font-weight:1000;
   line-height:1.3;
-  transform:rotate(-.6deg);
+  margin-top:14px;
 }
 .heroWisdom b{display:block;text-transform:uppercase;margin-bottom:3px}
-.upgradeLine{display:inline-block;background:#f08a3e;color:#191515;padding:5px 14px;transform:rotate(.6deg);font-weight:1000;border-radius:3px;margin-top:8px}
+.upgradeLine{display:inline-block;background:#f08a3e;color:#191515;padding:6px 14px;font-weight:1000;border-radius:3px;margin-top:8px}
 .versionTag{display:inline-block;margin:0 0 14px;background:#191515;color:#fff;padding:8px 14px;border-radius:999px;font-weight:1000;text-transform:uppercase;letter-spacing:.08em}
 .heroPoster{
   width:100%;
@@ -96,7 +96,7 @@ button.light{background:#fff;color:var(--ink)}
 @media(max-width:900px){.dashboard{grid-template-columns:1fr}}
 .dayHeader{display:flex;align-items:flex-end;justify-content:space-between;gap:12px;margin-bottom:16px}
 .dayTitle{font-size:54px;font-weight:1000;text-transform:uppercase;line-height:.9}
-.daySub{font-size:22px;font-weight:800;background:#ffe268;display:inline-block;padding:3px 12px;transform:rotate(-1deg)}
+.daySub{font-size:22px;font-weight:800;background:#ffe268;display:inline-block;padding:3px 12px}
 .dateStamp{font-size:14px;font-weight:1000;text-transform:uppercase;color:var(--muted);margin-top:8px}
 .badge{border:3px solid var(--ink);border-radius:999px;padding:12px 16px;background:#f3aac0;font-size:22px;font-weight:1000}
 .timeline{display:grid;gap:12px}
@@ -160,7 +160,6 @@ button.light{background:#fff;color:var(--ink)}
   border-radius:50%;
   background:#fff;
   box-shadow:0 3px 0 var(--ink);
-  transform:rotate(-7deg);
   pointer-events:none;
   filter:none;
   opacity:1;
@@ -342,7 +341,7 @@ li{margin:4px 0}
 .reminder{display:grid;grid-template-columns:70px 1fr auto;gap:8px;align-items:center;background:#fff;border:2px solid var(--ink);border-radius:14px;padding:10px}
 .reminder.done{opacity:.45;filter:grayscale(.7);text-decoration:line-through}
 .footer{margin:28px 0 10px;text-align:center;font-weight:1000;letter-spacing:.05em}
-.tape{display:inline-block;margin:5px;background:#ffd86e;padding:6px 12px;transform:rotate(.7deg)}
+.tape{display:inline-block;margin:5px;background:#ffd86e;padding:6px 12px}
 .warn{font-size:13px;color:#6b625b;margin-top:10px;line-height:1.35}
 .restBox{margin-top:14px;padding:16px;border:3px solid var(--ink);border-radius:20px;background:#dff3ef;box-shadow:0 5px 0 var(--ink)}
 .restBox h3{margin:0 0 8px;font-size:20px;text-transform:uppercase}
@@ -360,11 +359,10 @@ li{margin:4px 0}
   <section class="hero">
     <div class="heroGrid">
       <div>
-        <div class="versionTag">4.01 ACL Edition</div>
-        <div class="heroWisdom"><b>Tiny Wisdom Corner</b>Calories are data, not drama. Log the cheese, salute the truth, and move on like a scientist with snacks.</div>
-        <div class="upgradeLine">Meal Swaps • Extra Food Log • Live Calories • Full-Day Reward</div>
+        <div class="versionTag">4.02 ACL Edition</div>
         <h1>ABS Diet<br>Weekly App</h1>
         <p>Check each meal or snack as you finish it. Tap any card to see recipes, swaps, healthier alternatives, and live rest-of-day calorie math.</p>
+        <div class="heroWisdom"><b>Tiny Wisdom Corner</b>Calories are data, not drama. Log the cheese, salute the truth, and move on like a scientist with snacks.</div>
       </div>
       <img class="heroPoster zoomable" src="assets/weekly-cover.png" alt="ABS Diet weekly food zine cover" data-zoom-title="Weekly cover collage">
     </div>
@@ -512,7 +510,7 @@ li{margin:4px 0}
     </aside>
   </section>
 
-  <div class="footer"><span class="tape">ABS DIET 4.01 ACL.</span><span class="tape">LOG EXTRAS.</span><span class="tape">KNOW WHAT'S LEFT.</span></div>
+  <div class="footer"><span class="tape">ABS DIET 4.02 ACL.</span><span class="tape upgradeLine">Meal Swaps • Extra Food Log • Live Calories • Full-Day Reward</span></div>
 </div>
 
 <div id="dayRewardModal" class="modal rewardModal" aria-hidden="true">
