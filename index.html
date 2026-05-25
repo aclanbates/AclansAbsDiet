@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>ABS Diet Weekly Food Zine App 4.0 ACL</title>
+<title>ABS Diet Weekly Food Zine App 4.01 ACL</title>
 <style>
 :root{
   --ink:#191515;
@@ -322,6 +322,17 @@ li{margin:4px 0}
 .extraFoodLog{display:grid;gap:8px;margin-top:12px}
 .extraFoodEntry{display:grid;grid-template-columns:1fr auto auto;gap:8px;align-items:center;background:#fff;border:2px solid var(--ink);border-radius:12px;padding:9px 10px;font-weight:900}
 .extraFoodEntry span{color:var(--muted);font-size:12px;text-transform:uppercase}
+.wisdomBox{
+  margin-top:14px;
+  background:#dbeaf3;
+  border:3px solid var(--ink);
+  border-radius:16px;
+  padding:14px 16px;
+  box-shadow:0 4px 0 var(--ink);
+}
+.wisdomBox h3{margin:0 0 8px;text-transform:uppercase;font-size:16px}
+.wisdomBox p{margin:0;font-weight:900;line-height:1.45}
+.wisdomBox .micro{margin-top:8px;color:#41515c}
 @media(max-width:620px){.extraFoodRow,.extraFoodActions,.extraFoodEntry{grid-template-columns:1fr}}
 .legend{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-top:14px}
 .legend div{background:#fff;border:2px solid var(--ink);border-radius:12px;padding:10px;font-weight:800}
@@ -347,7 +358,7 @@ li{margin:4px 0}
   <section class="hero">
     <div class="heroGrid">
       <div>
-        <div class="versionTag">4.0 ACL Edition</div>
+        <div class="versionTag">4.01 ACL Edition</div>
         <div class="ribbon">Meal Swaps • Extra Food Log • Live Calories • Full-Day Reward</div>
         <h1>ABS Diet<br>Weekly App</h1>
         <p>Check each meal or snack as you finish it. Tap any card to see recipes, swaps, healthier alternatives, and live rest-of-day calorie math.</p>
@@ -416,6 +427,11 @@ li{margin:4px 0}
           <button id="addExtraFoodRowBtn" class="light">Add another food</button>
         </div>
         <div id="extraFoodLog" class="extraFoodLog"></div>
+        <section class="wisdomBox" aria-labelledby="wisdomTitle">
+          <h3 id="wisdomTitle">Tiny Wisdom Corner</h3>
+          <p>Calories are data, not drama. Log the cheese, salute the truth, and move on like a scientist with snacks.</p>
+          <div class="micro">Purpose: a quick reset line for honest tracking without guilt.</div>
+        </section>
       </section>
     </main>
 
@@ -498,7 +514,7 @@ li{margin:4px 0}
     </aside>
   </section>
 
-  <div class="footer"><span class="tape">ABS DIET 4.0 ACL.</span><span class="tape">LOG EXTRAS.</span><span class="tape">KNOW WHAT'S LEFT.</span></div>
+  <div class="footer"><span class="tape">ABS DIET 4.01 ACL.</span><span class="tape">LOG EXTRAS.</span><span class="tape">KNOW WHAT'S LEFT.</span></div>
 </div>
 
 <div id="dayRewardModal" class="modal rewardModal" aria-hidden="true">
