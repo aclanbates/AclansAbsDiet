@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>ABS Diet Weekly Food Zine App 6.1 ACL</title>
+<title>ABS Diet Weekly Food Zine App 6.2 ACL</title>
 <style>
 :root{
   --ink:#241f1c;
@@ -151,6 +151,17 @@ button.light{background:#fff;color:var(--ink)}
   font-weight:1000;
   text-transform:uppercase;
   letter-spacing:.06em;
+}
+.quickPlanTitleLeft{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.quickRewardBadge{
+  width:34px;
+  height:34px;
+  object-fit:cover;
+  border:2px solid var(--ink);
+  border-radius:50%;
+  background:#fff;
+  box-shadow:0 2px 0 var(--ink);
+  cursor:pointer;
 }
 .quickMeal{
   display:grid;
@@ -399,6 +410,37 @@ li{margin:4px 0}
 .moodBox ul{margin-top:10px}
 .moodBox li{font-weight:900}
 .moodBox .moodLine{margin-top:10px;padding:10px;border:2px solid var(--ink);border-radius:12px;background:#fffaf1;font-weight:1000}
+.moodSlotGrid{display:grid;grid-template-columns:repeat(6,1fr);gap:8px;margin:12px 0}
+.moodSlot{
+  display:grid;
+  gap:5px;
+  justify-items:center;
+  align-content:center;
+  min-height:72px;
+  padding:8px;
+  border:2px solid var(--ink);
+  border-radius:12px;
+  background:#fffaf1;
+  font-size:12px;
+  font-weight:1000;
+  text-align:center;
+  text-transform:uppercase;
+}
+.moodSlot input{width:22px;height:22px}
+.moodResult{
+  display:grid;
+  gap:10px;
+  margin-top:12px;
+}
+.moodSuggestion{
+  background:#fffaf1;
+  border:2px solid var(--ink);
+  border-radius:14px;
+  padding:12px;
+}
+.moodSuggestion h4{margin:0 0 6px;text-transform:uppercase}
+.moodSuggestion .pill{display:inline-block;margin:4px 4px 4px 0}
+@media(max-width:720px){.moodSlotGrid{grid-template-columns:repeat(2,1fr)}}
 .focusPulse{animation:focusPulse .9s ease 2}
 @keyframes focusPulse{
   0%,100%{box-shadow:0 6px 0 rgba(18,14,12,.82)}
@@ -425,7 +467,7 @@ li{margin:4px 0}
   <section class="hero">
     <div class="heroGrid">
       <div>
-        <div class="versionTag">6.1 ACL Edition</div>
+        <div class="versionTag">6.2 ACL Edition</div>
         <h1>ABS Diet<br>Weekly App</h1>
         <p>Check each meal or snack as you finish it. Tap any card to see recipes, swaps, healthier alternatives, and live rest-of-day calorie math.</p>
         <div class="heroWisdom">
@@ -543,17 +585,6 @@ li{margin:4px 0}
         <div class="restLine"><span>Difference vs remaining plan</span><span id="difference"></span></div>
       </div>
 
-      <div class="restBox moodBox">
-        <h3>Not in the Mood?</h3>
-        <div class="micro">A tiny reset for the days when the plan looks at you and you look back with suspicion.</div>
-        <ul>
-          <li>Pick the simplest protein first.</li>
-          <li>Use a listed swap instead of quitting the whole day.</li>
-          <li>Drink water, wait ten minutes, then make the next small choice.</li>
-        </ul>
-        <div class="moodLine">Minimum viable win: check one honest box. Momentum is allowed to start small.</div>
-      </div>
-
       <h3>Reminders</h3>
       <div id="reminders" class="reminderList"></div>
       <div class="legend">
@@ -605,7 +636,15 @@ li{margin:4px 0}
     <div id="inventoryList" class="inventoryList"></div>
   </section>
 
-  <div class="footer"><span class="tape">ABS DIET 6.1 ACL.</span><span class="tape upgradeLine">Daily Tiny Wisdom • Quote Archive • Not-in-the-Mood Reset • Full-Width Inventory</span></div>
+  <section class="panel moodBox" aria-labelledby="moodTitle">
+    <h2 id="moodTitle" style="margin-top:0">Not in the Mood?</h2>
+    <div class="micro">Pick the meal or snack you are resisting. The app will give you a separate cholesterol-free alternative that stays close to that item’s calorie target.</div>
+    <div id="moodSlotGrid" class="moodSlotGrid" aria-label="Choose a meal slot for a cholesterol-free alternative"></div>
+    <div class="moodLine">Minimum viable win: choose one honest alternative, keep the day moving, and leave the drama in the parking lot.</div>
+    <div id="moodResult" class="moodResult"></div>
+  </section>
+
+  <div class="footer"><span class="tape">ABS DIET 6.2 ACL.</span><span class="tape upgradeLine">Full-Plan Reward Badge • Bottom Mood Rescue • Cholesterol-Free Slot Alternatives</span></div>
 </div>
 
 <div id="dayRewardModal" class="modal rewardModal" aria-hidden="true">
@@ -875,6 +914,8 @@ const calendarGrid = document.getElementById("calendarGrid");
 const calendarTitle = document.getElementById("calendarTitle");
 const wisdomQuote = document.getElementById("wisdomQuote");
 const wisdomArchiveList = document.getElementById("wisdomArchiveList");
+const moodSlotGrid = document.getElementById("moodSlotGrid");
+const moodResult = document.getElementById("moodResult");
 
 const DAILY_WISDOM = [
   "Calories are clues, not courtroom evidence. Log the truth, then let the day keep breathing.",
@@ -899,6 +940,39 @@ const DAILY_WISDOM = [
   "The goal is not to eat like a robot. The goal is to stop making dinner decisions like a haunted committee.",
   "Progress usually whispers. Conveniently, checkboxes are excellent microphones."
 ];
+
+const CHOLESTEROL_FREE_ALTERNATIVES = {
+  "Breakfast": [
+    {name:"Berry Oat Soy Protein Smoothie", cal:420, ingredients:["1 cup unsweetened soy milk","1 scoop pea protein","1/2 cup oats","1 cup berries","1 tbsp peanut butter"], steps:["Blend soy milk, pea protein, oats, berries, and peanut butter.","Add ice or water until thick.","Drink slowly; this is breakfast, not a dare."]},
+    {name:"Tofu Veggie Breakfast Toast", cal:500, ingredients:["150 g firm tofu","2 slices whole-grain toast","Spinach","Tomato","1/4 avocado"], steps:["Crumble tofu with turmeric, pepper, and garlic.","Warm with spinach and tomato.","Serve over toast with avocado."]},
+    {name:"Cinnamon Apple Oat Bowl", cal:560, ingredients:["3/4 cup oats","1 cup soy milk","1 apple","1 tbsp walnuts","1 tbsp ground flaxseed"], steps:["Cook oats with soy milk.","Top with apple, walnuts, and flaxseed.","Add cinnamon and keep it cozy."]}
+  ],
+  "Snack 1": [
+    {name:"Apple + Measured Almond Butter", cal:190, ingredients:["1 apple","1 tbsp almond butter","Cinnamon"], steps:["Slice apple.","Measure almond butter first.","Add cinnamon and move along like a calm adult."]},
+    {name:"Soy Yogurt Crunch Cup", cal:300, ingredients:["1 cup unsweetened soy yogurt","1/2 cup high-fiber cereal","Berries"], steps:["Spoon soy yogurt into a bowl.","Top with cereal and berries.","Keep the cereal measured."]},
+    {name:"Hummus Veggie Crunch", cal:210, ingredients:["1/3 cup hummus","Carrots","Cucumber","Bell pepper"], steps:["Scoop hummus into a bowl.","Add crunchy vegetables.","Eat with full snack dignity."]}
+  ],
+  "Lunch": [
+    {name:"Chickpea Avocado Whole-Grain Wrap", cal:520, ingredients:["1 whole-grain tortilla","3/4 cup chickpeas","1/4 avocado","Lettuce","Tomato","Lemon"], steps:["Mash chickpeas with avocado and lemon.","Add lettuce and tomato to tortilla.","Wrap tightly and slice."]},
+    {name:"Lentil Power Salad + Toast", cal:500, ingredients:["1 cup cooked lentils","Romaine","Tomato","Carrot","1 tsp olive oil","1 slice whole-grain toast"], steps:["Toss lentils with vegetables.","Dress with olive oil and lemon.","Serve with toast."]},
+    {name:"Black Bean Rice Bowl", cal:650, ingredients:["3/4 cup black beans","3/4 cup brown rice","Salsa","Greens","1/4 avocado"], steps:["Warm beans and rice.","Top with salsa, greens, and avocado.","Add hot sauce if your spirit requests it."]}
+  ],
+  "Snack 2": [
+    {name:"Edamame + Citrus", cal:240, ingredients:["1 cup shelled edamame","1 orange","Sea salt"], steps:["Warm edamame.","Peel orange.","Snack like someone who has seen the future and brought protein."]},
+    {name:"Berry Soy Yogurt Bowl", cal:220, ingredients:["1 cup soy yogurt","1 cup berries","1 tbsp ground flaxseed"], steps:["Add soy yogurt to bowl.","Top with berries and flaxseed.","Chill if desired."]},
+    {name:"Almond Berry Bowl", cal:310, ingredients:["1 oz almonds","1 1/2 cups berries"], steps:["Measure almonds.","Add berries.","Keep it simple and bright."]}
+  ],
+  "Dinner": [
+    {name:"Smoky Bean + Brown Rice Stew", cal:650, ingredients:["1 cup mixed beans","1/2 cup brown rice","Tomato sauce","Mushrooms","Onion","Smoked paprika"], steps:["Saute onion and mushrooms.","Add beans, tomato sauce, and smoked paprika.","Serve over brown rice."]},
+    {name:"Tofu Broccoli Stir-Fry Bowl", cal:610, ingredients:["180 g tofu","1 cup broccoli","1/2 cup brown rice","Carrots","Low-sugar stir-fry sauce"], steps:["Brown tofu cubes.","Stir-fry vegetables.","Serve over rice with sauce."]},
+    {name:"Lentil Marinara Hoagie", cal:620, ingredients:["1 whole-grain hoagie","1 cup lentils","Tomato sauce","Peppers","Nutritional yeast"], steps:["Warm lentils in tomato sauce.","Pile into hoagie with peppers.","Sprinkle nutritional yeast."]}
+  ],
+  "Snack 3": [
+    {name:"Mini Cocoa Pea Protein Shake", cal:300, ingredients:["1 cup soy milk","1/2 scoop pea protein","1 tsp cocoa","1/2 banana","Ice"], steps:["Blend everything until smooth.","Keep it mini after dinner.","Announce victory quietly."]},
+    {name:"Frozen Berry Nice Cream", cal:250, ingredients:["1 frozen banana","1 cup berries","1 tbsp peanut butter powder"], steps:["Blend frozen fruit until creamy.","Add peanut butter powder.","Eat with a spoon, not a shovel."]},
+    {name:"Soy Yogurt Dessert Cup", cal:330, ingredients:["1 cup soy yogurt","1 tbsp almonds","1/2 cup berries","Cinnamon"], steps:["Spoon yogurt into a cup.","Top with berries, almonds, and cinnamon.","Dessert mode, cholesterol-free edition."]}
+  ]
+};
 
 DAYS.forEach((d,i)=>{
   const opt = document.createElement("option");
@@ -1244,6 +1318,10 @@ function showDayRewardIfComplete(){
   if(localStorage.getItem(`absDietDayReward:${selectedDate}`) === "1") return;
   if(!allChecked(currentDay(),selectedDate)) return;
   localStorage.setItem(`absDietDayReward:${selectedDate}`,"1");
+  openDayReward();
+}
+
+function openDayReward(){
   document.getElementById("dayRewardModal").classList.add("open");
   document.getElementById("dayRewardModal").setAttribute("aria-hidden","false");
 }
@@ -1456,9 +1534,10 @@ function renderExtraFoodLog(){
 
 function renderQuickPlan(day,iso){
   const meals = resolvedMeals(day,iso);
+  const complete = allChecked(day,iso);
   quickPlan.innerHTML = `
     <div class="quickPlanTitle">
-      <span>Today's meal plan</span>
+      <span class="quickPlanTitleLeft">Today's meal plan ${complete ? `<img class="quickRewardBadge" id="quickRewardBadge" src="assets/checkoff-reward-logo.jpg" alt="Full meal plan reward badge" title="Full meal plan reward unlocked">` : ""}</span>
       <span>${displayDate(iso)} • ${meals.length} items</span>
     </div>
     ${meals.map(m=>`
@@ -1470,6 +1549,51 @@ function renderQuickPlan(day,iso){
       </div>
     `).join("")}
   `;
+}
+
+function closestCholesterolFreeMeal(slot,calorieTarget){
+  const options = CHOLESTEROL_FREE_ALTERNATIVES[slot] || [];
+  return options.reduce((best,item)=>{
+    if(!best) return item;
+    return Math.abs(item.cal - calorieTarget) < Math.abs(best.cal - calorieTarget) ? item : best;
+  },null);
+}
+
+function renderMoodSlots(day,iso){
+  const meals = resolvedMeals(day,iso);
+  moodSlotGrid.innerHTML = meals.map(m=>`
+    <label class="moodSlot">
+      <input type="checkbox" data-mood-slot="${m.slot}">
+      <span>${m.slot}</span>
+      <small>${m.cal} kcal</small>
+    </label>
+  `).join("");
+  moodResult.innerHTML = `<div class="micro">Tap a checkbox above for a cholesterol-free alternative with a similar calorie target.</div>`;
+}
+
+function showMoodAlternative(slot){
+  const meal = resolvedMeals(currentDay(),selectedDate).find(item=>item.slot === slot);
+  if(!meal) return;
+  const alt = closestCholesterolFreeMeal(slot,meal.cal);
+  if(!alt) return;
+  const difference = alt.cal - meal.cal;
+  moodResult.innerHTML = `
+    <div class="moodSuggestion">
+      <h4>${slot}: ${alt.name}</h4>
+      <span class="pill">${alt.cal} kcal</span>
+      <span class="pill remaining">${difference === 0 ? "Matches planned calories" : difference > 0 ? "+" + fmt(difference) + " kcal vs plan" : "−" + fmt(Math.abs(difference)) + " kcal vs plan"}</span>
+      <span class="pill">Cholesterol-free</span>
+      <div class="recipeGrid">
+        <div class="recipeBox">
+          <h4>Ingredients</h4>
+          ${list(alt.ingredients,"ul")}
+        </div>
+        <div class="recipeBox">
+          <h4>Quick recipe</h4>
+          ${list(alt.steps,"ol")}
+        </div>
+      </div>
+    </div>`;
 }
 
 function render(){
@@ -1600,6 +1724,7 @@ function render(){
   renderWeightTracker();
   renderInventory();
   renderCalendar();
+  renderMoodSlots(day,selectedDate);
 }
 
 dateSelect.addEventListener("change",()=>{
@@ -1753,6 +1878,14 @@ quickPlan.addEventListener("keydown",handleJumpActivation);
 remindersList.addEventListener("click",handleJumpActivation);
 remindersList.addEventListener("keydown",handleJumpActivation);
 
+quickPlan.addEventListener("click",(ev)=>{
+  const badge = ev.target.closest("#quickRewardBadge");
+  if(!badge) return;
+  ev.preventDefault();
+  ev.stopPropagation();
+  openDayReward();
+});
+
 wisdomArchiveList.addEventListener("click",(ev)=>{
   const button = ev.target.closest("[data-wisdom-date]");
   if(!button) return;
@@ -1762,6 +1895,19 @@ wisdomArchiveList.addEventListener("click",(ev)=>{
   rewardToast.classList.add("show");
   clearTimeout(window.rewardTimer);
   window.rewardTimer = setTimeout(()=>rewardToast.classList.remove("show"),4200);
+});
+
+moodSlotGrid.addEventListener("change",(ev)=>{
+  const box = ev.target.closest("[data-mood-slot]");
+  if(!box) return;
+  moodSlotGrid.querySelectorAll("[data-mood-slot]").forEach(input=>{
+    if(input !== box) input.checked = false;
+  });
+  if(box.checked){
+    showMoodAlternative(box.dataset.moodSlot);
+  } else {
+    moodResult.innerHTML = `<div class="micro">Tap a checkbox above for a cholesterol-free alternative with a similar calorie target.</div>`;
+  }
 });
 
 timeline.addEventListener("click",(ev)=>{
