@@ -404,12 +404,16 @@ li{margin:4px 0}
 .extraFoodEntry span{color:var(--muted);font-size:12px;text-transform:uppercase}
 @media(max-width:620px){.extraFoodRow,.extraFoodActions,.extraFoodEntry{grid-template-columns:1fr}}
 .firebasePanel{margin:0 0 20px;background:linear-gradient(135deg,#322f33,#48352f)}
+.firebaseHeader{display:grid;grid-template-columns:1fr auto;gap:12px;align-items:center}
+.firebaseHeader h2{margin:0}
+.firebaseSettings{margin-top:12px}
+.firebaseSettings summary{cursor:pointer;font-weight:1000;text-transform:uppercase;letter-spacing:.06em}
 .firebaseGrid{display:grid;grid-template-columns:1fr 1fr;gap:12px;align-items:end}
 .firebaseGrid .full{grid-column:1 / -1}
 .firebaseConfigBox{min-height:116px;resize:vertical}
-.syncActions{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-top:12px}
+.syncActions{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:12px}
 .syncStatus{margin-top:10px;padding:10px;border:1px solid var(--line);border-radius:12px;background:#3b3534;font-weight:900}
-@media(max-width:760px){.firebaseGrid,.syncActions{grid-template-columns:1fr}}
+@media(max-width:760px){.firebaseGrid,.syncActions,.firebaseHeader{grid-template-columns:1fr}}
 .legend{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-top:14px}
 .legend div{background:#fff;border:2px solid var(--ink);border-radius:12px;padding:10px;font-weight:800}
 .reminderList{display:grid;gap:8px;margin-top:12px}
@@ -654,33 +658,41 @@ select,input,button{
   </section>
 
   <section class="panel firebasePanel" aria-labelledby="firebaseTitle">
-    <h2 id="firebaseTitle" style="margin-top:0">Firebase Cloud Sync</h2>
-    <div class="micro">Paste your Firebase web app config, sign in with email/password, then sync this app’s saved data across iPhone and computer. Local tracking still works if Firebase is not connected.</div>
-    <div class="firebaseGrid">
-      <div class="full">
-        <label for="firebaseConfigInput">Firebase web config JSON</label>
-        <textarea id="firebaseConfigInput" class="firebaseConfigBox" placeholder='{"apiKey":"...","authDomain":"...","projectId":"...","appId":"..."}'></textarea>
-      </div>
+    <div class="firebaseHeader">
       <div>
-        <label for="firebaseEmail">Firebase email</label>
-        <input id="firebaseEmail" type="email" autocomplete="email" placeholder="you@example.com">
+        <h2 id="firebaseTitle">Firebase Cloud Sync</h2>
+        <div class="micro">Compact mode: use Sync both ways for normal use. Open settings only when signing in or troubleshooting.</div>
       </div>
-      <div>
-        <label for="firebasePassword">Firebase password</label>
-        <input id="firebasePassword" type="password" autocomplete="current-password" placeholder="Password">
-      </div>
-      <button id="saveFirebaseConfigBtn" class="light">Save Firebase config</button>
-      <button id="createFirebaseAccountBtn" class="secondary">Create account</button>
-      <button id="connectFirebaseBtn">Sign in</button>
-      <button id="anonymousFirebaseBtn" class="light">Anonymous test sign-in</button>
+      <button id="syncFirebaseBtn">Sync both ways</button>
     </div>
     <div class="syncActions">
       <button id="uploadFirebaseBtn" class="secondary">Upload local data</button>
       <button id="downloadFirebaseBtn" class="light">Download cloud data</button>
-      <button id="syncFirebaseBtn">Sync both ways</button>
-      <button id="clearFirebaseConfigBtn" class="light">Clear config</button>
     </div>
     <div id="firebaseSyncStatus" class="syncStatus">Firebase is not connected yet.</div>
+    <details class="firebaseSettings">
+      <summary>Firebase settings</summary>
+      <div class="micro">Paste your Firebase web app config, sign in with email/password, then sync this app’s saved data across iPhone and computer. Local tracking still works if Firebase is not connected.</div>
+      <div class="firebaseGrid">
+        <div class="full">
+          <label for="firebaseConfigInput">Firebase web config JSON</label>
+          <textarea id="firebaseConfigInput" class="firebaseConfigBox" placeholder='{"apiKey":"...","authDomain":"...","projectId":"...","appId":"..."}'></textarea>
+        </div>
+        <div>
+          <label for="firebaseEmail">Firebase email</label>
+          <input id="firebaseEmail" type="email" autocomplete="email" placeholder="you@example.com">
+        </div>
+        <div>
+          <label for="firebasePassword">Firebase password</label>
+          <input id="firebasePassword" type="password" autocomplete="current-password" placeholder="Password">
+        </div>
+        <button id="saveFirebaseConfigBtn" class="light">Save Firebase config</button>
+        <button id="createFirebaseAccountBtn" class="secondary">Create account</button>
+        <button id="connectFirebaseBtn">Sign in</button>
+        <button id="anonymousFirebaseBtn" class="light">Anonymous test sign-in</button>
+        <button id="clearFirebaseConfigBtn" class="light">Clear config</button>
+      </div>
+    </details>
   </section>
 
   <section class="dashboard">
