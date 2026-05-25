@@ -35,6 +35,10 @@ The app opens to the computer's current date. Picking another date changes the d
 
 The app stores progress in the browser on the device where you use it. Your iPhone and computer will each keep their own local checkboxes, weight log, and exercise burn log unless you later add a cloud sync backend.
 
+## Easy local start
+
+Double-click `Start ABS App.command` in this folder. It opens the app on your Mac and prints the iPhone URL for the same Wi-Fi network. Keep that Terminal window open while using the app.
+
 ## ChatGPT-style answers
 
 The Tell me button gives an in-app, evidence-informed answer without exposing a private API key in the browser. To use live ChatGPT API responses on GitHub Pages, add a small private backend or serverless function that keeps the OpenAI API key secret.
