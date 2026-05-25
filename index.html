@@ -7,10 +7,10 @@
 <link rel="icon" type="image/png" sizes="180x180" href="apple-touch-icon.png">
 <link rel="shortcut icon" href="apple-touch-icon.png">
 <link rel="manifest" href="site.webmanifest">
-<meta name="apple-mobile-web-app-title" content="ABS Diet">
-<meta name="application-name" content="ABS Diet">
+<meta name="apple-mobile-web-app-title" content="MY Diet">
+<meta name="application-name" content="MY Diet">
 <meta name="theme-color" content="#202123">
-<title>ABS Diet Weekly Food Zine App 8.2 ACL Info Windows</title>
+<title>MY Diet Weekly Food Zine App 8.3 ACL Rename</title>
 <style>
 :root{
   --ink:#241f1c;
@@ -652,8 +652,8 @@ select,input,button{
   <section class="hero" data-info="hero">
     <div class="heroGrid">
       <div>
-        <div class="versionTag">8.2 ACL Info Windows</div>
-        <h1>ABS Diet<br>Weekly App</h1>
+        <div class="versionTag">8.3 ACL Rename</div>
+        <h1>MY Diet<br>Weekly App</h1>
         <p>Check each meal or snack as you finish it. Tap any card to see recipes, swaps, healthier alternatives, and live rest-of-day calorie math.</p>
         <div class="heroWisdom" data-info="tinyWisdom">
           <b>Tiny Wisdom Corner</b>
@@ -664,7 +664,7 @@ select,input,button{
           </details>
         </div>
       </div>
-      <img class="heroPoster zoomable" src="assets/weekly-cover.png" alt="ABS Diet weekly food zine cover" data-zoom-title="Weekly cover collage">
+      <img class="heroPoster zoomable" src="assets/weekly-cover-my-diet.svg" alt="MY Diet weekly food zine cover" data-zoom-title="Weekly cover collage">
     </div>
   </section>
 
@@ -867,7 +867,7 @@ select,input,button{
     </details>
   </section>
 
-  <div class="footer"><span class="tape">ABS DIET 8.2 ACL.</span><span class="tape upgradeLine">Info Windows • Firebase At App End • Saved Sign-In Restore • Sunrise Palette</span></div>
+  <div class="footer"><span class="tape">MY DIET 8.3 ACL.</span><span class="tape upgradeLine">MY Diet Rename • Info Windows • Firebase At App End • Saved Sign-In Restore</span></div>
 </div>
 
 <div id="dayRewardModal" class="modal rewardModal" aria-hidden="true">
@@ -927,7 +927,7 @@ const DAYS = [
   {
     day:"Monday", number:"02", subtitle:"Power Start + Comfort-Food Finish", accent:"#f58f63",
     meals:[
-      meal("Breakfast","☀️","07:30","Abs Diet Ultimate Power Smoothie",420,["Greek yogurt + oats + berries bowl",380],["Plain Greek yogurt instead of sweetened yogurt",330]),
+      meal("Breakfast","☀️","07:30","MY Diet Ultimate Power Smoothie",420,["Greek yogurt + oats + berries bowl",380],["Plain Greek yogurt instead of sweetened yogurt",330]),
       meal("Snack 1","🍎","10:00","Peanut butter + raw veggies",190,["Hummus + cucumber/carrot sticks",180],["Measure peanut butter: 1 tbsp",95]),
       meal("Lunch","🥗","12:30","Turkey or roast beef sandwich + milk + apple",520,["Chicken whole-grain wrap + apple",500],["Mustard instead of mayo",470]),
       meal("Snack 2","🍓","15:00","Almonds + mixed berries",310,["Greek yogurt + berries",220],["Half-ounce almonds + more berries",220]),
@@ -1004,39 +1004,39 @@ const DAYS = [
 ];
 
 const POSTERS = {
-  Monday:"assets/monday.png",
-  Tuesday:"assets/tuesday.png",
-  Wednesday:"assets/wednesday.png",
-  Thursday:"assets/thursday.png",
-  Friday:"assets/friday.png",
-  Saturday:"assets/saturday.png",
-  Sunday:"assets/sunday.png"
+  Monday:"assets/monday-my-diet.svg",
+  Tuesday:"assets/tuesday-my-diet.svg",
+  Wednesday:"assets/wednesday-my-diet.svg",
+  Thursday:"assets/thursday-my-diet.svg",
+  Friday:"assets/friday-my-diet.svg",
+  Saturday:"assets/saturday-my-diet.svg",
+  Sunday:"assets/sunday-my-diet.svg"
 };
 
-const ABS_EQUIVALENTS = {
+const MY_DIET_EQUIVALENTS = {
   "Breakfast":[
-    meal("Breakfast","☀️","07:30","ABS Equivalent: Berry Oat Protein Smoothie",390,["Greek yogurt protein bowl",360],["Use unsweetened yogurt",330]),
-    meal("Breakfast","☀️","07:30","ABS Equivalent: Egg-White Power Toast",420,["Turkey egg pita",410],["One toast slice + extra greens",350])
+    meal("Breakfast","☀️","07:30","MY Diet Equivalent: Berry Oat Protein Smoothie",390,["Greek yogurt protein bowl",360],["Use unsweetened yogurt",330]),
+    meal("Breakfast","☀️","07:30","MY Diet Equivalent: Egg-White Power Toast",420,["Turkey egg pita",410],["One toast slice + extra greens",350])
   ],
   "Snack 1":[
-    meal("Snack 1","🍎","10:00","ABS Equivalent: Apple + Measured Peanut Butter",190,["Cottage cheese + apple",180],["Use 1 tsp peanut butter",120]),
-    meal("Snack 1","🍎","10:00","ABS Equivalent: Yogurt Crunch Cup",230,["High-fiber cereal + milk",220],["Plain yogurt + cinnamon",170])
+    meal("Snack 1","🍎","10:00","MY Diet Equivalent: Apple + Measured Peanut Butter",190,["Cottage cheese + apple",180],["Use 1 tsp peanut butter",120]),
+    meal("Snack 1","🍎","10:00","MY Diet Equivalent: Yogurt Crunch Cup",230,["High-fiber cereal + milk",220],["Plain yogurt + cinnamon",170])
   ],
   "Lunch":[
-    meal("Lunch","🥗","12:30","ABS Equivalent: Turkey Avocado Whole-Grain Wrap",500,["Chicken salad wrap",480],["Open-face wrap over greens",410]),
-    meal("Lunch","🥗","12:30","ABS Equivalent: Tuna Bean Power Bowl",460,["Tuna pita",480],["Extra greens, half grains",390])
+    meal("Lunch","🥗","12:30","MY Diet Equivalent: Turkey Avocado Whole-Grain Wrap",500,["Chicken salad wrap",480],["Open-face wrap over greens",410]),
+    meal("Lunch","🥗","12:30","MY Diet Equivalent: Tuna Bean Power Bowl",460,["Tuna pita",480],["Extra greens, half grains",390])
   ],
   "Snack 2":[
-    meal("Snack 2","🍓","15:00","ABS Equivalent: Almond Berry Recovery Bowl",260,["Greek yogurt + berries",220],["Half almonds + more berries",190]),
-    meal("Snack 2","🍓","15:00","ABS Equivalent: Lean Deli Rollups + Fruit",220,["String cheese + fruit",210],["Low-sodium turkey",190])
+    meal("Snack 2","🍓","15:00","MY Diet Equivalent: Almond Berry Recovery Bowl",260,["Greek yogurt + berries",220],["Half almonds + more berries",190]),
+    meal("Snack 2","🍓","15:00","MY Diet Equivalent: Lean Deli Rollups + Fruit",220,["String cheese + fruit",210],["Low-sodium turkey",190])
   ],
   "Dinner":[
-    meal("Dinner","🍽️","18:00","ABS Equivalent: Lean Turkey Chili Bowl",590,["Chicken bean chili",560],["Half rice, extra beans",500]),
-    meal("Dinner","🍽️","18:00","ABS Equivalent: Chicken Broccoli Brown-Rice Stir-Fry",560,["Tofu broccoli stir-fry",500],["Double broccoli, half rice",470])
+    meal("Dinner","🍽️","18:00","MY Diet Equivalent: Lean Turkey Chili Bowl",590,["Chicken bean chili",560],["Half rice, extra beans",500]),
+    meal("Dinner","🍽️","18:00","MY Diet Equivalent: Chicken Broccoli Brown-Rice Stir-Fry",560,["Tofu broccoli stir-fry",500],["Double broccoli, half rice",470])
   ],
   "Snack 3":[
-    meal("Snack 3","🌙","20:30","ABS Equivalent: Mini Cocoa Protein Shake",210,["Milk + whey",180],["Half scoop whey with ice",130]),
-    meal("Snack 3","🌙","20:30","ABS Equivalent: Greek Yogurt Dessert Cup",220,["Frozen yogurt + berries",210],["Plain yogurt + berries",160])
+    meal("Snack 3","🌙","20:30","MY Diet Equivalent: Mini Cocoa Protein Shake",210,["Milk + whey",180],["Half scoop whey with ice",130]),
+    meal("Snack 3","🌙","20:30","MY Diet Equivalent: Greek Yogurt Dessert Cup",220,["Frozen yogurt + berries",210],["Plain yogurt + berries",160])
   ]
 };
 
@@ -1057,7 +1057,7 @@ function upgradeDayForAcl20(day){
 DAYS.forEach(upgradeDayForAcl20);
 
 const RECIPES = {
-  "Abs Diet Ultimate Power Smoothie": recipe(["1 cup 1% milk","1/2 cup low-fat vanilla yogurt","1/4 cup instant oats","1 tbsp peanut butter","1 scoop chocolate whey","Ice"],["Add milk and yogurt to blender.","Add oats, peanut butter, whey, and ice.","Blend until smooth; thin with water or milk if needed."]),
+  "MY Diet Ultimate Power Smoothie": recipe(["1 cup 1% milk","1/2 cup low-fat vanilla yogurt","1/4 cup instant oats","1 tbsp peanut butter","1 scoop chocolate whey","Ice"],["Add milk and yogurt to blender.","Add oats, peanut butter, whey, and ice.","Blend until smooth; thin with water or milk if needed."]),
   "Peanut butter + raw veggies": recipe(["1 tbsp peanut butter","Carrot sticks","Celery sticks","Cucumber or bell pepper strips"],["Portion peanut butter into a small cup.","Wash and slice vegetables.","Dip and eat slowly for crunch and fullness."]),
   "Turkey or roast beef sandwich + milk + apple": recipe(["2 slices whole-grain bread","4 oz lean turkey or roast beef","Lettuce, tomato, mustard","1 cup skim or 1% milk","1 apple"],["Toast bread if desired.","Layer meat, vegetables, and mustard.","Serve with milk and apple."]),
   "Almonds + mixed berries": recipe(["1 oz almonds","1 1/2 cups mixed berries","Cinnamon, optional"],["Measure almonds before eating.","Rinse berries and pat dry.","Combine in a bowl; add cinnamon if you like."]),
@@ -1101,18 +1101,18 @@ const RECIPES = {
 };
 
 Object.assign(RECIPES,{
-  "ABS Equivalent: Berry Oat Protein Smoothie": recipe(["1 cup milk","1/2 cup Greek yogurt","1/4 cup oats","1 cup berries","1 scoop whey"],["Blend milk, yogurt, oats, berries, and whey.","Add ice and blend thick.","Use as a breakfast swap."]),
-  "ABS Equivalent: Egg-White Power Toast": recipe(["1 whole egg","2 egg whites","1 slice whole-grain toast","Tomato","Spinach","Pepper"],["Scramble egg and whites with spinach.","Toast bread.","Top toast with eggs, tomato, and pepper."]),
-  "ABS Equivalent: Apple + Measured Peanut Butter": recipe(["1 apple","1 tbsp peanut butter","Cinnamon"],["Slice apple.","Measure peanut butter before eating.","Sprinkle cinnamon if desired."]),
-  "ABS Equivalent: Yogurt Crunch Cup": recipe(["1 cup plain yogurt","1/3 cup high-fiber cereal","Berries","Cinnamon"],["Spoon yogurt into a bowl.","Top with cereal and berries.","Finish with cinnamon."]),
-  "ABS Equivalent: Turkey Avocado Whole-Grain Wrap": recipe(["1 whole-grain tortilla","4 oz turkey","1/4 avocado","Lettuce","Tomato","Mustard"],["Layer turkey and vegetables in tortilla.","Add avocado and mustard.","Roll tightly and slice."]),
-  "ABS Equivalent: Tuna Bean Power Bowl": recipe(["1 can tuna","1/2 cup beans","Greens","Tomato","Lemon juice","1 tsp olive oil"],["Drain tuna and beans.","Toss over greens with tomato.","Dress with lemon and olive oil."]),
-  "ABS Equivalent: Almond Berry Recovery Bowl": recipe(["1/2 oz almonds","1 cup berries","1/2 cup Greek yogurt"],["Add yogurt to bowl.","Top with berries and almonds.","Eat chilled."]),
-  "ABS Equivalent: Lean Deli Rollups + Fruit": recipe(["4 oz low-sodium turkey","1 slice light cheese","1 orange or apple","Lettuce leaves"],["Roll turkey and cheese in lettuce.","Serve with fruit.","Keep portions measured."]),
-  "ABS Equivalent: Lean Turkey Chili Bowl": recipe(["5 oz lean turkey","1/2 cup beans","Diced tomatoes","Chili spice","1/2 cup cooked rice"],["Brown turkey.","Add beans, tomatoes, spice, and water.","Simmer and serve with rice."]),
-  "ABS Equivalent: Chicken Broccoli Brown-Rice Stir-Fry": recipe(["5 oz chicken","1 cup broccoli","1/2 cup cooked brown rice","Garlic","Low-sugar stir-fry sauce"],["Cook chicken pieces until browned.","Add broccoli and garlic.","Finish with sauce and rice."]),
-  "ABS Equivalent: Mini Cocoa Protein Shake": recipe(["1 cup milk","1/2 scoop chocolate whey","Ice","Cinnamon"],["Blend milk, whey, ice, and cinnamon.","Keep it mini-sized after dinner.","Thin with water if desired."]),
-  "ABS Equivalent: Greek Yogurt Dessert Cup": recipe(["1 cup Greek yogurt","1/2 cup berries","1 tsp cocoa or cinnamon"],["Spoon yogurt into a bowl.","Top with berries.","Dust with cocoa or cinnamon."])
+  "MY Diet Equivalent: Berry Oat Protein Smoothie": recipe(["1 cup milk","1/2 cup Greek yogurt","1/4 cup oats","1 cup berries","1 scoop whey"],["Blend milk, yogurt, oats, berries, and whey.","Add ice and blend thick.","Use as a breakfast swap."]),
+  "MY Diet Equivalent: Egg-White Power Toast": recipe(["1 whole egg","2 egg whites","1 slice whole-grain toast","Tomato","Spinach","Pepper"],["Scramble egg and whites with spinach.","Toast bread.","Top toast with eggs, tomato, and pepper."]),
+  "MY Diet Equivalent: Apple + Measured Peanut Butter": recipe(["1 apple","1 tbsp peanut butter","Cinnamon"],["Slice apple.","Measure peanut butter before eating.","Sprinkle cinnamon if desired."]),
+  "MY Diet Equivalent: Yogurt Crunch Cup": recipe(["1 cup plain yogurt","1/3 cup high-fiber cereal","Berries","Cinnamon"],["Spoon yogurt into a bowl.","Top with cereal and berries.","Finish with cinnamon."]),
+  "MY Diet Equivalent: Turkey Avocado Whole-Grain Wrap": recipe(["1 whole-grain tortilla","4 oz turkey","1/4 avocado","Lettuce","Tomato","Mustard"],["Layer turkey and vegetables in tortilla.","Add avocado and mustard.","Roll tightly and slice."]),
+  "MY Diet Equivalent: Tuna Bean Power Bowl": recipe(["1 can tuna","1/2 cup beans","Greens","Tomato","Lemon juice","1 tsp olive oil"],["Drain tuna and beans.","Toss over greens with tomato.","Dress with lemon and olive oil."]),
+  "MY Diet Equivalent: Almond Berry Recovery Bowl": recipe(["1/2 oz almonds","1 cup berries","1/2 cup Greek yogurt"],["Add yogurt to bowl.","Top with berries and almonds.","Eat chilled."]),
+  "MY Diet Equivalent: Lean Deli Rollups + Fruit": recipe(["4 oz low-sodium turkey","1 slice light cheese","1 orange or apple","Lettuce leaves"],["Roll turkey and cheese in lettuce.","Serve with fruit.","Keep portions measured."]),
+  "MY Diet Equivalent: Lean Turkey Chili Bowl": recipe(["5 oz lean turkey","1/2 cup beans","Diced tomatoes","Chili spice","1/2 cup cooked rice"],["Brown turkey.","Add beans, tomatoes, spice, and water.","Simmer and serve with rice."]),
+  "MY Diet Equivalent: Chicken Broccoli Brown-Rice Stir-Fry": recipe(["5 oz chicken","1 cup broccoli","1/2 cup cooked brown rice","Garlic","Low-sugar stir-fry sauce"],["Cook chicken pieces until browned.","Add broccoli and garlic.","Finish with sauce and rice."]),
+  "MY Diet Equivalent: Mini Cocoa Protein Shake": recipe(["1 cup milk","1/2 scoop chocolate whey","Ice","Cinnamon"],["Blend milk, whey, ice, and cinnamon.","Keep it mini-sized after dinner.","Thin with water if desired."]),
+  "MY Diet Equivalent: Greek Yogurt Dessert Cup": recipe(["1 cup Greek yogurt","1/2 cup berries","1 tsp cocoa or cinnamon"],["Spoon yogurt into a bowl.","Top with berries.","Dust with cocoa or cinnamon."])
 });
 
 function meal(slot,icon,time,name,cal,replacement,healthy){
@@ -1160,7 +1160,7 @@ const infoBody = document.getElementById("infoBody");
 const INFO_WINDOWS = {
   hero:{
     title:"App overview",
-    body:"This is the main launch window for the ABS Diet Weekly App. It tells you which version you are using and keeps the cover collage available for quick zooming.",
+    body:"This is the main launch window for the MY Diet Weekly App. It tells you which version you are using and keeps the cover collage available for quick zooming.",
     tips:["The cover image opens as a zoomed popup.","Daily tracking happens below this header."]
   },
   tinyWisdom:{
@@ -1201,7 +1201,7 @@ const INFO_WINDOWS = {
   mealPlan:{
     title:"Today's meal plan",
     body:"This is the main daily checklist. Tap a meal card for recipes and swaps. Check the box when you actually finish the meal or snack.",
-    tips:["Checked items count toward eaten calories and reduce inventory.","The Switch or Replace controls let one meal come from another day or from an ABS-style alternative."]
+    tips:["Checked items count toward eaten calories and reduce inventory.","The Switch or Replace controls let one meal come from another day or from a MY Diet-style alternative."]
   },
   extraFood:{
     title:"What I ate extra",
@@ -1383,7 +1383,7 @@ function collectCloudData(){
   }
   return {
     app:"abs-diet-weekly-app",
-    version:"8.2 ACL Info Windows",
+    version:"8.3 ACL Rename",
     updatedAt:Date.now(),
     entries
   };
@@ -1895,9 +1895,9 @@ function switchOptionsFor(slot){
     label:`${day.day}: ${meal.name} (${meal.cal} kcal)`,
     meal:{...meal, source:`Borrowed from ${day.day}`}
   })));
-  const abs = (ABS_EQUIVALENTS[slot] || []).map(meal=>({
-    label:`ABS equivalent: ${meal.name.replace("ABS Equivalent: ","")} (${meal.cal} kcal)`,
-    meal:{...meal, source:"ABS Diet equivalent"}
+  const abs = (MY_DIET_EQUIVALENTS[slot] || []).map(meal=>({
+    label:`MY Diet equivalent: ${meal.name.replace("MY Diet Equivalent: ","")} (${meal.cal} kcal)`,
+    meal:{...meal, source:"MY Diet equivalent"}
   }));
   return borrowed.concat(abs);
 }
@@ -2047,7 +2047,7 @@ function openMealInfo(index){
       <li>Checking it adds ${fmt(meal.cal)} kcal to eaten so far.</li>
       <li>It also deducts this meal's estimated ingredients from Inventory Watch.</li>
       <li>Tap the card itself to open the recipe, ingredient list, swaps, and healthier alternatives.</li>
-      <li>Use Switch or Replace if you want this slot to come from another day or an ABS-style equivalent.</li>
+      <li>Use Switch or Replace if you want this slot to come from another day or a MY Diet-style equivalent.</li>
     </ul>
   `;
   infoModal.classList.add("open");
@@ -2178,7 +2178,7 @@ function render(){
   document.getElementById("dateStamp").textContent = `${displayDate(selectedDate)} • calendar-linked plan`;
   document.getElementById("dayNum").textContent = day.number;
   document.getElementById("dayPoster").src = day.poster;
-  document.getElementById("dayPoster").alt = `${day.day} ABS Diet food zine poster`;
+  document.getElementById("dayPoster").alt = `${day.day} MY Diet food zine poster`;
   document.getElementById("posterCaption").textContent = `${day.day} visual recipe sheet`;
   renderWisdom();
 

@@ -16,7 +16,7 @@ STAMP="$(date +%s)"
 MAC_URL="http://127.0.0.1:${PORT}/index.html?v=${STAMP}"
 
 clear
-echo "ABS Diet Weekly App"
+echo "MY Diet Weekly App"
 echo "==================="
 echo
 echo "Server folder:"
