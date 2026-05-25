@@ -40,7 +40,20 @@ body{
 @media(max-width:800px){.heroGrid{grid-template-columns:1fr}}
 h1{font-size:clamp(42px,8.5vw,104px);line-height:.85;margin:0;letter-spacing:-3px;font-weight:1000;text-transform:uppercase}
 .hero p{font-size:clamp(16px,2.4vw,24px);max-width:860px;margin:15px 0 0}
-.ribbon{display:inline-block;background:var(--yellow);padding:5px 16px;transform:rotate(-1deg);font-weight:900;border-radius:3px;margin-top:12px}
+.heroWisdom{
+  display:inline-block;
+  max-width:760px;
+  background:#dbeaf3;
+  border:3px solid var(--ink);
+  border-radius:14px;
+  padding:10px 14px;
+  box-shadow:0 4px 0 var(--ink);
+  font-weight:1000;
+  line-height:1.3;
+  transform:rotate(-.6deg);
+}
+.heroWisdom b{display:block;text-transform:uppercase;margin-bottom:3px}
+.upgradeLine{display:inline-block;background:#f08a3e;color:#191515;padding:5px 14px;transform:rotate(.6deg);font-weight:1000;border-radius:3px;margin-top:8px}
 .versionTag{display:inline-block;margin:0 0 14px;background:#191515;color:#fff;padding:8px 14px;border-radius:999px;font-weight:1000;text-transform:uppercase;letter-spacing:.08em}
 .heroPoster{
   width:100%;
@@ -322,17 +335,6 @@ li{margin:4px 0}
 .extraFoodLog{display:grid;gap:8px;margin-top:12px}
 .extraFoodEntry{display:grid;grid-template-columns:1fr auto auto;gap:8px;align-items:center;background:#fff;border:2px solid var(--ink);border-radius:12px;padding:9px 10px;font-weight:900}
 .extraFoodEntry span{color:var(--muted);font-size:12px;text-transform:uppercase}
-.wisdomBox{
-  margin-top:14px;
-  background:#dbeaf3;
-  border:3px solid var(--ink);
-  border-radius:16px;
-  padding:14px 16px;
-  box-shadow:0 4px 0 var(--ink);
-}
-.wisdomBox h3{margin:0 0 8px;text-transform:uppercase;font-size:16px}
-.wisdomBox p{margin:0;font-weight:900;line-height:1.45}
-.wisdomBox .micro{margin-top:8px;color:#41515c}
 @media(max-width:620px){.extraFoodRow,.extraFoodActions,.extraFoodEntry{grid-template-columns:1fr}}
 .legend{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-top:14px}
 .legend div{background:#fff;border:2px solid var(--ink);border-radius:12px;padding:10px;font-weight:800}
@@ -359,7 +361,8 @@ li{margin:4px 0}
     <div class="heroGrid">
       <div>
         <div class="versionTag">4.01 ACL Edition</div>
-        <div class="ribbon">Meal Swaps • Extra Food Log • Live Calories • Full-Day Reward</div>
+        <div class="heroWisdom"><b>Tiny Wisdom Corner</b>Calories are data, not drama. Log the cheese, salute the truth, and move on like a scientist with snacks.</div>
+        <div class="upgradeLine">Meal Swaps • Extra Food Log • Live Calories • Full-Day Reward</div>
         <h1>ABS Diet<br>Weekly App</h1>
         <p>Check each meal or snack as you finish it. Tap any card to see recipes, swaps, healthier alternatives, and live rest-of-day calorie math.</p>
       </div>
@@ -427,11 +430,6 @@ li{margin:4px 0}
           <button id="addExtraFoodRowBtn" class="light">Add another food</button>
         </div>
         <div id="extraFoodLog" class="extraFoodLog"></div>
-        <section class="wisdomBox" aria-labelledby="wisdomTitle">
-          <h3 id="wisdomTitle">Tiny Wisdom Corner</h3>
-          <p>Calories are data, not drama. Log the cheese, salute the truth, and move on like a scientist with snacks.</p>
-          <div class="micro">Purpose: a quick reset line for honest tracking without guilt.</div>
-        </section>
       </section>
     </main>
 
