@@ -10,7 +10,7 @@
 <meta name="apple-mobile-web-app-title" content="ABS Diet">
 <meta name="application-name" content="ABS Diet">
 <meta name="theme-color" content="#202123">
-<title>ABS Diet Weekly Food Zine App 7.0 ACL</title>
+<title>ABS Diet Weekly Food Zine App 8.0 ACL Firebase</title>
 <style>
 :root{
   --ink:#241f1c;
@@ -403,6 +403,13 @@ li{margin:4px 0}
 .extraFoodEntry{display:grid;grid-template-columns:1fr auto auto;gap:8px;align-items:center;background:#fff;border:2px solid var(--ink);border-radius:12px;padding:9px 10px;font-weight:900}
 .extraFoodEntry span{color:var(--muted);font-size:12px;text-transform:uppercase}
 @media(max-width:620px){.extraFoodRow,.extraFoodActions,.extraFoodEntry{grid-template-columns:1fr}}
+.firebasePanel{margin:0 0 20px;background:linear-gradient(135deg,#322f33,#48352f)}
+.firebaseGrid{display:grid;grid-template-columns:1fr 1fr;gap:12px;align-items:end}
+.firebaseGrid .full{grid-column:1 / -1}
+.firebaseConfigBox{min-height:116px;resize:vertical}
+.syncActions{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-top:12px}
+.syncStatus{margin-top:10px;padding:10px;border:1px solid var(--line);border-radius:12px;background:#3b3534;font-weight:900}
+@media(max-width:760px){.firebaseGrid,.syncActions{grid-template-columns:1fr}}
 .legend{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-top:14px}
 .legend div{background:#fff;border:2px solid var(--ink);border-radius:12px;padding:10px;font-weight:800}
 .reminderList{display:grid;gap:8px;margin-top:12px}
@@ -506,7 +513,7 @@ body{
   box-shadow:0 4px 0 rgba(10,9,8,.58);
   color:var(--ink);
 }
-.heroWisdom,.quickPlan,.recipeBox,.swapBox,.extraFoodTab,.restBox,.inventoryPanel,.moodBox,.calendarCard{
+.heroWisdom,.quickPlan,.recipeBox,.swapBox,.extraFoodTab,.firebasePanel,.restBox,.inventoryPanel,.moodBox,.calendarCard{
   background:linear-gradient(135deg,var(--surfaceSoft),var(--surfaceWarm));
   border:2px solid var(--line);
   box-shadow:0 4px 0 rgba(10,9,8,.52);
@@ -547,7 +554,7 @@ select,input,button{
   background:linear-gradient(135deg,#ef6f83,#f2ba61);
   color:#251b17;
 }
-.quickMeal,.reminder,.inventoryItem,.extraFoodEntry,.weightEntry,.exerciseEntry,.option,.pill,.moodSlot,.moodSuggestion,.moodBox .moodLine,.wisdomArchiveItem{
+.quickMeal,.reminder,.inventoryItem,.extraFoodEntry,.weightEntry,.exerciseEntry,.option,.pill,.moodSlot,.moodSuggestion,.moodBox .moodLine,.wisdomArchiveItem,.syncStatus{
   background:#3b3534;
   border:1px solid var(--line);
   color:var(--ink);
@@ -602,7 +609,7 @@ select,input,button{
   <section class="hero">
     <div class="heroGrid">
       <div>
-        <div class="versionTag">7.0 ACL Edition</div>
+        <div class="versionTag">8.0 ACL Firebase</div>
         <h1>ABS Diet<br>Weekly App</h1>
         <p>Check each meal or snack as you finish it. Tap any card to see recipes, swaps, healthier alternatives, and live rest-of-day calorie math.</p>
         <div class="heroWisdom">
@@ -644,6 +651,36 @@ select,input,button{
       <label>Quick mode</label>
       <button class="secondary" id="printBtn">Print / Save as PDF</button>
     </div>
+  </section>
+
+  <section class="panel firebasePanel" aria-labelledby="firebaseTitle">
+    <h2 id="firebaseTitle" style="margin-top:0">Firebase Cloud Sync</h2>
+    <div class="micro">Paste your Firebase web app config, sign in with email/password, then sync this app’s saved data across iPhone and computer. Local tracking still works if Firebase is not connected.</div>
+    <div class="firebaseGrid">
+      <div class="full">
+        <label for="firebaseConfigInput">Firebase web config JSON</label>
+        <textarea id="firebaseConfigInput" class="firebaseConfigBox" placeholder='{"apiKey":"...","authDomain":"...","projectId":"...","appId":"..."}'></textarea>
+      </div>
+      <div>
+        <label for="firebaseEmail">Firebase email</label>
+        <input id="firebaseEmail" type="email" autocomplete="email" placeholder="you@example.com">
+      </div>
+      <div>
+        <label for="firebasePassword">Firebase password</label>
+        <input id="firebasePassword" type="password" autocomplete="current-password" placeholder="Password">
+      </div>
+      <button id="saveFirebaseConfigBtn" class="light">Save Firebase config</button>
+      <button id="createFirebaseAccountBtn" class="secondary">Create account</button>
+      <button id="connectFirebaseBtn">Sign in</button>
+      <button id="anonymousFirebaseBtn" class="light">Anonymous test sign-in</button>
+    </div>
+    <div class="syncActions">
+      <button id="uploadFirebaseBtn" class="secondary">Upload local data</button>
+      <button id="downloadFirebaseBtn" class="light">Download cloud data</button>
+      <button id="syncFirebaseBtn">Sync both ways</button>
+      <button id="clearFirebaseConfigBtn" class="light">Clear config</button>
+    </div>
+    <div id="firebaseSyncStatus" class="syncStatus">Firebase is not connected yet.</div>
   </section>
 
   <section class="dashboard">
@@ -779,7 +816,7 @@ select,input,button{
     <div id="moodResult" class="moodResult"></div>
   </section>
 
-  <div class="footer"><span class="tape">ABS DIET 7.0 ACL.</span><span class="tape upgradeLine">Sunrise Palette • Dark Gray Surfaces • Thin Gold Frames • Contrast-Tuned Text</span></div>
+  <div class="footer"><span class="tape">ABS DIET 8.0 ACL.</span><span class="tape upgradeLine">Firebase Cloud Sync • Email Sign-In • Firestore Backup • Sunrise Palette</span></div>
 </div>
 
 <div id="dayRewardModal" class="modal rewardModal" aria-hidden="true">
@@ -1051,6 +1088,10 @@ const wisdomQuote = document.getElementById("wisdomQuote");
 const wisdomArchiveList = document.getElementById("wisdomArchiveList");
 const moodSlotGrid = document.getElementById("moodSlotGrid");
 const moodResult = document.getElementById("moodResult");
+const firebaseConfigInput = document.getElementById("firebaseConfigInput");
+const firebaseEmail = document.getElementById("firebaseEmail");
+const firebasePassword = document.getElementById("firebasePassword");
+const firebaseSyncStatus = document.getElementById("firebaseSyncStatus");
 
 const DAILY_WISDOM = [
   "Calories are clues, not courtroom evidence. Log the truth, then let the day keep breathing.",
@@ -1120,8 +1161,18 @@ let appToday = todayIso();
 let selectedDate = appToday;
 let calendarCursor = dateFromIso(selectedDate);
 let lastAlternateNotice = "";
+let firebaseApp = null;
+let firebaseAuth = null;
+let firebaseDb = null;
+let firebaseUser = null;
+let firebaseApi = null;
+let firebaseSaveTimer = null;
+let suppressCloudAutoSave = false;
 dateSelect.value = selectedDate;
 daySelect.value = dayIndexForDate(selectedDate);
+target.value = localStorage.getItem("aclDailyCalorieTarget") || target.value;
+firebaseConfigInput.value = localStorage.getItem("aclFirebaseConfig") || "";
+firebaseEmail.value = localStorage.getItem("aclFirebaseEmail") || "";
 
 function fmt(n){return Math.round(n).toLocaleString();}
 function fmtKg(n){return Number(n).toLocaleString(undefined,{maximumFractionDigits:1,minimumFractionDigits:Number.isInteger(Number(n)) ? 0 : 1});}
@@ -1152,6 +1203,154 @@ function renderWisdom(){
       <span>${displayDate(entry.date)}</span>${escapeHtml(entry.quote)}
     </button>
   `).join("") : `<div class="micro">Daily quotes will appear here after you open the app on new dates.</div>`;
+}
+function isAppDataKey(key){
+  return key === "aclBthWeightEntries"
+    || key === "aclBthExerciseEntries"
+    || key === "aclBthTargetKg"
+    || key === "aclBthRewardCount"
+    || key === "aclTinyWisdomHistory"
+    || key === "aclDailyCalorieTarget"
+    || key.startsWith("absDietDone:")
+    || key.startsWith("absDietMealOverride:")
+    || key.startsWith("aclBthExtraFood:")
+    || key.startsWith("aclInventoryRestock:")
+    || key.startsWith("absDietDayReward:");
+}
+function collectCloudData(){
+  const entries = {};
+  for(let i=0;i<localStorage.length;i++){
+    const key = localStorage.key(i);
+    if(key && isAppDataKey(key)) entries[key] = localStorage.getItem(key);
+  }
+  return {
+    app:"abs-diet-weekly-app",
+    version:"8.0 ACL Firebase",
+    updatedAt:Date.now(),
+    entries
+  };
+}
+function meaningfulEntryCount(entries){
+  return Object.keys(entries || {}).filter(key=>
+    key !== "aclTinyWisdomHistory"
+    && key !== "aclDailyCalorieTarget"
+    && !key.startsWith("absDietDayReward:")
+  ).length;
+}
+function applyCloudData(payload){
+  if(!payload || !payload.entries) return false;
+  const keys = [];
+  for(let i=0;i<localStorage.length;i++) keys.push(localStorage.key(i));
+  keys.forEach(key=>{
+    if(isAppDataKey(key)) localStorage.removeItem(key);
+  });
+  Object.entries(payload.entries).forEach(([key,value])=>{
+    if(isAppDataKey(key) && typeof value === "string") localStorage.setItem(key,value);
+  });
+  target.value = localStorage.getItem("aclDailyCalorieTarget") || target.value;
+  return true;
+}
+function setSyncStatus(message){
+  firebaseSyncStatus.textContent = message;
+}
+function firebaseConfig(){
+  const raw = localStorage.getItem("aclFirebaseConfig") || firebaseConfigInput.value.trim();
+  if(!raw) throw new Error("Paste your Firebase web config JSON first.");
+  const parsed = JSON.parse(raw);
+  if(!parsed.apiKey || !parsed.projectId || !parsed.appId) throw new Error("Firebase config needs apiKey, projectId, and appId.");
+  return parsed;
+}
+async function loadFirebaseApi(){
+  if(firebaseApi) return firebaseApi;
+  const appMod = await import("https://www.gstatic.com/firebasejs/12.7.0/firebase-app.js");
+  const authMod = await import("https://www.gstatic.com/firebasejs/12.7.0/firebase-auth.js");
+  const firestoreMod = await import("https://www.gstatic.com/firebasejs/12.7.0/firebase-firestore.js");
+  firebaseApi = {...appMod,...authMod,...firestoreMod};
+  return firebaseApi;
+}
+async function connectFirebase(mode="signin"){
+  if(firebaseUser && firebaseApi && firebaseDb) return;
+  const config = firebaseConfig();
+  const api = await loadFirebaseApi();
+  firebaseApp = firebaseApp || (api.getApps().length ? api.getApp() : api.initializeApp(config));
+  firebaseAuth = firebaseAuth || api.getAuth(firebaseApp);
+  firebaseDb = firebaseDb || api.getFirestore(firebaseApp);
+  let credential;
+  const email = firebaseEmail.value.trim();
+  const password = firebasePassword.value;
+  if(mode === "anonymous"){
+    credential = await api.signInAnonymously(firebaseAuth);
+  } else {
+    if(!email || !password) throw new Error("Enter Firebase email and password, or use Anonymous test sign-in.");
+    localStorage.setItem("aclFirebaseEmail",email);
+    credential = mode === "create"
+      ? await api.createUserWithEmailAndPassword(firebaseAuth,email,password)
+      : await api.signInWithEmailAndPassword(firebaseAuth,email,password);
+  }
+  firebaseUser = credential.user;
+  setSyncStatus(`Firebase connected as ${firebaseUser.email || "anonymous user"} (${firebaseUser.uid}). Auto-save is on while this page is open.`);
+  scheduleCloudSave();
+}
+function cloudDocRef(){
+  if(!firebaseUser || !firebaseDb || !firebaseApi) throw new Error("Connect Firebase first.");
+  return firebaseApi.doc(firebaseDb,"absDietUsers",firebaseUser.uid,"data","tracker");
+}
+async function uploadCloudData(){
+  await connectFirebase();
+  const payload = collectCloudData();
+  await firebaseApi.setDoc(cloudDocRef(),payload);
+  localStorage.setItem("aclFirebaseLastSyncAt",String(payload.updatedAt));
+  setSyncStatus(`Uploaded local data to Firebase at ${new Date(payload.updatedAt).toLocaleString()}.`);
+}
+async function downloadCloudData(){
+  await connectFirebase();
+  const snap = await firebaseApi.getDoc(cloudDocRef());
+  if(!snap.exists()){
+    setSyncStatus("No cloud data found yet. Use Upload local data first.");
+    return false;
+  }
+  suppressCloudAutoSave = true;
+  applyCloudData(snap.data());
+  localStorage.setItem("aclFirebaseLastSyncAt",String(snap.data().updatedAt || Date.now()));
+  render();
+  suppressCloudAutoSave = false;
+  setSyncStatus(`Downloaded cloud data from ${new Date(snap.data().updatedAt || Date.now()).toLocaleString()}.`);
+  return true;
+}
+async function syncCloudData(){
+  await connectFirebase();
+  const snap = await firebaseApi.getDoc(cloudDocRef());
+  const local = collectCloudData();
+  const cloud = snap.exists() ? snap.data() : null;
+  const lastSync = Number(localStorage.getItem("aclFirebaseLastSyncAt") || 0);
+  const shouldDownload = cloud
+    && (meaningfulEntryCount(local.entries) === 0 || Number(cloud.updatedAt || 0) > lastSync);
+  if(shouldDownload){
+    suppressCloudAutoSave = true;
+    applyCloudData(cloud);
+    localStorage.setItem("aclFirebaseLastSyncAt",String(cloud.updatedAt || Date.now()));
+    render();
+    suppressCloudAutoSave = false;
+    setSyncStatus("Cloud was newer, so it was downloaded to this browser.");
+  } else {
+    await firebaseApi.setDoc(cloudDocRef(),local);
+    localStorage.setItem("aclFirebaseLastSyncAt",String(local.updatedAt));
+    setSyncStatus("Local data was uploaded to Firebase.");
+  }
+}
+function scheduleCloudSave(){
+  if(suppressCloudAutoSave || !firebaseUser || !firebaseApi) return;
+  clearTimeout(firebaseSaveTimer);
+  firebaseSaveTimer = setTimeout(async()=>{
+    try{
+      const payload = collectCloudData();
+      await firebaseApi.setDoc(cloudDocRef(),payload);
+      localStorage.setItem("aclFirebaseLastSyncAt",String(payload.updatedAt));
+      setSyncStatus(`Auto-saved to Firebase at ${new Date(payload.updatedAt).toLocaleTimeString()}.`);
+    } catch(err){
+      setSyncStatus(`Firebase auto-save failed: ${err.message}`);
+    }
+  },1200);
 }
 function jumpToSlot(slot){
   const targetCard = timeline.querySelector(`[data-meal-slot="${slot}"]`);
@@ -1860,6 +2059,7 @@ function render(){
   renderInventory();
   renderCalendar();
   renderMoodSlots(day,selectedDate);
+  scheduleCloudSave();
 }
 
 dateSelect.addEventListener("change",()=>{
@@ -1869,12 +2069,92 @@ dateSelect.addEventListener("change",()=>{
 daySelect.addEventListener("change",()=>{
   setSelectedDate(selectedWeekdayDate(Number(daySelect.value)));
 });
-target.addEventListener("input",render);
+target.addEventListener("input",()=>{
+  localStorage.setItem("aclDailyCalorieTarget",target.value);
+  render();
+});
 document.getElementById("printBtn").onclick = ()=>window.print();
 document.getElementById("resetDayBtn").onclick = ()=>{
   const day = currentDay();
   day.meals.forEach(m=>localStorage.removeItem(storageKey(selectedDate,m)));
   render();
+};
+
+document.getElementById("saveFirebaseConfigBtn").onclick = ()=>{
+  try{
+    const raw = firebaseConfigInput.value.trim();
+    JSON.parse(raw);
+    localStorage.setItem("aclFirebaseConfig",raw);
+    setSyncStatus("Firebase config saved in this browser. Now click Connect / sign in.");
+  } catch(_err){
+    alert("Paste the Firebase config as valid JSON first.");
+  }
+};
+document.getElementById("connectFirebaseBtn").onclick = async()=>{
+  try{
+    localStorage.setItem("aclFirebaseConfig",firebaseConfigInput.value.trim());
+    setSyncStatus("Signing in to Firebase...");
+    await connectFirebase("signin");
+  } catch(err){
+    setSyncStatus(`Firebase sign-in failed: ${err.message}`);
+  }
+};
+document.getElementById("createFirebaseAccountBtn").onclick = async()=>{
+  try{
+    localStorage.setItem("aclFirebaseConfig",firebaseConfigInput.value.trim());
+    setSyncStatus("Creating Firebase account...");
+    await connectFirebase("create");
+  } catch(err){
+    setSyncStatus(`Firebase account creation failed: ${err.message}`);
+  }
+};
+document.getElementById("anonymousFirebaseBtn").onclick = async()=>{
+  try{
+    localStorage.setItem("aclFirebaseConfig",firebaseConfigInput.value.trim());
+    setSyncStatus("Connecting with anonymous Firebase sign-in...");
+    await connectFirebase("anonymous");
+  } catch(err){
+    setSyncStatus(`Anonymous sign-in failed: ${err.message}`);
+  }
+};
+document.getElementById("uploadFirebaseBtn").onclick = async()=>{
+  try{
+    setSyncStatus("Uploading local data to Firebase...");
+    await uploadCloudData();
+  } catch(err){
+    setSyncStatus(`Upload failed: ${err.message}`);
+  }
+};
+document.getElementById("downloadFirebaseBtn").onclick = async()=>{
+  if(!confirm("Download cloud data into this browser? This replaces the app data currently saved in this browser.")) return;
+  try{
+    setSyncStatus("Downloading cloud data...");
+    await downloadCloudData();
+  } catch(err){
+    setSyncStatus(`Download failed: ${err.message}`);
+  }
+};
+document.getElementById("syncFirebaseBtn").onclick = async()=>{
+  try{
+    setSyncStatus("Syncing with Firebase...");
+    await syncCloudData();
+  } catch(err){
+    setSyncStatus(`Sync failed: ${err.message}`);
+  }
+};
+document.getElementById("clearFirebaseConfigBtn").onclick = ()=>{
+  if(!confirm("Clear the saved Firebase config from this browser? Your tracker data will stay here.")) return;
+  localStorage.removeItem("aclFirebaseConfig");
+  firebaseConfigInput.value = "";
+  firebaseApp = null;
+  firebaseAuth = null;
+  firebaseDb = null;
+  firebaseUser = null;
+  localStorage.removeItem("aclFirebaseEmail");
+  localStorage.removeItem("aclFirebaseLastSyncAt");
+  firebaseEmail.value = "";
+  firebasePassword.value = "";
+  setSyncStatus("Firebase config cleared. Local tracker data was not deleted.");
 };
 
 document.getElementById("saveWeightBtn").onclick = ()=>{

@@ -1,4 +1,4 @@
-# ABS Diet Weekly Food Zine App 7.0 ACL
+# ABS Diet Weekly Food Zine App 8.0 ACL Firebase
 
 Static one-page meal tracker for GitHub Pages.
 
@@ -26,8 +26,36 @@ Static one-page meal tracker for GitHub Pages.
 - Straightened poster/card styling with a richer cinematic color palette
 - iOS-friendly calendar date input sizing
 - 7.0 sunrise palette with dark gray surfaces, contrast-tuned text, and thin gold frame lines
+- Firebase cloud sync panel for email/password sign-in, Firestore upload, Firestore download, and auto-save while connected
 - Full-day reward image when every selected-date checkbox is complete
 - Local-only browser storage for meal checkoffs and weight entries
+
+## Firebase sync setup
+
+1. Create a Firebase project.
+2. Add a Web App in Firebase project settings.
+3. Copy the Firebase config object.
+4. Enable Authentication > Email/Password sign-in.
+5. Create a Firestore database.
+6. Use Firestore rules that only allow each signed-in user to access their own document:
+
+```text
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    match /absDietUsers/{userId}/data/{docId} {
+      allow read, write: if request.auth != null && request.auth.uid == userId;
+    }
+  }
+}
+```
+
+7. Open this app, paste the config into `Firebase Cloud Sync`, then click `Save Firebase config`.
+8. Enter your email and password, then click `Create account` once.
+9. Click `Upload local data` first from the device that already has your tracker history.
+10. On another device, use the same Firebase config, sign in with the same email/password, then click `Download cloud data` or `Sync both ways`.
+
+The app syncs one Firestore document per Firebase user account. Use email/password sign-in if you want to recover your data after clearing browser data. Anonymous sign-in is included only for quick testing because anonymous identity can be lost when browser data is cleared.
 
 ## Calendar behavior
 
