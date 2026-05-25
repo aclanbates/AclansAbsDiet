@@ -10,7 +10,7 @@
 <meta name="apple-mobile-web-app-title" content="ABS Diet">
 <meta name="application-name" content="ABS Diet">
 <meta name="theme-color" content="#202123">
-<title>ABS Diet Weekly Food Zine App 8.0 ACL Firebase</title>
+<title>ABS Diet Weekly Food Zine App 8.1 ACL Firebase Restore</title>
 <style>
 :root{
   --ink:#241f1c;
@@ -613,7 +613,7 @@ select,input,button{
   <section class="hero">
     <div class="heroGrid">
       <div>
-        <div class="versionTag">8.0 ACL Firebase</div>
+        <div class="versionTag">8.1 ACL Firebase Restore</div>
         <h1>ABS Diet<br>Weekly App</h1>
         <p>Check each meal or snack as you finish it. Tap any card to see recipes, swaps, healthier alternatives, and live rest-of-day calorie math.</p>
         <div class="heroWisdom">
@@ -669,7 +669,7 @@ select,input,button{
       <button id="uploadFirebaseBtn" class="secondary">Upload local data</button>
       <button id="downloadFirebaseBtn" class="light">Download cloud data</button>
     </div>
-    <div id="firebaseSyncStatus" class="syncStatus">Firebase is not connected yet.</div>
+    <div id="firebaseSyncStatus" class="syncStatus">Firebase will reconnect automatically when a saved config and saved sign-in are available.</div>
     <details class="firebaseSettings">
       <summary>Firebase settings</summary>
       <div class="micro">Paste your Firebase web app config, sign in with email/password, then sync this app’s saved data across iPhone and computer. Local tracking still works if Firebase is not connected.</div>
@@ -828,7 +828,7 @@ select,input,button{
     <div id="moodResult" class="moodResult"></div>
   </section>
 
-  <div class="footer"><span class="tape">ABS DIET 8.0 ACL.</span><span class="tape upgradeLine">Firebase Cloud Sync • Email Sign-In • Firestore Backup • Sunrise Palette</span></div>
+  <div class="footer"><span class="tape">ABS DIET 8.1 ACL.</span><span class="tape upgradeLine">Firebase Cloud Sync • Saved Sign-In Restore • Firestore Backup • Sunrise Palette</span></div>
 </div>
 
 <div id="dayRewardModal" class="modal rewardModal" aria-hidden="true">
@@ -1180,6 +1180,7 @@ let firebaseUser = null;
 let firebaseApi = null;
 let firebaseSaveTimer = null;
 let suppressCloudAutoSave = false;
+let firebaseAuthWatcherStarted = false;
 dateSelect.value = selectedDate;
 daySelect.value = dayIndexForDate(selectedDate);
 target.value = localStorage.getItem("aclDailyCalorieTarget") || target.value;
@@ -1237,7 +1238,7 @@ function collectCloudData(){
   }
   return {
     app:"abs-diet-weekly-app",
-    version:"8.0 ACL Firebase",
+    version:"8.1 ACL Firebase Restore",
     updatedAt:Date.now(),
     entries
   };
@@ -1300,8 +1301,36 @@ async function connectFirebase(mode="signin"){
       : await api.signInWithEmailAndPassword(firebaseAuth,email,password);
   }
   firebaseUser = credential.user;
-  setSyncStatus(`Firebase connected as ${firebaseUser.email || "anonymous user"} (${firebaseUser.uid}). Auto-save is on while this page is open.`);
-  scheduleCloudSave();
+  setSyncStatus(`Firebase connected as ${firebaseUser.email || "anonymous user"} (${firebaseUser.uid}). Syncing now...`);
+}
+async function restoreFirebaseSession(){
+  if(firebaseAuthWatcherStarted || !localStorage.getItem("aclFirebaseConfig")) return;
+  firebaseAuthWatcherStarted = true;
+  try{
+    setSyncStatus("Checking saved Firebase sign-in...");
+    const config = firebaseConfig();
+    const api = await loadFirebaseApi();
+    firebaseApp = firebaseApp || (api.getApps().length ? api.getApp() : api.initializeApp(config));
+    firebaseAuth = firebaseAuth || api.getAuth(firebaseApp);
+    firebaseDb = firebaseDb || api.getFirestore(firebaseApp);
+    api.onAuthStateChanged(firebaseAuth,async user=>{
+      if(!user){
+        firebaseUser = null;
+        setSyncStatus("Firebase config is saved. Open Firebase settings and sign in once on this device.");
+        return;
+      }
+      firebaseUser = user;
+      setSyncStatus(`Firebase signed in as ${user.email || "anonymous user"}. Syncing saved data now...`);
+      try{
+        await syncCloudData();
+      } catch(err){
+        setSyncStatus(`Firebase sign-in was restored, but sync failed: ${err.message}`);
+      }
+    });
+  } catch(err){
+    firebaseAuthWatcherStarted = false;
+    setSyncStatus(`Firebase auto sign-in check failed: ${err.message}`);
+  }
 }
 function cloudDocRef(){
   if(!firebaseUser || !firebaseDb || !firebaseApi) throw new Error("Connect Firebase first.");
@@ -2097,7 +2126,8 @@ document.getElementById("saveFirebaseConfigBtn").onclick = ()=>{
     const raw = firebaseConfigInput.value.trim();
     JSON.parse(raw);
     localStorage.setItem("aclFirebaseConfig",raw);
-    setSyncStatus("Firebase config saved in this browser. Now click Connect / sign in.");
+    setSyncStatus("Firebase config saved in this browser. Now sign in once on this device.");
+    restoreFirebaseSession();
   } catch(_err){
     alert("Paste the Firebase config as valid JSON first.");
   }
@@ -2107,6 +2137,7 @@ document.getElementById("connectFirebaseBtn").onclick = async()=>{
     localStorage.setItem("aclFirebaseConfig",firebaseConfigInput.value.trim());
     setSyncStatus("Signing in to Firebase...");
     await connectFirebase("signin");
+    await syncCloudData();
   } catch(err){
     setSyncStatus(`Firebase sign-in failed: ${err.message}`);
   }
@@ -2116,6 +2147,7 @@ document.getElementById("createFirebaseAccountBtn").onclick = async()=>{
     localStorage.setItem("aclFirebaseConfig",firebaseConfigInput.value.trim());
     setSyncStatus("Creating Firebase account...");
     await connectFirebase("create");
+    await syncCloudData();
   } catch(err){
     setSyncStatus(`Firebase account creation failed: ${err.message}`);
   }
@@ -2125,6 +2157,7 @@ document.getElementById("anonymousFirebaseBtn").onclick = async()=>{
     localStorage.setItem("aclFirebaseConfig",firebaseConfigInput.value.trim());
     setSyncStatus("Connecting with anonymous Firebase sign-in...");
     await connectFirebase("anonymous");
+    await syncCloudData();
   } catch(err){
     setSyncStatus(`Anonymous sign-in failed: ${err.message}`);
   }
@@ -2164,6 +2197,7 @@ document.getElementById("clearFirebaseConfigBtn").onclick = ()=>{
   firebaseUser = null;
   localStorage.removeItem("aclFirebaseEmail");
   localStorage.removeItem("aclFirebaseLastSyncAt");
+  firebaseAuthWatcherStarted = false;
   firebaseEmail.value = "";
   firebasePassword.value = "";
   setSyncStatus("Firebase config cleared. Local tracker data was not deleted.");
@@ -2443,6 +2477,7 @@ document.getElementById("notifyBtn").onclick = async()=>{
 };
 
 render();
+restoreFirebaseSession();
 setInterval(()=>{
   const now = todayIso();
   if(now === appToday) return;
