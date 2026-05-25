@@ -1412,7 +1412,7 @@ function renderCalendar(){
       dateHasProgress(iso) ? "hasProgress" : "",
       rewarded ? "fullReward" : ""
     ].filter(Boolean).join(" ");
-    days.push(`<button class="${classes}" data-calendar-date="${iso}" type="button"><span class="calendarDateNum">${cellDate.getDate()}</span>${rewarded ? `<img class="calendarReward" src="assets/checkoff-reward-logo.jpg" alt="Full day reward">` : ""}</button>`);
+    days.push(`<button class="${classes}" data-calendar-date="${iso}" type="button"><span class="calendarDateNum">${cellDate.getDate()}</span>${rewarded ? `<img class="calendarReward" src="assets/day-complete-reward.jpg" alt="Full day champagne laurel reward">` : ""}</button>`);
   }
   calendarGrid.innerHTML = dows + days.join("");
 }
@@ -1537,7 +1537,7 @@ function renderQuickPlan(day,iso){
   const complete = allChecked(day,iso);
   quickPlan.innerHTML = `
     <div class="quickPlanTitle">
-      <span class="quickPlanTitleLeft">Today's meal plan ${complete ? `<img class="quickRewardBadge" id="quickRewardBadge" src="assets/checkoff-reward-logo.jpg" alt="Full meal plan reward badge" title="Full meal plan reward unlocked">` : ""}</span>
+      <span class="quickPlanTitleLeft">Today's meal plan ${complete ? `<img class="quickRewardBadge" id="quickRewardBadge" src="assets/day-complete-reward.jpg" alt="Full meal plan champagne laurel reward" title="Full meal plan reward unlocked">` : ""}</span>
       <span>${displayDate(iso)} • ${meals.length} items</span>
     </div>
     ${meals.map(m=>`

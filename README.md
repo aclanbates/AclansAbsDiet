@@ -19,7 +19,7 @@ Static one-page meal tracker for GitHub Pages.
 - Daily Tiny Wisdom Corner with playful smart quotes saved into a clickable archive
 - Bottom "Not in the Mood?" reset box with six slot checkboxes
 - Cholesterol-free alternative meal suggestions matched near each selected slot's calories
-- Full meal-plan reward badge in Today's Meal Plan when all six checkboxes are complete
+- Champagne/laurel full-day reward badge in Today's Meal Plan and calendar when all six checkboxes are complete
 - Inventory and shopping watch with package sizes, remaining amounts, refill buttons, and low-stock alerts
 - Full-width inventory section with richer visual availability bars
 - Clickable quick meal plan and reminders that jump to the matching meal/snack card
