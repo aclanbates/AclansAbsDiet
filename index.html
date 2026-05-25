@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>ABS Diet Weekly Food Zine App 3.01 ACLBTH</title>
+<title>ABS Diet Weekly Food Zine App 4.0 ACL</title>
 <style>
 :root{
   --ink:#191515;
@@ -307,39 +307,22 @@ li{margin:4px 0}
 .rewardPanel img{width:160px;height:auto;margin:10px auto 16px;display:block;border-radius:16px;cursor:pointer}
 .rewardPanel h2{font-size:36px;margin:0 0 8px;text-transform:uppercase}
 .posterFrame{position:relative}
-.suggestionTab{
+.extraFoodTab{
   margin-top:16px;
-  background:#eef6f7;
+  background:#fff7df;
   border:3px solid var(--ink);
   border-radius:18px;
   padding:14px;
   box-shadow:0 5px 0 var(--ink);
 }
-.suggestionTab h3{margin:0 0 8px;text-transform:uppercase;font-size:20px}
-.suggestionTab textarea{
-  width:100%;
-  min-height:128px;
-  resize:vertical;
-  margin-top:8px;
-  font-family:inherit;
-  line-height:1.35;
-}
-.suggestionActions{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:10px}
-@media(max-width:560px){.suggestionActions{grid-template-columns:1fr}}
-.suggestionAnswer{
-  display:none;
-  margin-top:12px;
-  background:#fffdf6;
-  border:2px solid var(--ink);
-  border-radius:14px;
-  padding:13px;
-  line-height:1.45;
-}
-.suggestionAnswer.show{display:block}
-.suggestionAnswer h4{margin:0 0 8px;text-transform:uppercase}
-.suggestionAnswer p{margin:8px 0}
-.suggestionAnswer ul{margin-top:8px}
-.sourceList a{color:#0d6569;font-weight:1000}
+.extraFoodTab h3{margin:0 0 8px;text-transform:uppercase;font-size:20px}
+.extraFoodRows{display:grid;gap:8px;margin-top:10px}
+.extraFoodRow{display:grid;grid-template-columns:1fr 150px;gap:8px;align-items:end}
+.extraFoodActions{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:10px}
+.extraFoodLog{display:grid;gap:8px;margin-top:12px}
+.extraFoodEntry{display:grid;grid-template-columns:1fr auto auto;gap:8px;align-items:center;background:#fff;border:2px solid var(--ink);border-radius:12px;padding:9px 10px;font-weight:900}
+.extraFoodEntry span{color:var(--muted);font-size:12px;text-transform:uppercase}
+@media(max-width:620px){.extraFoodRow,.extraFoodActions,.extraFoodEntry{grid-template-columns:1fr}}
 .legend{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-top:14px}
 .legend div{background:#fff;border:2px solid var(--ink);border-radius:12px;padding:10px;font-weight:800}
 .reminderList{display:grid;gap:8px;margin-top:12px}
@@ -364,8 +347,8 @@ li{margin:4px 0}
   <section class="hero">
     <div class="heroGrid">
       <div>
-        <div class="versionTag">3.01 ACLBTH Edition</div>
-        <div class="ribbon">Meal Swaps • ABS Equivalents • Section Popups • Full-Day Reward</div>
+        <div class="versionTag">4.0 ACL Edition</div>
+        <div class="ribbon">Meal Swaps • Extra Food Log • Live Calories • Full-Day Reward</div>
         <h1>ABS Diet<br>Weekly App</h1>
         <p>Check each meal or snack as you finish it. Tap any card to see recipes, swaps, healthier alternatives, and live rest-of-day calorie math.</p>
       </div>
@@ -413,15 +396,26 @@ li{margin:4px 0}
       </div>
       <div id="quickPlan" class="quickPlan"></div>
       <div id="timeline" class="timeline"></div>
-      <section class="suggestionTab" aria-labelledby="suggestionTitle">
-        <h3 id="suggestionTitle">Ask ChatGPT</h3>
-        <div class="micro">Type a question about today's meals, swaps, calories, exercise, or weight progress. The answer uses your selected date and science-backed nutrition guidance.</div>
-        <textarea id="suggestionPrompt" aria-label="ChatGPT suggestion question"></textarea>
-        <div class="suggestionActions">
-          <button id="refreshSuggestionBtn" class="light">Reset question</button>
-          <button id="tellMeBtn">Tell me</button>
+      <section class="extraFoodTab" aria-labelledby="extraFoodTitle">
+        <h3 id="extraFoodTitle">What I ate extra</h3>
+        <div class="micro">Register anything eaten outside the meal plan. Extra calories are added to eaten so far and reduce the remaining calories for the selected date.</div>
+        <div id="extraFoodRows" class="extraFoodRows">
+          <div class="extraFoodRow">
+            <div>
+              <label>Food I ate</label>
+              <input class="extraFoodName" type="text" placeholder="Example: latte, cookie, extra rice">
+            </div>
+            <div>
+              <label>Calories</label>
+              <input class="extraFoodCalories" type="number" min="0" max="5000" step="10" placeholder="kcal">
+            </div>
+          </div>
         </div>
-        <div id="suggestionAnswer" class="suggestionAnswer" aria-live="polite"></div>
+        <div class="extraFoodActions">
+          <button id="saveExtraFoodBtn">Record what I ate</button>
+          <button id="addExtraFoodRowBtn" class="light">Add another food</button>
+        </div>
+        <div id="extraFoodLog" class="extraFoodLog"></div>
       </section>
     </main>
 
@@ -504,7 +498,7 @@ li{margin:4px 0}
     </aside>
   </section>
 
-  <div class="footer"><span class="tape">ABS DIET 3.01 ACLBTH.</span><span class="tape">SWAP BY SLOT.</span><span class="tape">ASK FOR IDEAS.</span></div>
+  <div class="footer"><span class="tape">ABS DIET 4.0 ACL.</span><span class="tape">LOG EXTRAS.</span><span class="tape">KNOW WHAT'S LEFT.</span></div>
 </div>
 
 <div id="dayRewardModal" class="modal rewardModal" aria-hidden="true">
@@ -749,8 +743,8 @@ const imageModal = document.getElementById("imageModal");
 const modalImage = document.getElementById("modalImage");
 const modalScroll = document.getElementById("modalScroll");
 const modalTitle = document.getElementById("modalTitle");
-const suggestionPrompt = document.getElementById("suggestionPrompt");
-const suggestionAnswer = document.getElementById("suggestionAnswer");
+const extraFoodRows = document.getElementById("extraFoodRows");
+const extraFoodLog = document.getElementById("extraFoodLog");
 const calendarGrid = document.getElementById("calendarGrid");
 const calendarTitle = document.getElementById("calendarTitle");
 
@@ -805,7 +799,8 @@ function resolveMeal(iso,meal){
   return override ? {...meal,...override, originalName:meal.name, isOverride:true} : {...meal};
 }
 function resolvedMeals(day,iso){return day.meals.map(meal=>resolveMeal(iso,meal));}
-function consumed(day,iso){return resolvedMeals(day,iso).reduce((s,m)=>s+(isDone(iso,m)?m.cal:0),0);}
+function mealConsumed(day,iso){return resolvedMeals(day,iso).reduce((s,m)=>s+(isDone(iso,m)?m.cal:0),0);}
+function consumed(day,iso){return mealConsumed(day,iso) + extraFoodTotal(iso);}
 function remainingPlanned(day,iso){return resolvedMeals(day,iso).reduce((s,m)=>s+(!isDone(iso,m)?m.cal:0),0);}
 function nextUnchecked(day,iso){return resolvedMeals(day,iso).find(m=>!isDone(iso,m));}
 function allChecked(day,iso){return resolvedMeals(day,iso).every(m=>isDone(iso,m));}
@@ -830,6 +825,18 @@ function exerciseEntries(){
   }
 }
 function saveExerciseEntries(entries){localStorage.setItem("aclBthExerciseEntries", JSON.stringify(entries));}
+function extraFoodKey(iso){return `aclBthExtraFood:${iso}`;}
+function extraFoodEntries(iso){
+  try{
+    const saved = JSON.parse(localStorage.getItem(extraFoodKey(iso)) || "[]");
+    return Array.isArray(saved) ? saved.filter(entry=>entry && Number(entry.calories) > 0) : [];
+  } catch(_err){
+    localStorage.removeItem(extraFoodKey(iso));
+    return [];
+  }
+}
+function saveExtraFoodEntries(iso,entries){localStorage.setItem(extraFoodKey(iso), JSON.stringify(entries));}
+function extraFoodTotal(iso){return extraFoodEntries(iso).reduce((sum,entry)=>sum + Number(entry.calories || 0),0);}
 function rewardCount(){return Number(localStorage.getItem("aclBthRewardCount") || 0);}
 function setRewardCount(value){localStorage.setItem("aclBthRewardCount", String(value));}
 function safeRecipe(meal){
@@ -896,7 +903,8 @@ function dateHasProgress(iso){
   const mealProgress = resolvedMeals(DAYS[dayIndexForDate(iso)],iso).some(meal=>isDone(iso,meal));
   const hasWeight = weightEntries().some(entry=>entry.date === iso);
   const hasExercise = exerciseEntries().some(entry=>entry.date === iso && Number(entry.calories) > 0);
-  return mealProgress || hasWeight || hasExercise;
+  const hasExtraFood = extraFoodEntries(iso).length > 0;
+  return mealProgress || hasWeight || hasExercise || hasExtraFood;
 }
 
 function dateHasFullMealReward(iso){
@@ -1016,94 +1024,53 @@ function closeImageModal(){
   modalImage.src = "";
 }
 
-function buildSuggestionPrompt(){
-  const day = currentDay();
-  const goal = Number(target.value || 2000);
-  const meals = resolvedMeals(day,selectedDate);
-  const eaten = consumed(day,selectedDate);
-  const needRest = goal - eaten;
-  const unchecked = meals.filter(meal=>!isDone(selectedDate,meal));
-  const alternatives = meals.filter(meal=>meal.isOverride);
-  return [
-    `I am using my ABS Diet 3.01 ACLBTH tracker for ${day.day}, ${displayDate(selectedDate)}.`,
-    `Daily calorie target: ${fmt(goal)} kcal. Checked/eaten so far: ${fmt(eaten)} kcal. Remaining target: ${needRest >= 0 ? fmt(needRest) + " kcal" : fmt(Math.abs(needRest)) + " kcal over target"}.`,
-    `Unchecked meals/snacks: ${unchecked.length ? unchecked.map(meal=>`${meal.slot} at ${meal.time}: ${meal.name} (${meal.cal} kcal)`).join("; ") : "none"}.`,
-    `Picked alternatives: ${alternatives.length ? alternatives.map(meal=>`${meal.slot}: ${meal.name} instead of ${meal.originalName}`).join("; ") : "none"}.`,
-    "Please suggest the best remaining meal choices or swaps for today, keep the advice practical, include rough calories, and keep it aligned with an ABS Diet style plan."
-  ].join("\n\n");
-}
-
-function updateSuggestionPrompt(force=false){
-  if(!force && suggestionPrompt.dataset.generated === "0" && suggestionPrompt.value.trim()) return;
-  suggestionPrompt.dataset.generated = "1";
-  suggestionPrompt.value = buildSuggestionPrompt();
-}
-
 function escapeHtml(text){
   return String(text).replace(/[&<>"']/g, char=>({"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;","'":"&#39;"}[char]));
 }
 
-function sourceLinks(){
-  return `
-    <ul class="sourceList">
-      <li><a href="https://www.dietaryguidelines.gov/" target="_blank" rel="noopener">Dietary Guidelines for Americans</a>: emphasizes nutrient-dense foods, vegetables, fruits, whole grains, lean proteins, and limiting excess added sugar/saturated fat.</li>
-      <li><a href="https://www.cdc.gov/healthy-weight-growth/losing-weight/index.html" target="_blank" rel="noopener">CDC healthy weight loss guidance</a>: favors gradual, sustainable habit changes over crash dieting.</li>
-      <li><a href="https://www.niddk.nih.gov/health-information/weight-management/changing-habits-better-health" target="_blank" rel="noopener">NIH/NIDDK behavior-change guidance</a>: supports tracking, planning, realistic goals, and replacing habits step by step.</li>
-      <li><a href="https://www.cdc.gov/physical-activity-basics/guidelines/adults.html" target="_blank" rel="noopener">CDC adult physical activity guidelines</a>: recommends regular aerobic activity plus muscle-strengthening work.</li>
-    </ul>`;
+function addExtraFoodInputRow(){
+  const row = document.createElement("div");
+  row.className = "extraFoodRow";
+  row.innerHTML = `
+    <div>
+      <label>Food I ate</label>
+      <input class="extraFoodName" type="text" placeholder="Example: latte, cookie, extra rice">
+    </div>
+    <div>
+      <label>Calories</label>
+      <input class="extraFoodCalories" type="number" min="0" max="5000" step="10" placeholder="kcal">
+    </div>`;
+  extraFoodRows.appendChild(row);
+  row.querySelector(".extraFoodName").focus();
 }
 
-function buildCoachAnswer(question){
-  const day = currentDay();
-  const goal = Number(target.value || 2000);
-  const meals = resolvedMeals(day,selectedDate);
-  const eaten = consumed(day,selectedDate);
-  const needRest = goal - eaten;
-  const leftPlan = remainingPlanned(day,selectedDate);
-  const unchecked = meals.filter(meal=>!isDone(selectedDate,meal));
-  const next = unchecked[0];
-  const lowerSwaps = next ? switchOptionsFor(next.slot)
-    .map(option=>option.meal)
-    .filter(meal=>meal.cal <= Math.max(needRest,0))
-    .sort((a,b)=>b.cal - a.cal)
-    .slice(0,3) : [];
-  const alternatives = meals.filter(meal=>meal.isOverride);
-  const exercise = exerciseEntries().filter(entry=>entry.date === selectedDate).reduce((sum,entry)=>sum + Number(entry.calories || 0),0);
-  const q = question.toLowerCase();
-  const asksWeight = /weight|kg|scale|fat|loss|lose|burn|exercise|workout/.test(q);
-  const asksSwap = /swap|replace|alternative|instead|choose|eat|meal|snack|hungry|dinner|lunch|breakfast/.test(q);
-  const status = needRest >= 0
-    ? `You have about <b>${fmt(needRest)} kcal</b> left against a <b>${fmt(goal)} kcal</b> target.`
-    : `You are about <b>${fmt(Math.abs(needRest))} kcal over</b> the selected target, so the rest of the day should be lighter if that target matters today.`;
-  const nextAdvice = next
-    ? `Your next unchecked item is <b>${next.slot}: ${next.name}</b> (${fmt(next.cal)} kcal).`
-    : "All scheduled items are checked off for this date.";
-  const swapAdvice = lowerSwaps.length
-    ? `If you want a replacement that fits the remaining target better, consider ${lowerSwaps.map(meal=>`<b>${escapeHtml(meal.name)}</b> (${fmt(meal.cal)} kcal)`).join(", ")}.`
-    : next ? "The planned item may exceed the remaining calorie target. Choose a half portion, a lean-protein-and-vegetable plate, or one of the lower-calorie healthier alternatives shown on the meal card." : "No swap is needed unless you are genuinely hungry.";
-  const weightAdvice = asksWeight
-    ? `<li>For weight loss, connect the food target and exercise log gently: today's logged exercise is <b>${fmt(exercise)} kcal</b>. Treat that as an estimate, not permission to automatically eat it all back. Scale changes are noisy because water, sodium, sleep, and muscle soreness can hide fat loss for several days.</li>`
-    : "";
-  const swapFocus = asksSwap
-    ? `<li>For the actual food choice, prioritize a meal with <b>lean protein + fiber</b>: turkey/chicken/tuna/Greek yogurt/beans plus vegetables, fruit, oats, or whole grain. That combination is the most useful pattern here because it supports fullness while keeping calories easier to control.</li>`
-    : "";
-  return `
-    <h4>Deep-thinking answer</h4>
-    <p><b>Your question:</b> ${escapeHtml(question)}</p>
-    <p>${status} ${nextAdvice} The unchecked plan totals <b>${fmt(leftPlan)} kcal</b>.</p>
-    <ul>
-      ${swapFocus}
-      <li>${swapAdvice}</li>
-      <li>If hunger is high, do not just chase the lowest calorie number. Pick the most filling option under your remaining target: protein first, then vegetables/fruit, then measured whole-grain or starchy carb.</li>
-      <li>If you are already close to target, use a smaller portion or a lighter ABS-style equivalent rather than skipping protein completely.</li>
-      ${weightAdvice}
-      ${alternatives.length ? `<li>You already picked alternatives today: ${alternatives.map(meal=>`<b>${escapeHtml(meal.slot)}</b> ${escapeHtml(meal.name)}`).join("; ")}. Keep those visible notes so your checkboxes match what you actually ate.</li>` : ""}
-    </ul>
-    <p><b>Best next move:</b> ${next ? `Decide whether ${escapeHtml(next.name)} fits your remaining calories. If it does, eat it and check it off. If not, choose the closest lower-calorie swap and keep protein in the meal.` : "Log weight/exercise if needed, then stop adding food unless hunger is real."}</p>
-    <p class="micro">General wellness guidance only, not medical advice. For medical conditions, medications, eating-disorder history, pregnancy, or aggressive weight-loss goals, use a qualified clinician.</p>
-    <h4>Scientific source notes</h4>
-    ${sourceLinks()}
-  `;
+function resetExtraFoodInputs(){
+  extraFoodRows.innerHTML = `
+    <div class="extraFoodRow">
+      <div>
+        <label>Food I ate</label>
+        <input class="extraFoodName" type="text" placeholder="Example: latte, cookie, extra rice">
+      </div>
+      <div>
+        <label>Calories</label>
+        <input class="extraFoodCalories" type="number" min="0" max="5000" step="10" placeholder="kcal">
+      </div>
+    </div>`;
+}
+
+function renderExtraFoodLog(){
+  const entries = extraFoodEntries(selectedDate);
+  const total = extraFoodTotal(selectedDate);
+  extraFoodLog.innerHTML = entries.length ? `
+    <div class="restLine"><span>Extra calories registered</span><span>${fmt(total)} kcal</span></div>
+    ${entries.map((entry,index)=>`
+      <div class="extraFoodEntry">
+        <div><b>${escapeHtml(entry.name || "Extra food")}</b><br><span>${selectedDate}</span></div>
+        <b>${fmt(entry.calories)} kcal</b>
+        <button class="light miniButton" data-delete-extra-food="${index}">Delete</button>
+      </div>
+    `).join("")}
+  ` : `<div class="micro">No extra food registered for this date.</div>`;
 }
 
 function renderQuickPlan(day,iso){
@@ -1139,6 +1106,7 @@ function render(){
   timeline.innerHTML = "";
   renderQuickPlan(day,selectedDate);
   const eaten = consumed(day,selectedDate);
+  const extraTotal = extraFoodTotal(selectedDate);
   const needRest = goal - eaten;
   const meals = resolvedMeals(day,selectedDate);
 
@@ -1224,11 +1192,11 @@ function render(){
 
   let msg;
   if(needRest > 0 && leftPlan > 0){
-    msg = `For ${displayDate(selectedDate)}, you have checked off ${fmt(eaten)} kcal. To reach your ${fmt(goal)} kcal target, this date still needs about ${fmt(needRest)} kcal. Unchecked planned meals/snacks add up to ${fmt(leftPlan)} kcal.`;
+    msg = `For ${displayDate(selectedDate)}, you have logged ${fmt(eaten)} kcal total${extraTotal ? " including " + fmt(extraTotal) + " kcal of extra food" : ""}. To reach your ${fmt(goal)} kcal target, this date still needs about ${fmt(needRest)} kcal. Unchecked planned meals/snacks add up to ${fmt(leftPlan)} kcal.`;
   } else if(needRest > 0 && leftPlan === 0){
-    msg = `All boxes are checked for ${displayDate(selectedDate)}. This date is still about ${fmt(needRest)} kcal below target, so only add food if you truly need it.`;
+    msg = `All boxes are checked for ${displayDate(selectedDate)}. With extra food included, this date is still about ${fmt(needRest)} kcal below target, so only add food if you truly need it.`;
   } else {
-    msg = `For ${displayDate(selectedDate)}, you have reached or passed the ${fmt(goal)} kcal target by about ${fmt(Math.abs(needRest))} kcal.`;
+    msg = `For ${displayDate(selectedDate)}, you have reached or passed the ${fmt(goal)} kcal target by about ${fmt(Math.abs(needRest))} kcal${extraTotal ? " after counting extra food" : ""}.`;
   }
   document.getElementById("restExplanation").textContent = msg;
 
@@ -1240,7 +1208,7 @@ function render(){
     r.innerHTML = `<b>${m.time}</b><span>${m.icon} ${m.slot}: ${m.name}</span><b>${m.cal}</b>`;
     rem.appendChild(r);
   });
-  updateSuggestionPrompt();
+  renderExtraFoodLog();
   renderWeightTracker();
   renderCalendar();
 }
@@ -1318,6 +1286,42 @@ exerciseLog.addEventListener("click",(ev)=>{
   renderCalendar();
 });
 
+document.getElementById("addExtraFoodRowBtn").onclick = addExtraFoodInputRow;
+document.getElementById("saveExtraFoodBtn").onclick = ()=>{
+  const rows = [...extraFoodRows.querySelectorAll(".extraFoodRow")];
+  const newEntries = [];
+  rows.forEach(row=>{
+    const name = row.querySelector(".extraFoodName").value.trim();
+    const calories = Number(row.querySelector(".extraFoodCalories").value);
+    if(name || calories){
+      if(!calories || calories < 0 || calories > 5000){ return; }
+      newEntries.push({
+        name:name || "Extra food",
+        calories,
+        savedAt:new Date().toISOString()
+      });
+    }
+  });
+  if(!newEntries.length){ alert("Enter at least one food and calorie amount."); return; }
+  const entries = extraFoodEntries(selectedDate).concat(newEntries);
+  saveExtraFoodEntries(selectedDate,entries);
+  resetExtraFoodInputs();
+  render();
+  rewardToast.innerHTML = `Extra food registered.<small>${fmt(newEntries.reduce((sum,entry)=>sum + entry.calories,0))} kcal added to ${selectedDate}</small>`;
+  rewardToast.classList.add("show");
+  clearTimeout(window.rewardTimer);
+  window.rewardTimer = setTimeout(()=>rewardToast.classList.remove("show"),2300);
+};
+
+extraFoodLog.addEventListener("click",(ev)=>{
+  const button = ev.target.closest("[data-delete-extra-food]");
+  if(!button) return;
+  const entries = extraFoodEntries(selectedDate);
+  entries.splice(Number(button.dataset.deleteExtraFood),1);
+  saveExtraFoodEntries(selectedDate,entries);
+  render();
+});
+
 timeline.addEventListener("click",(ev)=>{
   const apply = ev.target.closest("[data-apply-switch]");
   const clear = ev.target.closest("[data-clear-switch]");
@@ -1370,23 +1374,6 @@ document.getElementById("prevMonthBtn").onclick = ()=>{
 document.getElementById("nextMonthBtn").onclick = ()=>{
   calendarCursor.setMonth(calendarCursor.getMonth() + 1);
   renderCalendar();
-};
-
-suggestionPrompt.addEventListener("input",()=>{ suggestionPrompt.dataset.generated = "0"; });
-document.getElementById("refreshSuggestionBtn").onclick = ()=>updateSuggestionPrompt(true);
-document.getElementById("tellMeBtn").onclick = ()=>{
-  const question = suggestionPrompt.value.trim() || buildSuggestionPrompt();
-  suggestionPrompt.value = question;
-  suggestionPrompt.dataset.generated = "0";
-  suggestionAnswer.classList.add("show");
-  suggestionAnswer.innerHTML = "<h4>Thinking...</h4><p>Reading your selected date, calories, checked meals, swaps, and exercise log.</p>";
-  window.setTimeout(()=>{
-    suggestionAnswer.innerHTML = buildCoachAnswer(question);
-  },280);
-  rewardToast.classList.add("show");
-  rewardToast.innerHTML = "Answer ready.<small>Scientific source notes included below.</small>";
-  clearTimeout(window.rewardTimer);
-  window.rewardTimer = setTimeout(()=>rewardToast.classList.remove("show"),2300);
 };
 
 document.addEventListener("click",(ev)=>{
