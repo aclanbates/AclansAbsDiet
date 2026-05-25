@@ -1,0 +1,14 @@
+{
+  "name": "ABS Diet Weekly App",
+  "short_name": "ABS Diet",
+  "icons": [
+    {
+      "src": "apple-touch-icon.png",
+      "sizes": "180x180",
+      "type": "image/png"
+    }
+  ],
+  "theme_color": "#202123",
+  "background_color": "#202123",
+  "display": "standalone"
+}

@@ -36,7 +36,7 @@ The app opens to the computer's current date. Picking another date changes the d
 ## Host on GitHub Pages
 
 1. Create a new GitHub repository.
-2. Upload `index.html`, `README.md`, `.nojekyll`, and the full `assets/` folder.
+2. Upload `index.html`, `README.md`, `.nojekyll`, `apple-touch-icon.png`, `site.webmanifest`, and the full `assets/` folder.
 3. In GitHub, open `Settings` > `Pages`.
 4. Set `Source` to `Deploy from a branch`.
 5. Choose the `main` branch and `/root`, then save.
