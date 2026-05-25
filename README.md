@@ -1,4 +1,4 @@
-# ABS Diet Weekly Food Zine App 5.0 ACL
+# ABS Diet Weekly Food Zine App 6.0 ACL
 
 Static one-page meal tracker for GitHub Pages.
 
@@ -17,6 +17,10 @@ Static one-page meal tracker for GitHub Pages.
 - Extra food tracker for registering foods eaten outside the plan and counting them in daily calories
 - Blue wisdom box for honest tracking without guilt
 - Inventory and shopping watch with package sizes, remaining amounts, refill buttons, and low-stock alerts
+- Full-width inventory section with richer visual availability bars
+- Clickable quick meal plan and reminders that jump to the matching meal/snack card
+- Straightened poster/card styling with a richer cinematic color palette
+- iOS-friendly calendar date input sizing
 - Full-day reward image when every selected-date checkbox is complete
 - Local-only browser storage for meal checkoffs and weight entries
 

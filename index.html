@@ -3,23 +3,30 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>ABS Diet Weekly Food Zine App 5.0 ACL</title>
+<title>ABS Diet Weekly Food Zine App 6.0 ACL</title>
 <style>
 :root{
-  --ink:#191515;
-  --paper:#fffaf0;
-  --muted:#6b625b;
-  --teal:#0e858a;
-  --pink:#e84f87;
-  --yellow:#f2c23e;
-  --green:#9cc66b;
-  --accent:#0e858a;
+  --ink:#241f1c;
+  --paper:#fbf4e7;
+  --muted:#756b62;
+  --teal:#28777a;
+  --pink:#a85d6c;
+  --yellow:#cfa94b;
+  --green:#7f9c67;
+  --cream:#fff9ee;
+  --blue:#466f86;
+  --wine:#6e3844;
+  --accent:#28777a;
+  --line:#302823;
 }
 *{box-sizing:border-box}
 body{
   margin:0;
   font-family:"Avenir Next","Trebuchet MS",system-ui,sans-serif;
-  background:#303236;
+  background:
+    radial-gradient(circle at 10% 0%, rgba(168,93,108,.28), transparent 30%),
+    radial-gradient(circle at 92% 12%, rgba(40,119,122,.24), transparent 34%),
+    linear-gradient(135deg,#2b2d30,#3b3935 45%,#25282b);
   color:var(--ink);
 }
 .app{max-width:1260px;margin:0 auto;padding:22px}
@@ -30,11 +37,10 @@ body{
   border-radius:28px;
   padding:26px;
   background:
-    radial-gradient(circle at 10% 20%, rgba(232,79,135,.18), transparent 26%),
-    radial-gradient(circle at 90% 10%, rgba(14,133,138,.2), transparent 25%),
-    radial-gradient(circle at 80% 80%, rgba(242,194,62,.25), transparent 26%),
-    #fffdf6;
-  box-shadow:0 12px 0 var(--ink);
+    radial-gradient(circle at 10% 20%, rgba(168,93,108,.14), transparent 28%),
+    radial-gradient(circle at 90% 10%, rgba(40,119,122,.18), transparent 28%),
+    linear-gradient(135deg,#fffaf0,#f2ead9);
+  box-shadow:0 12px 0 rgba(18,14,12,.95);
 }
 .heroGrid{display:grid;grid-template-columns:1fr minmax(220px,360px);gap:22px;align-items:center}
 @media(max-width:800px){.heroGrid{grid-template-columns:1fr}}
@@ -43,51 +49,59 @@ h1{font-size:clamp(42px,8.5vw,104px);line-height:.85;margin:0;letter-spacing:-3p
 .heroWisdom{
   display:block;
   max-width:760px;
-  background:#dbeaf3;
+  background:#d9e7ee;
   border:3px solid var(--ink);
   border-radius:14px;
   padding:10px 14px;
-  box-shadow:0 4px 0 var(--ink);
+  box-shadow:0 4px 0 rgba(36,31,28,.92);
   font-weight:1000;
   line-height:1.3;
   margin-top:14px;
 }
 .heroWisdom b{display:block;text-transform:uppercase;margin-bottom:3px}
-.upgradeLine{display:inline-block;background:#f08a3e;color:#191515;padding:6px 14px;font-weight:1000;border-radius:3px;margin-top:8px}
-.versionTag{display:inline-block;margin:0 0 14px;background:#191515;color:#fff;padding:8px 14px;border-radius:999px;font-weight:1000;text-transform:uppercase;letter-spacing:.08em}
+.upgradeLine{display:inline-block;background:#b8723d;color:#fff9ee;padding:6px 14px;font-weight:1000;border-radius:3px;margin-top:8px}
+.versionTag{display:inline-block;margin:0 0 14px;background:#241f1c;color:#fff9ee;padding:8px 14px;border-radius:999px;font-weight:1000;text-transform:uppercase;letter-spacing:.08em}
 .heroPoster{
   width:100%;
   aspect-ratio:4 / 5;
   object-fit:cover;
   border:3px solid var(--ink);
   border-radius:18px;
-  box-shadow:0 8px 0 var(--ink);
-  transform:rotate(1deg);
+  box-shadow:0 8px 0 rgba(36,31,28,.92);
   cursor:zoom-in;
 }
 .zoomable{cursor:zoom-in}
 .zoomHint{font-size:12px;color:var(--muted);font-weight:900;text-transform:uppercase;margin-top:8px}
 .controls{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px;margin:28px 0}
 .card,.meal,.panel{
-  background:rgba(255,255,255,.84);
+  background:rgba(255,249,238,.92);
   border:3px solid var(--ink);
   border-radius:20px;
   padding:16px;
-  box-shadow:0 6px 0 rgba(25,21,21,.95);
+  box-shadow:0 6px 0 rgba(18,14,12,.82);
 }
-.controlDay{background:#dbe6ec}
-.controlTarget{background:#ead6d4}
-.controlProgress{background:#efe5b9}
-.controlDate{background:#e3ece1}
+.controlDay{background:#d4e0e6}
+.controlTarget{background:#ead1cf}
+.controlProgress{background:#eee3b5}
+.controlDate{background:#dfe9dc;overflow:hidden}
 label{font-size:13px;text-transform:uppercase;font-weight:900;letter-spacing:.08em}
 select,input,button{
   width:100%;
+  max-width:100%;
   padding:12px 14px;
   border:3px solid var(--ink);
   border-radius:14px;
   background:white;
   font-weight:800;
   font-size:16px;
+}
+input[type="date"]{
+  min-width:0;
+  height:48px;
+  line-height:1.2;
+  appearance:none;
+  -webkit-appearance:none;
+  padding-right:8px;
 }
 button{cursor:pointer;background:var(--teal);color:white;box-shadow:0 4px 0 var(--ink)}
 button.secondary{background:var(--pink)}
@@ -96,7 +110,7 @@ button.light{background:#fff;color:var(--ink)}
 @media(max-width:900px){.dashboard{grid-template-columns:1fr}}
 .dayHeader{display:flex;align-items:flex-end;justify-content:space-between;gap:12px;margin-bottom:16px}
 .dayTitle{font-size:54px;font-weight:1000;text-transform:uppercase;line-height:.9}
-.daySub{font-size:22px;font-weight:800;background:#ffe268;display:inline-block;padding:3px 12px}
+.daySub{font-size:22px;font-weight:800;background:#dfc35f;display:inline-block;padding:3px 12px}
 .dateStamp{font-size:14px;font-weight:1000;text-transform:uppercase;color:var(--muted);margin-top:8px}
 .badge{border:3px solid var(--ink);border-radius:999px;padding:12px 16px;background:#f3aac0;font-size:22px;font-weight:1000}
 .timeline{display:grid;gap:12px}
@@ -107,7 +121,7 @@ button.light{background:#fff;color:var(--ink)}
   padding:12px;
   border:3px solid var(--ink);
   border-radius:18px;
-  background:#fff7df;
+  background:#f7edda;
 }
 .quickPlanTitle{
   display:flex;
@@ -124,12 +138,14 @@ button.light{background:#fff;color:var(--ink)}
   grid-template-columns:72px 88px 1fr auto;
   gap:8px;
   align-items:center;
-  background:#fff;
+  background:#fffaf1;
   border:2px solid var(--ink);
   border-radius:12px;
   padding:8px 10px;
   font-weight:900;
+  cursor:pointer;
 }
+.quickMeal:hover,.quickMeal:focus{background:#edf5f3;outline:3px solid rgba(40,119,122,.28)}
 .quickMeal.done{opacity:.48;filter:grayscale(.7);text-decoration:line-through}
 .quickTime{color:var(--accent)}
 .quickSlot{text-transform:uppercase;font-size:12px;color:var(--muted)}
@@ -174,13 +190,13 @@ button.light{background:#fff;color:var(--ink)}
 .note{color:var(--muted);margin:8px 0 10px}
 .pills{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}
 .pill{border:2px solid var(--ink);border-radius:999px;padding:6px 10px;background:#fff;font-size:13px;font-weight:800}
-.pill.remaining{background:#e9f5d5}
+.pill.remaining{background:#e4edd3}
 .details{margin-top:10px;display:none;border-top:2px dashed var(--ink);padding-top:12px}
 .meal.open .details{display:grid;gap:12px}
 .recipeGrid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
 @media(max-width:680px){.mealTop{grid-template-columns:auto auto 1fr}.cal{grid-column:3}.recipeGrid{grid-template-columns:1fr}}
 .recipeBox,.swapBox{
-  background:#fff7df;
+  background:#f7edda;
   border:2px solid var(--ink);
   border-radius:14px;
   padding:12px;
@@ -189,7 +205,7 @@ button.light{background:#fff;color:var(--ink)}
 ul,ol{margin:8px 0 0;padding-left:22px}
 li{margin:4px 0}
 .option{display:flex;justify-content:space-between;gap:12px;background:#fff;border:2px solid var(--ink);border-radius:12px;padding:8px 10px;margin-top:7px}
-.option.healthy{background:#e9f5d5}
+.option.healthy{background:#e4edd3}
 .swapControls{
   display:grid;
   gap:8px;
@@ -197,21 +213,21 @@ li{margin:4px 0}
   padding:10px;
   border:2px dashed var(--ink);
   border-radius:14px;
-  background:#eef6f7;
+  background:#e6f0f1;
 }
 .swapControls select{font-size:14px}
 .swapButtons{display:grid;grid-template-columns:1fr 1fr;gap:8px}
-.chosenNote{background:#ffe268;border:2px solid var(--ink);border-radius:12px;padding:8px 10px;font-weight:1000;margin-top:8px}
+.chosenNote{background:#dfc35f;border:2px solid var(--ink);border-radius:12px;padding:8px 10px;font-weight:1000;margin-top:8px}
 .progressWrap{background:var(--ink);border-radius:999px;overflow:hidden;border:3px solid var(--ink)}
 .progress{height:24px;background:linear-gradient(90deg,var(--green),var(--yellow),var(--pink));width:0%}
 .progress.consumed{background:linear-gradient(90deg,var(--teal),var(--green))}
 .summaryGrid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin-top:12px}
 .bigNum{font-size:38px;font-weight:1000}
 .small{font-size:13px;color:var(--muted);font-weight:800;text-transform:uppercase}
-.posterCard{padding:0;overflow:hidden;background:#fff}
+.posterCard{padding:0;overflow:hidden;background:#fffaf1}
 .posterCard img{display:block;width:100%;max-height:620px;object-fit:cover;cursor:zoom-in}
 .posterCaption{padding:12px 14px;border-top:3px solid var(--ink);font-size:13px;font-weight:1000;text-transform:uppercase;color:var(--muted)}
-.calendarCard{margin-top:14px;background:#fff7df}
+.calendarCard{margin-top:14px;background:#f7edda;overflow:hidden}
 .calendarTop{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:10px}
 .calendarTop button{width:auto;padding:8px 10px}
 .calendarTitle{font-weight:1000;text-transform:uppercase}
@@ -226,12 +242,12 @@ li{margin:4px 0}
   font-weight:900;
   font-size:12px;
 }
-.calendarDow{background:#191515;color:#fff;min-height:28px}
+.calendarDow{background:#241f1c;color:#fff;min-height:28px}
 .calendarDay{cursor:pointer;color:var(--ink);position:relative;overflow:hidden;padding:3px 4px 15px}
 .calendarDay.outside{opacity:.35}
 .calendarDay.outside .calendarReward{opacity:1;filter:none}
-.calendarDay.today{background:#dff3ef}
-.calendarDay.selected{background:#ffe268;box-shadow:inset 0 0 0 2px var(--pink)}
+.calendarDay.today{background:#dcefeb}
+.calendarDay.selected{background:#dfc35f;box-shadow:inset 0 0 0 2px var(--pink)}
 .calendarDateNum{
   position:absolute;
   top:3px;
@@ -269,14 +285,17 @@ li{margin:4px 0}
 .weightLog{display:grid;gap:8px;margin-top:10px;max-height:210px;overflow:auto;padding-right:4px}
 .weightEntry,.exerciseEntry{display:grid;grid-template-columns:1fr auto;gap:8px;align-items:center;background:#fff;border:2px solid var(--ink);border-radius:12px;padding:9px 10px;font-weight:900}
 .weightEntry span,.exerciseEntry span{color:var(--muted);font-size:12px;text-transform:uppercase}
-.exerciseEntry{background:#eef6f7}
+.exerciseEntry{background:#e6f0f1}
 .miniButton{padding:8px 10px;border-radius:10px;font-size:13px}
-.inventoryBox{background:#eef6f7}
-.inventoryList{display:grid;gap:10px;margin-top:12px;max-height:390px;overflow:auto;padding-right:4px}
-.inventoryItem{background:#fff;border:2px solid var(--ink);border-radius:14px;padding:10px}
+.inventoryPanel{margin-top:20px;background:linear-gradient(135deg,#edf4f1,#fbf4e7)}
+.inventoryPanelHeader{display:flex;justify-content:space-between;gap:12px;align-items:end;flex-wrap:wrap}
+.inventoryPanelHeader h2{margin:0;text-transform:uppercase;font-size:30px}
+.inventoryBox{background:#e6f0f1}
+.inventoryList{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:10px;margin-top:12px;max-height:none;overflow:visible;padding-right:0}
+.inventoryItem{background:#fffaf1;border:2px solid var(--ink);border-radius:14px;padding:10px}
 .inventoryTop{display:grid;grid-template-columns:1fr auto;gap:8px;align-items:start;font-weight:1000}
 .inventoryTop span{display:block;color:var(--muted);font-size:12px;text-transform:uppercase;margin-top:2px}
-.inventoryBarWrap{height:16px;border:2px solid var(--ink);border-radius:999px;background:#f5efe4;overflow:hidden;margin:9px 0}
+.inventoryBarWrap{height:16px;border:2px solid var(--ink);border-radius:999px;background:#efe5d4;overflow:hidden;margin:9px 0}
 .inventoryBar{height:100%;width:0%;background:#79bd6a}
 .inventoryMeta{display:grid;grid-template-columns:1fr auto;gap:8px;align-items:center;font-size:12px;font-weight:900;color:var(--muted);text-transform:uppercase}
 .inventoryMeta button{padding:7px 9px;border-radius:9px;font-size:12px}
@@ -292,7 +311,7 @@ li{margin:4px 0}
   padding:16px 18px;
   border:3px solid var(--ink);
   border-radius:18px;
-  background:#ffe268;
+  background:#dfc35f;
   box-shadow:0 8px 0 var(--ink);
   font-weight:1000;
   text-align:center;
@@ -322,18 +341,18 @@ li{margin:4px 0}
   box-shadow:0 14px 0 rgba(0,0,0,.45);
   overflow:hidden;
 }
-.modalTop{display:flex;justify-content:space-between;gap:12px;align-items:center;padding:10px 12px;background:#fffaf0;font-weight:1000;text-transform:uppercase}
+.modalTop{display:flex;justify-content:space-between;gap:12px;align-items:center;padding:10px 12px;background:#fbf4e7;font-weight:1000;text-transform:uppercase}
 .modalTop button{width:auto;padding:8px 12px}
-.modalScroll{overflow:auto;background:#303236;text-align:center}
+.modalScroll{overflow:auto;background:#2b2d30;text-align:center}
 .modalScroll img{max-width:1400px;width:100%;height:auto;display:block;margin:0 auto}
 .rewardModal .modalBox{width:min(92vw,620px)}
-.rewardPanel{background:#fffaf0;padding:22px;text-align:center}
+.rewardPanel{background:#fbf4e7;padding:22px;text-align:center}
 .rewardPanel img{width:160px;height:auto;margin:10px auto 16px;display:block;border-radius:16px;cursor:pointer}
 .rewardPanel h2{font-size:36px;margin:0 0 8px;text-transform:uppercase}
 .posterFrame{position:relative}
 .extraFoodTab{
   margin-top:16px;
-  background:#fff7df;
+  background:#f7edda;
   border:3px solid var(--ink);
   border-radius:18px;
   padding:14px;
@@ -350,12 +369,24 @@ li{margin:4px 0}
 .legend{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-top:14px}
 .legend div{background:#fff;border:2px solid var(--ink);border-radius:12px;padding:10px;font-weight:800}
 .reminderList{display:grid;gap:8px;margin-top:12px}
-.reminder{display:grid;grid-template-columns:70px 1fr auto;gap:8px;align-items:center;background:#fff;border:2px solid var(--ink);border-radius:14px;padding:10px}
+.reminder{display:grid;grid-template-columns:70px 1fr auto;gap:8px;align-items:center;background:#fffaf1;border:2px solid var(--ink);border-radius:14px;padding:10px;cursor:pointer}
+.reminder:hover,.reminder:focus{background:#edf5f3;outline:3px solid rgba(40,119,122,.28)}
 .reminder.done{opacity:.45;filter:grayscale(.7);text-decoration:line-through}
 .footer{margin:28px 0 10px;text-align:center;font-weight:1000;letter-spacing:.05em}
-.tape{display:inline-block;margin:5px;background:#ffd86e;padding:6px 12px}
+.tape{display:inline-block;margin:5px;background:#dfc35f;padding:6px 12px}
 .warn{font-size:13px;color:#6b625b;margin-top:10px;line-height:1.35}
-.restBox{margin-top:14px;padding:16px;border:3px solid var(--ink);border-radius:20px;background:#dff3ef;box-shadow:0 5px 0 var(--ink)}
+.restBox{margin-top:14px;padding:16px;border:3px solid var(--ink);border-radius:20px;background:#e6f0f1;box-shadow:0 5px 0 var(--ink)}
+.focusPulse{animation:focusPulse .9s ease 2}
+@keyframes focusPulse{
+  0%,100%{box-shadow:0 6px 0 rgba(18,14,12,.82)}
+  50%{box-shadow:0 6px 0 rgba(18,14,12,.82),0 0 0 6px rgba(207,169,75,.55)}
+}
+@media(max-width:520px){
+  .app{padding:14px}
+  .controls{grid-template-columns:1fr}
+  .calendarGrid{gap:4px}
+  .calendarDow,.calendarDay{min-height:34px;border-radius:8px;font-size:11px}
+}
 .restBox h3{margin:0 0 8px;font-size:20px;text-transform:uppercase}
 .restLine{display:flex;justify-content:space-between;gap:10px;border-top:2px dashed var(--ink);padding-top:9px;margin-top:9px;font-weight:900}
 .micro{font-size:12px;color:#5c514b;line-height:1.35}
@@ -371,7 +402,7 @@ li{margin:4px 0}
   <section class="hero">
     <div class="heroGrid">
       <div>
-        <div class="versionTag">5.0 ACL Edition</div>
+        <div class="versionTag">6.0 ACL Edition</div>
         <h1>ABS Diet<br>Weekly App</h1>
         <p>Check each meal or snack as you finish it. Tap any card to see recipes, swaps, healthier alternatives, and live rest-of-day calorie math.</p>
         <div class="heroWisdom"><b>Tiny Wisdom Corner</b>Calories are data, not drama. Log the cheese, salute the truth, and move on like a scientist with snacks.</div>
@@ -519,16 +550,21 @@ li{margin:4px 0}
         <div class="micro" id="exerciseSummary">Exercise burn is an estimate. About 7,700 kcal roughly equals 1 kg of body weight change, but real results vary.</div>
         <div id="exerciseLog" class="weightLog"></div>
       </div>
-
-      <div class="restBox inventoryBox">
-        <h3>Inventory + shopping watch</h3>
-        <div class="micro">Checked meals deduct estimated ingredients from your starting packages. When something gets low or finished, use Buy / refill to mark it stocked again.</div>
-        <div id="inventoryList" class="inventoryList"></div>
-      </div>
     </aside>
   </section>
 
-  <div class="footer"><span class="tape">ABS DIET 5.0 ACL.</span><span class="tape upgradeLine">Meal Swaps • Extra Food Log • Live Calories • Inventory Watch • Full-Day Reward</span></div>
+  <section class="panel inventoryPanel" aria-labelledby="inventoryTitle">
+    <div class="inventoryPanelHeader">
+      <div>
+        <h2 id="inventoryTitle">Inventory + shopping watch</h2>
+        <div class="micro">Checked meals deduct estimated ingredients from your starting packages. When something gets low or finished, use Buy / refill to mark it stocked again.</div>
+      </div>
+      <div class="small">Full-width pantry view</div>
+    </div>
+    <div id="inventoryList" class="inventoryList"></div>
+  </section>
+
+  <div class="footer"><span class="tape">ABS DIET 6.0 ACL.</span><span class="tape upgradeLine">Classy Palette • Straight Layout • Jump Links • Full-Width Inventory • iOS Calendar Fix</span></div>
 </div>
 
 <div id="dayRewardModal" class="modal rewardModal" aria-hidden="true">
@@ -777,6 +813,7 @@ const dateSelect = document.getElementById("dateSelect");
 const target = document.getElementById("target");
 const timeline = document.getElementById("timeline");
 const quickPlan = document.getElementById("quickPlan");
+const remindersList = document.getElementById("reminders");
 const rewardToast = document.getElementById("rewardToast");
 const weightKg = document.getElementById("weightKg");
 const targetKg = document.getElementById("targetKg");
@@ -812,6 +849,14 @@ daySelect.value = dayIndexForDate(selectedDate);
 
 function fmt(n){return Math.round(n).toLocaleString();}
 function fmtKg(n){return Number(n).toLocaleString(undefined,{maximumFractionDigits:1,minimumFractionDigits:Number.isInteger(Number(n)) ? 0 : 1});}
+function slotId(slot){return slot.toLowerCase().replace(/[^a-z0-9]+/g,"-").replace(/^-|-$/g,"");}
+function jumpToSlot(slot){
+  const targetCard = timeline.querySelector(`[data-meal-slot="${slot}"]`);
+  if(!targetCard) return;
+  targetCard.classList.add("open","focusPulse");
+  targetCard.scrollIntoView({behavior:"smooth",block:"center"});
+  window.setTimeout(()=>targetCard.classList.remove("focusPulse"),1900);
+}
 function todayIso(){return isoFromDate(new Date());}
 function isoFromDate(date){
   const y = date.getFullYear();
@@ -1323,7 +1368,7 @@ function renderQuickPlan(day,iso){
       <span>${displayDate(iso)} • ${meals.length} items</span>
     </div>
     ${meals.map(m=>`
-      <div class="quickMeal ${isDone(iso,m) ? "done" : ""}">
+      <div class="quickMeal ${isDone(iso,m) ? "done" : ""}" data-jump-slot="${m.slot}" role="button" tabindex="0" aria-label="Jump to ${m.slot}">
         <span class="quickTime">${m.time}</span>
         <span class="quickSlot">${m.slot}</span>
         <span>${m.icon} ${m.name}${m.isOverride ? " • alternative" : ""}</span>
@@ -1358,6 +1403,8 @@ function render(){
     const afterThisIfTaken = goal - (eaten + (!done ? m.cal : 0));
     const div = document.createElement("article");
     div.className = "meal" + (done ? " done" : "");
+    div.dataset.mealSlot = m.slot;
+    div.id = `meal-${slotId(m.slot)}`;
     div.innerHTML = `
       ${done ? `<img class="checkoffLogo" src="assets/checkoff-reward-logo.jpg" alt="Meal completed reward">` : ""}
       <div class="mealTop">
@@ -1443,13 +1490,16 @@ function render(){
   }
   document.getElementById("restExplanation").textContent = msg;
 
-  const rem = document.getElementById("reminders");
-  rem.innerHTML = "";
+  remindersList.innerHTML = "";
   resolvedMeals(day,selectedDate).forEach((m,i)=>{
     const r = document.createElement("div");
     r.className = "reminder" + (isDone(selectedDate,m) ? " done" : "");
+    r.dataset.jumpSlot = m.slot;
+    r.setAttribute("role","button");
+    r.setAttribute("tabindex","0");
+    r.setAttribute("aria-label",`Jump to ${m.slot}`);
     r.innerHTML = `<b>${m.time}</b><span>${m.icon} ${m.slot}: ${m.name}</span><b>${m.cal}</b>`;
-    rem.appendChild(r);
+    remindersList.appendChild(r);
   });
   renderExtraFoodLog();
   renderWeightTracker();
@@ -1594,6 +1644,19 @@ function handleInventoryBuy(ev){
 
 inventoryList.addEventListener("click",handleInventoryBuy);
 inventoryAlertList.addEventListener("click",handleInventoryBuy);
+
+function handleJumpActivation(ev){
+  const row = ev.target.closest("[data-jump-slot]");
+  if(!row) return;
+  if(ev.type === "keydown" && ev.key !== "Enter" && ev.key !== " ") return;
+  ev.preventDefault();
+  jumpToSlot(row.dataset.jumpSlot);
+}
+
+quickPlan.addEventListener("click",handleJumpActivation);
+quickPlan.addEventListener("keydown",handleJumpActivation);
+remindersList.addEventListener("click",handleJumpActivation);
+remindersList.addEventListener("keydown",handleJumpActivation);
 
 timeline.addEventListener("click",(ev)=>{
   const apply = ev.target.closest("[data-apply-switch]");
