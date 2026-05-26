@@ -10,7 +10,7 @@
 <meta name="apple-mobile-web-app-title" content="ABS Diet">
 <meta name="application-name" content="ABS Diet">
 <meta name="theme-color" content="#202123">
-<title>ABS Diet Weekly Food Zine App 8.9.4 ACL Navigation Polish</title>
+<title>ABS Diet Weekly Food Zine App 8.9.5 ACL Reminder Navigation</title>
 <style>
 :root{
   --ink:#241f1c;
@@ -161,7 +161,9 @@ body{
 .topNav [data-nav-target="calorieMap"]{background:linear-gradient(135deg,#f2ba61,#d9a441);color:#241f1c}
 .topNav [data-nav-target="calendar"]{background:linear-gradient(135deg,#fff1a8,#f2ba61);color:#241f1c}
 .topNav [data-nav-target="reminders"]{background:linear-gradient(135deg,#ef6f83,#8c4351);color:#fffaf0}
+.topNav [data-nav-target="reminderEngine"]{background:linear-gradient(135deg,#ffad33,#ff6f1f);color:#241f1c}
 .topNav [data-nav-target="weightTracker"]{background:linear-gradient(135deg,#7fb3c8,#466f86);color:#fffaf0}
+.topNav [data-nav-target="inventory"]{background:linear-gradient(135deg,#93d46f,#2f9a73);color:#17211d}
 @media(max-width:760px){
   .topNav{grid-template-columns:repeat(5,minmax(0,1fr));gap:7px;padding:8px;border-radius:14px}
   .topNav button{font-size:10px;padding:8px 6px}
@@ -503,6 +505,14 @@ li{margin:4px 0}
 .inventoryPanel{background:linear-gradient(135deg,#edf4f1,#fbf4e7)}
 .inventoryPanelHeader{display:flex;justify-content:space-between;gap:12px;align-items:end;flex-wrap:wrap}
 .inventoryPanelHeader h2{margin:0;text-transform:uppercase;font-size:30px}
+.reminderEnginePanel{background:linear-gradient(135deg,#fff4dc,#f4e5c5)}
+.notifyButton{
+  background:#ff8a00 !important;
+  color:#16110d !important;
+  border-color:#ffe066 !important;
+  box-shadow:0 0 0 2px rgba(255,224,102,.72),0 0 18px rgba(255,138,0,.76),0 4px 0 rgba(10,9,8,.62) !important;
+}
+.notifyButton:hover{filter:saturate(1.12) brightness(1.04)}
 .inventoryBox{background:#e6f0f1}
 .inventoryList{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:10px;margin-top:12px;max-height:none;overflow:visible;padding-right:0}
 .inventoryItem{background:#fffaf1;border:2px solid var(--ink);border-radius:14px;padding:10px}
@@ -802,7 +812,7 @@ select,input,button{
 <div class="app">
   <header class="appHeader">
     <section class="titleBar" data-info="hero">
-      <h1>ABS Diet Weekly App <span class="versionTag">8.9.4 ACL</span></h1>
+      <h1>ABS Diet Weekly App <span class="versionTag">8.9.5 ACL</span></h1>
     </section>
 
     <nav class="topNav" aria-label="App section shortcuts">
@@ -817,7 +827,9 @@ select,input,button{
       <button data-nav-target="calorieMap">Calorie map</button>
       <button data-nav-target="calendar">Calendar</button>
       <button data-nav-target="reminders">Reminders</button>
+      <button data-nav-target="reminderEngine">Enable in-app reminders</button>
       <button data-nav-target="weightTracker">Weight tracker</button>
+      <button data-nav-target="inventory">Inventory + shopping</button>
     </nav>
   </header>
 
@@ -860,15 +872,22 @@ select,input,button{
           <label>Progress</label>
           <button id="resetDayBtn" class="light">Reset selected date checkboxes</button>
         </div>
-        <div class="card" data-info="reminderEngine">
-          <label>Reminder engine</label>
-          <button id="notifyBtn">Enable in-app reminders</button>
-          <p class="warn">In-app alerts work while this page is open.</p>
-        </div>
         <div class="card" data-info="quickMode">
           <label>Quick mode</label>
           <button class="secondary" id="printBtn">Print / Save as PDF</button>
         </div>
+      </section>
+    </div>
+  </details>
+
+  <details class="topicPage" id="reminderEngineTopic">
+    <summary>Reminder Engine</summary>
+    <div class="topicPageContent">
+      <section class="panel reminderEnginePanel" data-info="reminderEngine" id="reminderEngineSection">
+        <h2 style="margin-top:0">Reminder engine</h2>
+        <div class="micro">Turn on browser notifications for meal and snack times. Keep this app open when you want in-app reminders to fire.</div>
+        <button id="notifyBtn" class="notifyButton">Enable in-app reminders</button>
+        <p class="warn">In-app alerts work while this page is open. The top menu brings you straight back here whenever you need it.</p>
       </section>
     </div>
   </details>
@@ -1008,10 +1027,10 @@ select,input,button{
     </div>
   </details>
 
-  <details class="topicPage">
+  <details class="topicPage" id="inventoryTopic">
     <summary>Inventory + Shopping Watch</summary>
     <div class="topicPageContent">
-  <section class="panel inventoryPanel" aria-labelledby="inventoryTitle" data-info="inventory">
+  <section class="panel inventoryPanel" aria-labelledby="inventoryTitle" data-info="inventory" id="inventorySection">
     <div class="inventoryPanelHeader">
       <div>
         <h2 id="inventoryTitle">Inventory + shopping watch</h2>
@@ -1074,7 +1093,7 @@ select,input,button{
     </div>
   </details>
 
-  <div class="footer"><span class="tape">ABS DIET 8.9.4 ACL.</span><span class="tape upgradeLine">Photo Size Restored • Dropdowns Visible Again • Active Fluorescent Pink Nav Button</span></div>
+  <div class="footer"><span class="tape">ABS DIET 8.9.5 ACL.</span><span class="tape upgradeLine">Reminder Engine Section • Inventory Nav Shortcut • Fluorescent Orange Reminder Button</span></div>
 </div>
 
 <div id="dayRewardModal" class="modal rewardModal" aria-hidden="true">
@@ -1616,7 +1635,7 @@ function collectCloudData(){
   }
   return {
     app:"abs-diet-weekly-app",
-    version:"8.9.4 ACL Navigation Polish",
+    version:"8.9.5 ACL Reminder Navigation",
     updatedAt:Date.now(),
     entries
   };
@@ -1825,9 +1844,19 @@ function navTo(targetName){
     window.setTimeout(()=>scrollToTarget(document.getElementById("remindersSection"),"start"),40);
     return;
   }
+  if(targetName === "reminderEngine"){
+    openTopic(document.getElementById("reminderEngineTopic"));
+    window.setTimeout(()=>scrollToTarget(document.getElementById("reminderEngineSection"),"start"),40);
+    return;
+  }
   if(targetName === "weightTracker"){
     openTopic(document.getElementById("weightTrackerTopic"));
     window.setTimeout(()=>scrollToTarget(document.getElementById("weightTrackerSection"),"start"),40);
+    return;
+  }
+  if(targetName === "inventory"){
+    openTopic(document.getElementById("inventoryTopic"));
+    window.setTimeout(()=>scrollToTarget(document.getElementById("inventorySection"),"start"),40);
   }
 }
 function todayIso(){return isoFromDate(new Date());}

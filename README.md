@@ -1,4 +1,4 @@
-# ABS Diet Weekly Food Zine App 8.9.4 ACL Navigation Polish
+# ABS Diet Weekly Food Zine App 8.9.5 ACL Reminder Navigation
 
 Static one-page meal tracker for GitHub Pages.
 
@@ -46,6 +46,8 @@ Static one-page meal tracker for GitHub Pages.
 - Last tapped top navigation button uses a fluorescent pink active state
 - Food zine cover size restored so the dropdown sections remain visible below it
 - Calorie map, calendar, reminders, and weight tracker separated into their own dropdown pages
+- Reminder engine separated into its own dropdown page with a fluorescent orange enable button
+- Top navigation now jumps directly to reminder engine, weight tracker, and inventory + shopping watch
 - Recipe panel contrast improved for readability
 - Cleaner hero with the app explanation moved into the information popup
 - Full-day reward image when every selected-date checkbox is complete
