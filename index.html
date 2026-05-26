@@ -10,7 +10,7 @@
 <meta name="apple-mobile-web-app-title" content="ABS Diet">
 <meta name="application-name" content="ABS Diet">
 <meta name="theme-color" content="#202123">
-<title>ABS Diet Weekly Food Zine App 8.9.3 ACL Navigation Polish</title>
+<title>ABS Diet Weekly Food Zine App 8.9.4 ACL Navigation Polish</title>
 <style>
 :root{
   --ink:#241f1c;
@@ -142,10 +142,10 @@ body{
   line-height:1.05;
 }
 .topNav button.navActive{
-  background:#7cff00 !important;
+  background:#ff2fb3 !important;
   color:#111 !important;
-  border-color:#efff6a;
-  box-shadow:0 0 0 2px rgba(239,255,106,.78),0 0 16px rgba(124,255,0,.7),0 3px 0 rgba(10,9,8,.58);
+  border-color:#ffd3f0;
+  box-shadow:0 0 0 2px rgba(255,211,240,.82),0 0 16px rgba(255,47,179,.72),0 3px 0 rgba(10,9,8,.58);
 }
 .topNav .homeNavBtn{
   background:linear-gradient(135deg,#f2ba61,#ef7f5b);
@@ -170,20 +170,14 @@ body{
 .heroPoster{
   width:100%;
   max-width:420px;
-  height:calc(100svh - 176px);
-  max-height:680px;
-  min-height:340px;
   display:block;
   margin:0 auto 18px;
   aspect-ratio:4 / 5;
-  object-fit:contain;
+  object-fit:cover;
   border:3px solid var(--ink);
   border-radius:18px;
   box-shadow:0 8px 0 rgba(36,31,28,.92);
   cursor:zoom-in;
-}
-@media(max-width:760px){
-  .heroPoster{height:calc(100svh - 176px);min-height:300px}
 }
 .zoomable{cursor:zoom-in}
 .zoomHint{font-size:12px;color:var(--muted);font-weight:900;text-transform:uppercase;margin-top:8px}
@@ -808,7 +802,7 @@ select,input,button{
 <div class="app">
   <header class="appHeader">
     <section class="titleBar" data-info="hero">
-      <h1>ABS Diet Weekly App <span class="versionTag">8.9.3 ACL</span></h1>
+      <h1>ABS Diet Weekly App <span class="versionTag">8.9.4 ACL</span></h1>
     </section>
 
     <nav class="topNav" aria-label="App section shortcuts">
@@ -1080,7 +1074,7 @@ select,input,button{
     </div>
   </details>
 
-  <div class="footer"><span class="tape">ABS DIET 8.9.3 ACL.</span><span class="tape upgradeLine">Cleaner Landing View • Active Fluorescent Nav Button • Meal List Inner-Frame Jump • Meals Button Removed</span></div>
+  <div class="footer"><span class="tape">ABS DIET 8.9.4 ACL.</span><span class="tape upgradeLine">Photo Size Restored • Dropdowns Visible Again • Active Fluorescent Pink Nav Button</span></div>
 </div>
 
 <div id="dayRewardModal" class="modal rewardModal" aria-hidden="true">
@@ -1622,7 +1616,7 @@ function collectCloudData(){
   }
   return {
     app:"abs-diet-weekly-app",
-    version:"8.9.3 ACL Navigation Polish",
+    version:"8.9.4 ACL Navigation Polish",
     updatedAt:Date.now(),
     entries
   };
