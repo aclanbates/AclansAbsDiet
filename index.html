@@ -1756,7 +1756,7 @@ function navTo(targetName){
   }
   if(targetName === "quickPlan"){
     openTopic(document.getElementById("mealPlanTopic"));
-    window.setTimeout(()=>scrollToTarget(quickPlan,"center"),40);
+    window.setTimeout(()=>scrollToTarget(document.getElementById("mealPlanTopic"),"start"),40);
     return;
   }
   if(targetName === "calorieMap"){
