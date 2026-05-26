@@ -1,4 +1,4 @@
-# ABS Diet Weekly Food Zine App 8.8 ACL Recipe Corrections
+# ABS Diet Weekly Food Zine App 8.9 ACL Navigation
 
 Static one-page meal tracker for GitHub Pages.
 
@@ -36,8 +36,11 @@ Static one-page meal tracker for GitHub Pages.
 - Compact information buttons that no longer reserve layout space
 - Age and weight profile removed from view for now, with saved profile data retained for a later expanded profile branch
 - Firebase web app config hardcoded in source; users only enter email/password and choose Sign In or Create Account
-- Floating Home buttons inside dropdown topic pages
+- Permanent Home button in the top navigation bar
 - Clearer contrast on blue and bright interface sections
+- Permanent top navigation bar with Home, meal list, individual meal jumps, calorie map, and weight tracker shortcuts
+- Calorie map and weight tracker separated into their own dropdown pages
+- Recipe panel contrast improved for readability
 - Full-day reward image when every selected-date checkbox is complete
 - Local-only browser storage for meal checkoffs and weight entries
 

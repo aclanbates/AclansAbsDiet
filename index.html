@@ -10,7 +10,7 @@
 <meta name="apple-mobile-web-app-title" content="ABS Diet">
 <meta name="application-name" content="ABS Diet">
 <meta name="theme-color" content="#202123">
-<title>ABS Diet Weekly Food Zine App 8.8 ACL Recipe Corrections</title>
+<title>ABS Diet Weekly Food Zine App 8.9 ACL Navigation</title>
 <style>
 :root{
   --ink:#241f1c;
@@ -103,6 +103,36 @@ h1{font-size:clamp(42px,8.5vw,104px);line-height:.85;margin:0;letter-spacing:-3p
 }
 .upgradeLine{display:inline-block;background:#b8723d;color:#fff9ee;padding:6px 14px;font-weight:1000;border-radius:3px;margin-top:8px}
 .versionTag{display:inline-block;margin:0 0 14px;background:#241f1c;color:#fff9ee;padding:8px 14px;border-radius:999px;font-weight:1000;text-transform:uppercase;letter-spacing:.08em}
+.topNav{
+  position:sticky;
+  top:0;
+  z-index:30;
+  display:flex;
+  gap:8px;
+  align-items:center;
+  margin:14px 0 18px;
+  padding:10px;
+  border:2px solid var(--line);
+  border-radius:18px;
+  background:rgba(31,32,34,.96);
+  box-shadow:0 4px 0 rgba(10,9,8,.58);
+  overflow-x:auto;
+  -webkit-overflow-scrolling:touch;
+}
+.topNav button{
+  flex:0 0 auto;
+  width:auto;
+  min-width:max-content;
+  padding:9px 12px;
+  border-radius:999px;
+  font-size:12px;
+  text-transform:uppercase;
+  white-space:nowrap;
+}
+.topNav .homeNavBtn{
+  background:linear-gradient(135deg,#f2ba61,#ef7f5b);
+  color:#251b17;
+}
 .heroPoster{
   width:100%;
   aspect-ratio:4 / 5;
@@ -154,19 +184,6 @@ h1{font-size:clamp(42px,8.5vw,104px);line-height:.85;margin:0;letter-spacing:-3p
   position:relative;
   padding:18px;
   background:linear-gradient(135deg,rgba(255,249,238,.92),rgba(246,237,220,.92));
-}
-.topicHomeBtn{
-  position:sticky;
-  top:10px;
-  z-index:8;
-  float:right;
-  width:auto;
-  min-width:86px;
-  margin:0 0 10px 12px;
-  padding:8px 12px;
-  border-radius:999px;
-  font-size:12px;
-  text-transform:uppercase;
 }
 .controls{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px;margin:28px 0}
 .card,.meal,.panel{
@@ -344,7 +361,9 @@ button.light{background:#fff;color:var(--ink)}
   border-radius:14px;
   padding:12px;
 }
-.recipeBox h4,.swapBox h4{margin:0 0 8px;text-transform:uppercase;font-size:14px}
+.recipeBox h4,.swapBox h4{margin:0 0 8px;text-transform:uppercase;font-size:14px;color:#fff1d7}
+.recipeBox,.swapBox{color:#fff1d7}
+.recipeBox li,.swapBox li{color:#fff1d7}
 ul,ol{margin:8px 0 0;padding-left:22px}
 li{margin:4px 0}
 .option{display:flex;justify-content:space-between;gap:12px;background:#fff;border:2px solid var(--ink);border-radius:12px;padding:8px 10px;margin-top:7px}
@@ -727,13 +746,27 @@ select,input,button{
   <section class="hero" data-info="hero">
     <div class="heroGrid">
       <div>
-        <div class="versionTag">8.8 ACL Recipe Corrections</div>
+        <div class="versionTag">8.9 ACL</div>
         <h1>ABS Diet<br>Weekly App</h1>
         <p>Check each meal or snack as you finish it. Tap any card to see recipes, swaps, healthier alternatives, and live rest-of-day calorie math.</p>
       </div>
       <img class="heroPoster zoomable" src="assets/weekly-cover.png" alt="ABS Diet weekly food zine cover" data-zoom-title="Weekly cover collage">
     </div>
   </section>
+
+  <nav class="topNav" aria-label="App section shortcuts">
+    <button class="homeNavBtn" data-nav-target="hero">Home</button>
+    <button data-nav-target="quickPlan">Today's meal list</button>
+    <button data-nav-target="meals">Meals</button>
+    <button data-nav-slot="Breakfast">Breakfast</button>
+    <button data-nav-slot="Snack 1">Snack 1</button>
+    <button data-nav-slot="Lunch">Lunch</button>
+    <button data-nav-slot="Snack 2">Snack 2</button>
+    <button data-nav-slot="Dinner">Dinner</button>
+    <button data-nav-slot="Snack 3">Snack 3</button>
+    <button data-nav-target="calorieMap">Calorie map</button>
+    <button data-nav-target="weightTracker">Weight tracker</button>
+  </nav>
 
   <details class="topicPage">
     <summary>Setup + Daily Controls</summary>
@@ -768,11 +801,10 @@ select,input,button{
     </div>
   </details>
 
-  <details class="topicPage" open>
-    <summary>Meal Plan + Calorie Map</summary>
+  <details class="topicPage" id="mealPlanTopic" open>
+    <summary>Today's Meal List + Meals</summary>
     <div class="topicPageContent">
-  <section class="dashboard">
-    <main class="panel" data-info="mealPlan">
+  <section class="panel" data-info="mealPlan" id="mealsSection">
       <div class="dayHeader">
         <div>
           <div class="dayTitle" id="dayTitle"></div>
@@ -804,9 +836,14 @@ select,input,button{
         </div>
         <div id="extraFoodLog" class="extraFoodLog"></div>
       </section>
-    </main>
+  </section>
+    </div>
+  </details>
 
-    <aside class="panel" data-info="calorieMap">
+  <details class="topicPage" id="calorieMapTopic">
+    <summary>Today's Calorie Map</summary>
+    <div class="topicPageContent">
+    <section class="panel" data-info="calorieMap" id="calorieMapSection">
       <h2 style="margin-top:0">Today's calorie map</h2>
       <div class="card posterCard" data-info="posterCollage">
         <div class="posterFrame" id="posterFrame">
@@ -851,8 +888,14 @@ select,input,button{
         <div>☀️ Breakfast</div><div>🍎 Snack 1</div><div>🥗 Lunch</div><div>🍓 Snack 2</div><div>🍽️ Dinner</div><div>🌙 Snack 3</div>
       </div>
       <p class="warn">Calorie numbers are estimates. Use your real nutrition labels when possible and adjust the target to your personal plan.</p>
+    </section>
+    </div>
+  </details>
 
-      <div class="restBox" data-info="weightTracker">
+  <details class="topicPage" id="weightTrackerTopic">
+    <summary>Weight Tracker</summary>
+    <div class="topicPageContent">
+      <section class="panel restBox" data-info="weightTracker" id="weightTrackerSection">
         <h3>Weight Tracker</h3>
         <div class="micro" id="weightSummary">Add your current weight and target weight in kg.</div>
         <div class="weightGrid">
@@ -881,9 +924,7 @@ select,input,button{
         <div class="restLine"><span>Estimated weight impact</span><span id="burnedKg">0 kg</span></div>
         <div class="micro" id="exerciseSummary">Exercise burn is an estimate. About 7,700 kcal roughly equals 1 kg of body weight change, but real results vary.</div>
         <div id="exerciseLog" class="weightLog"></div>
-      </div>
-    </aside>
-  </section>
+      </section>
     </div>
   </details>
 
@@ -953,7 +994,7 @@ select,input,button{
     </div>
   </details>
 
-  <div class="footer"><span class="tape">ABS DIET 8.8 ACL.</span><span class="tape upgradeLine">Recipe Corrections • Clearer Contrast • Floating Home Buttons • Snack 3 After Dinner</span></div>
+  <div class="footer"><span class="tape">ABS DIET 8.9 ACL.</span><span class="tape upgradeLine">Permanent Top Navigation • Faster Meal Jumps • Separate Calorie Map • Separate Weight Tracker • Better Recipe Contrast</span></div>
 </div>
 
 <div id="dayRewardModal" class="modal rewardModal" aria-hidden="true">
@@ -1489,7 +1530,7 @@ function collectCloudData(){
   }
   return {
     app:"abs-diet-weekly-app",
-    version:"8.8 ACL Recipe Corrections",
+    version:"8.9 ACL Navigation",
     updatedAt:Date.now(),
     entries
   };
@@ -1637,12 +1678,46 @@ function scheduleCloudSave(){
     }
   },1200);
 }
+function openTopic(topic){
+  if(!topic) return;
+  topic.open = true;
+}
+function scrollToTarget(target,block="start"){
+  if(!target) return;
+  target.scrollIntoView({behavior:"smooth",block});
+}
 function jumpToSlot(slot){
+  openTopic(document.getElementById("mealPlanTopic"));
   const targetCard = timeline.querySelector(`[data-meal-slot="${slot}"]`);
   if(!targetCard) return;
   targetCard.classList.add("open","focusPulse");
-  targetCard.scrollIntoView({behavior:"smooth",block:"center"});
+  window.setTimeout(()=>scrollToTarget(targetCard,"center"),40);
   window.setTimeout(()=>targetCard.classList.remove("focusPulse"),1900);
+}
+function navTo(targetName){
+  if(targetName === "hero"){
+    scrollToTarget(document.querySelector(".hero"));
+    return;
+  }
+  if(targetName === "quickPlan"){
+    openTopic(document.getElementById("mealPlanTopic"));
+    window.setTimeout(()=>scrollToTarget(quickPlan,"center"),40);
+    return;
+  }
+  if(targetName === "meals"){
+    openTopic(document.getElementById("mealPlanTopic"));
+    window.setTimeout(()=>scrollToTarget(document.getElementById("mealsSection"),"start"),40);
+    return;
+  }
+  if(targetName === "calorieMap"){
+    openTopic(document.getElementById("calorieMapTopic"));
+    window.setTimeout(()=>scrollToTarget(document.getElementById("calorieMapSection"),"start"),40);
+    return;
+  }
+  if(targetName === "weightTracker"){
+    openTopic(document.getElementById("weightTrackerTopic"));
+    window.setTimeout(()=>scrollToTarget(document.getElementById("weightTrackerSection"),"start"),40);
+  }
 }
 function todayIso(){return isoFromDate(new Date());}
 function isoFromDate(date){
@@ -2666,18 +2741,14 @@ document.getElementById("nextMonthBtn").onclick = ()=>{
   renderCalendar();
 };
 
-document.querySelectorAll(".topicPageContent").forEach(content=>{
-  const homeButton = document.createElement("button");
-  homeButton.type = "button";
-  homeButton.className = "topicHomeBtn";
-  homeButton.textContent = "Home";
-  homeButton.setAttribute("aria-label","Return to the top of the app");
-  homeButton.addEventListener("click",(ev)=>{
-    ev.preventDefault();
-    ev.stopPropagation();
-    document.querySelector(".hero").scrollIntoView({behavior:"smooth",block:"start"});
-  });
-  content.prepend(homeButton);
+document.querySelector(".topNav").addEventListener("click",(ev)=>{
+  const button = ev.target.closest("button");
+  if(!button) return;
+  if(button.dataset.navSlot){
+    jumpToSlot(button.dataset.navSlot);
+    return;
+  }
+  navTo(button.dataset.navTarget);
 });
 
 document.querySelectorAll(".topicPage").forEach(page=>{
