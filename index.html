@@ -10,7 +10,7 @@
 <meta name="apple-mobile-web-app-title" content="ABS Diet">
 <meta name="application-name" content="ABS Diet">
 <meta name="theme-color" content="#202123">
-<title>ABS Diet Weekly Food Zine App 8.5 ACL Branding Restore</title>
+<title>ABS Diet Weekly Food Zine App 8.6 ACL Topic Pages</title>
 <style>
 :root{
   --ink:#241f1c;
@@ -114,6 +114,46 @@ h1{font-size:clamp(42px,8.5vw,104px);line-height:.85;margin:0;letter-spacing:-3p
 }
 .zoomable{cursor:zoom-in}
 .zoomHint{font-size:12px;color:var(--muted);font-weight:900;text-transform:uppercase;margin-top:8px}
+.topicPage{
+  margin:20px 0;
+  border:3px solid var(--ink);
+  border-radius:20px;
+  background:rgba(255,249,238,.92);
+  box-shadow:0 6px 0 rgba(18,14,12,.82);
+  overflow:hidden;
+}
+.topicPage > summary{
+  list-style:none;
+  cursor:pointer;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:12px;
+  padding:14px 18px;
+  background:linear-gradient(90deg,#241f1c,#3d342f);
+  color:#fff9ee;
+  font-weight:1000;
+  text-transform:uppercase;
+  letter-spacing:.06em;
+}
+.topicPage > summary::-webkit-details-marker{display:none}
+.topicPage > summary::after{
+  content:"+";
+  width:28px;
+  height:28px;
+  display:grid;
+  place-items:center;
+  border:2px solid var(--line);
+  border-radius:50%;
+  background:#f2ba61;
+  color:#241f1c;
+  box-shadow:0 2px 0 rgba(18,14,12,.8);
+}
+.topicPage[open] > summary::after{content:"-"}
+.topicPageContent{
+  padding:18px;
+  background:linear-gradient(135deg,rgba(255,249,238,.92),rgba(246,237,220,.92));
+}
 .controls{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px;margin:28px 0}
 .card,.meal,.panel{
   background:rgba(255,249,238,.92);
@@ -153,11 +193,11 @@ button.light{background:#fff;color:var(--ink)}
 }
 .infoBtn{
   position:absolute;
-  top:10px;
-  right:10px;
+  top:7px;
+  right:7px;
   z-index:4;
-  width:34px;
-  height:34px;
+  width:24px;
+  height:24px;
   padding:0;
   display:grid;
   place-items:center;
@@ -167,15 +207,12 @@ button.light{background:#fff;color:var(--ink)}
   color:#241f1c;
   box-shadow:0 3px 0 rgba(18,14,12,.82);
   font-weight:1000;
-  font-size:18px;
+  font-size:13px;
   line-height:1;
 }
 .infoBtn:hover,.infoBtn:focus{
   background:#f2ba61;
   outline:2px solid rgba(242,186,97,.42);
-}
-.hero[data-info],.heroWisdom[data-info],.heroProfile[data-info],.panel[data-info],.card[data-info],.extraFoodTab[data-info],.restBox[data-info],.calendarCard[data-info],.moodBox[data-info]{
-  padding-right:56px;
 }
 .infoBody{
   background:#fbf4e7;
@@ -246,7 +283,7 @@ button.light{background:#fff;color:var(--ink)}
   .quickSlot{grid-column:2 / 4}
 }
 .meal{position:relative;overflow:hidden;transition:opacity .18s ease,filter .18s ease,transform .18s ease}
-.meal{padding-right:56px}
+.meal{padding-right:16px}
 .meal::before{content:"";position:absolute;inset:0 auto 0 0;width:10px;background:var(--accent)}
 .meal.done{transform:scale(.992)}
 .meal.done .mealTop,
@@ -379,7 +416,7 @@ li{margin:4px 0}
 .weightEntry span,.exerciseEntry span{color:var(--muted);font-size:12px;text-transform:uppercase}
 .exerciseEntry{background:#e6f0f1}
 .miniButton{padding:8px 10px;border-radius:10px;font-size:13px}
-.inventoryPanel{margin-top:20px;background:linear-gradient(135deg,#edf4f1,#fbf4e7)}
+.inventoryPanel{background:linear-gradient(135deg,#edf4f1,#fbf4e7)}
 .inventoryPanelHeader{display:flex;justify-content:space-between;gap:12px;align-items:end;flex-wrap:wrap}
 .inventoryPanelHeader h2{margin:0;text-transform:uppercase;font-size:30px}
 .inventoryBox{background:#e6f0f1}
@@ -458,7 +495,7 @@ li{margin:4px 0}
 .extraFoodEntry{display:grid;grid-template-columns:1fr auto auto;gap:8px;align-items:center;background:#fff;border:2px solid var(--ink);border-radius:12px;padding:9px 10px;font-weight:900}
 .extraFoodEntry span{color:var(--muted);font-size:12px;text-transform:uppercase}
 @media(max-width:620px){.extraFoodRow,.extraFoodActions,.extraFoodEntry{grid-template-columns:1fr}}
-.firebasePanel{margin:0 0 20px;background:linear-gradient(135deg,#322f33,#48352f)}
+.firebasePanel{background:linear-gradient(135deg,#322f33,#48352f)}
 .firebaseHeader{display:grid;grid-template-columns:1fr auto;gap:12px;align-items:center}
 .firebaseHeader h2{margin:0}
 .firebaseSettings{margin-top:12px}
@@ -668,56 +705,50 @@ select,input,button{
   <section class="hero" data-info="hero">
     <div class="heroGrid">
       <div>
-        <div class="versionTag">8.5 ACL Branding Restore</div>
+        <div class="versionTag">8.6 ACL Topic Pages</div>
         <h1>ABS Diet<br>Weekly App</h1>
         <p>Check each meal or snack as you finish it. Tap any card to see recipes, swaps, healthier alternatives, and live rest-of-day calorie math.</p>
-        <div class="heroProfile" data-info="profile">
-          <b>My profile</b>
-          <div class="heroProfileGrid">
-            <div>
-              <label for="profileAge">Age</label>
-              <input id="profileAge" type="number" min="10" max="120" step="1" placeholder="years">
-            </div>
-            <div>
-              <label for="profileWeight">Weight</label>
-              <input id="profileWeight" type="number" min="30" max="250" step="0.1" placeholder="kg">
-            </div>
-          </div>
-          <p class="profileNote">Saved privately in this app and synced with Firebase when cloud sync is connected.</p>
-        </div>
       </div>
       <img class="heroPoster zoomable" src="assets/weekly-cover.png" alt="ABS Diet weekly food zine cover" data-zoom-title="Weekly cover collage">
     </div>
   </section>
 
-  <section class="controls">
-    <div class="card controlDate" data-info="calendarDate">
-      <label for="dateSelect">Calendar date</label>
-      <input id="dateSelect" type="date">
+  <details class="topicPage">
+    <summary>Setup + Daily Controls</summary>
+    <div class="topicPageContent">
+      <section class="controls">
+        <div class="card controlDate" data-info="calendarDate">
+          <label for="dateSelect">Calendar date</label>
+          <input id="dateSelect" type="date">
+        </div>
+        <div class="card controlDay" data-info="chooseDay">
+          <label for="daySelect">Choose day</label>
+          <select id="daySelect"></select>
+        </div>
+        <div class="card controlTarget" data-info="calorieTarget">
+          <label for="target">Daily calorie target</label>
+          <input id="target" type="number" min="1200" max="5000" step="50" value="2000">
+        </div>
+        <div class="card controlProgress" data-info="progressReset">
+          <label>Progress</label>
+          <button id="resetDayBtn" class="light">Reset selected date checkboxes</button>
+        </div>
+        <div class="card" data-info="reminderEngine">
+          <label>Reminder engine</label>
+          <button id="notifyBtn">Enable in-app reminders</button>
+          <p class="warn">In-app alerts work while this page is open.</p>
+        </div>
+        <div class="card" data-info="quickMode">
+          <label>Quick mode</label>
+          <button class="secondary" id="printBtn">Print / Save as PDF</button>
+        </div>
+      </section>
     </div>
-    <div class="card controlDay" data-info="chooseDay">
-      <label for="daySelect">Choose day</label>
-      <select id="daySelect"></select>
-    </div>
-    <div class="card controlTarget" data-info="calorieTarget">
-      <label for="target">Daily calorie target</label>
-      <input id="target" type="number" min="1200" max="5000" step="50" value="2000">
-    </div>
-    <div class="card controlProgress" data-info="progressReset">
-      <label>Progress</label>
-      <button id="resetDayBtn" class="light">Reset selected date checkboxes</button>
-    </div>
-    <div class="card" data-info="reminderEngine">
-      <label>Reminder engine</label>
-      <button id="notifyBtn">Enable in-app reminders</button>
-      <p class="warn">In-app alerts work while this page is open.</p>
-    </div>
-    <div class="card" data-info="quickMode">
-      <label>Quick mode</label>
-      <button class="secondary" id="printBtn">Print / Save as PDF</button>
-    </div>
-  </section>
+  </details>
 
+  <details class="topicPage" open>
+    <summary>Meal Plan + Calorie Map</summary>
+    <div class="topicPageContent">
   <section class="dashboard">
     <main class="panel" data-info="mealPlan">
       <div class="dayHeader">
@@ -831,7 +862,12 @@ select,input,button{
       </div>
     </aside>
   </section>
+    </div>
+  </details>
 
+  <details class="topicPage">
+    <summary>Inventory + Shopping Watch</summary>
+    <div class="topicPageContent">
   <section class="panel inventoryPanel" aria-labelledby="inventoryTitle" data-info="inventory">
     <div class="inventoryPanelHeader">
       <div>
@@ -842,7 +878,12 @@ select,input,button{
     </div>
     <div id="inventoryList" class="inventoryList"></div>
   </section>
+    </div>
+  </details>
 
+  <details class="topicPage">
+    <summary>Not in the Mood?</summary>
+    <div class="topicPageContent">
   <section class="panel moodBox" aria-labelledby="moodTitle" data-info="mood">
     <h2 id="moodTitle" style="margin-top:0">Not in the Mood?</h2>
     <div class="micro">Pick the meal or snack you are resisting. The app will give you a separate cholesterol-free alternative that stays close to that item’s calorie target.</div>
@@ -850,7 +891,12 @@ select,input,button{
     <div class="moodLine">Minimum viable win: choose one honest alternative, keep the day moving, and leave the drama in the parking lot.</div>
     <div id="moodResult" class="moodResult"></div>
   </section>
+    </div>
+  </details>
 
+  <details class="topicPage">
+    <summary>Tiny Wisdom Corner</summary>
+    <div class="topicPageContent">
   <section class="panel heroWisdom" data-info="tinyWisdom">
     <b>Tiny Wisdom Corner</b>
     <p class="wisdomQuote" id="wisdomQuote">Calories are data, not drama. Log the cheese, salute the truth, and move on like a scientist with snacks.</p>
@@ -859,7 +905,12 @@ select,input,button{
       <div id="wisdomArchiveList" class="wisdomArchiveList"></div>
     </details>
   </section>
+    </div>
+  </details>
 
+  <details class="topicPage">
+    <summary>Firebase Cloud Sync</summary>
+    <div class="topicPageContent">
   <section class="panel firebasePanel" aria-labelledby="firebaseTitle" data-info="firebase">
     <div class="firebaseHeader">
       <div>
@@ -897,8 +948,10 @@ select,input,button{
       </div>
     </details>
   </section>
+    </div>
+  </details>
 
-  <div class="footer"><span class="tape">ABS DIET 8.5 ACL.</span><span class="tape upgradeLine">ABS Diet Branding Restored • Age + Weight Profile • Tiny Wisdom At End • Firebase At App End</span></div>
+  <div class="footer"><span class="tape">ABS DIET 8.6 ACL.</span><span class="tape upgradeLine">Topic Dropdown Pages • Compact Info Buttons • Profile Saved For Later • Firebase At App End</span></div>
 </div>
 
 <div id="dayRewardModal" class="modal rewardModal" aria-hidden="true">
@@ -1239,7 +1292,7 @@ const INFO_WINDOWS = {
   mealPlan:{
     title:"Today's meal plan",
     body:"This is the main daily checklist. Tap a meal card for recipes and swaps. Check the box when you actually finish the meal or snack.",
-    tips:["Checked items count toward eaten calories and reduce inventory.","The Switch or Replace controls let one meal come from another day or from a ABS-style alternative."]
+    tips:["Checked items count toward eaten calories and reduce inventory.","The Switch or Replace controls let one meal come from another day or from an ABS-style alternative."]
   },
   extraFood:{
     title:"What I ate extra",
@@ -1369,8 +1422,8 @@ daySelect.value = dayIndexForDate(selectedDate);
 target.value = localStorage.getItem("aclDailyCalorieTarget") || target.value;
 firebaseConfigInput.value = localStorage.getItem("aclFirebaseConfig") || "";
 firebaseEmail.value = localStorage.getItem("aclFirebaseEmail") || "";
-profileAge.value = localStorage.getItem("aclProfileAge") || "";
-profileWeight.value = localStorage.getItem("aclProfileWeightKg") || "";
+if(profileAge) profileAge.value = localStorage.getItem("aclProfileAge") || "";
+if(profileWeight) profileWeight.value = localStorage.getItem("aclProfileWeightKg") || "";
 
 function fmt(n){return Math.round(n).toLocaleString();}
 function fmtKg(n){return Number(n).toLocaleString(undefined,{maximumFractionDigits:1,minimumFractionDigits:Number.isInteger(Number(n)) ? 0 : 1});}
@@ -1431,7 +1484,7 @@ function collectCloudData(){
   }
   return {
     app:"abs-diet-weekly-app",
-    version:"8.5 ACL Branding Restore",
+    version:"8.6 ACL Topic Pages",
     updatedAt:Date.now(),
     entries
   };
@@ -1454,8 +1507,8 @@ function applyCloudData(payload){
     if(isAppDataKey(key) && typeof value === "string") localStorage.setItem(key,value);
   });
   target.value = localStorage.getItem("aclDailyCalorieTarget") || target.value;
-  profileAge.value = localStorage.getItem("aclProfileAge") || "";
-  profileWeight.value = localStorage.getItem("aclProfileWeightKg") || "";
+  if(profileAge) profileAge.value = localStorage.getItem("aclProfileAge") || "";
+  if(profileWeight) profileWeight.value = localStorage.getItem("aclProfileWeightKg") || "";
   return true;
 }
 function setSyncStatus(message){
@@ -2097,7 +2150,7 @@ function openMealInfo(index){
       <li>Checking it adds ${fmt(meal.cal)} kcal to eaten so far.</li>
       <li>It also deducts this meal's estimated ingredients from Inventory Watch.</li>
       <li>Tap the card itself to open the recipe, ingredient list, swaps, and healthier alternatives.</li>
-      <li>Use Switch or Replace if you want this slot to come from another day or a ABS-style equivalent.</li>
+      <li>Use Switch or Replace if you want this slot to come from another day or an ABS-style equivalent.</li>
     </ul>
   `;
   infoModal.classList.add("open");
@@ -2459,7 +2512,7 @@ document.getElementById("saveWeightBtn").onclick = ()=>{
   if(targetValue){
     localStorage.setItem("aclBthTargetKg", String(targetValue));
   }
-  profileWeight.value = String(kg);
+  if(profileWeight) profileWeight.value = String(kg);
   localStorage.setItem("aclProfileWeightKg", String(kg));
   const entries = weightEntries().filter(entry=>entry.date !== selectedDate);
   entries.push({date:selectedDate, kg});
@@ -2491,8 +2544,8 @@ targetKg.addEventListener("input",()=>{
   if(targetKg.value) localStorage.setItem("aclBthTargetKg", targetKg.value);
   renderWeightTracker();
 });
-profileAge.addEventListener("input",()=>saveProfileField(profileAge,"aclProfileAge"));
-profileWeight.addEventListener("input",()=>saveProfileField(profileWeight,"aclProfileWeightKg"));
+if(profileAge) profileAge.addEventListener("input",()=>saveProfileField(profileAge,"aclProfileAge"));
+if(profileWeight) profileWeight.addEventListener("input",()=>saveProfileField(profileWeight,"aclProfileWeightKg"));
 
 weightLog.addEventListener("click",(ev)=>{
   const button = ev.target.closest("[data-delete-weight]");
@@ -2677,6 +2730,16 @@ document.getElementById("nextMonthBtn").onclick = ()=>{
   calendarCursor.setMonth(calendarCursor.getMonth() + 1);
   renderCalendar();
 };
+
+document.querySelectorAll(".topicPage").forEach(page=>{
+  page.addEventListener("toggle",()=>{
+    if(!page.open) return;
+    document.querySelectorAll(".topicPage").forEach(other=>{
+      if(other !== page) other.open = false;
+    });
+    page.scrollIntoView({behavior:"smooth",block:"start"});
+  });
+});
 
 document.addEventListener("click",(ev)=>{
   const mealInfoButton = ev.target.closest("[data-meal-info-index]");

@@ -1,4 +1,4 @@
-# ABS Diet Weekly Food Zine App 8.5 ACL Branding Restore
+# ABS Diet Weekly Food Zine App 8.6 ACL Topic Pages
 
 Static one-page meal tracker for GitHub Pages.
 
@@ -31,7 +31,9 @@ Static one-page meal tracker for GitHub Pages.
 - Information buttons on each major app window and each meal/snack card with popup explanations
 - Firebase Cloud Sync moved to the end of the app so daily tracking stays first
 - Visible app wording and original ABS Diet photo branding restored
-- Age and weight quick profile in the hero, with Tiny Wisdom moved near the app ending
+- Major app topics presented as dropdown page sections
+- Compact information buttons that no longer reserve layout space
+- Age and weight profile removed from view for now, with saved profile data retained for a later expanded profile branch
 - Full-day reward image when every selected-date checkbox is complete
 - Local-only browser storage for meal checkoffs and weight entries
 
