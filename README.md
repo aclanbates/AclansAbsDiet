@@ -1,4 +1,4 @@
-# ABS Diet Weekly Food Zine App 8.7 ACL Firebase Login
+# ABS Diet Weekly Food Zine App 8.8 ACL Recipe Corrections
 
 Static one-page meal tracker for GitHub Pages.
 
@@ -10,6 +10,7 @@ Static one-page meal tracker for GitHub Pages.
 - Checkoff medal logo on completed meal/snack cards and fully completed calendar days
 - Snack 3 scheduled after dinner
 - Recipe cards, swaps, and healthier alternatives
+- Recipe ingredients corrected against the current day-by-day list
 - KG weight tracker with target progress
 - Exercise calories burned log with daily totals and estimated kg-equivalent burn
 - Click-to-zoom cover and daily collage posters
@@ -26,8 +27,8 @@ Static one-page meal tracker for GitHub Pages.
 - Straightened poster/card styling with a richer cinematic color palette
 - iOS-friendly calendar date input sizing
 - 7.0 sunrise palette with dark gray surfaces, contrast-tuned text, and thin gold frame lines
-- Firebase cloud sync panel for email/password sign-in, Firestore upload, Firestore download, and auto-save while connected
-- Saved Firebase config and sign-in restore on page load so normal updates do not require pasting the JSON again
+- Firebase cloud sync panel for email/password sign-in and auto-save while connected
+- Hardcoded Firebase config and sign-in restore on page load so normal updates do not require pasting JSON
 - Information buttons on each major app window and each meal/snack card with popup explanations
 - Firebase Cloud Sync moved to the end of the app so daily tracking stays first
 - Visible app wording and original ABS Diet photo branding restored
@@ -35,6 +36,8 @@ Static one-page meal tracker for GitHub Pages.
 - Compact information buttons that no longer reserve layout space
 - Age and weight profile removed from view for now, with saved profile data retained for a later expanded profile branch
 - Firebase web app config hardcoded in source; users only enter email/password and choose Sign In or Create Account
+- Floating Home buttons inside dropdown topic pages
+- Clearer contrast on blue and bright interface sections
 - Full-day reward image when every selected-date checkbox is complete
 - Local-only browser storage for meal checkoffs and weight entries
 

@@ -10,7 +10,7 @@
 <meta name="apple-mobile-web-app-title" content="ABS Diet">
 <meta name="application-name" content="ABS Diet">
 <meta name="theme-color" content="#202123">
-<title>ABS Diet Weekly Food Zine App 8.7 ACL Firebase Login</title>
+<title>ABS Diet Weekly Food Zine App 8.8 ACL Recipe Corrections</title>
 <style>
 :root{
   --ink:#241f1c;
@@ -151,8 +151,22 @@ h1{font-size:clamp(42px,8.5vw,104px);line-height:.85;margin:0;letter-spacing:-3p
 }
 .topicPage[open] > summary::after{content:"-"}
 .topicPageContent{
+  position:relative;
   padding:18px;
   background:linear-gradient(135deg,rgba(255,249,238,.92),rgba(246,237,220,.92));
+}
+.topicHomeBtn{
+  position:sticky;
+  top:10px;
+  z-index:8;
+  float:right;
+  width:auto;
+  min-width:86px;
+  margin:0 0 10px 12px;
+  padding:8px 12px;
+  border-radius:999px;
+  font-size:12px;
+  text-transform:uppercase;
 }
 .controls{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px;margin:28px 0}
 .card,.meal,.panel{
@@ -617,6 +631,16 @@ body{
 .controlDay{background:#384855}
 .controlTarget{background:#55383a}
 .controlProgress{background:#594931}
+.controlDate,.controlDay,.controlTarget,.controlProgress,
+.controlDate label,.controlDay label,.controlTarget label,.controlProgress label,
+.heroWisdom,.heroWisdom b,.heroWisdom p,.heroWisdom summary{
+  color:#fff1d7;
+}
+.controlDate .warn,.controlDay .warn,.controlTarget .warn,.controlProgress .warn,
+.controlDate .micro,.controlDay .micro,.controlTarget .micro,.controlProgress .micro,
+.heroWisdom .micro,.heroWisdom .wisdomArchiveItem span{
+  color:#ead3ad;
+}
 .versionTag,.calendarDow{
   background:#1f2022;
   color:var(--sunrisePale);
@@ -703,7 +727,7 @@ select,input,button{
   <section class="hero" data-info="hero">
     <div class="heroGrid">
       <div>
-        <div class="versionTag">8.7 ACL Firebase Login</div>
+        <div class="versionTag">8.8 ACL Recipe Corrections</div>
         <h1>ABS Diet<br>Weekly App</h1>
         <p>Check each meal or snack as you finish it. Tap any card to see recipes, swaps, healthier alternatives, and live rest-of-day calorie math.</p>
       </div>
@@ -929,7 +953,7 @@ select,input,button{
     </div>
   </details>
 
-  <div class="footer"><span class="tape">ABS DIET 8.7 ACL.</span><span class="tape upgradeLine">Hardcoded Firebase Config • Email Login Only • Topic Dropdown Pages • Firebase At App End</span></div>
+  <div class="footer"><span class="tape">ABS DIET 8.8 ACL.</span><span class="tape upgradeLine">Recipe Corrections • Clearer Contrast • Floating Home Buttons • Snack 3 After Dinner</span></div>
 </div>
 
 <div id="dayRewardModal" class="modal rewardModal" aria-hidden="true">
@@ -992,8 +1016,8 @@ const DAYS = [
       meal("Breakfast","☀️","07:30","ABS Diet Ultimate Power Smoothie",420,["Greek yogurt + oats + berries bowl",380],["Plain Greek yogurt instead of sweetened yogurt",330]),
       meal("Snack 1","🍎","10:00","Peanut butter + raw veggies",190,["Hummus + cucumber/carrot sticks",180],["Measure peanut butter: 1 tbsp",95]),
       meal("Lunch","🥗","12:30","Turkey or roast beef sandwich + milk + apple",520,["Chicken whole-grain wrap + apple",500],["Mustard instead of mayo",470]),
-      meal("Snack 2","🍓","15:00","Almonds + mixed berries",310,["Greek yogurt + berries",220],["Half-ounce almonds + more berries",220]),
-      meal("Snack 3","🌙","17:15","Optional mini power smoothie",300,["Protein milk + banana",260],["Skip and move to dinner if not hungry",0]),
+      meal("Snack 2","🍓","15:00","1 oz almonds + 1 1/2 cups berries",310,["Greek yogurt + berries",220],["Half-ounce almonds + more berries",220]),
+      meal("Snack 3","🌙","17:15","ABS Diet Ultimate Power Smoothie",420,["Protein milk + banana",260],["Half smoothie if already full",210]),
       meal("Dinner","🍽️","18:00","Mas Machos Meatballs",620,["Turkey meatball marinara bowl",560],["Serve over zucchini noodles",430])
     ]
   },
@@ -1005,18 +1029,18 @@ const DAYS = [
       meal("Lunch","🥗","12:30","The I-Am-Not-Eating-Salad Salad",520,["Chicken veggie wrap",500],["Measure olive oil: 1 tsp",430]),
       meal("Snack 2","🍓","15:00","Deli turkey + large orange",210,["Cottage cheese + orange",220],["Low-sodium turkey slices",190]),
       meal("Snack 3","🌙","17:15","Almonds + cantaloupe",250,["Greek yogurt + melon",190],["Half-ounce almonds + more melon",180]),
-      meal("Dinner","🍽️","18:00","Bodacious Brazilian Chicken",610,["Lime chicken bowl + rice",590],["Serve over greens instead of rice",430])
+      meal("Dinner","🍽️","18:00","Bodacious Brazilian Chick",610,["Lime chicken bowl + rice",590],["Serve over greens instead of rice",430])
     ]
   },
   {
     day:"Wednesday", number:"04", subtitle:"Smooth Start + Stir-Fry Power", accent:"#ef6f83",
     meals:[
-      meal("Breakfast","☀️","07:30","Strawberry Field Marshal Smoothie",380,["Greek yogurt strawberry bowl",330],["Plain yogurt + fresh strawberries",320]),
+      meal("Breakfast","☀️","07:30","Strawberry Field Marshall Smoothie",380,["Greek yogurt strawberry bowl",330],["Plain yogurt + fresh strawberries",320]),
       meal("Snack 1","🍎","10:00","Almonds + raisins",260,["Almonds + apple",230],["Half raisins, add berries",200]),
-      meal("Lunch","🥗","12:30","Guac and Roll tuna sandwich",520,["Turkey avocado roll",500],["Use water-packed tuna",460]),
+      meal("Lunch","🥗","12:30","Guac and Roll",520,["Turkey avocado roll",500],["Use water-packed tuna",460]),
       meal("Snack 2","🍓","15:00","String cheese + raw veggies",180,["Hummus + peppers",190],["Part-skim cheese",150]),
-      meal("Snack 3","🌙","17:15","Mini Strawberry Field Marshal Smoothie",250,["Milk + whey + berries",220],["Skip if dinner is within 45 minutes",0]),
-      meal("Dinner","🍽️","18:00","Chile-Peppered Steak Stir-Fry",650,["Chicken broccoli stir-fry",580],["Half rice, double broccoli",530])
+      meal("Snack 3","🌙","17:15","Strawberry Field Marshall Smoothie",380,["Milk + whey + berries",220],["Half smoothie if already full",190]),
+      meal("Dinner","🍽️","18:00","Chile-Peppered Steak",650,["Chicken broccoli stir-fry",580],["Half rice, double broccoli",530])
     ]
   },
   {
@@ -1037,7 +1061,7 @@ const DAYS = [
       meal("Snack 1","🍎","10:00","Almonds + cantaloupe",250,["Yogurt + melon",190],["Half-ounce almonds",170]),
       meal("Lunch","🥗","12:30","Hot Tuna English Muffin Melt",520,["Turkey cottage-cheese melt",480],["One muffin half + side salad",390]),
       meal("Snack 2","🍓","15:00","Roast beef + orange",240,["Turkey + orange",210],["Low-sodium roast beef",220]),
-      meal("Snack 3","🌙","17:15","Mini Banana Split Smoothie",280,["Protein milk + banana half",220],["Skip if dinner is soon",0]),
+      meal("Snack 3","🌙","17:15","Banana Split Smoothie",400,["Protein milk + banana half",220],["Half smoothie if already full",200]),
       meal("Dinner","🍽️","18:00","Chili con Turkey",650,["Chicken bean chili",590],["Half rice, extra beans/veg",560])
     ]
   },
@@ -1048,7 +1072,7 @@ const DAYS = [
       meal("Snack 1","🍎","10:00","High-fiber cereal + low-fat yogurt",280,["Cottage cheese + berries",220],["Unsweetened cereal",230]),
       meal("Lunch","🥗","12:30","Leftover Chili con Turkey",520,["Bean chili bowl",480],["Yogurt instead of sour cream",480]),
       meal("Snack 2","🍓","15:00","Peanut butter + whole-grain bread",280,["Apple + peanut butter",190],["One slice bread",200]),
-      meal("Snack 3","🌙","17:15","Optional Halle Berries Smoothie",260,["Yogurt + berries",180],["Skip if choosing larger dinner treat",0]),
+      meal("Snack 3","🌙","17:15","Halle Berries Smoothie",360,["Yogurt + berries",180],["Half smoothie if choosing larger dinner treat",180]),
       meal("Dinner","🍽️","18:00","Cheat Meal / Flexible Treat",800,["2 pizza slices + salad",700],["One plate rule",650])
     ]
   },
@@ -1060,7 +1084,7 @@ const DAYS = [
       meal("Lunch","🥗","12:30","Hearty Sunday Brunch",520,["Greek yogurt parfait + toast",430],["Extra egg whites, fewer yolks",430]),
       meal("Snack 2","🍓","15:00","Deli roast beef + fat-free cheese",240,["Cottage cheese + tomatoes",160],["Low-sodium deli meat",220]),
       meal("Snack 3","🌙","17:15","Almonds + low-fat ice cream",330,["Greek yogurt + almonds",250],["Choose almonds or ice cream",170]),
-      meal("Dinner","🍽️","18:00","BBQ King Smoky Bean Stew",650,["Vegetarian smoky bean stew",520],["Use extra beans, less kielbasa",560])
+      meal("Dinner","🍽️","18:00","BBQ King",650,["Vegetarian smoky bean stew",520],["Use extra beans, less kielbasa",560])
     ]
   }
 ];
@@ -1119,47 +1143,43 @@ function upgradeDayForAcl20(day){
 DAYS.forEach(upgradeDayForAcl20);
 
 const RECIPES = {
-  "ABS Diet Ultimate Power Smoothie": recipe(["1 cup 1% milk","1/2 cup low-fat vanilla yogurt","1/4 cup instant oats","1 tbsp peanut butter","1 scoop chocolate whey","Ice"],["Add milk and yogurt to blender.","Add oats, peanut butter, whey, and ice.","Blend until smooth; thin with water or milk if needed."]),
-  "Peanut butter + raw veggies": recipe(["1 tbsp peanut butter","Carrot sticks","Celery sticks","Cucumber or bell pepper strips"],["Portion peanut butter into a small cup.","Wash and slice vegetables.","Dip and eat slowly for crunch and fullness."]),
-  "Turkey or roast beef sandwich + milk + apple": recipe(["2 slices whole-grain bread","4 oz lean turkey or roast beef","Lettuce, tomato, mustard","1 cup skim or 1% milk","1 apple"],["Toast bread if desired.","Layer meat, vegetables, and mustard.","Serve with milk and apple."]),
-  "Almonds + mixed berries": recipe(["1 oz almonds","1 1/2 cups mixed berries","Cinnamon, optional"],["Measure almonds before eating.","Rinse berries and pat dry.","Combine in a bowl; add cinnamon if you like."]),
-  "Optional mini power smoothie": recipe(["1/2 cup milk","1/2 cup yogurt","1/2 scoop whey","1/2 banana or berries","Ice"],["Blend all ingredients until smooth.","Keep it small if dinner is close.","Skip it if hunger is low."]),
-  "Mas Machos Meatballs": recipe(["5 oz extra-lean ground beef","1 tbsp oats or breadcrumbs","1/2 cup tomato sauce","1 whole-wheat hoagie","1 oz reduced-fat mozzarella","Italian seasoning"],["Mix beef, oats, seasoning, salt, and pepper; form meatballs.","Bake at 400°F for 15 to 18 minutes or simmer in sauce until cooked.","Serve in hoagie with sauce and mozzarella."]),
-  "Eggs Beneficial Sandwich": recipe(["1 whole egg","2 egg whites","1 tsp ground flaxseed","2 slices whole-wheat bread","1 slice Canadian bacon","Tomato or bell pepper","1 orange or small orange juice"],["Scramble egg and egg whites with flaxseed.","Warm Canadian bacon and toast bread.","Build sandwich with tomato or pepper; serve with orange."]),
-  "Peanut butter + oatmeal/high-fiber cereal": recipe(["1/2 cup oats or high-fiber cereal","3/4 cup milk","1 tbsp peanut butter","Cinnamon"],["Cook oats with milk, or pour milk over cereal.","Stir peanut butter into warm oats or spoon beside cereal.","Finish with cinnamon."]),
-  "The I-Am-Not-Eating-Salad Salad": recipe(["4 oz grilled chicken","Romaine","Tomato, carrot, green pepper","1 tsp olive oil","1 tbsp parmesan","1 tsp ground flaxseed"],["Fill a bowl with chopped vegetables.","Top with sliced grilled chicken.","Toss with olive oil, parmesan, flaxseed, salt, and pepper."]),
-  "Deli turkey + large orange": recipe(["4 oz lean deli turkey","1 large orange","Mustard, optional"],["Roll turkey slices with a little mustard if desired.","Peel orange.","Eat together for protein and citrus."]),
-  "Almonds + cantaloupe": recipe(["1 oz almonds","1 cup cubed cantaloupe"],["Measure almonds.","Cube chilled cantaloupe.","Serve together."]),
-  "Bodacious Brazilian Chicken": recipe(["5 oz chicken breast","1/2 cup diced tomatoes","Lime juice","Hot pepper salsa","Garlic","Steamed vegetables or rice"],["Season chicken with garlic, salt, pepper, and lime.","Grill or pan-sear until cooked through.","Simmer tomatoes and salsa briefly; spoon over chicken."]),
-  "Strawberry Field Marshal Smoothie": recipe(["1 cup frozen strawberries","1 cup 1% milk","1/2 cup low-fat vanilla yogurt","1 tbsp peanut butter","1 scoop whey"],["Add liquids first, then strawberries, peanut butter, and whey.","Blend until creamy.","Add ice for a thicker smoothie."]),
-  "Almonds + raisins": recipe(["1 oz almonds","2 tbsp raisins"],["Measure both ingredients.","Mix in a small bowl or bag.","Drink water with it; raisins are calorie-dense."]),
-  "Guac and Roll tuna sandwich": recipe(["1 can tuna","2 tbsp guacamole","Tomato","Lemon juice","1 tsp light mayo","1 tsp ground flaxseed","Whole-wheat hoagie or pita"],["Drain tuna and mix with guacamole, lemon, mayo, and flaxseed.","Add tomato slices.","Stuff into hoagie or pita."]),
-  "String cheese + raw veggies": recipe(["1 part-skim string cheese","Carrots, cucumbers, peppers, or celery"],["Wash and slice vegetables.","Pair with string cheese.","Add pepper or chili flakes if you like."]),
-  "Mini Strawberry Field Marshal Smoothie": recipe(["1/2 cup milk","1/2 cup strawberries","1/2 scoop whey","1/4 cup yogurt"],["Blend everything until smooth.","Keep portion small.","Use water or ice to increase volume without many calories."]),
-  "Chile-Peppered Steak Stir-Fry": recipe(["5 oz lean sirloin","1 cup broccoli","1 carrot","Jalapeño or cayenne","1 tbsp stir-fry sauce","1/2 cup cooked brown rice"],["Slice steak thinly and season with pepper.","Stir-fry steak quickly, then remove.","Cook vegetables, return steak, add sauce, and serve over rice."]),
-  "Crunchy, Fruity & Filling Breakfast": recipe(["1 slice whole-grain toast","1 tbsp peanut butter","1 orange","1 serving all-bran cereal","3/4 cup skim milk","1/2 cup berries"],["Spread peanut butter on toast.","Pour cereal and milk into a bowl.","Serve with orange and berries."]),
-  "Low-fat yogurt + low-sodium V8 juice": recipe(["1 cup low-fat yogurt","1 small low-sodium vegetable juice","Pepper or cinnamon, optional"],["Chill both items.","Stir cinnamon into yogurt or pepper into juice if desired.","Serve as a fast snack."]),
-  "Guilt-Free BLT Wrap": recipe(["1 whole-wheat tortilla","2 slices turkey bacon","3 oz turkey breast","Lettuce","Tomato","1 tbsp fat-free mayo or mustard"],["Cook turkey bacon until crisp.","Spread mayo or mustard on tortilla.","Layer turkey, bacon, lettuce, and tomato; roll tightly."]),
-  "Deli roast beef + large orange": recipe(["4 oz lean roast beef","1 large orange","Lettuce leaves, optional"],["Roll roast beef in lettuce if desired.","Peel and section orange.","Serve cold."]),
-  "Peanut butter + low-fat ice cream": recipe(["1/2 cup low-fat ice cream","1 tbsp peanut butter or PB powder","Cinnamon, optional"],["Scoop ice cream into a bowl.","Drizzle peanut butter or sprinkle PB powder.","Add cinnamon and eat slowly."]),
-  "Philadelphia Fryers": recipe(["5 oz thin roast beef","Onion and bell peppers","1 multigrain hoagie roll","Salsa","1 oz reduced-fat cheddar"],["Sauté onion and peppers until soft.","Add roast beef just long enough to warm.","Pile into roll with salsa and cheddar."]),
-  "Banana Split Smoothie": recipe(["1 banana","1/2 cup low-fat vanilla yogurt","1 cup 1% milk","1 scoop whey","1 tbsp orange juice concentrate or orange segments","Ice"],["Add milk and yogurt to blender.","Add banana, whey, orange, and ice.","Blend until smooth."]),
-  "Hot Tuna English Muffin Melt": recipe(["1 can tuna","Celery and onion","2 tbsp cottage cheese","1 tsp light mayo","Lemon juice","1 whole-wheat English muffin","1 oz low-fat mozzarella"],["Mix tuna, celery, onion, cottage cheese, mayo, and lemon.","Spread on split English muffin.","Top with mozzarella and broil until melted."]),
-  "Roast beef + orange": recipe(["4 oz roast beef","1 orange"],["Plate roast beef slices.","Peel orange.","Serve together."]),
-  "Mini Banana Split Smoothie": recipe(["1/2 banana","1/2 cup milk","1/4 cup yogurt","1/2 scoop whey","Ice"],["Blend all ingredients until smooth.","Add extra ice for volume.","Use as a small pre-dinner snack."]),
-  "Chili con Turkey": recipe(["5 oz lean ground turkey or turkey sausage","1/2 cup black beans","1/2 cup diced tomatoes","1/4 cup corn","Chili seasoning","1 tsp ground flaxseed","1/2 cup cooked rice"],["Brown turkey in a pot.","Add beans, tomatoes, corn, chili seasoning, and a splash of water.","Simmer 15 minutes; stir in flaxseed and serve with rice."]),
-  "Halle Berries Smoothie": recipe(["1/4 cup oats","1 cup fat-free milk","1 cup mixed berries","1 scoop whey","Ice"],["Blend milk and oats first for a smoother base.","Add berries, whey, and ice.","Blend until thick."]),
-  "High-fiber cereal + low-fat yogurt": recipe(["1 serving high-fiber cereal","1 cup low-fat yogurt","Berries or cinnamon, optional"],["Spoon yogurt into a bowl.","Top with cereal just before eating.","Add berries or cinnamon."]),
-  "Leftover Chili con Turkey": recipe(["1 serving leftover turkey chili","Optional scallions","Optional spoon of Greek yogurt"],["Reheat chili until steaming.","Add a splash of water if thick.","Top lightly with scallions or yogurt."]),
-  "Peanut butter + whole-grain bread": recipe(["1 slice whole-grain bread","1 tbsp peanut butter","Banana slices or cinnamon, optional"],["Toast bread if desired.","Spread peanut butter evenly.","Add cinnamon or a few banana slices."]),
-  "Optional Halle Berries Smoothie": recipe(["1/2 cup milk","1/2 cup mixed berries","1/2 scoop whey","1 tbsp oats"],["Blend all ingredients.","Keep it half-size.","Skip if dinner will be larger."]),
+  "ABS Diet Ultimate Power Smoothie": recipe(["Milk","Low-fat vanilla yogurt","Instant oatmeal","Peanut butter","Chocolate whey powder"],["Add milk and low-fat vanilla yogurt to blender.","Add instant oatmeal, peanut butter, and chocolate whey powder.","Blend until smooth and pour 8-12 oz."]),
+  "Peanut butter + raw veggies": recipe(["Peanut butter","Raw vegetables"],["Measure the peanut butter first.","Wash and slice raw vegetables.","Dip, crunch, and keep the snack simple."]),
+  "Turkey or roast beef sandwich + milk + apple": recipe(["Turkey or roast beef sandwich on whole-grain bread","1 cup 1% or skim milk","1 apple"],["Build the sandwich on whole-grain bread.","Serve with 1 cup 1% or skim milk.","Add 1 apple on the side."]),
+  "1 oz almonds + 1 1/2 cups berries": recipe(["1 oz almonds","1 1/2 cups berries"],["Measure 1 oz almonds.","Rinse 1 1/2 cups berries.","Serve together."]),
+  "Mas Machos Meatballs": recipe(["450 g extra-lean ground beef","Crushed saltine crackers","Onion","Garlic","Flaxseed or whey powder","450 g tomato sauce","4 whole-wheat hoagie rolls","Reduced-fat shredded mozzarella"],["Mix beef with crushed saltines, onion, garlic, and flaxseed or whey powder.","Form meatballs and simmer in tomato sauce until cooked through.","Serve in whole-wheat hoagie rolls with reduced-fat shredded mozzarella."]),
+  "Eggs Beneficial Sandwich": recipe(["1 large whole egg","3 large egg whites","Ground flaxseed","2 slices whole-wheat bread","1 slice Canadian bacon","Tomato","Green bell pepper","Orange juice"],["Whisk whole egg, egg whites, and ground flaxseed.","Cook eggs with tomato and green bell pepper; warm Canadian bacon.","Stack on toasted whole-wheat bread and serve with orange juice."]),
+  "Peanut butter + oatmeal/high-fiber cereal": recipe(["2 tsp peanut butter","1 bowl oatmeal or high-fiber cereal"],["Prepare 1 bowl oatmeal or high-fiber cereal.","Measure 2 tsp peanut butter.","Stir it in or eat it alongside the bowl."]),
+  "The I-Am-Not-Eating-Salad Salad": recipe(["55 g grilled chicken","Romaine lettuce","Tomato","Green bell pepper","1 carrot","Olive oil","Parmesan cheese","Flaxseed"],["Fill a bowl with romaine, tomato, green bell pepper, and carrot.","Top with grilled chicken.","Add olive oil, parmesan cheese, and flaxseed."]),
+  "Deli turkey + large orange": recipe(["3 slices deli turkey","1 large orange"],["Plate 3 slices deli turkey.","Peel 1 large orange.","Eat together as the planned snack."]),
+  "Almonds + cantaloupe": recipe(["1 oz almonds","4 oz cantaloupe"],["Measure 1 oz almonds.","Cube 4 oz cantaloupe.","Serve together."]),
+  "Bodacious Brazilian Chick": recipe(["Lemon","Lime","Flaxseed","225 g tomato sauce","170 g orange juice concentrate","Garlic","Italian seasoning","4 boneless, skinless chicken breast halves","Hot pepper salsa","Chunky salsa"],["Mix lemon, lime, tomato sauce, orange juice concentrate, garlic, Italian seasoning, and flaxseed into a citrus-tomato sauce.","Coat chicken breast halves and cook until done.","Top with hot pepper salsa and chunky salsa."]),
+  "Strawberry Field Marshall Smoothie": recipe(["Low-fat vanilla yogurt","1% milk","Peanut butter","225 g frozen strawberries","Whey powder"],["Add low-fat vanilla yogurt and 1% milk to blender.","Add peanut butter, frozen strawberries, and whey powder.","Blend until smooth and pour 8-12 oz."]),
+  "Almonds + raisins": recipe(["1 oz almonds","1 oz raisins"],["Measure 1 oz almonds.","Measure 1 oz raisins.","Mix and serve."]),
+  "Guac and Roll": recipe(["1 can 170 g light oil-packed tuna","Guacamole","Tomato","Lemon juice","Light mayo","Ground flaxseed","2 six-inch whole-wheat hoagie rolls"],["Drain tuna and mix with guacamole, lemon juice, light mayo, and ground flaxseed.","Add tomato.","Serve in two six-inch whole-wheat hoagie rolls."]),
+  "String cheese + raw veggies": recipe(["1 stick string cheese","Raw vegetables"],["Plate 1 stick string cheese.","Wash and slice raw vegetables.","Serve together."]),
+  "Chile-Peppered Steak": recipe(["Olive oil","2 carrots","1 cup broccoli","2 jalapeno peppers","2 cayenne peppers","340 g lean sirloin steak","Hunan stir-fry sauce","4 cups cooked brown rice"],["Chop carrots, broccoli, jalapeno peppers, cayenne peppers, and steak.","Stir-fry steak in olive oil, then add vegetables and Hunan stir-fry sauce.","Serve over cooked brown rice."]),
+  "Crunchy, Fruity & Filling Breakfast": recipe(["1 slice whole-grain bread","1 tbsp peanut butter","1 medium orange","1 cup All-Bran cereal","1 cup 1% or skim milk","1 cup berries"],["Spread peanut butter on whole-grain bread.","Pour All-Bran cereal with 1% or skim milk.","Serve with orange and berries."]),
+  "Low-fat yogurt + low-sodium V8 juice": recipe(["8 oz low-fat yogurt","1 can low-sodium V8 juice"],["Chill the yogurt and V8.","Serve 8 oz low-fat yogurt with 1 can low-sodium V8 juice.","That is the whole snack. Efficient little thing."]),
+  "Guilt-Free BLT Wrap": recipe(["Fat-free mayonnaise","1 whole-wheat tortilla","2 slices turkey bacon","2 oz roasted turkey breast","Tomato","2 lettuce leaves"],["Spread fat-free mayonnaise on the tortilla.","Layer turkey bacon, roasted turkey breast, tomato, and lettuce.","Wrap tightly and slice."]),
+  "Deli roast beef + large orange": recipe(["3 slices deli roast beef","1 large orange"],["Plate 3 slices deli roast beef.","Peel 1 large orange.","Serve together."]),
+  "Peanut butter + low-fat ice cream": recipe(["2 tsp peanut butter","1 cup low-fat ice cream"],["Measure 2 tsp peanut butter.","Scoop 1 cup low-fat ice cream.","Serve together as the planned treat snack."]),
+  "Philadelphia Fryers": recipe(["Onion","Red bell pepper","Green bell pepper","Medium or hot salsa","4 multigrain hoagie rolls","340 g roast beef, thinly sliced","Reduced-fat shredded cheddar cheese"],["Saute onion, red bell pepper, and green bell pepper.","Add thinly sliced roast beef and salsa; heat through.","Fill multigrain hoagie rolls and top with reduced-fat shredded cheddar."]),
+  "Banana Split Smoothie": recipe(["1 banana","Low-fat vanilla yogurt","Frozen orange juice concentrate","1% milk","Whey powder"],["Add 1% milk and low-fat vanilla yogurt to blender.","Add banana, frozen orange juice concentrate, and whey powder.","Blend until smooth and pour 8-12 oz."]),
+  "Hot Tuna English Muffin Melt": recipe(["Celery","Onion","Low-fat shredded mozzarella","Cottage cheese","1 can 170 g water-packed tuna","Low-fat mayonnaise","Lemon","3 whole-wheat English muffins"],["Mix tuna with celery, onion, cottage cheese, low-fat mayonnaise, and lemon.","Spoon onto split whole-wheat English muffins.","Top with low-fat shredded mozzarella and broil until melted."]),
+  "Roast beef + orange": recipe(["3 slices deli roast beef","1 large orange"],["Plate 3 slices deli roast beef.","Peel 1 large orange.","Serve together."]),
+  "Chili con Turkey": recipe(["450 g turkey sausage or chopped turkey","1 can 395 g Mexican diced tomato","1 can 425 g black beans, drained","1 can 395 g corn, drained","1 package dried chili mix","Ground flaxseed","Cooked rice"],["Brown turkey sausage or chopped turkey.","Add Mexican diced tomato, black beans, corn, dried chili mix, and ground flaxseed.","Simmer, then serve over cooked rice."]),
+  "Halle Berries Smoothie": recipe(["Instant oatmeal","Fat-free milk","Mixed berries","Whey powder"],["Add fat-free milk and instant oatmeal to blender.","Add mixed berries and whey powder.","Blend until smooth and pour 8-12 oz."]),
+  "High-fiber cereal + low-fat yogurt": recipe(["1 bowl high-fiber cereal","1 cup low-fat yogurt"],["Pour 1 bowl high-fiber cereal.","Add or serve with 1 cup low-fat yogurt.","Keep the portion measured."]),
+  "Leftover Chili con Turkey": recipe(["Leftover Chili con Turkey"],["Reheat leftover Chili con Turkey until hot.","Add a small splash of water if thick.","Serve as lunch."]),
+  "Peanut butter + whole-grain bread": recipe(["2 tsp peanut butter","1-2 slices whole-grain bread"],["Toast 1-2 slices whole-grain bread if desired.","Measure 2 tsp peanut butter.","Spread and serve."]),
   "Cheat Meal / Flexible Treat": recipe(["One chosen entree","One produce side or salad","Water or unsweetened drink"],["Pick the meal you actually want.","Plate one satisfying portion and add vegetables first.","Stop when comfortably full; no punishment math."]),
-  "I-Haven't-Had-My-Coffee-Yet Sandwich": recipe(["1 whole-wheat pita","2 tbsp low-fat cream cheese","3 oz turkey or ham","Lettuce or greens","Coffee, optional"],["Spread cream cheese inside pita.","Add turkey or ham and greens.","Fold and serve with coffee if desired."]),
-  "Peanut butter + low-sodium V8 juice": recipe(["1 tbsp peanut butter","1 small low-sodium vegetable juice","Celery or apple slices, optional"],["Measure peanut butter.","Pour chilled vegetable juice.","Dip celery or apple if using."]),
-  "Hearty Sunday Brunch": recipe(["2 eggs or 1 egg plus whites","1 slice whole-grain toast","1 banana","1 cup skim or 1% milk"],["Scramble eggs with salt and pepper.","Toast bread.","Serve with banana and milk."]),
-  "Deli roast beef + fat-free cheese": recipe(["3 oz lean roast beef","1 slice fat-free cheese","Cucumber or lettuce, optional"],["Layer roast beef and cheese.","Roll into small wraps.","Add cucumber or lettuce for crunch."]),
-  "Almonds + low-fat ice cream": recipe(["1/2 cup low-fat ice cream","1/2 oz almonds"],["Scoop ice cream.","Chop or sprinkle almonds on top.","Keep it in a bowl rather than eating from the carton."]),
-  "BBQ King Smoky Bean Stew": recipe(["3 oz smoked turkey kielbasa","1/2 cup baked beans","1/2 cup navy beans","Onion and mushrooms","Garlic","Diced tomatoes","1 tsp flaxseed or crumbs"],["Brown sliced kielbasa with onion, mushrooms, and garlic.","Add beans and tomatoes; simmer until thick.","Finish with flaxseed or crumbs for body."])
+  "I-Haven't-Had-My-Coffee-Yet Sandwich": recipe(["Low-fat cream cheese","Whole-wheat pita","2 slices turkey or ham","Lettuce or other green vegetable"],["Spread low-fat cream cheese inside the whole-wheat pita.","Layer turkey or ham with lettuce or another green vegetable.","Fold and serve."]),
+  "Peanut butter + low-sodium V8 juice": recipe(["2 tsp peanut butter","1 can low-sodium V8 juice"],["Measure 2 tsp peanut butter.","Pour 1 can low-sodium V8 juice.","Serve together."]),
+  "Hearty Sunday Brunch": recipe(["2 scrambled eggs","2 slices whole-grain toast","1 banana","1 cup 1% or skim milk"],["Scramble 2 eggs.","Toast 2 slices whole-grain toast.","Serve with 1 banana and 1 cup 1% or skim milk."]),
+  "Deli roast beef + fat-free cheese": recipe(["3 slices deli roast beef","1 slice fat-free cheese"],["Layer roast beef and fat-free cheese.","Roll or plate them together.","Serve as the planned snack."]),
+  "Almonds + low-fat ice cream": recipe(["1 oz almonds","1 cup low-fat ice cream"],["Measure 1 oz almonds.","Scoop 1 cup low-fat ice cream.","Serve together as Snack 3."]),
+  "BBQ King": recipe(["140 g smoked turkey kielbasa, diced","Onion","85 g mushrooms","Garlic","450 g can baked beans","225 g can navy beans","410 g pureed tomatoes","Seasoned bread crumbs","Flaxseed","Olive oil"],["Saute smoked turkey kielbasa, onion, mushrooms, and garlic in olive oil.","Add baked beans, navy beans, and pureed tomatoes.","Stir in seasoned bread crumbs and flaxseed, then simmer until thick."])
 };
 
 Object.assign(RECIPES,{
@@ -1469,7 +1489,7 @@ function collectCloudData(){
   }
   return {
     app:"abs-diet-weekly-app",
-    version:"8.7 ACL Firebase Login",
+    version:"8.8 ACL Recipe Corrections",
     updatedAt:Date.now(),
     entries
   };
@@ -2645,6 +2665,20 @@ document.getElementById("nextMonthBtn").onclick = ()=>{
   calendarCursor.setMonth(calendarCursor.getMonth() + 1);
   renderCalendar();
 };
+
+document.querySelectorAll(".topicPageContent").forEach(content=>{
+  const homeButton = document.createElement("button");
+  homeButton.type = "button";
+  homeButton.className = "topicHomeBtn";
+  homeButton.textContent = "Home";
+  homeButton.setAttribute("aria-label","Return to the top of the app");
+  homeButton.addEventListener("click",(ev)=>{
+    ev.preventDefault();
+    ev.stopPropagation();
+    document.querySelector(".hero").scrollIntoView({behavior:"smooth",block:"start"});
+  });
+  content.prepend(homeButton);
+});
 
 document.querySelectorAll(".topicPage").forEach(page=>{
   page.addEventListener("toggle",()=>{
