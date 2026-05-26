@@ -10,7 +10,7 @@
 <meta name="apple-mobile-web-app-title" content="ABS Diet">
 <meta name="application-name" content="ABS Diet">
 <meta name="theme-color" content="#202123">
-<title>ABS Diet Weekly Food Zine App 8.9 ACL Navigation</title>
+<title>ABS Diet Weekly Food Zine App 8.9.1 ACL Mobile Navigation</title>
 <style>
 :root{
   --ink:#241f1c;
@@ -37,22 +37,25 @@ body{
   color:var(--ink);
 }
 .app{max-width:1260px;margin:0 auto;padding:22px}
+.versionBar{
+  display:grid;
+  place-items:center;
+  margin-bottom:8px;
+}
 .hero{
   position:relative;
   overflow:hidden;
   border:4px solid var(--ink);
   border-radius:28px;
-  padding:26px;
+  padding:18px 22px;
   background:
     radial-gradient(circle at 10% 20%, rgba(168,93,108,.14), transparent 28%),
     radial-gradient(circle at 90% 10%, rgba(40,119,122,.18), transparent 28%),
     linear-gradient(135deg,#fffaf0,#f2ead9);
   box-shadow:0 12px 0 rgba(18,14,12,.95);
 }
-.heroGrid{display:grid;grid-template-columns:1fr minmax(220px,360px);gap:22px;align-items:center}
-@media(max-width:800px){.heroGrid{grid-template-columns:1fr}}
+.heroGrid{display:grid;gap:12px;align-items:center;text-align:center}
 h1{font-size:clamp(42px,8.5vw,104px);line-height:.85;margin:0;letter-spacing:-3px;font-weight:1000;text-transform:uppercase}
-.hero p{font-size:clamp(16px,2.4vw,24px);max-width:860px;margin:15px 0 0}
 .heroWisdom,.heroProfile{
   display:block;
   max-width:760px;
@@ -102,39 +105,57 @@ h1{font-size:clamp(42px,8.5vw,104px);line-height:.85;margin:0;letter-spacing:-3p
   margin-top:20px;
 }
 .upgradeLine{display:inline-block;background:#b8723d;color:#fff9ee;padding:6px 14px;font-weight:1000;border-radius:3px;margin-top:8px}
-.versionTag{display:inline-block;margin:0 0 14px;background:#241f1c;color:#fff9ee;padding:8px 14px;border-radius:999px;font-weight:1000;text-transform:uppercase;letter-spacing:.08em}
+.versionTag{display:inline-block;background:#241f1c;color:#fff9ee;padding:6px 12px;border:1px solid var(--line);border-radius:999px;font-weight:1000;text-transform:uppercase;letter-spacing:.08em;font-size:12px;box-shadow:0 3px 0 rgba(10,9,8,.58)}
 .topNav{
   position:sticky;
   top:0;
   z-index:30;
-  display:flex;
+  display:grid;
+  grid-template-columns:repeat(6,minmax(0,1fr));
   gap:8px;
-  align-items:center;
-  margin:14px 0 18px;
+  align-items:stretch;
+  margin:10px 0 16px;
   padding:10px;
   border:2px solid var(--line);
   border-radius:18px;
   background:rgba(31,32,34,.96);
   box-shadow:0 4px 0 rgba(10,9,8,.58);
-  overflow-x:auto;
-  -webkit-overflow-scrolling:touch;
 }
 .topNav button{
-  flex:0 0 auto;
-  width:auto;
-  min-width:max-content;
-  padding:9px 12px;
+  width:100%;
+  min-width:0;
+  padding:9px 8px;
   border-radius:999px;
-  font-size:12px;
+  font-size:11px;
   text-transform:uppercase;
-  white-space:nowrap;
+  white-space:normal;
+  line-height:1.05;
 }
 .topNav .homeNavBtn{
   background:linear-gradient(135deg,#f2ba61,#ef7f5b);
   color:#251b17;
 }
+.topNav [data-nav-target="quickPlan"]{background:linear-gradient(135deg,#f8c057,#f27f5b);color:#241f1c}
+.topNav [data-nav-slot="Breakfast"]{background:linear-gradient(135deg,#ffcf6e,#f49a52);color:#241f1c}
+.topNav [data-nav-slot="Snack 1"]{background:linear-gradient(135deg,#ff8d6d,#ef6f83);color:#241f1c}
+.topNav [data-nav-slot="Lunch"]{background:linear-gradient(135deg,#9fc66b,#45a78f);color:#17211d}
+.topNav [data-nav-slot="Snack 2"]{background:linear-gradient(135deg,#f7a4b8,#d9658a);color:#241f1c}
+.topNav [data-nav-slot="Dinner"]{background:linear-gradient(135deg,#4fb3a9,#28777a);color:#fffaf0}
+.topNav [data-nav-slot="Snack 3"]{background:linear-gradient(135deg,#9c83c8,#6f5aa7);color:#fffaf0}
+.topNav [data-nav-target="calorieMap"]{background:linear-gradient(135deg,#f2ba61,#d9a441);color:#241f1c}
+.topNav [data-nav-target="calendar"]{background:linear-gradient(135deg,#fff1a8,#f2ba61);color:#241f1c}
+.topNav [data-nav-target="reminders"]{background:linear-gradient(135deg,#ef6f83,#8c4351);color:#fffaf0}
+.topNav [data-nav-target="weightTracker"]{background:linear-gradient(135deg,#7fb3c8,#466f86);color:#fffaf0}
+@media(max-width:760px){
+  .topNav{grid-template-columns:repeat(4,minmax(0,1fr));gap:7px;padding:8px;border-radius:14px}
+  .topNav button{font-size:10px;padding:8px 6px}
+}
+@media(max-width:390px){.topNav{grid-template-columns:repeat(3,minmax(0,1fr))}}
 .heroPoster{
   width:100%;
+  max-width:420px;
+  display:block;
+  margin:0 auto 18px;
   aspect-ratio:4 / 5;
   object-fit:cover;
   border:3px solid var(--ink);
@@ -145,6 +166,7 @@ h1{font-size:clamp(42px,8.5vw,104px);line-height:.85;margin:0;letter-spacing:-3p
 .zoomable{cursor:zoom-in}
 .zoomHint{font-size:12px;color:var(--muted);font-weight:900;text-transform:uppercase;margin-top:8px}
 .topicPage{
+  scroll-margin-top:142px;
   margin:20px 0;
   border:3px solid var(--ink);
   border-radius:20px;
@@ -186,6 +208,7 @@ h1{font-size:clamp(42px,8.5vw,104px);line-height:.85;margin:0;letter-spacing:-3p
   background:linear-gradient(135deg,rgba(255,249,238,.92),rgba(246,237,220,.92));
 }
 .controls{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px;margin:28px 0}
+.panel,.meal,.quickPlan,.calendarCard,.reminderList,.restBox{scroll-margin-top:142px}
 .card,.meal,.panel{
   background:rgba(255,249,238,.92);
   border:3px solid var(--ink);
@@ -743,21 +766,13 @@ select,input,button{
 </head>
 <body>
 <div class="app">
-  <section class="hero" data-info="hero">
-    <div class="heroGrid">
-      <div>
-        <div class="versionTag">8.9 ACL</div>
-        <h1>ABS Diet<br>Weekly App</h1>
-        <p>Check each meal or snack as you finish it. Tap any card to see recipes, swaps, healthier alternatives, and live rest-of-day calorie math.</p>
-      </div>
-      <img class="heroPoster zoomable" src="assets/weekly-cover.png" alt="ABS Diet weekly food zine cover" data-zoom-title="Weekly cover collage">
-    </div>
-  </section>
+  <div class="versionBar">
+    <div class="versionTag">8.9.1 ACL</div>
+  </div>
 
   <nav class="topNav" aria-label="App section shortcuts">
     <button class="homeNavBtn" data-nav-target="hero">Home</button>
     <button data-nav-target="quickPlan">Today's meal list</button>
-    <button data-nav-target="meals">Meals</button>
     <button data-nav-slot="Breakfast">Breakfast</button>
     <button data-nav-slot="Snack 1">Snack 1</button>
     <button data-nav-slot="Lunch">Lunch</button>
@@ -765,8 +780,20 @@ select,input,button{
     <button data-nav-slot="Dinner">Dinner</button>
     <button data-nav-slot="Snack 3">Snack 3</button>
     <button data-nav-target="calorieMap">Calorie map</button>
+    <button data-nav-target="calendar">Calendar</button>
+    <button data-nav-target="reminders">Reminders</button>
     <button data-nav-target="weightTracker">Weight tracker</button>
   </nav>
+
+  <section class="hero" data-info="hero">
+    <div class="heroGrid">
+      <div>
+        <h1>ABS Diet<br>Weekly App</h1>
+      </div>
+    </div>
+  </section>
+
+  <img class="heroPoster zoomable" src="assets/weekly-cover.png" alt="ABS Diet weekly food zine cover" data-zoom-title="Weekly cover collage">
 
   <details class="topicPage">
     <summary>Setup + Daily Controls</summary>
@@ -852,16 +879,6 @@ select,input,button{
         <div class="posterCaption" id="posterCaption">Weekly visual guide</div>
       </div>
       <div class="zoomHint">Tap cover or day collage to open a zoomed view.</div>
-      <div class="card calendarCard" data-info="calendar">
-        <div class="calendarTop">
-          <button id="prevMonthBtn" class="light" aria-label="Previous month">‹</button>
-          <div class="calendarTitle" id="calendarTitle"></div>
-          <button id="nextMonthBtn" class="light" aria-label="Next month">›</button>
-        </div>
-        <div id="calendarGrid" class="calendarGrid"></div>
-        <div class="calendarLegend"><span>Yellow: selected</span><span>Mint: today</span><span>Dot: saved progress</span></div>
-      </div>
-      <br>
       <div class="small">Consumed progress</div>
       <div class="progressWrap"><div id="consumedProgress" class="progress consumed"></div></div>
       <br>
@@ -881,14 +898,40 @@ select,input,button{
         <div class="restLine"><span>Calories after next unchecked item</span><span id="afterNext"></span></div>
         <div class="restLine"><span>Difference vs remaining plan</span><span id="difference"></span></div>
       </div>
-
-      <h3>Reminders</h3>
-      <div id="reminders" class="reminderList"></div>
-      <div class="legend">
-        <div>☀️ Breakfast</div><div>🍎 Snack 1</div><div>🥗 Lunch</div><div>🍓 Snack 2</div><div>🍽️ Dinner</div><div>🌙 Snack 3</div>
-      </div>
       <p class="warn">Calorie numbers are estimates. Use your real nutrition labels when possible and adjust the target to your personal plan.</p>
     </section>
+    </div>
+  </details>
+
+  <details class="topicPage" id="calendarTopic">
+    <summary>Calendar</summary>
+    <div class="topicPageContent">
+      <section class="panel" data-info="calendar" id="calendarSection">
+        <h2 style="margin-top:0">Calendar</h2>
+        <div class="card calendarCard">
+          <div class="calendarTop">
+            <button id="prevMonthBtn" class="light" aria-label="Previous month">‹</button>
+            <div class="calendarTitle" id="calendarTitle"></div>
+            <button id="nextMonthBtn" class="light" aria-label="Next month">›</button>
+          </div>
+          <div id="calendarGrid" class="calendarGrid"></div>
+          <div class="calendarLegend"><span>Yellow: selected</span><span>Mint: today</span><span>Dot: saved progress</span></div>
+        </div>
+      </section>
+    </div>
+  </details>
+
+  <details class="topicPage" id="remindersTopic">
+    <summary>Reminders</summary>
+    <div class="topicPageContent">
+      <section class="panel" data-info="reminders" id="remindersSection">
+        <h2 style="margin-top:0">Reminders</h2>
+        <div id="reminders" class="reminderList"></div>
+        <div class="legend">
+          <div>☀️ Breakfast</div><div>🍎 Snack 1</div><div>🥗 Lunch</div><div>🍓 Snack 2</div><div>🍽️ Dinner</div><div>🌙 Snack 3</div>
+        </div>
+        <p class="warn">Tap any reminder row to jump straight to that meal or snack card.</p>
+      </section>
     </div>
   </details>
 
@@ -994,7 +1037,7 @@ select,input,button{
     </div>
   </details>
 
-  <div class="footer"><span class="tape">ABS DIET 8.9 ACL.</span><span class="tape upgradeLine">Permanent Top Navigation • Faster Meal Jumps • Separate Calorie Map • Separate Weight Tracker • Better Recipe Contrast</span></div>
+  <div class="footer"><span class="tape">ABS DIET 8.9.1 ACL.</span><span class="tape upgradeLine">Wrapped Mobile Top Navigation • No Horizontal Sliding • Separate Calendar • Separate Reminders • Cleaner Hero Info</span></div>
 </div>
 
 <div id="dayRewardModal" class="modal rewardModal" aria-hidden="true">
@@ -1293,8 +1336,8 @@ const FIREBASE_CONFIG = {
 const INFO_WINDOWS = {
   hero:{
     title:"App overview",
-    body:"This is the main launch window for the ABS Diet Weekly App. It tells you which version you are using and keeps the cover collage available for quick zooming.",
-    tips:["The cover image opens as a zoomed popup.","Daily tracking happens below this header."]
+    body:"This is the main launch window for the ABS Diet Weekly App. Check each meal or snack as you finish it. Tap any card to see recipes, swaps, healthier alternatives, and live rest-of-day calorie math.",
+    tips:["The top navigation stays visible so you can jump straight to the meal list, a specific meal, calorie map, calendar, reminders, or weight tracker.","The cover image opens as a zoomed popup and scrolls away with the rest of the page."]
   },
   tinyWisdom:{
     title:"Tiny Wisdom Corner",
@@ -1348,8 +1391,8 @@ const INFO_WINDOWS = {
   },
   calorieMap:{
     title:"Calorie map",
-    body:"This panel summarizes the day: visual recipe poster, calendar, eaten calories, remaining calories, planned food still unchecked, reminders, weight, and exercise.",
-    tips:["The poster opens a zoomed view when clicked.","The calendar lets you review past dates and plan future ones."]
+    body:"This panel summarizes the day: visual recipe poster, eaten calories, remaining calories, planned food still unchecked, and what the numbers mean.",
+    tips:["The poster opens a zoomed view when clicked.","Calendar, reminders, and weight tracking now live in their own sections so the calorie map stays easier to scan."]
   },
   posterCollage:{
     title:"Food zine collage",
@@ -1360,6 +1403,11 @@ const INFO_WINDOWS = {
     title:"Calendar",
     body:"This calendar shows the selected date, today's date, days with saved progress, and completed-day reward badges.",
     tips:["Click any day to inspect or plan that date.","Reward badges appear when all six meal and snack checkboxes are completed for that date."]
+  },
+  reminders:{
+    title:"Reminders",
+    body:"This section lists today's scheduled meal and snack times. Tap any reminder row to jump straight to the matching meal card.",
+    tips:["Use the Reminder Engine in setup to request browser notifications while the page is open.","The reminder list follows the selected calendar date and any meal switches you made."]
   },
   calorieMeaning:{
     title:"What this means",
@@ -1530,7 +1578,7 @@ function collectCloudData(){
   }
   return {
     app:"abs-diet-weekly-app",
-    version:"8.9 ACL Navigation",
+    version:"8.9.1 ACL Mobile Navigation",
     updatedAt:Date.now(),
     entries
   };
@@ -1684,14 +1732,21 @@ function openTopic(topic){
 }
 function scrollToTarget(target,block="start"){
   if(!target) return;
-  target.scrollIntoView({behavior:"smooth",block});
+  if(block !== "start"){
+    target.scrollIntoView({behavior:"smooth",block});
+    return;
+  }
+  const nav = document.querySelector(".topNav");
+  const offset = (nav ? nav.getBoundingClientRect().height : 0) + 8;
+  const top = target.getBoundingClientRect().top + window.scrollY - offset;
+  window.scrollTo({top:Math.max(0,top),behavior:"smooth"});
 }
 function jumpToSlot(slot){
   openTopic(document.getElementById("mealPlanTopic"));
   const targetCard = timeline.querySelector(`[data-meal-slot="${slot}"]`);
   if(!targetCard) return;
   targetCard.classList.add("open","focusPulse");
-  window.setTimeout(()=>scrollToTarget(targetCard,"center"),40);
+  window.setTimeout(()=>scrollToTarget(targetCard,"start"),40);
   window.setTimeout(()=>targetCard.classList.remove("focusPulse"),1900);
 }
 function navTo(targetName){
@@ -1704,14 +1759,19 @@ function navTo(targetName){
     window.setTimeout(()=>scrollToTarget(quickPlan,"center"),40);
     return;
   }
-  if(targetName === "meals"){
-    openTopic(document.getElementById("mealPlanTopic"));
-    window.setTimeout(()=>scrollToTarget(document.getElementById("mealsSection"),"start"),40);
-    return;
-  }
   if(targetName === "calorieMap"){
     openTopic(document.getElementById("calorieMapTopic"));
     window.setTimeout(()=>scrollToTarget(document.getElementById("calorieMapSection"),"start"),40);
+    return;
+  }
+  if(targetName === "calendar"){
+    openTopic(document.getElementById("calendarTopic"));
+    window.setTimeout(()=>scrollToTarget(document.getElementById("calendarSection"),"start"),40);
+    return;
+  }
+  if(targetName === "reminders"){
+    openTopic(document.getElementById("remindersTopic"));
+    window.setTimeout(()=>scrollToTarget(document.getElementById("remindersSection"),"start"),40);
     return;
   }
   if(targetName === "weightTracker"){
@@ -2757,7 +2817,7 @@ document.querySelectorAll(".topicPage").forEach(page=>{
     document.querySelectorAll(".topicPage").forEach(other=>{
       if(other !== page) other.open = false;
     });
-    page.scrollIntoView({behavior:"smooth",block:"start"});
+    scrollToTarget(page,"start");
   });
 });
 
