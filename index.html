@@ -10,7 +10,7 @@
 <meta name="apple-mobile-web-app-title" content="ABS Diet">
 <meta name="application-name" content="ABS Diet">
 <meta name="theme-color" content="#202123">
-<title>ABS Diet Weekly Food Zine App 8.9.5 ACL Reminder Navigation</title>
+<title>ABS Diet Weekly Food Zine App 8.9.6 ACL Sync and Mood Layout</title>
 <style>
 :root{
   --ink:#241f1c;
@@ -134,12 +134,19 @@ body{
 .topNav button{
   width:100%;
   min-width:0;
+  min-height:38px;
   padding:9px 8px;
   border-radius:999px;
   font-size:11px;
   text-transform:uppercase;
   white-space:normal;
   line-height:1.05;
+  overflow-wrap:anywhere;
+  hyphens:auto;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  text-align:center;
 }
 .topNav button.navActive{
   background:#ff2fb3 !important;
@@ -164,11 +171,15 @@ body{
 .topNav [data-nav-target="reminderEngine"]{background:linear-gradient(135deg,#ffad33,#ff6f1f);color:#241f1c}
 .topNav [data-nav-target="weightTracker"]{background:linear-gradient(135deg,#7fb3c8,#466f86);color:#fffaf0}
 .topNav [data-nav-target="inventory"]{background:linear-gradient(135deg,#93d46f,#2f9a73);color:#17211d}
+.topNav [data-nav-target="sync"]{background:linear-gradient(135deg,#f7d06f,#b8723d);color:#241f1c}
 @media(max-width:760px){
   .topNav{grid-template-columns:repeat(5,minmax(0,1fr));gap:7px;padding:8px;border-radius:14px}
-  .topNav button{font-size:10px;padding:8px 6px}
+  .topNav button{font-size:9.5px;padding:8px 5px;line-height:1}
 }
-@media(max-width:390px){.topNav{grid-template-columns:repeat(4,minmax(0,1fr))}}
+@media(max-width:390px){
+  .topNav{grid-template-columns:repeat(4,minmax(0,1fr))}
+  .topNav button{font-size:8.5px;padding:7px 4px}
+}
 .heroPoster{
   width:100%;
   max-width:420px;
@@ -223,7 +234,7 @@ body{
 .topicPageContent{
   position:relative;
   padding:18px;
-  background:linear-gradient(135deg,rgba(255,249,238,.92),rgba(246,237,220,.92));
+  background:linear-gradient(135deg,rgba(79,61,47,.92),rgba(55,48,43,.92));
 }
 .controls{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px;margin:28px 0}
 .panel,.meal,.quickPlan,.calendarCard,.reminderList,.restBox{scroll-margin-top:172px}
@@ -245,7 +256,7 @@ select,input,button{
   padding:12px 14px;
   border:3px solid var(--ink);
   border-radius:14px;
-  background:white;
+  background:#ead7b9;
   font-weight:800;
   font-size:16px;
 }
@@ -259,7 +270,7 @@ input[type="date"]{
 }
 button{cursor:pointer;background:var(--teal);color:white;box-shadow:0 4px 0 var(--ink)}
 button.secondary{background:var(--pink)}
-button.light{background:#fff;color:var(--ink)}
+button.light{background:#ead7b9;color:var(--ink)}
 [data-info]{
   position:relative;
 }
@@ -592,11 +603,12 @@ li{margin:4px 0}
 .firebasePanel{background:linear-gradient(135deg,#322f33,#48352f)}
 .firebaseHeader{display:block}
 .firebaseHeader h2{margin:0}
+.firebasePanel a{color:#ffd36c;font-weight:1000;overflow-wrap:anywhere}
 .firebaseGrid{display:grid;grid-template-columns:1fr 1fr;gap:12px;align-items:end}
 .firebaseGrid .full{grid-column:1 / -1}
 .syncActions{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-top:12px}
 .syncStatus{margin-top:10px;padding:10px;border:1px solid var(--line);border-radius:12px;background:#3b3534;font-weight:900}
-.firebaseHiddenStatus{display:none}
+.firebaseHiddenStatus{display:block}
 @media(max-width:760px){.firebaseGrid,.syncActions,.firebaseHeader{grid-template-columns:1fr}}
 .legend{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-top:14px}
 .legend div{background:#fff;border:2px solid var(--ink);border-radius:12px;padding:10px;font-weight:800}
@@ -742,8 +754,12 @@ button.light{
   color:var(--ink);
 }
 select,input{
-  background:#fff3dd;
+  background:#ead2a8;
   color:#251b17;
+}
+button{
+  overflow-wrap:anywhere;
+  hyphens:auto;
 }
 select,input,button{
   border:2px solid var(--line);
@@ -772,8 +788,13 @@ select,input,button{
   color:var(--sunrisePale);
 }
 .calendarDay,.calendarReward,.quickRewardBadge,.checkoffLogo{
-  background:#fff1d0;
+  background:#eadab8;
   color:#241f1c;
+}
+.legend div{
+  background:#3b3534;
+  border-color:var(--line);
+  color:var(--ink);
 }
 .calendarDay.selected{
   background:#f2ba61;
@@ -812,7 +833,7 @@ select,input,button{
 <div class="app">
   <header class="appHeader">
     <section class="titleBar" data-info="hero">
-      <h1>ABS Diet Weekly App <span class="versionTag">8.9.5 ACL</span></h1>
+      <h1>ABS Diet Weekly App <span class="versionTag">8.9.6 ACL</span></h1>
     </section>
 
     <nav class="topNav" aria-label="App section shortcuts">
@@ -830,10 +851,24 @@ select,input,button{
       <button data-nav-target="reminderEngine">Enable in-app reminders</button>
       <button data-nav-target="weightTracker">Weight tracker</button>
       <button data-nav-target="inventory">Inventory + shopping</button>
+      <button data-nav-target="sync">SYNC</button>
     </nav>
   </header>
 
   <img class="heroPoster zoomable" src="assets/weekly-cover.png" alt="ABS Diet weekly food zine cover" data-zoom-title="Weekly cover collage">
+
+  <details class="topicPage" id="moodTopic">
+    <summary>Not in the Mood?</summary>
+    <div class="topicPageContent">
+  <section class="panel moodBox" aria-labelledby="moodTitle" data-info="mood" id="moodSection">
+    <h2 id="moodTitle" style="margin-top:0">Not in the Mood?</h2>
+    <div class="micro">Pick the meal or snack you are resisting. The app will give you a separate cholesterol-free alternative that stays close to that item’s calorie target.</div>
+    <div id="moodSlotGrid" class="moodSlotGrid" aria-label="Choose a meal slot for a cholesterol-free alternative"></div>
+    <div class="moodLine">Minimum viable win: choose one honest alternative, keep the day moving, and leave the drama in the parking lot.</div>
+    <div id="moodResult" class="moodResult"></div>
+  </section>
+    </div>
+  </details>
 
   <details class="topicPage" id="quickPlanTopic" open>
     <summary>Today's Meal List</summary>
@@ -1044,19 +1079,6 @@ select,input,button{
   </details>
 
   <details class="topicPage">
-    <summary>Not in the Mood?</summary>
-    <div class="topicPageContent">
-  <section class="panel moodBox" aria-labelledby="moodTitle" data-info="mood">
-    <h2 id="moodTitle" style="margin-top:0">Not in the Mood?</h2>
-    <div class="micro">Pick the meal or snack you are resisting. The app will give you a separate cholesterol-free alternative that stays close to that item’s calorie target.</div>
-    <div id="moodSlotGrid" class="moodSlotGrid" aria-label="Choose a meal slot for a cholesterol-free alternative"></div>
-    <div class="moodLine">Minimum viable win: choose one honest alternative, keep the day moving, and leave the drama in the parking lot.</div>
-    <div id="moodResult" class="moodResult"></div>
-  </section>
-    </div>
-  </details>
-
-  <details class="topicPage">
     <summary>Tiny Wisdom Corner</summary>
     <div class="topicPageContent">
   <section class="panel heroWisdom" data-info="tinyWisdom">
@@ -1070,10 +1092,10 @@ select,input,button{
     </div>
   </details>
 
-  <details class="topicPage">
+  <details class="topicPage" id="syncTopic">
     <summary>Firebase Cloud Sync</summary>
     <div class="topicPageContent">
-  <section class="panel firebasePanel" aria-label="Firebase Cloud Sync">
+  <section class="panel firebasePanel" aria-label="Firebase Cloud Sync" data-info="firebase" id="syncSection">
     <div class="firebaseGrid">
       <div>
         <label for="firebaseEmail">Firebase email</label>
@@ -1088,12 +1110,13 @@ select,input,button{
       <button id="connectFirebaseBtn">Sign In</button>
       <button id="createFirebaseAccountBtn" class="secondary">Create Account</button>
     </div>
-    <div id="firebaseSyncStatus" class="syncStatus firebaseHiddenStatus" aria-live="polite"></div>
+    <div id="firebaseSyncStatus" class="syncStatus firebaseHiddenStatus" aria-live="polite">Enter your email and password, then choose Sign In or Create Account.</div>
+    <p class="warn">For cloud sync, use the local web address or GitHub Pages address. Raw file:// pages can block Firebase sessions. Local address: <a href="http://127.0.0.1:8001/index.html?v=896-sync-mood">http://127.0.0.1:8001/index.html?v=896-sync-mood</a></p>
   </section>
     </div>
   </details>
 
-  <div class="footer"><span class="tape">ABS DIET 8.9.5 ACL.</span><span class="tape upgradeLine">Reminder Engine Section • Inventory Nav Shortcut • Fluorescent Orange Reminder Button</span></div>
+  <div class="footer"><span class="tape">ABS DIET 8.9.6 ACL.</span><span class="tape upgradeLine">Mood Section Moved Up • SYNC Nav Shortcut • Phone Button Text Fixes • Earth-Tone Surfaces</span></div>
 </div>
 
 <div id="dayRewardModal" class="modal rewardModal" aria-hidden="true">
@@ -1635,7 +1658,7 @@ function collectCloudData(){
   }
   return {
     app:"abs-diet-weekly-app",
-    version:"8.9.5 ACL Reminder Navigation",
+    version:"8.9.6 ACL Sync and Mood Layout",
     updatedAt:Date.now(),
     entries
   };
@@ -1664,6 +1687,31 @@ function applyCloudData(payload){
 }
 function setSyncStatus(message){
   firebaseSyncStatus.textContent = message;
+  firebaseSyncStatus.classList.remove("firebaseHiddenStatus");
+}
+function firebaseFriendlyError(err){
+  const code = err && err.code ? String(err.code) : "";
+  const message = err && err.message ? String(err.message) : String(err || "Unknown error");
+  const map = {
+    "auth/email-already-in-use":"That email already has an account. Use Sign In instead of Create Account.",
+    "auth/invalid-email":"The email address does not look valid.",
+    "auth/invalid-credential":"Firebase did not accept that email/password. Check the password or create the account first.",
+    "auth/user-not-found":"No Firebase account was found for that email. Use Create Account first.",
+    "auth/wrong-password":"That password does not match this Firebase account.",
+    "auth/weak-password":"Firebase passwords must be at least 6 characters.",
+    "auth/operation-not-allowed":"Email/password sign-in is not enabled in Firebase Authentication.",
+    "auth/unauthorized-domain":"This app address is not authorized in Firebase. Use the localhost/GitHub Pages address and add that domain in Firebase Authentication settings.",
+    "permission-denied":"Firebase connected, but Firestore rules blocked saving. Check the Firestore security rules for absDietUsers/{userId}/data/{docId}."
+  };
+  if(message.includes("Failed to fetch dynamically imported module") || message.includes("Importing a module script failed")){
+    return "The app could not load the Firebase library. Use the localhost/GitHub Pages address and make sure the device has internet access.";
+  }
+  return map[code] || message;
+}
+function warnIfFileProtocol(){
+  if(location.protocol === "file:"){
+    setSyncStatus("Cloud sync works best from the localhost or GitHub Pages address, not the raw file:// page. Open http://127.0.0.1:8001/index.html?v=896-sync-mood, then sign in here.");
+  }
 }
 function firebaseConfig(){
   return FIREBASE_CONFIG;
@@ -1678,6 +1726,7 @@ async function loadFirebaseApi(){
 }
 async function connectFirebase(mode="signin"){
   if(firebaseUser && firebaseApi && firebaseDb) return;
+  if(location.protocol === "file:") warnIfFileProtocol();
   const config = firebaseConfig();
   const api = await loadFirebaseApi();
   firebaseApp = firebaseApp || (api.getApps().length ? api.getApp() : api.initializeApp(config));
@@ -1687,6 +1736,9 @@ async function connectFirebase(mode="signin"){
   const password = firebasePassword.value;
   if(!email || !password) throw new Error("Enter Firebase email and password.");
   localStorage.setItem("aclFirebaseEmail",email);
+  if(api.setPersistence && api.browserLocalPersistence){
+    await api.setPersistence(firebaseAuth,api.browserLocalPersistence);
+  }
   const credential = mode === "create"
     ? await api.createUserWithEmailAndPassword(firebaseAuth,email,password)
     : await api.signInWithEmailAndPassword(firebaseAuth,email,password);
@@ -1697,12 +1749,19 @@ async function restoreFirebaseSession(){
   if(firebaseAuthWatcherStarted) return;
   firebaseAuthWatcherStarted = true;
   try{
+    if(location.protocol === "file:"){
+      warnIfFileProtocol();
+      return;
+    }
     setSyncStatus("Checking saved Firebase sign-in...");
     const config = firebaseConfig();
     const api = await loadFirebaseApi();
     firebaseApp = firebaseApp || (api.getApps().length ? api.getApp() : api.initializeApp(config));
     firebaseAuth = firebaseAuth || api.getAuth(firebaseApp);
     firebaseDb = firebaseDb || api.getFirestore(firebaseApp);
+    if(api.setPersistence && api.browserLocalPersistence){
+      await api.setPersistence(firebaseAuth,api.browserLocalPersistence);
+    }
     api.onAuthStateChanged(firebaseAuth,async user=>{
       if(!user){
         firebaseUser = null;
@@ -1714,12 +1773,12 @@ async function restoreFirebaseSession(){
       try{
         await syncCloudData();
       } catch(err){
-        setSyncStatus(`Firebase sign-in was restored, but sync failed: ${err.message}`);
+        setSyncStatus(`Firebase sign-in was restored, but sync failed: ${firebaseFriendlyError(err)}`);
       }
     });
   } catch(err){
     firebaseAuthWatcherStarted = false;
-    setSyncStatus(`Firebase auto sign-in check failed: ${err.message}`);
+    setSyncStatus(`Firebase auto sign-in check failed: ${firebaseFriendlyError(err)}`);
   }
 }
 function cloudDocRef(){
@@ -1779,7 +1838,7 @@ function scheduleCloudSave(){
       localStorage.setItem("aclFirebaseLastSyncAt",String(payload.updatedAt));
       setSyncStatus(`Auto-saved to Firebase at ${new Date(payload.updatedAt).toLocaleTimeString()}.`);
     } catch(err){
-      setSyncStatus(`Firebase auto-save failed: ${err.message}`);
+      setSyncStatus(`Firebase auto-save failed: ${firebaseFriendlyError(err)}`);
     }
   },1200);
 }
@@ -1857,6 +1916,11 @@ function navTo(targetName){
   if(targetName === "inventory"){
     openTopic(document.getElementById("inventoryTopic"));
     window.setTimeout(()=>scrollToTarget(document.getElementById("inventorySection"),"start"),40);
+    return;
+  }
+  if(targetName === "sync"){
+    openTopic(document.getElementById("syncTopic"));
+    window.setTimeout(()=>scrollToTarget(document.getElementById("syncSection"),"start"),40);
   }
 }
 function todayIso(){return isoFromDate(new Date());}
@@ -2647,8 +2711,9 @@ document.getElementById("connectFirebaseBtn").onclick = async()=>{
     await connectFirebase("signin");
     await syncCloudData();
   } catch(err){
-    setSyncStatus(`Firebase sign-in failed: ${err.message}`);
-    alert(`Firebase sign-in failed: ${err.message}`);
+    const friendly = firebaseFriendlyError(err);
+    setSyncStatus(`Firebase sign-in failed: ${friendly}`);
+    alert(`Firebase sign-in failed: ${friendly}`);
   }
 };
 document.getElementById("createFirebaseAccountBtn").onclick = async()=>{
@@ -2657,8 +2722,9 @@ document.getElementById("createFirebaseAccountBtn").onclick = async()=>{
     await connectFirebase("create");
     await syncCloudData();
   } catch(err){
-    setSyncStatus(`Firebase account creation failed: ${err.message}`);
-    alert(`Firebase account creation failed: ${err.message}`);
+    const friendly = firebaseFriendlyError(err);
+    setSyncStatus(`Firebase account creation failed: ${friendly}`);
+    alert(`Firebase account creation failed: ${friendly}`);
   }
 };
 

@@ -1,4 +1,4 @@
-# ABS Diet Weekly Food Zine App 8.9.5 ACL Reminder Navigation
+# ABS Diet Weekly Food Zine App 8.9.6 ACL Sync and Mood Layout
 
 Static one-page meal tracker for GitHub Pages.
 
@@ -18,7 +18,7 @@ Static one-page meal tracker for GitHub Pages.
 - Extra food tracker for registering foods eaten outside the plan and counting them in daily calories
 - Blue wisdom box for honest tracking without guilt
 - Daily Tiny Wisdom Corner with playful smart quotes saved into a clickable archive
-- Bottom "Not in the Mood?" reset box with six slot checkboxes
+- "Not in the Mood?" reset box moved above Today's Meal List with six slot checkboxes
 - Cholesterol-free alternative meal suggestions matched near each selected slot's calories
 - Champagne/laurel full-day reward badge in Today's Meal Plan and calendar when all six checkboxes are complete
 - Inventory and shopping watch with package sizes, remaining amounts, refill buttons, and low-stock alerts
@@ -48,6 +48,10 @@ Static one-page meal tracker for GitHub Pages.
 - Calorie map, calendar, reminders, and weight tracker separated into their own dropdown pages
 - Reminder engine separated into its own dropdown page with a fluorescent orange enable button
 - Top navigation now jumps directly to reminder engine, weight tracker, and inventory + shopping watch
+- SYNC shortcut added to the permanent top navigation
+- Firebase status messages are visible, friendlier, and warn when the raw file:// page may block cloud sign-in
+- Phone button text wrapping tightened so labels stay inside their buttons
+- White UI surfaces shifted toward warmer earth tones to match the sunrise palette
 - Recipe panel contrast improved for readability
 - Cleaner hero with the app explanation moved into the information popup
 - Full-day reward image when every selected-date checkbox is complete
