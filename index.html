@@ -10,7 +10,7 @@
 <meta name="apple-mobile-web-app-title" content="ABS Diet">
 <meta name="application-name" content="ABS Diet">
 <meta name="theme-color" content="#202123">
-<title>ABS Diet Weekly Food Zine App 8.9.7 ACL Background, Shopping, and Sync</title>
+<title>ABS Diet Weekly Food Zine App 8.9.8 ACL Low Stock List</title>
 <style>
 :root{
   --ink:#241f1c;
@@ -182,6 +182,7 @@ body{
   color:#251b17;
 }
 .topNav [data-nav-target="quickPlan"]{background:linear-gradient(135deg,#f8c057,#f27f5b);color:#241f1c}
+.topNav [data-nav-target="lowStock"]{background:linear-gradient(135deg,#ffc857,#ff8f3d);color:#241f1c}
 .topNav [data-nav-slot="Breakfast"]{background:linear-gradient(135deg,#ffcf6e,#f49a52);color:#241f1c}
 .topNav [data-nav-slot="Snack 1"]{background:linear-gradient(135deg,#ff8d6d,#ef6f83);color:#241f1c}
 .topNav [data-nav-slot="Lunch"]{background:linear-gradient(135deg,#9fc66b,#45a78f);color:#17211d}
@@ -206,7 +207,7 @@ body{
 .heroPoster{
   width:100%;
   max-width:420px;
-  display:none;
+  display:block;
   margin:0 auto 18px;
   aspect-ratio:4 / 5;
   object-fit:cover;
@@ -574,8 +575,28 @@ li{margin:4px 0}
   background:#3b3534;
   color:var(--ink);
 }
+.lowStockPanel .shoppingPrintList{display:block}
 .shoppingPrintList h2{margin:0 0 6px;text-transform:uppercase}
 .shoppingPrintList li{margin:8px 0}
+.stockTableWrap{overflow:auto;margin-top:12px}
+.stockTable{
+  width:100%;
+  border-collapse:collapse;
+  background:#f4e4c0;
+  color:#241f1c;
+  font-weight:900;
+}
+.stockTable th,.stockTable td{
+  border:2px solid #241f1c;
+  padding:9px 10px;
+  text-align:left;
+  vertical-align:top;
+}
+.stockTable th{
+  background:#d5a95f;
+  text-transform:uppercase;
+  font-size:12px;
+}
 .rewardToast{
   position:fixed;
   top:20px;
@@ -677,14 +698,6 @@ li{margin:4px 0}
   color:#e9f7ff !important;
   border-color:#8ed8ff !important;
 }
-.locationBox{
-  margin-top:12px;
-  padding:12px;
-  border:1px solid var(--line);
-  border-radius:14px;
-  background:#3b3534;
-}
-.locationBox a{color:#ffd36c;font-weight:1000}
 @media(max-width:760px){.firebaseGrid,.syncActions,.firebaseHeader{grid-template-columns:1fr}}
 .legend{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-top:14px}
 .legend div{background:#fff;border:2px solid var(--ink);border-radius:12px;padding:10px;font-weight:800}
@@ -916,12 +929,13 @@ select,input,button{
 <div class="app">
   <header class="appHeader">
     <section class="titleBar" data-info="hero">
-      <h1>ABS Diet Weekly App <span class="versionTag">8.9.7 ACL</span></h1>
+      <h1>ABS Diet Weekly App <span class="versionTag">8.9.8 ACL</span></h1>
     </section>
 
     <nav class="topNav" aria-label="App section shortcuts">
       <button class="homeNavBtn" data-nav-target="hero">Home</button>
       <button data-nav-target="quickPlan">Today's meal list</button>
+      <button data-nav-target="lowStock">Low in stock</button>
       <button data-nav-slot="Breakfast">Breakfast</button>
       <button data-nav-slot="Snack 1">Snack 1</button>
       <button data-nav-slot="Lunch">Lunch</button>
@@ -950,6 +964,22 @@ select,input,button{
     <div class="moodLine">Minimum viable win: choose one honest alternative, keep the day moving, and leave the drama in the parking lot.</div>
     <div id="moodResult" class="moodResult"></div>
   </section>
+    </div>
+  </details>
+
+  <details class="topicPage" id="lowStockTopic">
+    <summary>Low in Stock</summary>
+    <div class="topicPageContent">
+      <section class="panel inventoryPanel lowStockPanel" aria-labelledby="lowStockTitle" data-info="inventory" id="lowStockSection">
+        <div class="inventoryPanelHeader">
+          <div>
+            <h2 id="lowStockTitle">Low in stock shopping sheet</h2>
+            <div class="micro">Printable spreadsheet-style list built from groceries that are finished or at 1/8 package or less.</div>
+          </div>
+          <button class="secondary miniButton" id="printBtn">Print shopping sheet</button>
+        </div>
+        <div id="shoppingPrintList" class="shoppingPrintList"></div>
+      </section>
     </div>
   </details>
 
@@ -989,10 +1019,6 @@ select,input,button{
         <div class="card controlProgress" data-info="progressReset">
           <label>Progress</label>
           <button id="resetDayBtn" class="light">Reset selected date checkboxes</button>
-        </div>
-        <div class="card" data-info="quickMode">
-          <label>Shopping list</label>
-          <button class="secondary" id="printBtn">Print low-stock shopping list</button>
         </div>
       </section>
     </div>
@@ -1158,7 +1184,6 @@ select,input,button{
       <div class="small">Full-width pantry view</div>
     </div>
     <div id="inventoryList" class="inventoryList"></div>
-    <div id="shoppingPrintList" class="shoppingPrintList"></div>
   </section>
     </div>
   </details>
@@ -1206,19 +1231,13 @@ select,input,button{
       <button id="syncNowBtn" class="syncNowButton" type="button">SYNC NOW</button>
       <button id="firebaseSignOutBtn" class="signOutButton" type="button">Sign out</button>
     </div>
-    <div class="locationBox">
-      <strong>Private location check</strong>
-      <p class="micro">This asks your browser for your location only when you tap the button. It is shown here only and is not saved to Firebase.</p>
-      <button id="showLocationBtn" class="light" type="button">Show my location on map</button>
-      <div id="locationResult" class="micro"></div>
-    </div>
     <div id="firebaseSyncStatus" class="syncStatus firebaseHiddenStatus" aria-live="polite">Enter your email and password, then choose Sign In or Create Account.</div>
     <p class="warn">For cloud sync, use the local web address or GitHub Pages address. Raw file:// pages can block Firebase sessions. Local address: <a href="http://127.0.0.1:8001/index.html?v=896-sync-mood">http://127.0.0.1:8001/index.html?v=896-sync-mood</a></p>
   </section>
     </div>
   </details>
 
-  <div class="footer"><span class="tape">ABS DIET 8.9.7 ACL.</span><span class="tape upgradeLine">Locked Cover Background • Printable Shopping List • Signed-In Sync Panel • Private Location Check</span></div>
+  <div class="footer"><span class="tape">ABS DIET 8.9.8 ACL.</span><span class="tape upgradeLine">Landing Poster Restored • Low in Stock Sheet • Geolocation Removed For Now</span></div>
 </div>
 
 <div id="dayRewardModal" class="modal rewardModal" aria-hidden="true">
@@ -1503,7 +1522,6 @@ const firebaseUsernameShow = document.getElementById("firebaseUsernameShow");
 const firebaseEmail = document.getElementById("firebaseEmail");
 const firebasePassword = document.getElementById("firebasePassword");
 const firebaseSyncStatus = document.getElementById("firebaseSyncStatus");
-const locationResult = document.getElementById("locationResult");
 const infoModal = document.getElementById("infoModal");
 const infoTitle = document.getElementById("infoTitle");
 const infoBody = document.getElementById("infoBody");
@@ -1618,7 +1636,7 @@ const INFO_WINDOWS = {
   firebase:{
     title:"Firebase cloud sync",
     body:"This syncs your saved app data between computer and iPhone. The Firebase project config is built into the app, so users only enter username, email, and password.",
-    tips:["Use Sign In if you already have an account.","After sign-in, the panel turns blue and gives you SYNC NOW plus Sign out.","Your private location check is shown only on this device and is not saved to Firebase."]
+    tips:["Use Sign In if you already have an account.","After sign-in, the panel turns blue and gives you SYNC NOW plus Sign out."]
   }
 };
 
@@ -1767,7 +1785,7 @@ function collectCloudData(){
   }
   return {
     app:"abs-diet-weekly-app",
-    version:"8.9.7 ACL Background, Shopping, and Sync",
+    version:"8.9.8 ACL Low Stock List",
     updatedAt:Date.now(),
     entries
   };
@@ -2021,6 +2039,12 @@ function navTo(targetName){
   if(targetName === "quickPlan"){
     openTopic(document.getElementById("quickPlanTopic"));
     window.setTimeout(()=>scrollToTarget(document.getElementById("quickPlanSection"),"start"),40);
+    return;
+  }
+  if(targetName === "lowStock"){
+    openTopic(document.getElementById("lowStockTopic"));
+    renderShoppingPrintList();
+    window.setTimeout(()=>scrollToTarget(document.getElementById("lowStockSection"),"start"),40);
     return;
   }
   if(targetName === "meals"){
@@ -2339,6 +2363,18 @@ function lowInventoryItems(){
   return inventoryStatus().filter(item=>item.remaining <= 0 || item.ratio <= .125);
 }
 
+function inventoryUseDays(id){
+  const days = [];
+  DAYS.forEach(day=>{
+    const used = day.meals.some(meal=>{
+      const recipeData = safeRecipe(meal);
+      return recipeData.ingredients.some(ingredient=>inventoryItemForIngredient(ingredient)?.id === id);
+    });
+    if(used) days.push(day.day);
+  });
+  return days.length ? days.join(", ") : "As needed";
+}
+
 function renderInventory(){
   inventoryList.innerHTML = inventoryStatus().map(item=>`
     <div class="inventoryItem">
@@ -2362,9 +2398,28 @@ function renderShoppingPrintList(){
     <h2>ABS Diet Shopping List</h2>
     <p>${displayDate(selectedDate)} • generated from low or finished inventory.</p>
     ${low.length ? `
-      <ul>
-        ${low.map(item=>`<li><strong>${item.name}</strong> — buy ${item.packageLabel}. Current: ${item.remaining <= 0 ? "finished" : fmt(item.remaining) + " " + item.unit + " left"}.</li>`).join("")}
-      </ul>
+      <div class="stockTableWrap">
+        <table class="stockTable">
+          <thead>
+            <tr>
+              <th>Grocery</th>
+              <th>Current stock</th>
+              <th>Amount to buy</th>
+              <th>Days used</th>
+            </tr>
+          </thead>
+          <tbody>
+            ${low.map(item=>`
+              <tr>
+                <td>${escapeHtml(item.name)}</td>
+                <td>${item.remaining <= 0 ? "Finished" : fmt(item.remaining) + " " + item.unit + " left"} (${Math.round(item.ratio * 100)}%)</td>
+                <td>${escapeHtml(item.packageLabel)}</td>
+                <td>${escapeHtml(inventoryUseDays(item.id))}</td>
+              </tr>
+            `).join("")}
+          </tbody>
+        </table>
+      </div>
     ` : `<p>No urgent low-stock items right now. Pantry looking composed.</p>`}
   `;
 }
@@ -2893,7 +2948,7 @@ target.addEventListener("input",()=>{
 });
 document.getElementById("printBtn").onclick = ()=>{
   renderShoppingPrintList();
-  const inventoryTopic = document.getElementById("inventoryTopic");
+  const inventoryTopic = document.getElementById("lowStockTopic");
   inventoryTopic.open = true;
   inventoryTopic.classList.add("printShoppingOpen");
   window.print();
@@ -2948,20 +3003,6 @@ document.getElementById("firebaseSignOutBtn").onclick = async()=>{
     const friendly = firebaseFriendlyError(err);
     setSyncStatus(`Sign out failed: ${friendly}`);
   }
-};
-document.getElementById("showLocationBtn").onclick = ()=>{
-  if(!("geolocation" in navigator)){
-    locationResult.textContent = "This browser does not support location.";
-    return;
-  }
-  locationResult.textContent = "Asking this device for location...";
-  navigator.geolocation.getCurrentPosition(pos=>{
-    const lat = pos.coords.latitude.toFixed(6);
-    const lon = pos.coords.longitude.toFixed(6);
-    locationResult.innerHTML = `Your browser reports: ${lat}, ${lon}. <a href="https://maps.apple.com/?ll=${lat},${lon}" target="_blank" rel="noopener">Open private map view</a>`;
-  },err=>{
-    locationResult.textContent = `Location unavailable: ${err.message}`;
-  },{enableHighAccuracy:false,timeout:10000,maximumAge:60000});
 };
 document.getElementById("calendarReminderBtn").onclick = ()=>{
   downloadSelectedDateCalendarReminders();
