@@ -10,7 +10,7 @@
 <meta name="apple-mobile-web-app-title" content="ABS Diet">
 <meta name="application-name" content="ABS Diet">
 <meta name="theme-color" content="#202123">
-<title>ABS Diet Weekly Food Zine App 8.9.6 ACL Sync and Mood Layout</title>
+<title>ABS Diet Weekly Food Zine App 8.9.7 ACL Background, Shopping, and Sync</title>
 <style>
 :root{
   --ink:#241f1c;
@@ -35,8 +35,24 @@ body{
     radial-gradient(circle at 92% 12%, rgba(40,119,122,.24), transparent 34%),
     linear-gradient(135deg,#2b2d30,#3b3935 45%,#25282b);
   color:var(--ink);
+  min-height:100vh;
 }
-.app{max-width:1260px;margin:0 auto;padding:22px}
+.backgroundPosterButton{
+  position:fixed;
+  inset:0;
+  z-index:0;
+  border:0;
+  border-radius:0;
+  padding:0;
+  background:
+    linear-gradient(rgba(32,33,35,.38),rgba(32,33,35,.66)),
+    url("assets/weekly-cover.png") center / min(92vw,640px) auto no-repeat fixed,
+    linear-gradient(135deg,#202123,#333033 48%,#26282b);
+  box-shadow:none;
+  cursor:zoom-in;
+}
+.app{max-width:1260px;margin:0 auto;padding:22px;position:relative;z-index:1;pointer-events:none}
+.app > *{pointer-events:auto}
 .appHeader{
   position:sticky;
   top:0;
@@ -154,6 +170,13 @@ body{
   border-color:#ffd3f0;
   box-shadow:0 0 0 2px rgba(255,211,240,.82),0 0 16px rgba(255,47,179,.72),0 3px 0 rgba(10,9,8,.58);
 }
+.topNav button.navDone:not(.navActive){
+  background:#fff9ee !important;
+  color:#241f1c !important;
+  border-color:#241f1c;
+  box-shadow:inset 0 0 0 2px rgba(36,31,28,.8),0 3px 0 rgba(10,9,8,.58);
+  filter:saturate(1.12);
+}
 .topNav .homeNavBtn{
   background:linear-gradient(135deg,#f2ba61,#ef7f5b);
   color:#251b17;
@@ -183,7 +206,7 @@ body{
 .heroPoster{
   width:100%;
   max-width:420px;
-  display:block;
+  display:none;
   margin:0 auto 18px;
   aspect-ratio:4 / 5;
   object-fit:cover;
@@ -357,7 +380,13 @@ button.light{background:#ead7b9;color:var(--ink)}
   cursor:pointer;
 }
 .quickMeal:hover,.quickMeal:focus{background:#edf5f3;outline:3px solid rgba(40,119,122,.28)}
-.quickMeal.done{opacity:.48;filter:grayscale(.7);text-decoration:line-through}
+.quickMeal.done{
+  background:#fff9ee !important;
+  color:#241f1c !important;
+  border-color:#241f1c;
+  box-shadow:inset 0 0 0 2px rgba(36,31,28,.8);
+  text-decoration:line-through;
+}
 .quickTime{color:var(--accent)}
 .quickSlot{text-transform:uppercase;font-size:12px;color:var(--muted)}
 .quickCal{white-space:nowrap}
@@ -536,6 +565,17 @@ li{margin:4px 0}
 .inventoryAlertList{display:grid;gap:8px;margin-top:12px}
 .inventoryAlertItem{display:grid;grid-template-columns:1fr auto;gap:8px;align-items:center;background:#fff;border:2px solid var(--ink);border-radius:12px;padding:9px 10px;font-weight:900}
 .inventoryAlertItem button{width:auto;padding:8px 10px}
+.shoppingPrintList{
+  display:none;
+  margin-top:14px;
+  padding:14px;
+  border:1px solid var(--line);
+  border-radius:14px;
+  background:#3b3534;
+  color:var(--ink);
+}
+.shoppingPrintList h2{margin:0 0 6px;text-transform:uppercase}
+.shoppingPrintList li{margin:8px 0}
 .rewardToast{
   position:fixed;
   top:20px;
@@ -609,6 +649,42 @@ li{margin:4px 0}
 .syncActions{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-top:12px}
 .syncStatus{margin-top:10px;padding:10px;border:1px solid var(--line);border-radius:12px;background:#3b3534;font-weight:900}
 .firebaseHiddenStatus{display:block}
+.firebasePanel.signedIn{
+  background:linear-gradient(135deg,#071b56,#083f9a 55%,#0c5bc4);
+  box-shadow:0 0 0 2px rgba(62,171,255,.28),0 0 26px rgba(41,121,255,.46),0 4px 0 rgba(10,9,8,.58);
+}
+.firebasePanel.signedIn .firebaseSignedOut{display:none}
+.firebaseSignedIn{display:none}
+.firebasePanel.signedIn .firebaseSignedIn{display:grid;gap:12px}
+.firebaseUserBadge{
+  border:2px solid #8ed8ff;
+  border-radius:16px;
+  padding:12px;
+  background:rgba(4,18,58,.58);
+  color:#eff9ff;
+  font-weight:1000;
+  text-transform:uppercase;
+  letter-spacing:.04em;
+}
+.syncNowButton{
+  background:#ff8a00 !important;
+  color:#17110b !important;
+  border-color:#ffe066 !important;
+  box-shadow:0 0 0 2px rgba(255,224,102,.72),0 0 18px rgba(255,138,0,.76),0 4px 0 rgba(10,9,8,.62) !important;
+}
+.signOutButton{
+  background:linear-gradient(135deg,#2c477e,#172b59) !important;
+  color:#e9f7ff !important;
+  border-color:#8ed8ff !important;
+}
+.locationBox{
+  margin-top:12px;
+  padding:12px;
+  border:1px solid var(--line);
+  border-radius:14px;
+  background:#3b3534;
+}
+.locationBox a{color:#ffd36c;font-weight:1000}
 @media(max-width:760px){.firebaseGrid,.syncActions,.firebaseHeader{grid-template-columns:1fr}}
 .legend{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-top:14px}
 .legend div{background:#fff;border:2px solid var(--ink);border-radius:12px;padding:10px;font-weight:800}
@@ -823,17 +899,24 @@ select,input,button{
 .modalBox{border:2px solid var(--line);background:#1f2022}
 .modalScroll{background:#202123}
 @media print{
-  .controls button,.warn,.modal,.rewardToast{display:none}
+  .backgroundPosterButton,.appHeader,.topicPage:not(.printShoppingOpen),.footer,.modal,.rewardToast,.heroPoster{display:none !important}
   body{background:white}
+  .app{max-width:none;padding:0;pointer-events:auto}
+  .printShoppingOpen{display:block !important;border:0;box-shadow:none;margin:0;background:white;color:#111}
+  .printShoppingOpen > summary{display:none}
+  .printShoppingOpen .topicPageContent{padding:0;background:white}
+  .printShoppingOpen .inventoryList,.printShoppingOpen .inventoryPanelHeader{display:none}
+  .shoppingPrintList{display:block;background:white;color:#111;border:0}
   .card,.meal,.panel,.hero{box-shadow:none}
 }
 </style>
 </head>
 <body>
+<button id="backgroundPosterButton" class="backgroundPosterButton zoomable" type="button" aria-label="Open weekly food zine cover image" data-zoom-src="assets/weekly-cover.png" data-zoom-alt="ABS Diet weekly food zine cover" data-zoom-title="Weekly cover collage"></button>
 <div class="app">
   <header class="appHeader">
     <section class="titleBar" data-info="hero">
-      <h1>ABS Diet Weekly App <span class="versionTag">8.9.6 ACL</span></h1>
+      <h1>ABS Diet Weekly App <span class="versionTag">8.9.7 ACL</span></h1>
     </section>
 
     <nav class="topNav" aria-label="App section shortcuts">
@@ -908,8 +991,8 @@ select,input,button{
           <button id="resetDayBtn" class="light">Reset selected date checkboxes</button>
         </div>
         <div class="card" data-info="quickMode">
-          <label>Quick mode</label>
-          <button class="secondary" id="printBtn">Print / Save as PDF</button>
+          <label>Shopping list</label>
+          <button class="secondary" id="printBtn">Print low-stock shopping list</button>
         </div>
       </section>
     </div>
@@ -920,9 +1003,10 @@ select,input,button{
     <div class="topicPageContent">
       <section class="panel reminderEnginePanel" data-info="reminderEngine" id="reminderEngineSection">
         <h2 style="margin-top:0">Reminder engine</h2>
-        <div class="micro">Turn on browser notifications for meal and snack times. Keep this app open when you want in-app reminders to fire.</div>
+        <div class="micro">Turn on browser notifications for meal and snack times while the app is open, or download calendar reminders for phone alerts after the app is closed.</div>
         <button id="notifyBtn" class="notifyButton">Enable in-app reminders</button>
-        <p class="warn">In-app alerts work while this page is open. The top menu brings you straight back here whenever you need it.</p>
+        <button id="calendarReminderBtn" class="light" type="button">Download selected date calendar reminders</button>
+        <p class="warn">A static web app cannot wake a closed iPhone browser by itself. Calendar reminders are the dependable closed-app option.</p>
       </section>
     </div>
   </details>
@@ -1074,6 +1158,7 @@ select,input,button{
       <div class="small">Full-width pantry view</div>
     </div>
     <div id="inventoryList" class="inventoryList"></div>
+    <div id="shoppingPrintList" class="shoppingPrintList"></div>
   </section>
     </div>
   </details>
@@ -1096,7 +1181,12 @@ select,input,button{
     <summary>Firebase Cloud Sync</summary>
     <div class="topicPageContent">
   <section class="panel firebasePanel" aria-label="Firebase Cloud Sync" data-info="firebase" id="syncSection">
+    <div class="firebaseSignedOut">
     <div class="firebaseGrid">
+      <div class="full">
+        <label for="firebaseUsername">Username</label>
+        <input id="firebaseUsername" type="text" autocomplete="username" placeholder="Your name in the app">
+      </div>
       <div>
         <label for="firebaseEmail">Firebase email</label>
         <input id="firebaseEmail" type="email" autocomplete="email" placeholder="you@example.com">
@@ -1110,13 +1200,25 @@ select,input,button{
       <button id="connectFirebaseBtn">Sign In</button>
       <button id="createFirebaseAccountBtn" class="secondary">Create Account</button>
     </div>
+    </div>
+    <div class="firebaseSignedIn" aria-live="polite">
+      <div class="firebaseUserBadge">Signed in as <span id="firebaseUsernameShow">User</span></div>
+      <button id="syncNowBtn" class="syncNowButton" type="button">SYNC NOW</button>
+      <button id="firebaseSignOutBtn" class="signOutButton" type="button">Sign out</button>
+    </div>
+    <div class="locationBox">
+      <strong>Private location check</strong>
+      <p class="micro">This asks your browser for your location only when you tap the button. It is shown here only and is not saved to Firebase.</p>
+      <button id="showLocationBtn" class="light" type="button">Show my location on map</button>
+      <div id="locationResult" class="micro"></div>
+    </div>
     <div id="firebaseSyncStatus" class="syncStatus firebaseHiddenStatus" aria-live="polite">Enter your email and password, then choose Sign In or Create Account.</div>
     <p class="warn">For cloud sync, use the local web address or GitHub Pages address. Raw file:// pages can block Firebase sessions. Local address: <a href="http://127.0.0.1:8001/index.html?v=896-sync-mood">http://127.0.0.1:8001/index.html?v=896-sync-mood</a></p>
   </section>
     </div>
   </details>
 
-  <div class="footer"><span class="tape">ABS DIET 8.9.6 ACL.</span><span class="tape upgradeLine">Mood Section Moved Up • SYNC Nav Shortcut • Phone Button Text Fixes • Earth-Tone Surfaces</span></div>
+  <div class="footer"><span class="tape">ABS DIET 8.9.7 ACL.</span><span class="tape upgradeLine">Locked Cover Background • Printable Shopping List • Signed-In Sync Panel • Private Location Check</span></div>
 </div>
 
 <div id="dayRewardModal" class="modal rewardModal" aria-hidden="true">
@@ -1394,9 +1496,14 @@ const wisdomQuote = document.getElementById("wisdomQuote");
 const wisdomArchiveList = document.getElementById("wisdomArchiveList");
 const moodSlotGrid = document.getElementById("moodSlotGrid");
 const moodResult = document.getElementById("moodResult");
+const shoppingPrintList = document.getElementById("shoppingPrintList");
+const firebasePanel = document.getElementById("syncSection");
+const firebaseUsername = document.getElementById("firebaseUsername");
+const firebaseUsernameShow = document.getElementById("firebaseUsernameShow");
 const firebaseEmail = document.getElementById("firebaseEmail");
 const firebasePassword = document.getElementById("firebasePassword");
 const firebaseSyncStatus = document.getElementById("firebaseSyncStatus");
+const locationResult = document.getElementById("locationResult");
 const infoModal = document.getElementById("infoModal");
 const infoTitle = document.getElementById("infoTitle");
 const infoBody = document.getElementById("infoBody");
@@ -1450,13 +1557,13 @@ const INFO_WINDOWS = {
   },
   reminderEngine:{
     title:"Reminder engine",
-    body:"This starts in-app meal and snack reminders while the page is open. At each scheduled time, the app can prompt you to check off the item or choose an alternative.",
-    tips:["Browser notifications require permission.","For dependable phone alerts, keep the app open or use your phone's reminder/calendar tools too."]
+    body:"This starts in-app meal and snack reminders while the page is open. The calendar download creates selected-date phone calendar events for reminders after the app is closed.",
+    tips:["Browser notifications require permission and the app must be open.","Use the calendar reminder download when you need alerts outside the app."]
   },
   quickMode:{
-    title:"Quick mode",
-    body:"This prints the current app view or saves it as a PDF. It is best for a paper backup, fridge copy, or one-day visual overview.",
-    tips:["Browser print settings control paper size and scaling.","Some interactive buttons are hidden in print mode."]
+    title:"Shopping list",
+    body:"This prints a focused shopping list from inventory items that are low, at 1/8 pack or less, or finished.",
+    tips:["Check off meals to deduct estimated ingredients.","Use Buy / refill in Inventory after shopping."]
   },
   mealPlan:{
     title:"Today's meal plan",
@@ -1510,8 +1617,8 @@ const INFO_WINDOWS = {
   },
   firebase:{
     title:"Firebase cloud sync",
-    body:"This syncs your saved app data between computer and iPhone. The Firebase project config is built into the app, so users only sign in with email and password.",
-    tips:["Use Sign In if you already have an account.","Use Create Account only the first time you set up a Firebase login."]
+    body:"This syncs your saved app data between computer and iPhone. The Firebase project config is built into the app, so users only enter username, email, and password.",
+    tips:["Use Sign In if you already have an account.","After sign-in, the panel turns blue and gives you SYNC NOW plus Sign out.","Your private location check is shown only on this device and is not saved to Firebase."]
   }
 };
 
@@ -1595,6 +1702,7 @@ let firebaseAuthWatcherStarted = false;
 dateSelect.value = selectedDate;
 daySelect.value = dayIndexForDate(selectedDate);
 target.value = localStorage.getItem("aclDailyCalorieTarget") || target.value;
+firebaseUsername.value = localStorage.getItem("aclFirebaseUsername") || "";
 firebaseEmail.value = localStorage.getItem("aclFirebaseEmail") || "";
 if(profileAge) profileAge.value = localStorage.getItem("aclProfileAge") || "";
 if(profileWeight) profileWeight.value = localStorage.getItem("aclProfileWeightKg") || "";
@@ -1642,6 +1750,7 @@ function isAppDataKey(key){
     || key === "aclBthRewardCount"
     || key === "aclProfileAge"
     || key === "aclProfileWeightKg"
+    || key === "aclFirebaseUsername"
     || key === "aclTinyWisdomHistory"
     || key === "aclDailyCalorieTarget"
     || key.startsWith("absDietDone:")
@@ -1658,7 +1767,7 @@ function collectCloudData(){
   }
   return {
     app:"abs-diet-weekly-app",
-    version:"8.9.6 ACL Sync and Mood Layout",
+    version:"8.9.7 ACL Background, Shopping, and Sync",
     updatedAt:Date.now(),
     entries
   };
@@ -1681,6 +1790,7 @@ function applyCloudData(payload){
     if(isAppDataKey(key) && typeof value === "string") localStorage.setItem(key,value);
   });
   target.value = localStorage.getItem("aclDailyCalorieTarget") || target.value;
+  firebaseUsername.value = localStorage.getItem("aclFirebaseUsername") || firebaseUsername.value;
   if(profileAge) profileAge.value = localStorage.getItem("aclProfileAge") || "";
   if(profileWeight) profileWeight.value = localStorage.getItem("aclProfileWeightKg") || "";
   return true;
@@ -1688,6 +1798,18 @@ function applyCloudData(payload){
 function setSyncStatus(message){
   firebaseSyncStatus.textContent = message;
   firebaseSyncStatus.classList.remove("firebaseHiddenStatus");
+}
+function currentFirebaseUsername(){
+  return (firebaseUsername.value || localStorage.getItem("aclFirebaseUsername") || firebaseUser?.displayName || "ABS Diet user").trim();
+}
+function renderFirebaseAccountState(){
+  const signedIn = !!firebaseUser;
+  firebasePanel.classList.toggle("signedIn",signedIn);
+  if(signedIn){
+    const name = currentFirebaseUsername();
+    firebaseUsernameShow.textContent = name;
+    firebasePassword.value = "";
+  }
 }
 function firebaseFriendlyError(err){
   const code = err && err.code ? String(err.code) : "";
@@ -1732,9 +1854,12 @@ async function connectFirebase(mode="signin"){
   firebaseApp = firebaseApp || (api.getApps().length ? api.getApp() : api.initializeApp(config));
   firebaseAuth = firebaseAuth || api.getAuth(firebaseApp);
   firebaseDb = firebaseDb || api.getFirestore(firebaseApp);
+  const username = firebaseUsername.value.trim();
   const email = firebaseEmail.value.trim();
   const password = firebasePassword.value;
+  if(!username) throw new Error("Enter a username for this app.");
   if(!email || !password) throw new Error("Enter Firebase email and password.");
+  localStorage.setItem("aclFirebaseUsername",username);
   localStorage.setItem("aclFirebaseEmail",email);
   if(api.setPersistence && api.browserLocalPersistence){
     await api.setPersistence(firebaseAuth,api.browserLocalPersistence);
@@ -1743,7 +1868,11 @@ async function connectFirebase(mode="signin"){
     ? await api.createUserWithEmailAndPassword(firebaseAuth,email,password)
     : await api.signInWithEmailAndPassword(firebaseAuth,email,password);
   firebaseUser = credential.user;
-  setSyncStatus(`Firebase connected as ${firebaseUser.email}. Syncing now...`);
+  if(api.updateProfile && firebaseUser.displayName !== username){
+    await api.updateProfile(firebaseUser,{displayName:username});
+  }
+  renderFirebaseAccountState();
+  setSyncStatus(`Firebase connected as ${username}. Syncing now...`);
 }
 async function restoreFirebaseSession(){
   if(firebaseAuthWatcherStarted) return;
@@ -1765,11 +1894,17 @@ async function restoreFirebaseSession(){
     api.onAuthStateChanged(firebaseAuth,async user=>{
       if(!user){
         firebaseUser = null;
+        renderFirebaseAccountState();
         setSyncStatus("Enter your email and password to sign in.");
         return;
       }
       firebaseUser = user;
-      setSyncStatus(`Firebase signed in as ${user.email || "anonymous user"}. Syncing saved data now...`);
+      if(user.displayName){
+        localStorage.setItem("aclFirebaseUsername",user.displayName);
+        firebaseUsername.value = user.displayName;
+      }
+      renderFirebaseAccountState();
+      setSyncStatus(`Firebase signed in as ${currentFirebaseUsername()}. Syncing saved data now...`);
       try{
         await syncCloudData();
       } catch(err){
@@ -1849,6 +1984,13 @@ function openTopic(topic){
 function setActiveNavButton(button){
   document.querySelectorAll(".topNav button").forEach(item=>item.classList.remove("navActive"));
   if(button) button.classList.add("navActive");
+}
+function updateNavDoneStates(){
+  const meals = resolvedMeals(currentDay(),selectedDate);
+  document.querySelectorAll(".topNav [data-nav-slot]").forEach(button=>{
+    const meal = meals.find(item=>item.slot === button.dataset.navSlot);
+    button.classList.toggle("navDone",!!meal && isDone(selectedDate,meal));
+  });
 }
 function scrollToTarget(target,block="start"){
   if(!target) return;
@@ -1933,6 +2075,42 @@ function isoFromDate(date){
 function dateFromIso(iso){
   const [y,m,d] = iso.split("-").map(Number);
   return new Date(y,m - 1,d);
+}
+function icsEscape(text){
+  return String(text).replace(/\\/g,"\\\\").replace(/,/g,"\\,").replace(/;/g,"\\;").replace(/\n/g,"\\n");
+}
+function icsDateTime(iso,time){
+  const [y,m,d] = iso.split("-");
+  const [hh,mm] = time.split(":");
+  return `${y}${m}${d}T${hh}${mm}00`;
+}
+function downloadSelectedDateCalendarReminders(){
+  const meals = resolvedMeals(currentDay(),selectedDate);
+  const stamp = new Date().toISOString().replace(/[-:]/g,"").split(".")[0] + "Z";
+  const events = meals.map(m=>[
+    "BEGIN:VEVENT",
+    `UID:abs-diet-${selectedDate}-${slotId(m.slot)}@acl`,
+    `DTSTAMP:${stamp}`,
+    `DTSTART:${icsDateTime(selectedDate,m.time)}`,
+    `DTEND:${icsDateTime(selectedDate,m.time)}`,
+    `SUMMARY:${icsEscape(`${m.icon} ${m.slot}: ${m.name}`)}`,
+    `DESCRIPTION:${icsEscape(`${m.cal} kcal planned. Open ABS Diet app to check off or switch.`)}`,
+    "BEGIN:VALARM",
+    "TRIGGER:-PT5M",
+    "ACTION:DISPLAY",
+    `DESCRIPTION:${icsEscape(`${m.slot}: ${m.name}`)}`,
+    "END:VALARM",
+    "END:VEVENT"
+  ].join("\r\n")).join("\r\n");
+  const ics = ["BEGIN:VCALENDAR","VERSION:2.0","PRODID:-//ACL ABS Diet//Meal Reminders//EN","CALSCALE:GREGORIAN",events,"END:VCALENDAR"].join("\r\n");
+  const url = URL.createObjectURL(new Blob([ics],{type:"text/calendar"}));
+  const a = document.createElement("a");
+  a.href = url;
+  a.download = `abs-diet-reminders-${selectedDate}.ics`;
+  document.body.appendChild(a);
+  a.click();
+  a.remove();
+  URL.revokeObjectURL(url);
 }
 function displayDate(iso){
   return dateFromIso(iso).toLocaleDateString("en-US",{weekday:"long",month:"long",day:"numeric",year:"numeric"});
@@ -2175,6 +2353,20 @@ function renderInventory(){
       </div>
     </div>
   `).join("");
+  renderShoppingPrintList();
+}
+
+function renderShoppingPrintList(){
+  const low = lowInventoryItems();
+  shoppingPrintList.innerHTML = `
+    <h2>ABS Diet Shopping List</h2>
+    <p>${displayDate(selectedDate)} • generated from low or finished inventory.</p>
+    ${low.length ? `
+      <ul>
+        ${low.map(item=>`<li><strong>${item.name}</strong> — buy ${item.packageLabel}. Current: ${item.remaining <= 0 ? "finished" : fmt(item.remaining) + " " + item.unit + " left"}.</li>`).join("")}
+      </ul>
+    ` : `<p>No urgent low-stock items right now. Pantry looking composed.</p>`}
+  `;
 }
 
 function showInventoryAlertIfLow(){
@@ -2368,8 +2560,8 @@ function renderWeightTracker(){
 function openImageModal(img){
   modalScroll.scrollTop = 0;
   modalScroll.scrollLeft = 0;
-  modalImage.src = img.src;
-  modalImage.alt = img.alt;
+  modalImage.src = img.dataset.zoomSrc || img.src;
+  modalImage.alt = img.dataset.zoomAlt || img.alt || "ABS Diet weekly food zine cover";
   modalTitle.textContent = img.dataset.zoomTitle || img.alt || "Zoomed collage";
   imageModal.classList.add("open");
   imageModal.setAttribute("aria-hidden","false");
@@ -2684,6 +2876,7 @@ function render(){
   renderInventory();
   renderCalendar();
   renderMoodSlots(day,selectedDate);
+  updateNavDoneStates();
   scheduleCloudSave();
 }
 
@@ -2698,7 +2891,14 @@ target.addEventListener("input",()=>{
   localStorage.setItem("aclDailyCalorieTarget",target.value);
   render();
 });
-document.getElementById("printBtn").onclick = ()=>window.print();
+document.getElementById("printBtn").onclick = ()=>{
+  renderShoppingPrintList();
+  const inventoryTopic = document.getElementById("inventoryTopic");
+  inventoryTopic.open = true;
+  inventoryTopic.classList.add("printShoppingOpen");
+  window.print();
+  window.setTimeout(()=>inventoryTopic.classList.remove("printShoppingOpen"),500);
+};
 document.getElementById("resetDayBtn").onclick = ()=>{
   const day = currentDay();
   day.meals.forEach(m=>localStorage.removeItem(storageKey(selectedDate,m)));
@@ -2726,6 +2926,49 @@ document.getElementById("createFirebaseAccountBtn").onclick = async()=>{
     setSyncStatus(`Firebase account creation failed: ${friendly}`);
     alert(`Firebase account creation failed: ${friendly}`);
   }
+};
+document.getElementById("syncNowBtn").onclick = async()=>{
+  try{
+    setSyncStatus("Syncing now...");
+    await syncCloudData();
+  } catch(err){
+    const friendly = firebaseFriendlyError(err);
+    setSyncStatus(`Manual sync failed: ${friendly}`);
+    alert(`Manual sync failed: ${friendly}`);
+  }
+};
+document.getElementById("firebaseSignOutBtn").onclick = async()=>{
+  try{
+    const api = await loadFirebaseApi();
+    if(firebaseAuth) await api.signOut(firebaseAuth);
+    firebaseUser = null;
+    renderFirebaseAccountState();
+    setSyncStatus("Signed out. Enter username, email, and password to sign in again.");
+  } catch(err){
+    const friendly = firebaseFriendlyError(err);
+    setSyncStatus(`Sign out failed: ${friendly}`);
+  }
+};
+document.getElementById("showLocationBtn").onclick = ()=>{
+  if(!("geolocation" in navigator)){
+    locationResult.textContent = "This browser does not support location.";
+    return;
+  }
+  locationResult.textContent = "Asking this device for location...";
+  navigator.geolocation.getCurrentPosition(pos=>{
+    const lat = pos.coords.latitude.toFixed(6);
+    const lon = pos.coords.longitude.toFixed(6);
+    locationResult.innerHTML = `Your browser reports: ${lat}, ${lon}. <a href="https://maps.apple.com/?ll=${lat},${lon}" target="_blank" rel="noopener">Open private map view</a>`;
+  },err=>{
+    locationResult.textContent = `Location unavailable: ${err.message}`;
+  },{enableHighAccuracy:false,timeout:10000,maximumAge:60000});
+};
+document.getElementById("calendarReminderBtn").onclick = ()=>{
+  downloadSelectedDateCalendarReminders();
+  rewardToast.innerHTML = "Calendar reminders downloaded.<small>Add the file to your phone calendar for closed-app reminders.</small>";
+  rewardToast.classList.add("show");
+  clearTimeout(window.rewardTimer);
+  window.rewardTimer = setTimeout(()=>rewardToast.classList.remove("show"),3200);
 };
 
 document.getElementById("saveWeightBtn").onclick = ()=>{
@@ -3047,6 +3290,7 @@ document.getElementById("notifyBtn").onclick = async()=>{
 
 setupInfoButtons();
 render();
+renderFirebaseAccountState();
 restoreFirebaseSession();
 setInterval(()=>{
   const now = todayIso();

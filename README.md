@@ -1,4 +1,4 @@
-# ABS Diet Weekly Food Zine App 8.9.6 ACL Sync and Mood Layout
+# ABS Diet Weekly Food Zine App 8.9.7 ACL Background, Shopping, and Sync
 
 Static one-page meal tracker for GitHub Pages.
 
@@ -52,6 +52,12 @@ Static one-page meal tracker for GitHub Pages.
 - Firebase status messages are visible, friendlier, and warn when the raw file:// page may block cloud sign-in
 - Phone button text wrapping tightened so labels stay inside their buttons
 - White UI surfaces shifted toward warmer earth tones to match the sunrise palette
+- Weekly food zine cover is now a fixed clickable background behind the app sections
+- Quick print mode now prints a low-stock shopping list instead of the whole app
+- Completed meal/snack shortcut buttons invert colors while the bright pink active-nav state still wins when tapped
+- Firebase sign-in now asks for username, then switches to a signed-in blue panel with username, SYNC NOW, and Sign out
+- Private location check added without saving location to Firebase
+- Selected-date calendar reminder export added for phone reminders outside the open app
 - Recipe panel contrast improved for readability
 - Cleaner hero with the app explanation moved into the information popup
 - Full-day reward image when every selected-date checkbox is complete
@@ -77,7 +83,7 @@ service cloud.firestore {
 }
 ```
 
-7. Open this app and enter your email and password in `Firebase Cloud Sync`.
+7. Open this app and enter your username, email, and password in `Firebase Cloud Sync`.
 8. Click `Create Account` once, or `Sign In` if the account already exists.
 9. Use the same email/password on another device to sync the same saved tracker data.
 
