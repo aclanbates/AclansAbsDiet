@@ -10,7 +10,7 @@
 <meta name="apple-mobile-web-app-title" content="ABS Diet">
 <meta name="application-name" content="ABS Diet">
 <meta name="theme-color" content="#202123">
-<title>ABS Diet Weekly Food Zine App 8.9.8.1 ACL Button Flow Polish</title>
+<title>ABS Diet Weekly Food Zine App 8.9.8.1 ACL Split Nav Polish</title>
 <style>
 :root{
   --ink:#241f1c;
@@ -137,8 +137,8 @@ body{
 .versionTag{display:inline-block;background:#241f1c;color:#fff9ee;padding:6px 12px;border:1px solid var(--line);border-radius:999px;font-weight:1000;text-transform:uppercase;letter-spacing:.08em;font-size:12px;box-shadow:0 3px 0 rgba(10,9,8,.58)}
 .topNav{
   display:grid;
-  grid-template-columns:repeat(8,minmax(0,1fr));
-  gap:8px;
+  grid-template-columns:minmax(0,1.18fr) 1px minmax(0,.92fr);
+  gap:10px;
   align-items:stretch;
   margin:0;
   padding:10px;
@@ -146,6 +146,24 @@ body{
   border-radius:18px;
   background:rgba(31,32,34,.96);
   box-shadow:0 4px 0 rgba(10,9,8,.58);
+}
+.navGroup{
+  display:grid;
+  gap:8px;
+  align-items:stretch;
+}
+.mealNav{
+  grid-template-columns:repeat(3,minmax(0,1fr));
+}
+.toolNav{
+  grid-template-columns:repeat(3,minmax(0,1fr));
+}
+.navDivider{
+  width:1px;
+  min-height:100%;
+  border-radius:999px;
+  background:linear-gradient(180deg,transparent,rgba(213,169,95,.92),transparent);
+  box-shadow:0 0 12px rgba(213,169,95,.28);
 }
 .topNav button{
   width:100%;
@@ -178,34 +196,36 @@ body{
   filter:saturate(1.12);
 }
 .topNav .homeNavBtn{
-  grid-column:span 2;
+  grid-column:span 3;
   background:linear-gradient(135deg,#f2ba61,#ef7f5b);
   color:#251b17;
 }
-.topNav .todayMealBtn{grid-column:span 2}
-.topNav [data-nav-target="quickPlan"]{background:linear-gradient(135deg,#f8c057,#f27f5b);color:#241f1c}
-.topNav [data-nav-target="lowStock"]{background:linear-gradient(135deg,#ffc857,#ff8f3d);color:#241f1c}
-.topNav [data-nav-slot="Breakfast"]{background:linear-gradient(135deg,#ffcf6e,#f49a52);color:#241f1c}
-.topNav [data-nav-slot="Snack 1"]{background:linear-gradient(135deg,#ff8d6d,#ef6f83);color:#241f1c}
-.topNav [data-nav-slot="Lunch"]{background:linear-gradient(135deg,#9fc66b,#45a78f);color:#17211d}
-.topNav [data-nav-slot="Snack 2"]{background:linear-gradient(135deg,#f7a4b8,#d9658a);color:#241f1c}
-.topNav [data-nav-slot="Dinner"]{background:linear-gradient(135deg,#4fb3a9,#28777a);color:#fffaf0}
-.topNav [data-nav-slot="Snack 3"]{background:linear-gradient(135deg,#9c83c8,#6f5aa7);color:#fffaf0}
-.topNav [data-nav-target="calorieMap"]{background:linear-gradient(135deg,#f2ba61,#d9a441);color:#241f1c}
-.topNav [data-nav-target="calendar"]{background:linear-gradient(135deg,#fff1a8,#f2ba61);color:#241f1c}
-.topNav [data-nav-target="reminders"]{background:linear-gradient(135deg,#ef6f83,#8c4351);color:#fffaf0}
-.topNav [data-nav-target="reminderEngine"]{background:linear-gradient(135deg,#ffad33,#ff6f1f);color:#241f1c}
-.topNav [data-nav-target="weightTracker"]{background:linear-gradient(135deg,#7fb3c8,#466f86);color:#fffaf0}
-.topNav [data-nav-target="inventory"]{background:linear-gradient(135deg,#93d46f,#2f9a73);color:#17211d}
-.topNav [data-nav-target="sync"]{background:linear-gradient(135deg,#f7d06f,#b8723d);color:#241f1c}
+.topNav .todayMealBtn{grid-column:span 3;background:linear-gradient(135deg,#f8c057,#f27f5b);color:#241f1c}
+.mealNav [data-nav-slot="Breakfast"]{background:linear-gradient(135deg,#ffd37e,#f0a04f);color:#241f1c}
+.mealNav [data-nav-slot="Snack 1"]{background:linear-gradient(135deg,#f49b72,#d86d67);color:#241f1c}
+.mealNav [data-nav-slot="Lunch"]{background:linear-gradient(135deg,#a5bd73,#4e9a83);color:#17211d}
+.mealNav [data-nav-slot="Snack 2"]{background:linear-gradient(135deg,#e9a1b1,#bd6c86);color:#241f1c}
+.mealNav [data-nav-slot="Dinner"]{background:linear-gradient(135deg,#559d98,#2d6d72);color:#fffaf0}
+.mealNav [data-nav-slot="Snack 3"]{background:linear-gradient(135deg,#8d7abd,#66548e);color:#fffaf0}
+.toolNav [data-nav-target="lowStock"]{background:linear-gradient(135deg,#e9bf62,#b8723d);color:#241f1c}
+.toolNav [data-nav-target="calorieMap"]{background:linear-gradient(135deg,#dcb568,#9d7740);color:#241f1c}
+.toolNav [data-nav-target="calendar"]{background:linear-gradient(135deg,#ead993,#b78d4d);color:#241f1c}
+.toolNav [data-nav-target="reminders"]{background:linear-gradient(135deg,#b55d6b,#6f3948);color:#fffaf0}
+.toolNav [data-nav-target="reminderEngine"]{background:linear-gradient(135deg,#f0a257,#c35c3b);color:#241f1c}
+.toolNav [data-nav-target="weightTracker"]{background:linear-gradient(135deg,#7293a2,#435d6d);color:#fffaf0}
+.toolNav [data-nav-target="inventory"]{background:linear-gradient(135deg,#8eaa67,#3f826b);color:#17211d}
+.toolNav [data-nav-target="sync"]{background:linear-gradient(135deg,#e7bc66,#9a653b);color:#241f1c}
 @media(max-width:760px){
-  .backgroundPosterButton{inset:230px 0 0}
-  .topNav{grid-template-columns:repeat(4,minmax(0,1fr));gap:6px;padding:8px;border-radius:14px}
-  .topNav button{font-size:9.5px;padding:8px 5px;line-height:1}
+  .backgroundPosterButton{inset:245px 0 0}
+  .topNav{grid-template-columns:minmax(0,1.08fr) 1px minmax(0,.92fr);gap:7px;padding:8px;border-radius:14px}
+  .mealNav,.toolNav{grid-template-columns:repeat(2,minmax(0,1fr));gap:6px}
+  .topNav .homeNavBtn,.topNav .todayMealBtn{grid-column:span 2}
+  .topNav button{font-size:8.4px;padding:7px 4px;line-height:1;min-height:34px}
 }
 @media(max-width:390px){
-  .topNav{grid-template-columns:repeat(4,minmax(0,1fr))}
-  .topNav button{font-size:8.5px;padding:7px 4px}
+  .topNav{gap:5px;padding:7px}
+  .mealNav,.toolNav{gap:5px}
+  .topNav button{font-size:7.8px;padding:7px 3px}
 }
 .heroPoster{
   width:100%;
@@ -936,22 +956,27 @@ select,input,button{
     </section>
 
     <nav class="topNav" aria-label="App section shortcuts">
-      <button class="homeNavBtn" data-nav-target="hero">Home</button>
-      <button class="todayMealBtn" data-nav-target="quickPlan">Today's meals</button>
-      <button data-nav-target="lowStock">Low in stock</button>
-      <button data-nav-slot="Breakfast">Breakfast</button>
-      <button data-nav-slot="Snack 1">Snack 1</button>
-      <button data-nav-slot="Lunch">Lunch</button>
-      <button data-nav-slot="Snack 2">Snack 2</button>
-      <button data-nav-slot="Dinner">Dinner</button>
-      <button data-nav-slot="Snack 3">Snack 3</button>
-      <button data-nav-target="reminders">Reminders</button>
-      <button data-nav-target="reminderEngine">Enable reminders</button>
-      <button data-nav-target="calorieMap">Calorie map</button>
-      <button data-nav-target="calendar">Calendar</button>
-      <button data-nav-target="weightTracker">Weight tracker</button>
-      <button data-nav-target="inventory">Inventory + shopping</button>
-      <button data-nav-target="sync">SYNC</button>
+      <div class="navGroup mealNav" aria-label="Meal flow">
+        <button class="homeNavBtn" data-nav-target="hero">Home</button>
+        <button class="todayMealBtn" data-nav-target="quickPlan">Today's meals</button>
+        <button data-nav-slot="Breakfast">Breakfast</button>
+        <button data-nav-slot="Snack 1">Snack 1</button>
+        <button data-nav-slot="Lunch">Lunch</button>
+        <button data-nav-slot="Snack 2">Snack 2</button>
+        <button data-nav-slot="Dinner">Dinner</button>
+        <button data-nav-slot="Snack 3">Snack 3</button>
+      </div>
+      <div class="navDivider" aria-hidden="true"></div>
+      <div class="navGroup toolNav" aria-label="Tracking tools">
+        <button data-nav-target="lowStock">Low stock</button>
+        <button data-nav-target="calorieMap">Calories</button>
+        <button data-nav-target="calendar">Calendar</button>
+        <button data-nav-target="reminders">Reminders</button>
+        <button data-nav-target="reminderEngine">Enable</button>
+        <button data-nav-target="weightTracker">Weight</button>
+        <button data-nav-target="inventory">Inventory</button>
+        <button data-nav-target="sync">SYNC</button>
+      </div>
     </nav>
   </header>
 
@@ -1240,7 +1265,7 @@ select,input,button{
     </div>
   </details>
 
-  <div class="footer"><span class="tape">ABS DIET 8.9.8.1 ACL.</span><span class="tape upgradeLine">Header Poster Cleaned • Meal-Order Button Flow • iPhone-Friendly Nav Grid</span></div>
+  <div class="footer"><span class="tape">ABS DIET 8.9.8.1 ACL.</span><span class="tape upgradeLine">Classy Split Nav • Meal Flow Left • Tracking Tools Right</span></div>
 </div>
 
 <div id="dayRewardModal" class="modal rewardModal" aria-hidden="true">
@@ -1788,7 +1813,7 @@ function collectCloudData(){
   }
   return {
     app:"abs-diet-weekly-app",
-    version:"8.9.8.1 ACL Button Flow Polish",
+    version:"8.9.8.1 ACL Split Nav Polish",
     updatedAt:Date.now(),
     entries
   };

@@ -1,4 +1,4 @@
-# ABS Diet Weekly Food Zine App 8.9.8.1 ACL Button Flow Polish
+# ABS Diet Weekly Food Zine App 8.9.8.1 ACL Split Nav Polish
 
 Static one-page meal tracker for GitHub Pages.
 
@@ -56,8 +56,9 @@ Static one-page meal tracker for GitHub Pages.
 - Low in Stock top button opens a printable spreadsheet-style shopping sheet
 - Shopping sheet includes grocery, current stock, amount to buy, and the days those groceries are used
 - Completed meal/snack shortcut buttons invert colors while the bright pink active-nav state still wins when tapped
-- Fixed poster background now starts below the sticky header so it does not get stuck in the upper title area
-- Top navigation is reorganized around the meal sequence with a wider Home and Today's Meals row for phone screens
+- Button bar is split by a restrained gold vertical divider: meal flow on the left, tracking tools on the right
+- Breakfast, Snack 1, Lunch, Snack 2, Dinner, and Snack 3 now sit directly under Today's Meals
+- Phone navigation uses shorter tool labels and balanced button groups for iPhone-sized screens
 - Firebase sign-in now asks for username, then switches to a signed-in blue panel with username, SYNC NOW, and Sign out
 - Geolocation button removed for now so the location idea can be redesigned later
 - Selected-date calendar reminder export added for phone reminders outside the open app
