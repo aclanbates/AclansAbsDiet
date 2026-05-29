@@ -10,7 +10,7 @@
 <meta name="apple-mobile-web-app-title" content="ABS Diet">
 <meta name="application-name" content="ABS Diet">
 <meta name="theme-color" content="#202123">
-<title>ABS Diet Weekly Food Zine App 8.9.8.2 ACL Collapsed Landing</title>
+<title>ABS Diet Weekly Food Zine App 8.9.8.3 ACL Inventory Warning Nav</title>
 <style>
 :root{
   --ink:#241f1c;
@@ -183,6 +183,39 @@ body{
   box-shadow:inset 0 0 0 2px rgba(36,31,28,.8),0 3px 0 rgba(10,9,8,.58);
   filter:saturate(1.12);
 }
+.toolNav [data-nav-target="inventory"].inventoryWarnLow{
+  background:linear-gradient(135deg,#27efff,#0b43ff) !important;
+  color:#fff !important;
+  border-color:#baf9ff;
+  animation:inventoryBlinkBlue .9s ease-in-out infinite;
+  box-shadow:0 0 0 2px rgba(39,239,255,.42),0 0 18px rgba(39,239,255,.76),0 3px 0 rgba(10,9,8,.58) !important;
+}
+.toolNav [data-nav-target="inventory"].inventoryWarnOut{
+  background:linear-gradient(135deg,#ff315c,#ff073a) !important;
+  color:#fff !important;
+  border-color:#ffd2dc;
+  animation:inventoryBlinkRed .72s ease-in-out infinite;
+  box-shadow:0 0 0 2px rgba(255,49,92,.38),0 0 20px rgba(255,7,58,.8),0 3px 0 rgba(10,9,8,.58) !important;
+}
+.toolNav [data-nav-target="inventory"].inventoryWarnMixed{
+  background:linear-gradient(90deg,#27efff 0 50%,#ff073a 50% 100%) !important;
+  color:#fff !important;
+  border-color:#fff4d8;
+  animation:inventoryBlinkMixed .8s ease-in-out infinite;
+  box-shadow:0 0 0 2px rgba(255,244,216,.42),0 0 18px rgba(39,239,255,.58),0 0 26px rgba(255,7,58,.66),0 3px 0 rgba(10,9,8,.58) !important;
+}
+@keyframes inventoryBlinkBlue{
+  0%,100%{filter:saturate(1.05) brightness(.92)}
+  50%{filter:saturate(1.9) brightness(1.35)}
+}
+@keyframes inventoryBlinkRed{
+  0%,100%{filter:saturate(1.05) brightness(.92)}
+  50%{filter:saturate(2) brightness(1.38)}
+}
+@keyframes inventoryBlinkMixed{
+  0%,100%{filter:saturate(1.08) brightness(.92)}
+  50%{filter:saturate(2.05) brightness(1.33)}
+}
 .topNav .homeNavBtn{
   grid-column:span 3;
   background:linear-gradient(135deg,#f2ba61,#ef7f5b);
@@ -336,10 +369,12 @@ button.light{background:#ead7b9;color:var(--ink)}
   color:#241f1c;
   text-align:left;
   padding:22px;
+  overflow:auto;
 }
 .infoBody h2{margin:0 0 10px;font-size:30px;text-transform:uppercase}
 .infoBody p{font-size:18px;line-height:1.45;margin:0 0 12px}
-.infoBody ul{margin:10px 0 0;padding-left:22px;font-weight:800;line-height:1.45}
+.infoBody ul,.infoBody ol{margin:10px 0 0;padding-left:22px;font-weight:800;line-height:1.45}
+.infoBody li{margin:0 0 10px}
 .dashboard{display:grid;grid-template-columns:1.15fr .85fr;gap:20px}
 @media(max-width:900px){.dashboard{grid-template-columns:1fr}}
 .dayHeader{display:flex;align-items:flex-end;justify-content:space-between;gap:12px;margin-bottom:16px}
@@ -938,7 +973,7 @@ select,input,button{
 <div class="app">
   <header class="appHeader">
     <section class="titleBar" data-info="hero">
-      <h1>ABS Diet Weekly App <button class="versionTag upgradeInfoBtn" type="button">8.9.8.2 ACL</button></h1>
+      <h1>ABS Diet Weekly App <button class="versionTag upgradeInfoBtn" type="button">8.9.8.3 ACL</button></h1>
     </section>
 
     <nav class="topNav" aria-label="App section shortcuts">
@@ -1251,7 +1286,7 @@ select,input,button{
     </div>
   </details>
 
-  <div class="footer"><button class="tape versionTag versionFooterBtn upgradeInfoBtn" type="button">8.9.8.2 ACL</button></div>
+  <div class="footer"><button class="tape versionTag versionFooterBtn upgradeInfoBtn" type="button">8.9.8.3 ACL</button></div>
 </div>
 
 <div id="dayRewardModal" class="modal rewardModal" aria-hidden="true">
@@ -1655,6 +1690,7 @@ const INFO_WINDOWS = {
 };
 
 const UPGRADE_HISTORY = [
+  ["8.9.8.3 ACL","Inventory now warns from the top nav: fluorescent blue blink for low stock, fluorescent red blink for finished items, and a classy vertical split when both warning types exist."],
   ["8.9.8.2 ACL","Landing now starts with only the navigation and food zine poster; every dropdown section stays collapsed until tapped."],
   ["8.9.8.3 ACL","Swapped the split navigation: tracking tools on the left, Home and meal flow on the right. Removed the stuck background poster and moved upgrade notes into this popup."],
   ["8.9.8.1 ACL","Split the top navigation into meal-flow and tool groups with a restrained vertical divider."],
@@ -1809,7 +1845,7 @@ function collectCloudData(){
   }
   return {
     app:"abs-diet-weekly-app",
-    version:"8.9.8.2 ACL Collapsed Landing",
+    version:"8.9.8.3 ACL Inventory Warning Nav",
     updatedAt:Date.now(),
     entries
   };
@@ -2387,6 +2423,21 @@ function lowInventoryItems(){
   return inventoryStatus().filter(item=>item.remaining <= 0 || item.ratio <= .125);
 }
 
+function updateInventoryNavAlert(statusItems=inventoryStatus()){
+  const button = document.querySelector('.topNav [data-nav-target="inventory"]');
+  if(!button) return;
+  const hasOut = statusItems.some(item=>item.remaining <= 0);
+  const hasLow = statusItems.some(item=>item.remaining > 0 && item.ratio <= .125);
+  button.classList.remove("inventoryWarnLow","inventoryWarnOut","inventoryWarnMixed");
+  if(hasOut && hasLow){
+    button.classList.add("inventoryWarnMixed");
+  } else if(hasOut){
+    button.classList.add("inventoryWarnOut");
+  } else if(hasLow){
+    button.classList.add("inventoryWarnLow");
+  }
+}
+
 function inventoryUseDays(id){
   const days = [];
   DAYS.forEach(day=>{
@@ -2400,7 +2451,8 @@ function inventoryUseDays(id){
 }
 
 function renderInventory(){
-  inventoryList.innerHTML = inventoryStatus().map(item=>`
+  const statusItems = inventoryStatus();
+  inventoryList.innerHTML = statusItems.map(item=>`
     <div class="inventoryItem">
       <div class="inventoryTop">
         <div>${item.name}<span>${item.packageLabel}</span></div>
@@ -2414,6 +2466,7 @@ function renderInventory(){
     </div>
   `).join("");
   renderShoppingPrintList();
+  updateInventoryNavAlert(statusItems);
 }
 
 function renderShoppingPrintList(){
@@ -2704,12 +2757,13 @@ function openMealInfo(index){
 }
 
 function openUpgradeHistoryModal(){
+  const fullHistory = [...UPGRADE_HISTORY].reverse();
   infoTitle.textContent = "Upgrade history";
   infoBody.innerHTML = `
     <h2>Upgrade history</h2>
-    <p>Recent ACL changes, newest first.</p>
+    <p>Full ACL upgrade trail, from the first saved upgrade to the newest.</p>
     <ol>
-      ${UPGRADE_HISTORY.map(([version,summary])=>`<li><b>${escapeHtml(version)}</b><br>${escapeHtml(summary)}</li>`).join("")}
+      ${fullHistory.map(([version,summary])=>`<li><b>${escapeHtml(version)}</b><br>${escapeHtml(summary)}</li>`).join("")}
     </ol>
   `;
   infoModal.classList.add("open");
