@@ -10,7 +10,7 @@
 <meta name="apple-mobile-web-app-title" content="ABS Diet">
 <meta name="application-name" content="ABS Diet">
 <meta name="theme-color" content="#202123">
-<title>ABS Diet Weekly Food Zine App 8.9.8.3 ACL Inventory Warning Nav</title>
+<title>ABS Diet Weekly Food Zine App 8.9.8.4 ACL Inventory Refill Fix</title>
 <style>
 :root{
   --ink:#241f1c;
@@ -198,7 +198,7 @@ body{
   box-shadow:0 0 0 2px rgba(255,49,92,.38),0 0 20px rgba(255,7,58,.8),0 3px 0 rgba(10,9,8,.58) !important;
 }
 .toolNav [data-nav-target="inventory"].inventoryWarnMixed{
-  background:linear-gradient(90deg,#27efff 0 50%,#ff073a 50% 100%) !important;
+  background:linear-gradient(90deg,#27efff 0 calc(50% - 1px),#fff4d8 calc(50% - 1px) calc(50% + 1px),#ff073a calc(50% + 1px) 100%);
   color:#fff !important;
   border-color:#fff4d8;
   animation:inventoryBlinkMixed .8s ease-in-out infinite;
@@ -213,8 +213,14 @@ body{
   50%{filter:saturate(2) brightness(1.38)}
 }
 @keyframes inventoryBlinkMixed{
-  0%,100%{filter:saturate(1.08) brightness(.92)}
-  50%{filter:saturate(2.05) brightness(1.33)}
+  0%,100%{
+    background:linear-gradient(90deg,#1284dc 0 calc(50% - 1px),#fff4d8 calc(50% - 1px) calc(50% + 1px),#a90027 calc(50% + 1px) 100%);
+    filter:saturate(1.08) brightness(.92);
+  }
+  50%{
+    background:linear-gradient(90deg,#27efff 0 calc(50% - 1px),#fff4d8 calc(50% - 1px) calc(50% + 1px),#ff073a calc(50% + 1px) 100%);
+    filter:saturate(2.05) brightness(1.33);
+  }
 }
 .topNav .homeNavBtn{
   grid-column:span 3;
@@ -973,7 +979,7 @@ select,input,button{
 <div class="app">
   <header class="appHeader">
     <section class="titleBar" data-info="hero">
-      <h1>ABS Diet Weekly App <button class="versionTag upgradeInfoBtn" type="button">8.9.8.3 ACL</button></h1>
+      <h1>ABS Diet Weekly App <button class="versionTag upgradeInfoBtn" type="button">8.9.8.4 ACL</button></h1>
     </section>
 
     <nav class="topNav" aria-label="App section shortcuts">
@@ -1286,7 +1292,7 @@ select,input,button{
     </div>
   </details>
 
-  <div class="footer"><button class="tape versionTag versionFooterBtn upgradeInfoBtn" type="button">8.9.8.3 ACL</button></div>
+  <div class="footer"><button class="tape versionTag versionFooterBtn upgradeInfoBtn" type="button">8.9.8.4 ACL</button></div>
 </div>
 
 <div id="dayRewardModal" class="modal rewardModal" aria-hidden="true">
@@ -1690,6 +1696,7 @@ const INFO_WINDOWS = {
 };
 
 const UPGRADE_HISTORY = [
+  ["8.9.8.4 ACL","Buying a low or finished inventory item now restores that item to a full current package, clears the warning immediately when stock is healthy, and keeps landing sections collapsed."],
   ["8.9.8.3 ACL","Inventory now warns from the top nav: fluorescent blue blink for low stock, fluorescent red blink for finished items, and a classy vertical split when both warning types exist."],
   ["8.9.8.2 ACL","Landing now starts with only the navigation and food zine poster; every dropdown section stays collapsed until tapped."],
   ["8.9.8.3 ACL","Swapped the split navigation: tracking tools on the left, Home and meal flow on the right. Removed the stuck background poster and moved upgrade notes into this popup."],
@@ -1845,7 +1852,7 @@ function collectCloudData(){
   }
   return {
     app:"abs-diet-weekly-app",
-    version:"8.9.8.3 ACL Inventory Warning Nav",
+    version:"8.9.8.4 ACL Inventory Refill Fix",
     updatedAt:Date.now(),
     entries
   };
@@ -2295,7 +2302,11 @@ const INVENTORY_CATALOG = [
 function inventoryRestockKey(id){return `aclInventoryRestock:${id}`;}
 function inventoryRestocks(id){return Number(localStorage.getItem(inventoryRestockKey(id)) || 0);}
 function markInventoryBought(id){
-  localStorage.setItem(inventoryRestockKey(id), String(inventoryRestocks(id) + 1));
+  const item = INVENTORY_CATALOG.find(x=>x.id === id);
+  if(!item) return;
+  const consumedQty = inventoryConsumed()[id] || 0;
+  const restocksNeededForFullPack = Math.max(0, Math.ceil((consumedQty + item.packageQty) / item.packageQty) - 1);
+  localStorage.setItem(inventoryRestockKey(id), String(Math.max(inventoryRestocks(id), restocksNeededForFullPack)));
 }
 
 function parseQuantity(text){
@@ -2436,6 +2447,10 @@ function updateInventoryNavAlert(statusItems=inventoryStatus()){
   } else if(hasLow){
     button.classList.add("inventoryWarnLow");
   }
+}
+
+function collapseLandingTopics(){
+  document.querySelectorAll(".topicPage").forEach(topic=>{ topic.open = false; });
 }
 
 function inventoryUseDays(id){
@@ -3428,6 +3443,7 @@ document.getElementById("notifyBtn").onclick = async()=>{
 };
 
 setupInfoButtons();
+collapseLandingTopics();
 render();
 renderFirebaseAccountState();
 restoreFirebaseSession();

@@ -1,4 +1,4 @@
-# ABS Diet Weekly Food Zine App 8.9.8.3 ACL Inventory Warning Nav
+# ABS Diet Weekly Food Zine App 8.9.8.4 ACL Inventory Refill Fix
 
 Static one-page meal tracker for GitHub Pages.
 
@@ -65,6 +65,8 @@ Static one-page meal tracker for GitHub Pages.
 - Landing starts with only the navigation and food zine poster; all dropdown sections stay collapsed until tapped
 - Inventory top-nav button now blinks fluorescent blue for low stock, fluorescent red for finished items, and split blue/red when both warning types exist
 - Upgrade history popup is scrollable and shows the saved upgrade trail from earliest to newest
+- Buying/refilling a low or finished item now restores that item to a full current package and updates the Inventory button warning immediately
+- Landing page startup force-collapses all dropdown windows so only navigation and the poster show first
 - Firebase sign-in now asks for username, then switches to a signed-in blue panel with username, SYNC NOW, and Sign out
 - Geolocation button removed for now so the location idea can be redesigned later
 - Selected-date calendar reminder export added for phone reminders outside the open app
