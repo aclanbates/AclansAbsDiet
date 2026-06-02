@@ -1,0 +1,36 @@
+{
+  "expo": {
+    "name": "Aclan English Coach",
+    "slug": "aclan-english-coach-iphone",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/icon.png",
+    "userInterfaceStyle": "dark",
+    "splash": {
+      "image": "./assets/icon.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#111827"
+    },
+    "ios": {
+      "supportsTablet": true,
+      "bundleIdentifier": "com.aclanbates.englishcoach",
+      "infoPlist": {
+        "NSMicrophoneUsageDescription": "Aclan English Coach uses the microphone only so you can record yourself and listen back for pronunciation practice. Audio stays on your device."
+      }
+    },
+    "android": {
+      "package": "com.aclanbates.englishcoach",
+      "permissions": [
+        "RECORD_AUDIO"
+      ]
+    },
+    "plugins": [
+      [
+        "expo-av",
+        {
+          "microphonePermission": "Aclan English Coach uses the microphone only for self-recorded pronunciation practice. Audio is not uploaded."
+        }
+      ]
+    ]
+  }
+}
