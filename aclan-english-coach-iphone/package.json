@@ -9,16 +9,16 @@
     "web": "expo start --web"
   },
   "dependencies": {
-    "@react-native-async-storage/async-storage": "latest",
-    "expo": "latest",
-    "expo-av": "latest",
-    "expo-status-bar": "latest",
-    "react": "latest",
-    "react-native": "latest"
+    "@react-native-async-storage/async-storage": "2.2.0",
+    "expo": "56.0.8",
+    "expo-av": "16.0.8",
+    "expo-status-bar": "56.0.4",
+    "react": "19.2.7",
+    "react-native": "0.85.3"
   },
   "devDependencies": {
-    "@types/react": "latest",
-    "typescript": "latest"
+    "@types/react": "19.2.16",
+    "typescript": "6.0.3"
   },
   "private": true
 }
