@@ -1,4 +1,4 @@
-# ABS Diet Weekly Food Zine App 8.9.8.5 ACL Day Poster Landing
+# ABS Diet Weekly Food Zine App 8.9.8.6 ACL Consolidated Navigation
 
 Static one-page meal tracker for GitHub Pages.
 
@@ -69,6 +69,11 @@ Static one-page meal tracker for GitHub Pages.
 - Landing page startup force-collapses all dropdown windows so only navigation and the poster show first
 - Selected day diet poster moved to the opening page, while the Calories page now shows only calorie information
 - Left-side navigation tools reorganized and the Sync shortcut renamed to Sign In
+- Calories and weight tracker combined into one Scale page and one Scale navigation button
+- Calendar, reminders, and reminder controls combined into one Reminders page and button
+- Low-stock shopping sheet and inventory watch combined into one Inventory page and button
+- Today's Meal List moved directly under the day poster
+- Navigation buttons dim after being visited during the current browser session, while the active button stays fluorescent pink
 - Firebase sign-in now asks for username, then switches to a signed-in blue panel with username, SYNC NOW, and Sign out
 - Geolocation button removed for now so the location idea can be redesigned later
 - Selected-date calendar reminder export added for phone reminders outside the open app

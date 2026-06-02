@@ -10,7 +10,7 @@
 <meta name="apple-mobile-web-app-title" content="ABS Diet">
 <meta name="application-name" content="ABS Diet">
 <meta name="theme-color" content="#202123">
-<title>ABS Diet Weekly Food Zine App 8.9.8.5 ACL Day Poster Landing</title>
+<title>ABS Diet Weekly Food Zine App 8.9.8.6 ACL Consolidated Navigation</title>
 <style>
 :root{
   --ink:#241f1c;
@@ -144,7 +144,7 @@ body{
   grid-template-columns:repeat(3,minmax(0,1fr));
 }
 .toolNav{
-  grid-template-columns:repeat(3,minmax(0,1fr));
+  grid-template-columns:repeat(2,minmax(0,1fr));
 }
 .navDivider{
   width:1px;
@@ -175,6 +175,12 @@ body{
   color:#111 !important;
   border-color:#ffd3f0;
   box-shadow:0 0 0 2px rgba(255,211,240,.82),0 0 16px rgba(255,47,179,.72),0 3px 0 rgba(10,9,8,.58);
+  opacity:1;
+  filter:none;
+}
+.topNav button.navVisited:not(.navActive):not(.inventoryWarnLow):not(.inventoryWarnOut):not(.inventoryWarnMixed){
+  opacity:.62;
+  filter:saturate(.72) brightness(.78);
 }
 .topNav button.navDone:not(.navActive){
   background:#fff9ee !important;
@@ -234,13 +240,10 @@ body{
 .mealNav [data-nav-slot="Snack 2"]{background:linear-gradient(135deg,#e9a1b1,#bd6c86);color:#241f1c}
 .mealNav [data-nav-slot="Dinner"]{background:linear-gradient(135deg,#559d98,#2d6d72);color:#fffaf0}
 .mealNav [data-nav-slot="Snack 3"]{background:linear-gradient(135deg,#8d7abd,#66548e);color:#fffaf0}
-.toolNav [data-nav-target="calorieMap"]{background:linear-gradient(135deg,#dcb568,#9d7740);color:#241f1c}
-.toolNav [data-nav-target="calendar"]{background:linear-gradient(135deg,#ead993,#b78d4d);color:#241f1c}
+.toolNav [data-nav-target="scale"]{background:linear-gradient(135deg,#dcb568,#7293a2);color:#241f1c}
 .toolNav [data-nav-target="reminders"]{background:linear-gradient(135deg,#b55d6b,#6f3948);color:#fffaf0}
-.toolNav [data-nav-target="weightTracker"]{background:linear-gradient(135deg,#7293a2,#435d6d);color:#fffaf0}
-.toolNav [data-nav-target="lowStock"]{background:linear-gradient(135deg,#e9bf62,#b8723d);color:#241f1c}
 .toolNav [data-nav-target="inventory"]{background:linear-gradient(135deg,#8eaa67,#3f826b);color:#17211d}
-.toolNav [data-nav-target="sync"]{background:linear-gradient(135deg,#e7bc66,#9a653b);color:#241f1c}
+.toolNav [data-nav-target="sync"]{background:linear-gradient(135deg,#47ff9d,#10b981);color:#07140d}
 @media(max-width:760px){
   .topNav{grid-template-columns:minmax(0,.92fr) 1px minmax(0,1.08fr);gap:7px;padding:8px;border-radius:14px}
   .mealNav,.toolNav{grid-template-columns:repeat(2,minmax(0,1fr));gap:6px}
@@ -978,16 +981,13 @@ select,input,button{
 <div class="app">
   <header class="appHeader">
     <section class="titleBar" data-info="hero">
-      <h1>ABS Diet Weekly App <button class="versionTag upgradeInfoBtn" type="button">8.9.8.5 ACL</button></h1>
+      <h1>ABS Diet Weekly App <button class="versionTag upgradeInfoBtn" type="button">8.9.8.6 ACL</button></h1>
     </section>
 
     <nav class="topNav" aria-label="App section shortcuts">
       <div class="navGroup toolNav" aria-label="Tracking tools">
-        <button data-nav-target="calorieMap">Calories</button>
-        <button data-nav-target="calendar">Calendar</button>
+        <button data-nav-target="scale">Scale</button>
         <button data-nav-target="reminders">Reminders</button>
-        <button data-nav-target="weightTracker">Weight</button>
-        <button data-nav-target="lowStock">Low stock</button>
         <button data-nav-target="inventory">Inventory</button>
         <button data-nav-target="sync">Sign In</button>
       </div>
@@ -1007,35 +1007,6 @@ select,input,button{
 
   <img id="dayPoster" class="heroPoster zoomable" src="assets/monday.png" alt="Selected day ABS Diet food zine poster" data-zoom-title="Selected day recipe collage">
 
-  <details class="topicPage" id="moodTopic">
-    <summary>Not in the Mood?</summary>
-    <div class="topicPageContent">
-  <section class="panel moodBox" aria-labelledby="moodTitle" data-info="mood" id="moodSection">
-    <h2 id="moodTitle" style="margin-top:0">Not in the Mood?</h2>
-    <div class="micro">Pick the meal or snack you are resisting. The app will give you a separate cholesterol-free alternative that stays close to that item’s calorie target.</div>
-    <div id="moodSlotGrid" class="moodSlotGrid" aria-label="Choose a meal slot for a cholesterol-free alternative"></div>
-    <div class="moodLine">Minimum viable win: choose one honest alternative, keep the day moving, and leave the drama in the parking lot.</div>
-    <div id="moodResult" class="moodResult"></div>
-  </section>
-    </div>
-  </details>
-
-  <details class="topicPage" id="lowStockTopic">
-    <summary>Low in Stock</summary>
-    <div class="topicPageContent">
-      <section class="panel inventoryPanel lowStockPanel" aria-labelledby="lowStockTitle" data-info="inventory" id="lowStockSection">
-        <div class="inventoryPanelHeader">
-          <div>
-            <h2 id="lowStockTitle">Low in stock shopping sheet</h2>
-            <div class="micro">Printable spreadsheet-style list built from groceries that are finished or at 1/8 package or less.</div>
-          </div>
-          <button class="secondary miniButton" id="printBtn">Print shopping sheet</button>
-        </div>
-        <div id="shoppingPrintList" class="shoppingPrintList"></div>
-      </section>
-    </div>
-  </details>
-
   <details class="topicPage" id="quickPlanTopic">
     <summary>Today's Meal List</summary>
     <div class="topicPageContent">
@@ -1050,6 +1021,19 @@ select,input,button{
         </div>
         <div id="quickPlan" class="quickPlan"></div>
       </section>
+    </div>
+  </details>
+
+  <details class="topicPage" id="moodTopic">
+    <summary>Not in the Mood?</summary>
+    <div class="topicPageContent">
+  <section class="panel moodBox" aria-labelledby="moodTitle" data-info="mood" id="moodSection">
+    <h2 id="moodTitle" style="margin-top:0">Not in the Mood?</h2>
+    <div class="micro">Pick the meal or snack you are resisting. The app will give you a separate cholesterol-free alternative that stays close to that item’s calorie target.</div>
+    <div id="moodSlotGrid" class="moodSlotGrid" aria-label="Choose a meal slot for a cholesterol-free alternative"></div>
+    <div class="moodLine">Minimum viable win: choose one honest alternative, keep the day moving, and leave the drama in the parking lot.</div>
+    <div id="moodResult" class="moodResult"></div>
+  </section>
     </div>
   </details>
 
@@ -1108,8 +1092,8 @@ select,input,button{
     </div>
   </details>
 
-  <details class="topicPage" id="calorieMapTopic">
-    <summary>Today's Calorie Map</summary>
+  <details class="topicPage" id="scaleTopic">
+    <summary>Scale</summary>
     <div class="topicPageContent">
     <section class="panel" data-info="calorieMap" id="calorieMapSection">
       <h2 style="margin-top:0">Today's calorie map</h2>
@@ -1134,51 +1118,6 @@ select,input,button{
       </div>
       <p class="warn">Calorie numbers are estimates. Use your real nutrition labels when possible and adjust the target to your personal plan.</p>
     </section>
-    </div>
-  </details>
-
-  <details class="topicPage" id="calendarTopic">
-    <summary>Calendar</summary>
-    <div class="topicPageContent">
-      <section class="panel" data-info="calendar" id="calendarSection">
-        <h2 style="margin-top:0">Calendar</h2>
-        <div class="card calendarCard">
-          <div class="calendarTop">
-            <button id="prevMonthBtn" class="light" aria-label="Previous month">‹</button>
-            <div class="calendarTitle" id="calendarTitle"></div>
-            <button id="nextMonthBtn" class="light" aria-label="Next month">›</button>
-          </div>
-          <div id="calendarGrid" class="calendarGrid"></div>
-          <div class="calendarLegend"><span>Yellow: selected</span><span>Mint: today</span><span>Dot: saved progress</span></div>
-        </div>
-      </section>
-    </div>
-  </details>
-
-  <details class="topicPage" id="remindersTopic">
-    <summary>Reminders</summary>
-    <div class="topicPageContent">
-      <section class="panel" data-info="reminders" id="remindersSection">
-        <h2 style="margin-top:0">Reminders</h2>
-        <div id="reminders" class="reminderList"></div>
-        <div class="legend">
-          <div>☀️ Breakfast</div><div>🍎 Snack 1</div><div>🥗 Lunch</div><div>🍓 Snack 2</div><div>🍽️ Dinner</div><div>🌙 Snack 3</div>
-        </div>
-        <p class="warn">Tap any reminder row to jump straight to that meal or snack card.</p>
-        <section class="reminderEnginePanel" data-info="reminderEngine" id="reminderEngineSection">
-          <h3 style="margin-top:0">Reminder engine</h3>
-          <div class="micro">Turn on browser notifications for meal and snack times while the app is open, or download calendar reminders for phone alerts after the app is closed.</div>
-          <button id="notifyBtn" class="notifyButton">Enable in-app reminders</button>
-          <button id="calendarReminderBtn" class="light" type="button">Download selected date calendar reminders</button>
-          <p class="warn">A static web app cannot wake a closed iPhone browser by itself. Calendar reminders are the dependable closed-app option.</p>
-        </section>
-      </section>
-    </div>
-  </details>
-
-  <details class="topicPage" id="weightTrackerTopic">
-    <summary>Weight Tracker</summary>
-    <div class="topicPageContent">
       <section class="panel restBox" data-info="weightTracker" id="weightTrackerSection">
         <h3>Weight Tracker</h3>
         <div class="micro" id="weightSummary">Add your current weight and target weight in kg.</div>
@@ -1212,9 +1151,52 @@ select,input,button{
     </div>
   </details>
 
-  <details class="topicPage" id="inventoryTopic">
-    <summary>Inventory + Shopping Watch</summary>
+  <details class="topicPage" id="remindersTopic">
+    <summary>Reminders</summary>
     <div class="topicPageContent">
+      <section class="panel" data-info="calendar" id="calendarSection">
+        <h2 style="margin-top:0">Calendar</h2>
+        <div class="card calendarCard">
+          <div class="calendarTop">
+            <button id="prevMonthBtn" class="light" aria-label="Previous month">‹</button>
+            <div class="calendarTitle" id="calendarTitle"></div>
+            <button id="nextMonthBtn" class="light" aria-label="Next month">›</button>
+          </div>
+          <div id="calendarGrid" class="calendarGrid"></div>
+          <div class="calendarLegend"><span>Yellow: selected</span><span>Mint: today</span><span>Dot: saved progress</span></div>
+        </div>
+      </section>
+      <section class="panel" data-info="reminders" id="remindersSection">
+        <h2 style="margin-top:0">Reminders</h2>
+        <div id="reminders" class="reminderList"></div>
+        <div class="legend">
+          <div>☀️ Breakfast</div><div>🍎 Snack 1</div><div>🥗 Lunch</div><div>🍓 Snack 2</div><div>🍽️ Dinner</div><div>🌙 Snack 3</div>
+        </div>
+        <p class="warn">Tap any reminder row to jump straight to that meal or snack card.</p>
+        <section class="reminderEnginePanel" data-info="reminderEngine" id="reminderEngineSection">
+          <h3 style="margin-top:0">Reminder engine</h3>
+          <div class="micro">Turn on browser notifications for meal and snack times while the app is open, or download calendar reminders for phone alerts after the app is closed.</div>
+          <button id="notifyBtn" class="notifyButton">Enable in-app reminders</button>
+          <button id="calendarReminderBtn" class="light" type="button">Download selected date calendar reminders</button>
+          <p class="warn">A static web app cannot wake a closed iPhone browser by itself. Calendar reminders are the dependable closed-app option.</p>
+        </section>
+      </section>
+    </div>
+  </details>
+
+  <details class="topicPage" id="inventoryTopic">
+    <summary>Inventory</summary>
+    <div class="topicPageContent">
+      <section class="panel inventoryPanel lowStockPanel" aria-labelledby="lowStockTitle" data-info="inventory" id="lowStockSection">
+        <div class="inventoryPanelHeader">
+          <div>
+            <h2 id="lowStockTitle">Low in stock shopping sheet</h2>
+            <div class="micro">Printable spreadsheet-style list built from groceries that are finished or at 1/8 package or less.</div>
+          </div>
+          <button class="secondary miniButton" id="printBtn">Print shopping sheet</button>
+        </div>
+        <div id="shoppingPrintList" class="shoppingPrintList"></div>
+      </section>
   <section class="panel inventoryPanel" aria-labelledby="inventoryTitle" data-info="inventory" id="inventorySection">
     <div class="inventoryPanelHeader">
       <div>
@@ -1277,7 +1259,7 @@ select,input,button{
     </div>
   </details>
 
-  <div class="footer"><button class="tape versionTag versionFooterBtn upgradeInfoBtn" type="button">8.9.8.5 ACL</button></div>
+  <div class="footer"><button class="tape versionTag versionFooterBtn upgradeInfoBtn" type="button">8.9.8.6 ACL</button></div>
 </div>
 
 <div id="dayRewardModal" class="modal rewardModal" aria-hidden="true">
@@ -1634,9 +1616,9 @@ const INFO_WINDOWS = {
     tips:["Use one row for each extra item when possible.","This is for honest tracking, not guilt. The app does math, not courtroom drama."]
   },
   calorieMap:{
-    title:"Calorie map",
-    body:"This panel summarizes eaten calories, remaining calories, planned food still unchecked, and what the numbers mean.",
-    tips:["The day poster now lives on the opening page and opens a zoomed view when clicked.","Calendar, reminders, and weight tracking live in their own sections so the calorie map stays easier to scan."]
+    title:"Scale",
+    body:"This combined page summarizes calorie intake, remaining calories, planned food still unchecked, weight in kilograms, exercise burn, and estimated weight impact.",
+    tips:["Calories and weight now live together so the daily math and scale trend are in one place.","The day poster stays on the opening page and opens a zoomed view when clicked."]
   },
   posterCollage:{
     title:"Food zine collage",
@@ -1645,12 +1627,12 @@ const INFO_WINDOWS = {
   },
   calendar:{
     title:"Calendar",
-    body:"This calendar shows the selected date, today's date, days with saved progress, and completed-day reward badges.",
+    body:"The calendar now lives inside Reminders. It shows the selected date, today's date, days with saved progress, and completed-day reward badges.",
     tips:["Click any day to inspect or plan that date.","Reward badges appear when all six meal and snack checkboxes are completed for that date."]
   },
   reminders:{
     title:"Reminders",
-    body:"This section lists today's scheduled meal and snack times. Tap any reminder row to jump straight to the matching meal card. Reminder controls now live at the end of this same section.",
+    body:"This combined page holds the calendar, scheduled meal/snack reminders, and reminder controls. Tap any reminder row to jump straight to the matching meal card.",
     tips:["Use Enable in-app reminders for browser notifications while the page is open.","Use the calendar download when you need phone reminders after the app is closed."]
   },
   calorieMeaning:{
@@ -1664,8 +1646,8 @@ const INFO_WINDOWS = {
     tips:["Exercise weight impact is only an estimate using about 7,700 kcal per kg.","Save entries by selected date so your graph/history stays calendar-linked."]
   },
   inventory:{
-    title:"Inventory watch",
-    body:"This estimates ingredient stock from the meals you check off. As meals are completed, package bars go down and low-stock alerts tell you what to buy.",
+    title:"Inventory",
+    body:"This combined page holds the printable low-stock shopping sheet and the full inventory watch. As meals are completed, package bars go down and low-stock alerts tell you what to buy.",
     tips:["Green means stocked, blue means getting low, red means urgent or finished.","Use Buy / refill when you restock an item."]
   },
   mood:{
@@ -1681,6 +1663,7 @@ const INFO_WINDOWS = {
 };
 
 const UPGRADE_HISTORY = [
+  ["8.9.8.6 ACL","Combined Calories + Weight into Scale, Calendar + Reminders into Reminders, Low Stock + Inventory into Inventory, moved Today's Meal List directly under the poster, and added session-only visited nav dimming."],
   ["8.9.8.5 ACL","Moved the selected day poster to the landing page, removed posters from Calories, merged Reminder Engine into Reminders, renamed SYNC to Sign In, and reorganized the tool navigation."],
   ["8.9.8.4 ACL","Buying a low or finished inventory item now restores that item to a full current package, clears the warning immediately when stock is healthy, and keeps landing sections collapsed."],
   ["8.9.8.3 ACL","Inventory now warns from the top nav: fluorescent blue blink for low stock, fluorescent red blink for finished items, and a classy vertical split when both warning types exist."],
@@ -1838,7 +1821,7 @@ function collectCloudData(){
   }
   return {
     app:"abs-diet-weekly-app",
-    version:"8.9.8.5 ACL Day Poster Landing",
+    version:"8.9.8.6 ACL Consolidated Navigation",
     updatedAt:Date.now(),
     entries
   };
@@ -2054,7 +2037,10 @@ function openTopic(topic){
 }
 function setActiveNavButton(button){
   document.querySelectorAll(".topNav button").forEach(item=>item.classList.remove("navActive"));
-  if(button) button.classList.add("navActive");
+  if(button){
+    button.classList.add("navVisited");
+    button.classList.add("navActive");
+  }
 }
 function updateNavDoneStates(){
   const meals = resolvedMeals(currentDay(),selectedDate);
@@ -2094,12 +2080,6 @@ function navTo(targetName){
     window.setTimeout(()=>scrollToTarget(document.getElementById("quickPlanSection"),"start"),40);
     return;
   }
-  if(targetName === "lowStock"){
-    openTopic(document.getElementById("lowStockTopic"));
-    renderShoppingPrintList();
-    window.setTimeout(()=>scrollToTarget(document.getElementById("lowStockSection"),"start"),40);
-    return;
-  }
   if(targetName === "meals"){
     activeMealSlot = "all";
     render();
@@ -2107,29 +2087,20 @@ function navTo(targetName){
     window.setTimeout(()=>scrollToTarget(document.getElementById("mealPlanTopic"),"start"),40);
     return;
   }
-  if(targetName === "calorieMap"){
-    openTopic(document.getElementById("calorieMapTopic"));
+  if(targetName === "scale" || targetName === "calorieMap" || targetName === "weightTracker"){
+    openTopic(document.getElementById("scaleTopic"));
     window.setTimeout(()=>scrollToTarget(document.getElementById("calorieMapSection"),"start"),40);
     return;
   }
-  if(targetName === "calendar"){
-    openTopic(document.getElementById("calendarTopic"));
+  if(targetName === "reminders" || targetName === "calendar"){
+    openTopic(document.getElementById("remindersTopic"));
     window.setTimeout(()=>scrollToTarget(document.getElementById("calendarSection"),"start"),40);
     return;
   }
-  if(targetName === "reminders"){
-    openTopic(document.getElementById("remindersTopic"));
-    window.setTimeout(()=>scrollToTarget(document.getElementById("remindersSection"),"start"),40);
-    return;
-  }
-  if(targetName === "weightTracker"){
-    openTopic(document.getElementById("weightTrackerTopic"));
-    window.setTimeout(()=>scrollToTarget(document.getElementById("weightTrackerSection"),"start"),40);
-    return;
-  }
-  if(targetName === "inventory"){
+  if(targetName === "inventory" || targetName === "lowStock"){
     openTopic(document.getElementById("inventoryTopic"));
-    window.setTimeout(()=>scrollToTarget(document.getElementById("inventorySection"),"start"),40);
+    renderShoppingPrintList();
+    window.setTimeout(()=>scrollToTarget(document.getElementById("lowStockSection"),"start"),40);
     return;
   }
   if(targetName === "sync"){
@@ -3034,7 +3005,7 @@ target.addEventListener("input",()=>{
 });
 document.getElementById("printBtn").onclick = ()=>{
   renderShoppingPrintList();
-  const inventoryTopic = document.getElementById("lowStockTopic");
+  const inventoryTopic = document.getElementById("inventoryTopic");
   inventoryTopic.open = true;
   inventoryTopic.classList.add("printShoppingOpen");
   window.print();
