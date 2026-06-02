@@ -1,4 +1,4 @@
-# ABS Diet Weekly Food Zine App 8.9.8.4 ACL Inventory Refill Fix
+# ABS Diet Weekly Food Zine App 8.9.8.5 ACL Day Poster Landing
 
 Static one-page meal tracker for GitHub Pages.
 
@@ -13,7 +13,7 @@ Static one-page meal tracker for GitHub Pages.
 - Recipe ingredients corrected against the current day-by-day list
 - KG weight tracker with target progress
 - Exercise calories burned log with daily totals and estimated kg-equivalent burn
-- Click-to-zoom cover and daily collage posters
+- Click-to-zoom selected-day collage poster on the landing page
 - Per-slot meal switching from other weekdays or ABS-style equivalent meals
 - Extra food tracker for registering foods eaten outside the plan and counting them in daily calories
 - Blue wisdom box for honest tracking without guilt
@@ -30,7 +30,7 @@ Static one-page meal tracker for GitHub Pages.
 - Firebase cloud sync panel for email/password sign-in and auto-save while connected
 - Hardcoded Firebase config and sign-in restore on page load so normal updates do not require pasting JSON
 - Information buttons on each major app window and each meal/snack card with popup explanations
-- Firebase Cloud Sync moved to the end of the app so daily tracking stays first
+- Sign In / Cloud Sync moved to the end of the app so daily tracking stays first
 - Visible app wording and original ABS Diet photo branding restored
 - Major app topics presented as dropdown page sections
 - Compact information buttons that no longer reserve layout space
@@ -46,9 +46,9 @@ Static one-page meal tracker for GitHub Pages.
 - Last tapped top navigation button uses a fluorescent pink active state
 - Food zine cover size restored so the dropdown sections remain visible below it
 - Calorie map, calendar, reminders, and weight tracker separated into their own dropdown pages
-- Reminder engine separated into its own dropdown page with a fluorescent orange enable button
-- Top navigation now jumps directly to reminder engine, weight tracker, and inventory + shopping watch
-- SYNC shortcut added to the permanent top navigation
+- Reminder engine controls merged into the end of the Reminders section
+- Top navigation now jumps directly to weight tracker, inventory + shopping watch, and Sign In
+- Sign In shortcut added to the permanent top navigation
 - Firebase status messages are visible, friendlier, and warn when the raw file:// page may block cloud sign-in
 - Phone button text wrapping tightened so labels stay inside their buttons
 - White UI surfaces shifted toward warmer earth tones to match the sunrise palette
@@ -60,13 +60,15 @@ Static one-page meal tracker for GitHub Pages.
 - Breakfast, Snack 1, Lunch, Snack 2, Dinner, and Snack 3 now sit directly under Today's Meals
 - Phone navigation uses shorter tool labels and balanced button groups for iPhone-sized screens
 - Split navigation swapped sides: tracking tools on the left, Home and meals on the right
-- Stuck fixed poster background removed; the normal clickable landing poster remains
+- Stuck fixed poster background removed; the normal clickable selected-day landing poster remains
 - Upgrade notes moved into clickable version badges at the top title and small footer badge
 - Landing starts with only the navigation and food zine poster; all dropdown sections stay collapsed until tapped
 - Inventory top-nav button now blinks fluorescent blue for low stock, fluorescent red for finished items, and split blue/red when both warning types exist
 - Upgrade history popup is scrollable and shows the saved upgrade trail from earliest to newest
 - Buying/refilling a low or finished item now restores that item to a full current package and updates the Inventory button warning immediately
 - Landing page startup force-collapses all dropdown windows so only navigation and the poster show first
+- Selected day diet poster moved to the opening page, while the Calories page now shows only calorie information
+- Left-side navigation tools reorganized and the Sync shortcut renamed to Sign In
 - Firebase sign-in now asks for username, then switches to a signed-in blue panel with username, SYNC NOW, and Sign out
 - Geolocation button removed for now so the location idea can be redesigned later
 - Selected-date calendar reminder export added for phone reminders outside the open app

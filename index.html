@@ -10,7 +10,7 @@
 <meta name="apple-mobile-web-app-title" content="ABS Diet">
 <meta name="application-name" content="ABS Diet">
 <meta name="theme-color" content="#202123">
-<title>ABS Diet Weekly Food Zine App 8.9.8.4 ACL Inventory Refill Fix</title>
+<title>ABS Diet Weekly Food Zine App 8.9.8.5 ACL Day Poster Landing</title>
 <style>
 :root{
   --ink:#241f1c;
@@ -234,12 +234,11 @@ body{
 .mealNav [data-nav-slot="Snack 2"]{background:linear-gradient(135deg,#e9a1b1,#bd6c86);color:#241f1c}
 .mealNav [data-nav-slot="Dinner"]{background:linear-gradient(135deg,#559d98,#2d6d72);color:#fffaf0}
 .mealNav [data-nav-slot="Snack 3"]{background:linear-gradient(135deg,#8d7abd,#66548e);color:#fffaf0}
-.toolNav [data-nav-target="lowStock"]{background:linear-gradient(135deg,#e9bf62,#b8723d);color:#241f1c}
 .toolNav [data-nav-target="calorieMap"]{background:linear-gradient(135deg,#dcb568,#9d7740);color:#241f1c}
 .toolNav [data-nav-target="calendar"]{background:linear-gradient(135deg,#ead993,#b78d4d);color:#241f1c}
 .toolNav [data-nav-target="reminders"]{background:linear-gradient(135deg,#b55d6b,#6f3948);color:#fffaf0}
-.toolNav [data-nav-target="reminderEngine"]{background:linear-gradient(135deg,#f0a257,#c35c3b);color:#241f1c}
 .toolNav [data-nav-target="weightTracker"]{background:linear-gradient(135deg,#7293a2,#435d6d);color:#fffaf0}
+.toolNav [data-nav-target="lowStock"]{background:linear-gradient(135deg,#e9bf62,#b8723d);color:#241f1c}
 .toolNav [data-nav-target="inventory"]{background:linear-gradient(135deg,#8eaa67,#3f826b);color:#17211d}
 .toolNav [data-nav-target="sync"]{background:linear-gradient(135deg,#e7bc66,#9a653b);color:#241f1c}
 @media(max-width:760px){
@@ -597,7 +596,7 @@ li{margin:4px 0}
 .inventoryPanel{background:linear-gradient(135deg,#edf4f1,#fbf4e7)}
 .inventoryPanelHeader{display:flex;justify-content:space-between;gap:12px;align-items:end;flex-wrap:wrap}
 .inventoryPanelHeader h2{margin:0;text-transform:uppercase;font-size:30px}
-.reminderEnginePanel{background:linear-gradient(135deg,#fff4dc,#f4e5c5)}
+.reminderEnginePanel{background:linear-gradient(135deg,#fff4dc,#f4e5c5);border:2px solid var(--ink);border-radius:18px;padding:14px;margin-top:14px}
 .notifyButton{
   background:#ff8a00 !important;
   color:#16110d !important;
@@ -979,19 +978,18 @@ select,input,button{
 <div class="app">
   <header class="appHeader">
     <section class="titleBar" data-info="hero">
-      <h1>ABS Diet Weekly App <button class="versionTag upgradeInfoBtn" type="button">8.9.8.4 ACL</button></h1>
+      <h1>ABS Diet Weekly App <button class="versionTag upgradeInfoBtn" type="button">8.9.8.5 ACL</button></h1>
     </section>
 
     <nav class="topNav" aria-label="App section shortcuts">
       <div class="navGroup toolNav" aria-label="Tracking tools">
-        <button data-nav-target="lowStock">Low stock</button>
         <button data-nav-target="calorieMap">Calories</button>
         <button data-nav-target="calendar">Calendar</button>
         <button data-nav-target="reminders">Reminders</button>
-        <button data-nav-target="reminderEngine">Enable</button>
         <button data-nav-target="weightTracker">Weight</button>
+        <button data-nav-target="lowStock">Low stock</button>
         <button data-nav-target="inventory">Inventory</button>
-        <button data-nav-target="sync">SYNC</button>
+        <button data-nav-target="sync">Sign In</button>
       </div>
       <div class="navDivider" aria-hidden="true"></div>
       <div class="navGroup mealNav" aria-label="Meal flow">
@@ -1007,7 +1005,7 @@ select,input,button{
     </nav>
   </header>
 
-  <img class="heroPoster zoomable" src="assets/weekly-cover.png" alt="ABS Diet weekly food zine cover" data-zoom-title="Weekly cover collage">
+  <img id="dayPoster" class="heroPoster zoomable" src="assets/monday.png" alt="Selected day ABS Diet food zine poster" data-zoom-title="Selected day recipe collage">
 
   <details class="topicPage" id="moodTopic">
     <summary>Not in the Mood?</summary>
@@ -1079,19 +1077,6 @@ select,input,button{
     </div>
   </details>
 
-  <details class="topicPage" id="reminderEngineTopic">
-    <summary>Reminder Engine</summary>
-    <div class="topicPageContent">
-      <section class="panel reminderEnginePanel" data-info="reminderEngine" id="reminderEngineSection">
-        <h2 style="margin-top:0">Reminder engine</h2>
-        <div class="micro">Turn on browser notifications for meal and snack times while the app is open, or download calendar reminders for phone alerts after the app is closed.</div>
-        <button id="notifyBtn" class="notifyButton">Enable in-app reminders</button>
-        <button id="calendarReminderBtn" class="light" type="button">Download selected date calendar reminders</button>
-        <p class="warn">A static web app cannot wake a closed iPhone browser by itself. Calendar reminders are the dependable closed-app option.</p>
-      </section>
-    </div>
-  </details>
-
   <details class="topicPage" id="mealPlanTopic">
     <summary>Meals</summary>
     <div class="topicPageContent">
@@ -1128,13 +1113,6 @@ select,input,button{
     <div class="topicPageContent">
     <section class="panel" data-info="calorieMap" id="calorieMapSection">
       <h2 style="margin-top:0">Today's calorie map</h2>
-      <div class="card posterCard" data-info="posterCollage">
-        <div class="posterFrame" id="posterFrame">
-          <img id="dayPoster" class="zoomable" src="assets/weekly-cover.png" alt="Selected day food zine poster" data-zoom-title="Selected day recipe collage">
-        </div>
-        <div class="posterCaption" id="posterCaption">Weekly visual guide</div>
-      </div>
-      <div class="zoomHint">Tap cover or day collage to open a zoomed view.</div>
       <div class="small">Consumed progress</div>
       <div class="progressWrap"><div id="consumedProgress" class="progress consumed"></div></div>
       <br>
@@ -1187,6 +1165,13 @@ select,input,button{
           <div>☀️ Breakfast</div><div>🍎 Snack 1</div><div>🥗 Lunch</div><div>🍓 Snack 2</div><div>🍽️ Dinner</div><div>🌙 Snack 3</div>
         </div>
         <p class="warn">Tap any reminder row to jump straight to that meal or snack card.</p>
+        <section class="reminderEnginePanel" data-info="reminderEngine" id="reminderEngineSection">
+          <h3 style="margin-top:0">Reminder engine</h3>
+          <div class="micro">Turn on browser notifications for meal and snack times while the app is open, or download calendar reminders for phone alerts after the app is closed.</div>
+          <button id="notifyBtn" class="notifyButton">Enable in-app reminders</button>
+          <button id="calendarReminderBtn" class="light" type="button">Download selected date calendar reminders</button>
+          <p class="warn">A static web app cannot wake a closed iPhone browser by itself. Calendar reminders are the dependable closed-app option.</p>
+        </section>
       </section>
     </div>
   </details>
@@ -1258,7 +1243,7 @@ select,input,button{
   </details>
 
   <details class="topicPage" id="syncTopic">
-    <summary>Firebase Cloud Sync</summary>
+    <summary>Sign In / Cloud Sync</summary>
     <div class="topicPageContent">
   <section class="panel firebasePanel" aria-label="Firebase Cloud Sync" data-info="firebase" id="syncSection">
     <div class="firebaseSignedOut">
@@ -1292,7 +1277,7 @@ select,input,button{
     </div>
   </details>
 
-  <div class="footer"><button class="tape versionTag versionFooterBtn upgradeInfoBtn" type="button">8.9.8.4 ACL</button></div>
+  <div class="footer"><button class="tape versionTag versionFooterBtn upgradeInfoBtn" type="button">8.9.8.5 ACL</button></div>
 </div>
 
 <div id="dayRewardModal" class="modal rewardModal" aria-hidden="true">
@@ -1650,8 +1635,8 @@ const INFO_WINDOWS = {
   },
   calorieMap:{
     title:"Calorie map",
-    body:"This panel summarizes the day: visual recipe poster, eaten calories, remaining calories, planned food still unchecked, and what the numbers mean.",
-    tips:["The poster opens a zoomed view when clicked.","Calendar, reminders, and weight tracking now live in their own sections so the calorie map stays easier to scan."]
+    body:"This panel summarizes eaten calories, remaining calories, planned food still unchecked, and what the numbers mean.",
+    tips:["The day poster now lives on the opening page and opens a zoomed view when clicked.","Calendar, reminders, and weight tracking live in their own sections so the calorie map stays easier to scan."]
   },
   posterCollage:{
     title:"Food zine collage",
@@ -1665,8 +1650,8 @@ const INFO_WINDOWS = {
   },
   reminders:{
     title:"Reminders",
-    body:"This section lists today's scheduled meal and snack times. Tap any reminder row to jump straight to the matching meal card.",
-    tips:["Use the Reminder Engine in setup to request browser notifications while the page is open.","The reminder list follows the selected calendar date and any meal switches you made."]
+    body:"This section lists today's scheduled meal and snack times. Tap any reminder row to jump straight to the matching meal card. Reminder controls now live at the end of this same section.",
+    tips:["Use Enable in-app reminders for browser notifications while the page is open.","Use the calendar download when you need phone reminders after the app is closed."]
   },
   calorieMeaning:{
     title:"What this means",
@@ -1696,6 +1681,7 @@ const INFO_WINDOWS = {
 };
 
 const UPGRADE_HISTORY = [
+  ["8.9.8.5 ACL","Moved the selected day poster to the landing page, removed posters from Calories, merged Reminder Engine into Reminders, renamed SYNC to Sign In, and reorganized the tool navigation."],
   ["8.9.8.4 ACL","Buying a low or finished inventory item now restores that item to a full current package, clears the warning immediately when stock is healthy, and keeps landing sections collapsed."],
   ["8.9.8.3 ACL","Inventory now warns from the top nav: fluorescent blue blink for low stock, fluorescent red blink for finished items, and a classy vertical split when both warning types exist."],
   ["8.9.8.2 ACL","Landing now starts with only the navigation and food zine poster; every dropdown section stays collapsed until tapped."],
@@ -1852,7 +1838,7 @@ function collectCloudData(){
   }
   return {
     app:"abs-diet-weekly-app",
-    version:"8.9.8.4 ACL Inventory Refill Fix",
+    version:"8.9.8.5 ACL Day Poster Landing",
     updatedAt:Date.now(),
     entries
   };
@@ -2134,11 +2120,6 @@ function navTo(targetName){
   if(targetName === "reminders"){
     openTopic(document.getElementById("remindersTopic"));
     window.setTimeout(()=>scrollToTarget(document.getElementById("remindersSection"),"start"),40);
-    return;
-  }
-  if(targetName === "reminderEngine"){
-    openTopic(document.getElementById("reminderEngineTopic"));
-    window.setTimeout(()=>scrollToTarget(document.getElementById("reminderEngineSection"),"start"),40);
     return;
   }
   if(targetName === "weightTracker"){
@@ -2910,7 +2891,6 @@ function render(){
   document.getElementById("dayNum").textContent = day.number;
   document.getElementById("dayPoster").src = day.poster;
   document.getElementById("dayPoster").alt = `${day.day} ABS Diet food zine poster`;
-  document.getElementById("posterCaption").textContent = `${day.day} visual recipe sheet`;
   renderWisdom();
 
   timeline.innerHTML = "";
