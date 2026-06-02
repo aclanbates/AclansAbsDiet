@@ -1,4 +1,4 @@
-# ABS Diet Weekly Food Zine App 8.9.8.6 ACL Consolidated Navigation
+# ABS Diet Weekly Food Zine App 8.9.8.7 ACL Inline Mood Alternatives
 
 Static one-page meal tracker for GitHub Pages.
 
@@ -18,8 +18,8 @@ Static one-page meal tracker for GitHub Pages.
 - Extra food tracker for registering foods eaten outside the plan and counting them in daily calories
 - Blue wisdom box for honest tracking without guilt
 - Daily Tiny Wisdom Corner with playful smart quotes saved into a clickable archive
-- "Not in the Mood?" reset box moved above Today's Meal List with six slot checkboxes
-- Cholesterol-free alternative meal suggestions matched near each selected slot's calories
+- "Not in the Mood?" alternatives now live inside each individual meal/snack card
+- Cholesterol-free alternative meal suggestions matched near each selected meal or snack's calories
 - Champagne/laurel full-day reward badge in Today's Meal Plan and calendar when all six checkboxes are complete
 - Inventory and shopping watch with package sizes, remaining amounts, refill buttons, and low-stock alerts
 - Full-width inventory section with richer visual availability bars
@@ -58,6 +58,8 @@ Static one-page meal tracker for GitHub Pages.
 - Completed meal/snack shortcut buttons invert colors while the bright pink active-nav state still wins when tapped
 - Button bar is split by a restrained gold vertical divider: meal flow on the left, tracking tools on the right
 - Breakfast, Snack 1, Lunch, Snack 2, Dinner, and Snack 3 now sit directly under Today's Meals
+- Today's Meal List text wraps inside its frame on phone-sized screens
+- Opening dropdown sections manually no longer forces the page to scroll away
 - Phone navigation uses shorter tool labels and balanced button groups for iPhone-sized screens
 - Split navigation swapped sides: tracking tools on the left, Home and meals on the right
 - Stuck fixed poster background removed; the normal clickable selected-day landing poster remains

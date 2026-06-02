@@ -2843,6 +2843,9 @@ function toggleMealMoodPanel(panelId){
   });
   const shouldOpen = !panel.classList.contains("open");
   panel.classList.toggle("open",shouldOpen);
+  timeline.querySelectorAll("[data-mood-inline-id]").forEach(button=>{
+    button.setAttribute("aria-expanded",button.dataset.moodInlineId === panelId && shouldOpen ? "true" : "false");
+  });
   if(shouldOpen) window.setTimeout(()=>scrollToTarget(panel,"start"),40);
 }
 
@@ -2986,7 +2989,6 @@ function render(){
   renderWeightTracker();
   renderInventory();
   renderCalendar();
-  renderMoodSlots(day,selectedDate);
   updateNavDoneStates();
   scheduleCloudSave();
 }
@@ -3227,22 +3229,18 @@ wisdomArchiveList.addEventListener("click",(ev)=>{
   window.rewardTimer = setTimeout(()=>rewardToast.classList.remove("show"),4200);
 });
 
-moodSlotGrid.addEventListener("change",(ev)=>{
-  const box = ev.target.closest("[data-mood-slot]");
-  if(!box) return;
-  moodSlotGrid.querySelectorAll("[data-mood-slot]").forEach(input=>{
-    if(input !== box) input.checked = false;
-  });
-  if(box.checked){
-    showMoodAlternative(box.dataset.moodSlot);
-  } else {
-    moodResult.innerHTML = `<div class="micro">Tap a checkbox above for a cholesterol-free alternative with a similar calorie target.</div>`;
-  }
-});
-
 timeline.addEventListener("click",(ev)=>{
+  const moodButton = ev.target.closest("[data-mood-inline-id]");
   const apply = ev.target.closest("[data-apply-switch]");
   const clear = ev.target.closest("[data-clear-switch]");
+  if(moodButton){
+    ev.preventDefault();
+    ev.stopPropagation();
+    toggleMealMoodPanel(moodButton.dataset.moodInlineId);
+    const panel = timeline.querySelector(`[data-mood-panel-id="${moodButton.dataset.moodInlineId}"]`);
+    moodButton.setAttribute("aria-expanded",panel && panel.classList.contains("open") ? "true" : "false");
+    return;
+  }
   if(apply){
     ev.stopPropagation();
     const index = Number(apply.dataset.applySwitch);
@@ -3311,7 +3309,6 @@ document.querySelectorAll(".topicPage").forEach(page=>{
     document.querySelectorAll(".topicPage").forEach(other=>{
       if(other !== page) other.open = false;
     });
-    scrollToTarget(page,"start");
   });
 });
 
