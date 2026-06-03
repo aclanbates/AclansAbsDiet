@@ -62,7 +62,7 @@ Static one-page meal tracker for GitHub Pages.
 - Opening dropdown sections manually no longer forces the page to scroll away
 - Landing page is simplified to the selected day poster plus the Today's Meal List button
 - Temporary split navigation divider removed for now, with the prior split layout preserved as a remembered design option
-- Setup + Daily Controls moved into the Scale page above calorie and weight tools
+- Setup + Daily Controls moved into the Tracker page above calorie and weight tools
 - Tiny Wisdom Corner moved into the Sign In / Cloud Sync page
 - Hidden pages now appear only when opened from the top navigation, keeping the landing page from becoming a long scroll
 - Today's Meals moved directly under Home in the navigation menu
@@ -91,7 +91,7 @@ Static one-page meal tracker for GitHub Pages.
 - Landing page startup force-collapses all dropdown windows so only navigation and the poster show first
 - Selected day diet poster moved to the opening page, while the Calories page now shows only calorie information
 - Left-side navigation tools reorganized and the Sync shortcut renamed to Sign In
-- Calories and weight tracker combined into one Scale page and one Scale navigation button
+- Calories and weight tracker combined into one Tracker page and one Tracker navigation button
 - Calendar, reminders, and reminder controls combined into one Reminders page and button
 - Low-stock shopping sheet and inventory watch combined into one Inventory page and button
 - Today's Meal List moved directly under the day poster

@@ -10,7 +10,7 @@
 <meta name="apple-mobile-web-app-title" content="ABS Diet">
 <meta name="application-name" content="ABS Diet">
 <meta name="theme-color" content="#202123">
-<title>ABS Diet Weekly Food Zine App 9.0 ACL Fluorescent Navigation</title>
+<title>ABS Diet Weekly Food Zine App 9.1 ACL Tracker Units Reminder Timing</title>
 <style>
 :root{
   --ink:#241f1c;
@@ -146,7 +146,7 @@ body{
   min-height:34px;
   padding:8px 7px;
   border-radius:999px;
-  font-size:10px;
+  font-size:clamp(8px,2.2vw,10px);
   text-transform:uppercase;
   white-space:normal;
   line-height:1.05;
@@ -305,7 +305,9 @@ body{
   position:relative;
   padding:18px;
   background:linear-gradient(135deg,rgba(79,61,47,.92),rgba(55,48,43,.92));
+  color:#fff1d7;
 }
+.topicPageContent > .warn,.topicPageContent > .micro{color:#fff1d7}
 .pageHomeButton{
   display:flex;
   align-items:center;
@@ -344,6 +346,7 @@ select,input,button{
   background:#ead7b9;
   font-weight:800;
   font-size:16px;
+  overflow-wrap:anywhere;
 }
 input[type="date"]{
   min-width:0;
@@ -510,7 +513,7 @@ button.light{background:#ead7b9;color:var(--ink)}
 .cal{font-size:28px;font-weight:1000;white-space:nowrap}
 .note{color:var(--muted);margin:8px 0 10px}
 .pills{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}
-.pill{border:2px solid var(--ink);border-radius:999px;padding:6px 10px;background:#fff;font-size:13px;font-weight:800}
+.pill{border:2px solid var(--ink);border-radius:999px;padding:6px 10px;background:#fff;font-size:13px;font-weight:800;overflow-wrap:anywhere}
 .pill.remaining{background:#e4edd3}
 .details{margin-top:10px;display:none;border-top:2px dashed var(--ink);padding-top:12px}
 .meal.open .details{display:grid;gap:12px}
@@ -527,7 +530,7 @@ button.light{background:#ead7b9;color:var(--ink)}
 .recipeBox li,.swapBox li{color:#14110f}
 ul,ol{margin:8px 0 0;padding-left:22px}
 li{margin:4px 0}
-.option{display:flex;justify-content:space-between;gap:12px;background:#fff;border:2px solid var(--ink);border-radius:12px;padding:8px 10px;margin-top:7px}
+.option{display:flex;justify-content:space-between;gap:12px;background:#fff;border:2px solid var(--ink);border-radius:12px;padding:8px 10px;margin-top:7px;overflow-wrap:anywhere}
 .option.healthy{background:#e4edd3}
 .swapControls{
   display:grid;
@@ -542,6 +545,7 @@ li{margin:4px 0}
 .swapControls label{color:#14110f}
 .swapControls select{font-size:14px}
 .swapButtons{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.swapButtons button{min-height:54px;font-size:clamp(14px,3.5vw,16px);line-height:1.1;overflow-wrap:anywhere;hyphens:auto}
 .chosenNote{background:#dfc35f;border:2px solid var(--ink);border-radius:12px;padding:8px 10px;font-weight:1000;margin-top:8px}
 .meal.is-hidden,.slotFiltered .extraFoodTab{display:none}
 .progressWrap{background:var(--ink);border-radius:999px;overflow:hidden;border:3px solid var(--ink)}
@@ -608,6 +612,8 @@ li{margin:4px 0}
 .calendarLegend{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px;font-size:12px;font-weight:900;color:var(--muted);text-transform:uppercase}
 .weightGrid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-top:10px}
 .weightGrid .full{grid-column:1 / -1}
+.trackerHeader{display:flex;justify-content:space-between;gap:10px;align-items:center;flex-wrap:wrap}
+.unitToggle{width:auto;min-width:132px;padding:9px 12px;font-size:13px}
 .weightLog{display:grid;gap:8px;margin-top:10px;max-height:210px;overflow:auto;padding-right:4px}
 .weightEntry,.exerciseEntry{display:grid;grid-template-columns:1fr auto;gap:8px;align-items:center;background:#fff;border:2px solid var(--ink);border-radius:12px;padding:9px 10px;font-weight:900}
 .weightEntry span,.exerciseEntry span{color:var(--muted);font-size:12px;text-transform:uppercase}
@@ -617,6 +623,7 @@ li{margin:4px 0}
 .inventoryPanelHeader{display:flex;justify-content:space-between;gap:12px;align-items:end;flex-wrap:wrap}
 .inventoryPanelHeader h2{margin:0;text-transform:uppercase;font-size:30px}
 .reminderEnginePanel{background:linear-gradient(135deg,#fff4dc,#f4e5c5);border:2px solid var(--ink);border-radius:18px;padding:14px;margin-top:14px}
+.reminderEnginePanel,.reminderEnginePanel .micro,.reminderEnginePanel .warn{color:#241f1c}
 .notifyButton{
   background:#ff8a00 !important;
   color:#16110d !important;
@@ -1010,7 +1017,7 @@ select,input,button{
 <div class="app">
   <header class="appHeader">
     <section class="titleBar" data-info="hero">
-      <h1>ABS Diet Weekly App <button class="versionTag upgradeInfoBtn" type="button">9.0 ACL</button></h1>
+      <h1>ABS Diet Weekly App <button class="versionTag upgradeInfoBtn" type="button">9.1 ACL</button></h1>
     </section>
 
     <nav class="topNav" aria-label="App section shortcuts">
@@ -1025,7 +1032,7 @@ select,input,button{
         <button data-nav-slot="Dinner">Dinner</button>
         <button data-nav-slot="Snack 3">Snack 3</button>
         <div class="navRule" aria-hidden="true"></div>
-        <button data-nav-target="scale">Scale</button>
+        <button data-nav-target="scale">Tracker</button>
         <button data-nav-target="reminders">Reminders</button>
         <button data-nav-target="inventory">Inventory</button>
         <button id="syncNavBtn" class="syncNavBtn" data-nav-target="sync">Sign In</button>
@@ -1083,59 +1090,21 @@ select,input,button{
   </details>
 
   <details class="topicPage" id="scaleTopic">
-    <summary>Scale</summary>
+    <summary>Tracker</summary>
     <div class="topicPageContent">
-      <section class="controls scaleControls" aria-label="Setup and daily controls">
-        <div class="card controlDate" data-info="calendarDate">
-          <label for="dateSelect">Calendar date</label>
-          <input id="dateSelect" type="date">
-        </div>
-        <div class="card controlDay" data-info="chooseDay">
-          <label for="daySelect">Choose day</label>
-          <select id="daySelect"></select>
-        </div>
-        <div class="card controlTarget" data-info="calorieTarget">
-          <label for="target">Daily calorie target</label>
-          <input id="target" type="number" min="1200" max="5000" step="50" value="2000">
-        </div>
-        <div class="card controlProgress" data-info="progressReset">
-          <label>Progress</label>
-          <button id="resetDayBtn" class="light">Reset selected date checkboxes</button>
-        </div>
-      </section>
-    <section class="panel" data-info="calorieMap" id="calorieMapSection">
-      <h2 style="margin-top:0">Today's calorie map</h2>
-      <div class="small">Consumed progress</div>
-      <div class="progressWrap"><div id="consumedProgress" class="progress consumed"></div></div>
-      <br>
-      <div class="small">Planned day total</div>
-      <div class="progressWrap"><div id="plannedProgress" class="progress"></div></div>
-
-      <div class="summaryGrid">
-        <div class="card"><div class="small">Eaten so far</div><div class="bigNum" id="eaten"></div></div>
-        <div class="card"><div class="small">Need for rest of day</div><div class="bigNum" id="needRest"></div></div>
-        <div class="card"><div class="small">Planned remaining meals</div><div class="bigNum" id="plannedRest"></div></div>
-        <div class="card"><div class="small">Target</div><div class="bigNum" id="targetShow"></div></div>
-      </div>
-
-      <div class="restBox" data-info="calorieMeaning">
-        <h3>What this means</h3>
-        <div class="micro" id="restExplanation"></div>
-        <div class="restLine"><span>Calories after next unchecked item</span><span id="afterNext"></span></div>
-        <div class="restLine"><span>Difference vs remaining plan</span><span id="difference"></span></div>
-      </div>
-      <p class="warn">Calorie numbers are estimates. Use your real nutrition labels when possible and adjust the target to your personal plan.</p>
-    </section>
       <section class="panel restBox" data-info="weightTracker" id="weightTrackerSection">
-        <h3>Weight Tracker</h3>
+        <div class="trackerHeader">
+          <h3>Weight Tracker</h3>
+          <button id="unitToggleBtn" class="light unitToggle" type="button">Units: Metric</button>
+        </div>
         <div class="micro" id="weightSummary">Add your current weight and target weight in kg.</div>
         <div class="weightGrid">
           <div>
-            <label for="weightKg">Selected date KG</label>
+            <label for="weightKg" id="weightInputLabel">Selected date KG</label>
             <input id="weightKg" type="number" min="30" max="250" step="0.1" placeholder="kg">
           </div>
           <div>
-            <label for="targetKg">Target KG</label>
+            <label for="targetKg" id="targetInputLabel">Target KG</label>
             <input id="targetKg" type="number" min="30" max="250" step="0.1" placeholder="kg">
           </div>
           <button id="saveWeightBtn" class="secondary full">Save weight entry</button>
@@ -1156,12 +1125,68 @@ select,input,button{
         <div class="micro" id="exerciseSummary">Exercise burn is an estimate. About 7,700 kcal roughly equals 1 kg of body weight change, but real results vary.</div>
         <div id="exerciseLog" class="weightLog"></div>
       </section>
+      <section class="panel" data-info="calorieMap" id="calorieMapSection">
+        <h2 style="margin-top:0">Today's calorie map</h2>
+        <div class="small">Consumed progress</div>
+        <div class="progressWrap"><div id="consumedProgress" class="progress consumed"></div></div>
+        <br>
+        <div class="small">Planned day total</div>
+        <div class="progressWrap"><div id="plannedProgress" class="progress"></div></div>
+
+        <div class="summaryGrid">
+          <div class="card"><div class="small">Eaten so far</div><div class="bigNum" id="eaten"></div></div>
+          <div class="card"><div class="small">Need for rest of day</div><div class="bigNum" id="needRest"></div></div>
+          <div class="card"><div class="small">Planned remaining meals</div><div class="bigNum" id="plannedRest"></div></div>
+          <div class="card"><div class="small">Target</div><div class="bigNum" id="targetShow"></div></div>
+        </div>
+
+        <div class="restBox" data-info="calorieMeaning">
+          <h3>What this means</h3>
+          <div class="micro" id="restExplanation"></div>
+          <div class="restLine"><span>Calories after next unchecked item</span><span id="afterNext"></span></div>
+          <div class="restLine"><span>Difference vs remaining plan</span><span id="difference"></span></div>
+        </div>
+        <p class="warn">Calorie numbers are estimates. Use your real nutrition labels when possible and adjust the target to your personal plan.</p>
+      </section>
+      <section class="controls scaleControls" aria-label="Setup and daily controls">
+        <div class="card controlTarget" data-info="calorieTarget">
+          <label for="target">Daily calorie target</label>
+          <input id="target" type="number" min="1200" max="5000" step="50" value="2000">
+        </div>
+        <div class="card controlProgress" data-info="progressReset">
+          <label>Progress</label>
+          <button id="resetDayBtn" class="light">Reset selected date checkboxes</button>
+        </div>
+        <div class="card controlDate" data-info="calendarDate">
+          <label for="dateSelect">Calendar date</label>
+          <input id="dateSelect" type="date">
+        </div>
+        <div class="card controlDay" data-info="chooseDay">
+          <label for="daySelect">Choose day</label>
+          <select id="daySelect"></select>
+        </div>
+      </section>
     </div>
   </details>
 
   <details class="topicPage" id="remindersTopic">
     <summary>Reminders</summary>
     <div class="topicPageContent">
+      <section class="panel" data-info="reminders" id="remindersSection">
+        <h2 style="margin-top:0">Reminders</h2>
+        <div id="reminders" class="reminderList"></div>
+        <section class="reminderEnginePanel" data-info="reminderEngine" id="reminderEngineSection">
+          <h3 style="margin-top:0">Reminder engine</h3>
+          <div class="micro">Turn on browser notifications to get an alert 15 minutes before each meal or snack while this app is open. Download calendar reminders for phone alerts after the app is closed.</div>
+          <button id="notifyBtn" class="notifyButton">Enable in-app reminders</button>
+          <button id="calendarReminderBtn" class="light" type="button">Download selected date calendar reminders</button>
+          <p class="warn">In-app reminders need this page open. Calendar reminders are the dependable closed-app option for iPhone and computer alerts.</p>
+        </section>
+        <div class="legend">
+          <div>☀️ Breakfast</div><div>🍎 Snack 1</div><div>🥗 Lunch</div><div>🍓 Snack 2</div><div>🍽️ Dinner</div><div>🌙 Snack 3</div>
+        </div>
+        <p class="warn">Tap any reminder row to jump straight to that meal or snack card.</p>
+      </section>
       <section class="panel" data-info="calendar" id="calendarSection">
         <h2 style="margin-top:0">Calendar</h2>
         <div class="card calendarCard">
@@ -1173,21 +1198,6 @@ select,input,button{
           <div id="calendarGrid" class="calendarGrid"></div>
           <div class="calendarLegend"><span>Yellow: selected</span><span>Mint: today</span><span>Dot: saved progress</span></div>
         </div>
-      </section>
-      <section class="panel" data-info="reminders" id="remindersSection">
-        <h2 style="margin-top:0">Reminders</h2>
-        <div id="reminders" class="reminderList"></div>
-        <div class="legend">
-          <div>☀️ Breakfast</div><div>🍎 Snack 1</div><div>🥗 Lunch</div><div>🍓 Snack 2</div><div>🍽️ Dinner</div><div>🌙 Snack 3</div>
-        </div>
-        <p class="warn">Tap any reminder row to jump straight to that meal or snack card.</p>
-        <section class="reminderEnginePanel" data-info="reminderEngine" id="reminderEngineSection">
-          <h3 style="margin-top:0">Reminder engine</h3>
-          <div class="micro">Turn on browser notifications for meal and snack times while the app is open, or download calendar reminders for phone alerts after the app is closed.</div>
-          <button id="notifyBtn" class="notifyButton">Enable in-app reminders</button>
-          <button id="calendarReminderBtn" class="light" type="button">Download selected date calendar reminders</button>
-          <p class="warn">A static web app cannot wake a closed iPhone browser by itself. Calendar reminders are the dependable closed-app option.</p>
-        </section>
       </section>
     </div>
   </details>
@@ -1524,6 +1534,9 @@ const remindersList = document.getElementById("reminders");
 const rewardToast = document.getElementById("rewardToast");
 const weightKg = document.getElementById("weightKg");
 const targetKg = document.getElementById("targetKg");
+const unitToggleBtn = document.getElementById("unitToggleBtn");
+const weightInputLabel = document.getElementById("weightInputLabel");
+const targetInputLabel = document.getElementById("targetInputLabel");
 const weightLog = document.getElementById("weightLog");
 const exerciseCalories = document.getElementById("exerciseCalories");
 const exerciseLog = document.getElementById("exerciseLog");
@@ -1622,9 +1635,9 @@ const INFO_WINDOWS = {
     tips:["Use one row for each extra item when possible.","This is for honest tracking, not guilt. The app does math, not courtroom drama."]
   },
   calorieMap:{
-    title:"Scale",
-    body:"This combined page summarizes calorie intake, remaining calories, planned food still unchecked, weight in kilograms, exercise burn, and estimated weight impact.",
-    tips:["Calories and weight now live together so the daily math and scale trend are in one place.","The day poster stays on the opening page and opens a zoomed view when clicked."]
+    title:"Tracker",
+    body:"This combined page summarizes weight, calorie intake, remaining calories, planned food still unchecked, exercise burn, and estimated weight impact.",
+    tips:["Calories and weight now live together so the daily math and body trend are in one place.","Use the unit button to switch between metric and US weight displays."]
   },
   posterCollage:{
     title:"Food zine collage",
@@ -1648,8 +1661,8 @@ const INFO_WINDOWS = {
   },
   weightTracker:{
     title:"Weight tracker",
-    body:"This tracks your weight in kilograms, target weight, exercise calories, daily burn totals, and estimated weight-loss impact.",
-    tips:["Exercise weight impact is only an estimate using about 7,700 kcal per kg.","Save entries by selected date so your graph/history stays calendar-linked."]
+    body:"This tracks your weight, target weight, exercise calories, daily burn totals, and estimated weight-loss impact.",
+    tips:["Exercise weight impact is only an estimate using about 7,700 kcal per kg or about 3,500 kcal per lb.","Save entries by selected date so your graph/history stays calendar-linked."]
   },
   inventory:{
     title:"Inventory",
@@ -1669,6 +1682,7 @@ const INFO_WINDOWS = {
 };
 
 const UPGRADE_HISTORY = [
+  ["9.1 ACL","Renamed Scale to Tracker, reordered the Tracker page, added metric/US unit switching for weights and recipe measurements, and changed reminders to alert 15 minutes before meals."],
   ["9.0 ACL","Removed visited-button dimming, refreshed navigation with fluorescent yellow/orange/light-purple groups, improved light-blue text contrast, moved meal status and Not in the Mood controls lower in each meal card, added password reset email support, and replaced the bottom version badge with a learning-purpose disclaimer."],
   ["8.10 ACL","Added bottom Home buttons to every page, brought back the divider idea horizontally inside navigation, refreshed the nav colors by section, and kept opened pages focused until Home is tapped."],
   ["8.9.9 ACL","Moved Today's Meals directly under Home, made Sign In a full-width bottom nav button that becomes Sign Out after login, added the signed-in username to Home, removed the landing Today's Meal List dropdown, enlarged the landing poster, and removed the blue meal-filter note from the Meals page."],
@@ -1764,6 +1778,7 @@ let firebaseApi = null;
 let firebaseSaveTimer = null;
 let suppressCloudAutoSave = false;
 let firebaseAuthWatcherStarted = false;
+let unitSystem = localStorage.getItem("aclUnitSystem") || "metric";
 dateSelect.value = selectedDate;
 daySelect.value = dayIndexForDate(selectedDate);
 target.value = localStorage.getItem("aclDailyCalorieTarget") || target.value;
@@ -1778,6 +1793,43 @@ document.querySelectorAll(".topicPageContent").forEach(content=>{
 
 function fmt(n){return Math.round(n).toLocaleString();}
 function fmtKg(n){return Number(n).toLocaleString(undefined,{maximumFractionDigits:1,minimumFractionDigits:Number.isInteger(Number(n)) ? 0 : 1});}
+function fmtWeight(kg){
+  const value = unitSystem === "us" ? Number(kg) * 2.20462 : Number(kg);
+  const unit = unitSystem === "us" ? "lb" : "kg";
+  return `${Number(value).toLocaleString(undefined,{maximumFractionDigits:1,minimumFractionDigits:Number.isInteger(Number(value)) ? 0 : 1})} ${unit}`;
+}
+function inputWeightToKg(value){
+  const numeric = Number(value);
+  return unitSystem === "us" ? numeric / 2.20462 : numeric;
+}
+function kgToInputWeight(kg){
+  const value = unitSystem === "us" ? Number(kg) * 2.20462 : Number(kg);
+  return Number(value).toLocaleString(undefined,{maximumFractionDigits:1,minimumFractionDigits:Number.isInteger(Number(value)) ? 0 : 1,useGrouping:false});
+}
+function updateUnitLabels(){
+  const isUs = unitSystem === "us";
+  if(unitToggleBtn) unitToggleBtn.textContent = isUs ? "Units: US" : "Units: Metric";
+  if(weightInputLabel) weightInputLabel.textContent = isUs ? "Selected date LB" : "Selected date KG";
+  if(targetInputLabel) targetInputLabel.textContent = isUs ? "Target LB" : "Target KG";
+  if(weightKg) weightKg.placeholder = isUs ? "lb" : "kg";
+  if(targetKg) targetKg.placeholder = isUs ? "lb" : "kg";
+  [weightKg,targetKg].forEach(input=>{
+    if(!input) return;
+    input.min = isUs ? "66" : "30";
+    input.max = isUs ? "550" : "250";
+    input.step = "0.1";
+  });
+}
+function formatMeasureText(text){
+  if(unitSystem === "us"){
+    return String(text)
+    .replace(/(\d+(?:\.\d+)?)\s*g\b/gi,(_,num)=>`${(Number(num) / 28.3495).toLocaleString(undefined,{maximumFractionDigits:1})} oz`)
+    .replace(/(\d+(?:\.\d+)?)\s*kg\b/gi,(_,num)=>`${(Number(num) * 2.20462).toLocaleString(undefined,{maximumFractionDigits:1})} lb`);
+  }
+  return String(text)
+    .replace(/(\d+(?:\.\d+)?)\s*oz\b\.?/gi,(_,num)=>`${(Number(num) * 28.3495).toLocaleString(undefined,{maximumFractionDigits:0})} g`)
+    .replace(/(\d+(?:\.\d+)?)\s*lb\b\.?/gi,(_,num)=>`${(Number(num) * 0.453592).toLocaleString(undefined,{maximumFractionDigits:1})} kg`);
+}
 function slotId(slot){return slot.toLowerCase().replace(/[^a-z0-9]+/g,"-").replace(/^-|-$/g,"");}
 function wisdomIndexForIso(iso){
   const [y,m,d] = iso.split("-").map(Number);
@@ -1836,7 +1888,7 @@ function collectCloudData(){
   }
   return {
     app:"abs-diet-weekly-app",
-    version:"9.0 ACL Fluorescent Navigation",
+    version:"9.1 ACL Tracker Units Reminder Timing",
     updatedAt:Date.now(),
     entries
   };
@@ -2137,6 +2189,11 @@ function scrollToTarget(target,block="start"){
   const top = target.getBoundingClientRect().top + window.scrollY - offset;
   window.scrollTo({top:Math.max(0,top),behavior:"smooth"});
 }
+function scrollToTopicContent(topic){
+  if(!topic) return;
+  const content = topic.querySelector(".topicPageContent") || topic;
+  window.setTimeout(()=>scrollToTarget(content,"start"),40);
+}
 function jumpToSlot(slot){
   activeMealSlot = slot;
   render();
@@ -2162,28 +2219,28 @@ function navTo(targetName){
     activeMealSlot = "all";
     render();
     openTopic(document.getElementById("mealPlanTopic"));
-    window.setTimeout(()=>scrollToTarget(document.getElementById("mealPlanTopic"),"start"),40);
+    scrollToTopicContent(document.getElementById("mealPlanTopic"));
     return;
   }
   if(targetName === "scale" || targetName === "calorieMap" || targetName === "weightTracker"){
     openTopic(document.getElementById("scaleTopic"));
-    window.setTimeout(()=>scrollToTarget(document.getElementById("scaleTopic"),"start"),40);
+    scrollToTopicContent(document.getElementById("scaleTopic"));
     return;
   }
   if(targetName === "reminders" || targetName === "calendar"){
     openTopic(document.getElementById("remindersTopic"));
-    window.setTimeout(()=>scrollToTarget(document.getElementById("remindersTopic"),"start"),40);
+    scrollToTopicContent(document.getElementById("remindersTopic"));
     return;
   }
   if(targetName === "inventory" || targetName === "lowStock"){
     openTopic(document.getElementById("inventoryTopic"));
     renderShoppingPrintList();
-    window.setTimeout(()=>scrollToTarget(document.getElementById("inventoryTopic"),"start"),40);
+    scrollToTopicContent(document.getElementById("inventoryTopic"));
     return;
   }
   if(targetName === "sync"){
     openTopic(document.getElementById("syncTopic"));
-    window.setTimeout(()=>scrollToTarget(document.getElementById("syncTopic"),"start"),40);
+    scrollToTopicContent(document.getElementById("syncTopic"));
   }
 }
 function todayIso(){return isoFromDate(new Date());}
@@ -2205,6 +2262,11 @@ function icsDateTime(iso,time){
   const [hh,mm] = time.split(":");
   return `${y}${m}${d}T${hh}${mm}00`;
 }
+function minutesToTime(time,offset){
+  const [hh,mm] = time.split(":").map(Number);
+  const total = (hh * 60 + mm + offset + 1440) % 1440;
+  return `${String(Math.floor(total / 60)).padStart(2,"0")}:${String(total % 60).padStart(2,"0")}`;
+}
 function downloadSelectedDateCalendarReminders(){
   const meals = resolvedMeals(currentDay(),selectedDate);
   const stamp = new Date().toISOString().replace(/[-:]/g,"").split(".")[0] + "Z";
@@ -2217,9 +2279,9 @@ function downloadSelectedDateCalendarReminders(){
     `SUMMARY:${icsEscape(`${m.icon} ${m.slot}: ${m.name}`)}`,
     `DESCRIPTION:${icsEscape(`${m.cal} kcal planned. Open ABS Diet app to check off or switch.`)}`,
     "BEGIN:VALARM",
-    "TRIGGER:-PT5M",
+    "TRIGGER:-PT15M",
     "ACTION:DISPLAY",
-    `DESCRIPTION:${icsEscape(`${m.slot}: ${m.name}`)}`,
+    `DESCRIPTION:${icsEscape(`${m.slot} in 15 minutes: ${m.name}`)}`,
     "END:VALARM",
     "END:VEVENT"
   ].join("\r\n")).join("\r\n");
@@ -2262,7 +2324,7 @@ function consumed(day,iso){return mealConsumed(day,iso) + extraFoodTotal(iso);}
 function remainingPlanned(day,iso){return resolvedMeals(day,iso).reduce((s,m)=>s+(!isDone(iso,m)?m.cal:0),0);}
 function nextUnchecked(day,iso){return resolvedMeals(day,iso).find(m=>!isDone(iso,m));}
 function allChecked(day,iso){return resolvedMeals(day,iso).every(m=>isDone(iso,m));}
-function list(items,type){return `<${type}>${items.map(item=>`<li>${item}</li>`).join("")}</${type}>`;}
+function list(items,type){return `<${type}>${items.map(item=>`<li>${escapeHtml(formatMeasureText(item))}</li>`).join("")}</${type}>`;}
 function weightEntries(){
   try{
     const saved = JSON.parse(localStorage.getItem("aclBthWeightEntries") || "[]");
@@ -2685,18 +2747,19 @@ function renderCalendar(){
 }
 
 function renderWeightTracker(){
+  updateUnitLabels();
   const entries = weightEntries().sort((a,b)=>a.date.localeCompare(b.date));
   const exercise = exerciseEntries().sort((a,b)=>a.date.localeCompare(b.date));
   const targetValue = Number(localStorage.getItem("aclBthTargetKg") || targetKg.value || 0);
-  if(targetValue) targetKg.value = targetValue;
+  if(targetValue) targetKg.value = kgToInputWeight(targetValue);
   const selectedWeight = entries.find(entry=>entry.date === selectedDate);
   const latest = entries[entries.length - 1];
-  weightKg.value = selectedWeight ? selectedWeight.kg : "";
+  weightKg.value = selectedWeight ? kgToInputWeight(selectedWeight.kg) : "";
   const todayBurn = exercise.filter(entry=>entry.date === selectedDate).reduce((sum,entry)=>sum + Number(entry.calories),0);
   const totalBurn = exercise.reduce((sum,entry)=>sum + Number(entry.calories),0);
   const estimatedKg = totalBurn / 7700;
 
-  let summary = "Add your current weight and target weight in kg.";
+  let summary = `Add your current weight and target weight in ${unitSystem === "us" ? "lb" : "kg"}.`;
   let progress = 0;
   if(latest && targetValue){
     const start = Number(entries[0].kg);
@@ -2707,22 +2770,22 @@ function renderWeightTracker(){
       progress = Math.max(0, Math.min(100, currentChange / totalChangeNeeded * 100));
     }
     const remaining = current - targetValue;
-    summary = `Current: ${fmtKg(current)} kg. Target: ${fmtKg(targetValue)} kg. ${remaining > 0 ? fmtKg(remaining) + " kg to target." : remaining < 0 ? fmtKg(Math.abs(remaining)) + " kg past target." : "Target reached."}`;
+    summary = `Current: ${fmtWeight(current)}. Target: ${fmtWeight(targetValue)}. ${remaining > 0 ? fmtWeight(remaining) + " to target." : remaining < 0 ? fmtWeight(Math.abs(remaining)) + " past target." : "Target reached."}`;
   } else if(latest){
-    summary = `Latest saved weight: ${fmtKg(latest.kg)} kg. Add a target to see progress.`;
+    summary = `Latest saved weight: ${fmtWeight(latest.kg)}. Add a target to see progress.`;
   }
 
   document.getElementById("weightSummary").textContent = summary;
   document.getElementById("weightProgress").style.width = `${progress}%`;
   document.getElementById("burnedToday").textContent = `${fmt(todayBurn)} kcal`;
   document.getElementById("burnedTotal").textContent = `${fmt(totalBurn)} kcal`;
-  document.getElementById("burnedKg").textContent = `${fmtKg(estimatedKg)} kg est.`;
+  document.getElementById("burnedKg").textContent = `${fmtWeight(estimatedKg)} est.`;
   document.getElementById("exerciseSummary").textContent = totalBurn
-    ? `Your logged exercise burn equals about ${fmtKg(estimatedKg)} kg of estimated energy deficit. Scale weight can move differently because of water, food volume, muscle, sleep, and sodium.`
-    : "Exercise burn is an estimate. About 7,700 kcal roughly equals 1 kg of body weight change, but real results vary.";
+    ? `Your logged exercise burn equals about ${fmtWeight(estimatedKg)} of estimated energy deficit. Scale weight can move differently because of water, food volume, muscle, sleep, and sodium.`
+    : "Exercise burn is an estimate. About 7,700 kcal roughly equals 1 kg, or about 3,500 kcal roughly equals 1 lb, of body weight change. Real results vary.";
   weightLog.innerHTML = entries.length ? entries.slice().reverse().map((entry,index)=>`
     <div class="weightEntry">
-      <div><b>${fmtKg(entry.kg)} kg</b><br><span>${entry.date}</span></div>
+      <div><b>${fmtWeight(entry.kg)}</b><br><span>${entry.date}</span></div>
       <button class="light miniButton" data-delete-weight="${entries.length - 1 - index}">Delete</button>
     </div>
   `).join("") : `<div class="micro">No weight entries yet.</div>`;
@@ -3155,20 +3218,20 @@ document.getElementById("calendarReminderBtn").onclick = ()=>{
 };
 
 document.getElementById("saveWeightBtn").onclick = ()=>{
-  const kg = Number(weightKg.value);
-  const targetValue = Number(targetKg.value);
-  if(!kg || kg < 30 || kg > 250){ alert("Enter a realistic weight in kg."); return; }
+  const kg = inputWeightToKg(weightKg.value);
+  const targetValue = targetKg.value ? inputWeightToKg(targetKg.value) : 0;
+  if(!kg || kg < 30 || kg > 250){ alert(`Enter a realistic weight in ${unitSystem === "us" ? "lb" : "kg"}.`); return; }
   if(targetValue){
     localStorage.setItem("aclBthTargetKg", String(targetValue));
   }
-  if(profileWeight) profileWeight.value = String(kg);
+  if(profileWeight) profileWeight.value = fmtKg(kg);
   localStorage.setItem("aclProfileWeightKg", String(kg));
   const entries = weightEntries().filter(entry=>entry.date !== selectedDate);
   entries.push({date:selectedDate, kg});
   saveWeightEntries(entries);
   renderWeightTracker();
   renderCalendar();
-  rewardToast.innerHTML = `Weight entry saved.<small>${fmtKg(kg)} kg logged for ${selectedDate}</small>`;
+  rewardToast.innerHTML = `Weight entry saved.<small>${fmtWeight(kg)} logged for ${selectedDate}</small>`;
   rewardToast.classList.add("show");
   clearTimeout(window.rewardTimer);
   window.rewardTimer = setTimeout(()=>rewardToast.classList.remove("show"),2300);
@@ -3190,8 +3253,14 @@ document.getElementById("saveExerciseBtn").onclick = ()=>{
 };
 
 targetKg.addEventListener("input",()=>{
-  if(targetKg.value) localStorage.setItem("aclBthTargetKg", targetKg.value);
+  if(targetKg.value) localStorage.setItem("aclBthTargetKg", String(inputWeightToKg(targetKg.value)));
+  else localStorage.removeItem("aclBthTargetKg");
   renderWeightTracker();
+});
+if(unitToggleBtn) unitToggleBtn.addEventListener("click",()=>{
+  unitSystem = unitSystem === "us" ? "metric" : "us";
+  localStorage.setItem("aclUnitSystem",unitSystem);
+  render();
 });
 if(profileAge) profileAge.addEventListener("input",()=>saveProfileField(profileAge,"aclProfileAge"));
 if(profileWeight) profileWeight.addEventListener("input",()=>saveProfileField(profileWeight,"aclProfileWeightKg"));
@@ -3466,7 +3535,7 @@ document.getElementById("notifyBtn").onclick = async()=>{
   if(!("Notification" in window)){ alert("This browser does not support notifications."); return; }
   const perm = await Notification.requestPermission();
   if(perm !== "granted"){ alert("Notifications were not allowed."); return; }
-  alert("In-app reminders enabled while this page stays open.");
+  alert("15-minute in-app reminders enabled while this page stays open.");
   if(reminderTimer) clearInterval(reminderTimer);
   const fired = new Set();
   reminderTimer = setInterval(()=>{
@@ -3476,11 +3545,12 @@ document.getElementById("notifyBtn").onclick = async()=>{
     if(!d) return;
     const current = `${String(now.getHours()).padStart(2,"0")}:${String(now.getMinutes()).padStart(2,"0")}`;
     resolvedMeals(d,reminderIso).forEach(m=>{
-      const key = reminderIso + "-" + m.slot + "-" + m.time;
-      if(m.time === current && !fired.has(key)){
+      const reminderTime = minutesToTime(m.time,-15);
+      const key = reminderIso + "-" + m.slot + "-" + reminderTime;
+      if(reminderTime === current && !fired.has(key)){
         fired.add(key);
-        new Notification(`${m.icon} ${m.slot}: ${m.name}`, {body:`${m.cal} kcal planned. Open app, check the box when done, or switch to an alternative.`});
-        alert(`${m.slot} time: ${m.name}. Check it off when finished, or use the switch button for an alternative.`);
+        new Notification(`⏰ ${m.icon} ${m.slot} in 15 minutes`, {body:`${m.name} is planned for ${m.time}. ${m.cal} kcal. Open app, check it off when done, or switch to an alternative.`});
+        alert(`${m.slot} in 15 minutes: ${m.name}. Check it off when finished, or use the switch button for an alternative.`);
       }
     });
   },15000);
