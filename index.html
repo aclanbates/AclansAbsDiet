@@ -10,7 +10,7 @@
 <meta name="apple-mobile-web-app-title" content="ABS Diet">
 <meta name="application-name" content="ABS Diet">
 <meta name="theme-color" content="#202123">
-<title>ABS Diet Weekly Food Zine App 8.9.9 ACL Streamlined Sign-In Navigation</title>
+<title>ABS Diet Weekly Food Zine App 8.10 ACL Charming Navigation Return</title>
 <style>
 :root{
   --ink:#241f1c;
@@ -217,21 +217,29 @@ body{
 }
 .topNav .homeNavBtn{
   grid-column:1 / -1;
-  background:linear-gradient(135deg,#f2ba61,#ef7f5b);
-  color:#251b17;
+  background:linear-gradient(135deg,#ffe0a6,#ff9f8a);
+  color:#231817;
 }
-.topNav .todayMealBtn{grid-column:1 / -1;background:linear-gradient(135deg,#f8c057,#f27f5b);color:#241f1c}
+.topNav .todayMealBtn{grid-column:1 / -1;background:linear-gradient(135deg,#ff7bc3,#e83da9);color:#1f111b}
 .topNav .syncNavBtn{grid-column:1 / -1}
-.mealNav [data-nav-slot="Breakfast"]{background:linear-gradient(135deg,#ffd37e,#f0a04f);color:#241f1c}
-.mealNav [data-nav-slot="Snack 1"]{background:linear-gradient(135deg,#f49b72,#d86d67);color:#241f1c}
-.mealNav [data-nav-slot="Lunch"]{background:linear-gradient(135deg,#a5bd73,#4e9a83);color:#17211d}
-.mealNav [data-nav-slot="Snack 2"]{background:linear-gradient(135deg,#e9a1b1,#bd6c86);color:#241f1c}
-.mealNav [data-nav-slot="Dinner"]{background:linear-gradient(135deg,#559d98,#2d6d72);color:#fffaf0}
-.mealNav [data-nav-slot="Snack 3"]{background:linear-gradient(135deg,#8d7abd,#66548e);color:#fffaf0}
-.topNav [data-nav-target="scale"]{background:linear-gradient(135deg,#dcb568,#7293a2);color:#241f1c}
-.topNav [data-nav-target="reminders"]{background:linear-gradient(135deg,#b55d6b,#6f3948);color:#fffaf0}
-.topNav [data-nav-target="inventory"]{background:linear-gradient(135deg,#8eaa67,#3f826b);color:#17211d}
-.topNav [data-nav-target="sync"]{background:linear-gradient(135deg,#47ff9d,#10b981);color:#07140d}
+.mealNav [data-nav-slot="Breakfast"]{background:linear-gradient(135deg,#ffe6a7,#f7b763);color:#211914}
+.mealNav [data-nav-slot="Snack 1"]{background:linear-gradient(135deg,#ffb199,#df726f);color:#211914}
+.mealNav [data-nav-slot="Lunch"]{background:linear-gradient(135deg,#c7d89a,#79b891);color:#152017}
+.mealNav [data-nav-slot="Snack 2"]{background:linear-gradient(135deg,#efb7c9,#c87b9d);color:#21141b}
+.mealNav [data-nav-slot="Dinner"]{background:linear-gradient(135deg,#7fc5bf,#3f838c);color:#fff8ea}
+.mealNav [data-nav-slot="Snack 3"]{background:linear-gradient(135deg,#b8a7dc,#7c6ab1);color:#fff8ea}
+.topNav [data-nav-target="scale"]{background:linear-gradient(135deg,#d7c58a,#91aebb);color:#211914}
+.topNav [data-nav-target="reminders"]{background:linear-gradient(135deg,#d98da1,#8f5069);color:#fff8ea}
+.topNav [data-nav-target="inventory"]{background:linear-gradient(135deg,#a8c98c,#5f9a78);color:#172018}
+.topNav [data-nav-target="sync"]{background:linear-gradient(135deg,#75f0a2,#45bd82);color:#07140d}
+.navRule{
+  grid-column:1 / -1;
+  height:2px;
+  margin:2px 14px;
+  border-radius:999px;
+  background:linear-gradient(90deg,transparent,rgba(255,224,166,.25),rgba(255,123,195,.76),rgba(199,216,154,.56),transparent);
+  box-shadow:0 0 12px rgba(255,123,195,.32),0 0 9px rgba(255,224,166,.22);
+}
 @media(max-width:760px){
   .topNav{gap:6px;padding:8px;border-radius:14px}
   .navGroup{grid-template-columns:repeat(3,minmax(0,1fr));gap:6px}
@@ -302,6 +310,21 @@ body{
   padding:18px;
   background:linear-gradient(135deg,rgba(79,61,47,.92),rgba(55,48,43,.92));
 }
+.pageHomeButton{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  width:min(100%,520px);
+  min-height:48px;
+  margin:18px auto 0;
+  background:linear-gradient(135deg,#ffe0a6,#ff9f8a);
+  color:#231817;
+  border-color:var(--line);
+  box-shadow:0 0 0 2px rgba(255,224,166,.35),0 4px 0 rgba(10,9,8,.58);
+  text-transform:uppercase;
+  letter-spacing:.06em;
+}
+.pageHomeButton:hover,.pageHomeButton:focus{outline:3px solid rgba(255,159,138,.38)}
 .controls{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px;margin:28px 0}
 .panel,.meal,.quickPlan,.calendarCard,.reminderList,.restBox{scroll-margin-top:172px}
 .card,.meal,.panel{
@@ -956,7 +979,7 @@ select,input,button{
 .modalBox{border:2px solid var(--line);background:#1f2022}
 .modalScroll{background:#202123}
 @media print{
-  .appHeader,.topicPage:not(.printShoppingOpen),.footer,.modal,.rewardToast,.heroPoster{display:none !important}
+  .appHeader,.topicPage:not(.printShoppingOpen),.footer,.modal,.rewardToast,.heroPoster,.pageHomeButton{display:none !important}
   body{background:white}
   .app{max-width:none;padding:0;pointer-events:auto}
   .printShoppingOpen{display:block !important;border:0;box-shadow:none;margin:0;background:white;color:#111}
@@ -972,19 +995,21 @@ select,input,button{
 <div class="app">
   <header class="appHeader">
     <section class="titleBar" data-info="hero">
-      <h1>ABS Diet Weekly App <button class="versionTag upgradeInfoBtn" type="button">8.9.9 ACL</button></h1>
+      <h1>ABS Diet Weekly App <button class="versionTag upgradeInfoBtn" type="button">8.10 ACL</button></h1>
     </section>
 
     <nav class="topNav" aria-label="App section shortcuts">
       <div class="navGroup mealNav" aria-label="App shortcuts">
         <button id="homeNavBtn" class="homeNavBtn" data-nav-target="hero">Home</button>
         <button class="todayMealBtn" data-nav-target="quickPlan">Today's meals</button>
+        <div class="navRule" aria-hidden="true"></div>
         <button data-nav-slot="Breakfast">Breakfast</button>
         <button data-nav-slot="Snack 1">Snack 1</button>
         <button data-nav-slot="Lunch">Lunch</button>
         <button data-nav-slot="Snack 2">Snack 2</button>
         <button data-nav-slot="Dinner">Dinner</button>
         <button data-nav-slot="Snack 3">Snack 3</button>
+        <div class="navRule" aria-hidden="true"></div>
         <button data-nav-target="scale">Scale</button>
         <button data-nav-target="reminders">Reminders</button>
         <button data-nav-target="inventory">Inventory</button>
@@ -1221,7 +1246,7 @@ select,input,button{
     </div>
   </details>
 
-  <div class="footer"><button class="tape versionTag versionFooterBtn upgradeInfoBtn" type="button">8.9.9 ACL</button></div>
+  <div class="footer"><button class="tape versionTag versionFooterBtn upgradeInfoBtn" type="button">8.10 ACL</button></div>
 </div>
 
 <div id="dayRewardModal" class="modal rewardModal" aria-hidden="true">
@@ -1625,6 +1650,7 @@ const INFO_WINDOWS = {
 };
 
 const UPGRADE_HISTORY = [
+  ["8.10 ACL","Added bottom Home buttons to every page, brought back the divider idea horizontally inside navigation, refreshed the nav colors by section, and kept opened pages focused until Home is tapped."],
   ["8.9.9 ACL","Moved Today's Meals directly under Home, made Sign In a full-width bottom nav button that becomes Sign Out after login, added the signed-in username to Home, removed the landing Today's Meal List dropdown, enlarged the landing poster, and removed the blue meal-filter note from the Meals page."],
   ["8.9.8.8 ACL","Cleaned the landing page so it shows only the selected day poster and Today's Meal List button, removed the temporary nav divider, moved setup controls into Scale, and moved Tiny Wisdom into Sign In / Cloud Sync."],
   ["8.9.8.7 ACL","Moved Not in the Mood alternatives into each individual meal card and tightened Today's Meal List wrapping so long names stay inside their frames."],
@@ -1726,6 +1752,10 @@ firebaseEmail.value = localStorage.getItem("aclFirebaseEmail") || "";
 if(profileAge) profileAge.value = localStorage.getItem("aclProfileAge") || "";
 if(profileWeight) profileWeight.value = localStorage.getItem("aclProfileWeightKg") || "";
 
+document.querySelectorAll(".topicPageContent").forEach(content=>{
+  content.insertAdjacentHTML("beforeend",`<button type="button" class="pageHomeButton" data-page-home>Home</button>`);
+});
+
 function fmt(n){return Math.round(n).toLocaleString();}
 function fmtKg(n){return Number(n).toLocaleString(undefined,{maximumFractionDigits:1,minimumFractionDigits:Number.isInteger(Number(n)) ? 0 : 1});}
 function slotId(slot){return slot.toLowerCase().replace(/[^a-z0-9]+/g,"-").replace(/^-|-$/g,"");}
@@ -1786,7 +1816,7 @@ function collectCloudData(){
   }
   return {
     app:"abs-diet-weekly-app",
-    version:"8.9.9 ACL Streamlined Sign-In Navigation",
+    version:"8.10 ACL Charming Navigation Return",
     updatedAt:Date.now(),
     entries
   };
@@ -2094,18 +2124,18 @@ function navTo(targetName){
   }
   if(targetName === "reminders" || targetName === "calendar"){
     openTopic(document.getElementById("remindersTopic"));
-    window.setTimeout(()=>scrollToTarget(document.getElementById("calendarSection"),"start"),40);
+    window.setTimeout(()=>scrollToTarget(document.getElementById("remindersTopic"),"start"),40);
     return;
   }
   if(targetName === "inventory" || targetName === "lowStock"){
     openTopic(document.getElementById("inventoryTopic"));
     renderShoppingPrintList();
-    window.setTimeout(()=>scrollToTarget(document.getElementById("lowStockSection"),"start"),40);
+    window.setTimeout(()=>scrollToTarget(document.getElementById("inventoryTopic"),"start"),40);
     return;
   }
   if(targetName === "sync"){
     openTopic(document.getElementById("syncTopic"));
-    window.setTimeout(()=>scrollToTarget(document.getElementById("syncSection"),"start"),40);
+    window.setTimeout(()=>scrollToTarget(document.getElementById("syncTopic"),"start"),40);
   }
 }
 function todayIso(){return isoFromDate(new Date());}
@@ -3307,6 +3337,15 @@ document.querySelectorAll(".topicPage").forEach(page=>{
 });
 
 document.addEventListener("click",(ev)=>{
+  const pageHomeButton = ev.target.closest("[data-page-home]");
+  if(pageHomeButton){
+    ev.preventDefault();
+    ev.stopPropagation();
+    setActiveNavButton(homeNavBtn);
+    resetLandingPage();
+    window.scrollTo({top:0,behavior:"smooth"});
+    return;
+  }
   const upgradeButton = ev.target.closest(".upgradeInfoBtn");
   if(upgradeButton){
     ev.preventDefault();
