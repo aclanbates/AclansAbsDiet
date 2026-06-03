@@ -1,4 +1,4 @@
-# ABS Diet Weekly Food Zine App 8.10 ACL Charming Navigation Return
+# ABS Diet Weekly Food Zine App 9.0 ACL Fluorescent Navigation
 
 Static one-page meal tracker for GitHub Pages.
 
@@ -74,10 +74,16 @@ Static one-page meal tracker for GitHub Pages.
 - The older divider idea returns as elegant horizontal navigation dividers
 - Navigation colors are refreshed into distinct Home, Today's Meals, meal-flow, and tracking-tool palettes
 - Opening a page keeps the user focused on that page; the poster returns only through Home
+- Visited-button dimming removed; inactive buttons return to their original colors
+- Navigation colors updated to fluorescent yellow, orange, and light purple families
+- Meal cards place status pills and Not in the Mood lower near the replacement controls
+- Pale blue recipe/replacement boxes use dark text for readability
+- Sign In includes an "I forgot my password" reset-email button requiring username and registered email
+- Bottom version badge replaced with copyright and learning-purpose disclaimer
 - Phone navigation uses shorter tool labels and balanced button groups for iPhone-sized screens
 - Split navigation swapped sides: tracking tools on the left, Home and meals on the right
 - Stuck fixed poster background removed; the normal clickable selected-day landing poster remains
-- Upgrade notes moved into clickable version badges at the top title and small footer badge
+- Upgrade notes moved into the clickable version badge at the top title
 - Landing starts with only the navigation and food zine poster; all dropdown sections stay collapsed until tapped
 - Inventory top-nav button now blinks fluorescent blue for low stock, fluorescent red for finished items, and split blue/red when both warning types exist
 - Upgrade history popup is scrollable and shows the saved upgrade trail from earliest to newest
@@ -89,7 +95,7 @@ Static one-page meal tracker for GitHub Pages.
 - Calendar, reminders, and reminder controls combined into one Reminders page and button
 - Low-stock shopping sheet and inventory watch combined into one Inventory page and button
 - Today's Meal List moved directly under the day poster
-- Navigation buttons dim after being visited during the current browser session, while the active button stays fluorescent pink
+- Navigation buttons keep their original colors after being visited, while the active button stays fluorescent pink
 - Firebase sign-in now asks for username, then switches to a signed-in blue panel with username, SYNC NOW, and Sign out
 - Geolocation button removed for now so the location idea can be redesigned later
 - Selected-date calendar reminder export added for phone reminders outside the open app

@@ -10,7 +10,7 @@
 <meta name="apple-mobile-web-app-title" content="ABS Diet">
 <meta name="application-name" content="ABS Diet">
 <meta name="theme-color" content="#202123">
-<title>ABS Diet Weekly Food Zine App 8.10 ACL Charming Navigation Return</title>
+<title>ABS Diet Weekly Food Zine App 9.0 ACL Fluorescent Navigation</title>
 <style>
 :root{
   --ink:#241f1c;
@@ -165,10 +165,6 @@ body{
   opacity:1;
   filter:none;
 }
-.topNav button.navVisited:not(.navActive):not(.inventoryWarnLow):not(.inventoryWarnOut):not(.inventoryWarnMixed){
-  opacity:.62;
-  filter:saturate(.72) brightness(.78);
-}
 .topNav button.navDone:not(.navActive){
   background:#fff9ee !important;
   color:#241f1c !important;
@@ -217,20 +213,20 @@ body{
 }
 .topNav .homeNavBtn{
   grid-column:1 / -1;
-  background:linear-gradient(135deg,#ffe0a6,#ff9f8a);
-  color:#231817;
+  background:linear-gradient(135deg,#fff56a,#ffe600);
+  color:#171307;
 }
-.topNav .todayMealBtn{grid-column:1 / -1;background:linear-gradient(135deg,#ff7bc3,#e83da9);color:#1f111b}
+.topNav .todayMealBtn{grid-column:1 / -1;background:linear-gradient(135deg,#f8ff72,#ffd100);color:#171307}
 .topNav .syncNavBtn{grid-column:1 / -1}
-.mealNav [data-nav-slot="Breakfast"]{background:linear-gradient(135deg,#ffe6a7,#f7b763);color:#211914}
-.mealNav [data-nav-slot="Snack 1"]{background:linear-gradient(135deg,#ffb199,#df726f);color:#211914}
-.mealNav [data-nav-slot="Lunch"]{background:linear-gradient(135deg,#c7d89a,#79b891);color:#152017}
-.mealNav [data-nav-slot="Snack 2"]{background:linear-gradient(135deg,#efb7c9,#c87b9d);color:#21141b}
-.mealNav [data-nav-slot="Dinner"]{background:linear-gradient(135deg,#7fc5bf,#3f838c);color:#fff8ea}
-.mealNav [data-nav-slot="Snack 3"]{background:linear-gradient(135deg,#b8a7dc,#7c6ab1);color:#fff8ea}
-.topNav [data-nav-target="scale"]{background:linear-gradient(135deg,#d7c58a,#91aebb);color:#211914}
-.topNav [data-nav-target="reminders"]{background:linear-gradient(135deg,#d98da1,#8f5069);color:#fff8ea}
-.topNav [data-nav-target="inventory"]{background:linear-gradient(135deg,#a8c98c,#5f9a78);color:#172018}
+.mealNav [data-nav-slot="Breakfast"]{background:linear-gradient(135deg,#ffd86b,#ff9f1c);color:#1c1307}
+.mealNav [data-nav-slot="Snack 1"]{background:linear-gradient(135deg,#ffb447,#ff7a1a);color:#1c1006}
+.mealNav [data-nav-slot="Lunch"]{background:linear-gradient(135deg,#ff9f45,#ff6b1a);color:#1c1006}
+.mealNav [data-nav-slot="Snack 2"]{background:linear-gradient(135deg,#ff8b3d,#ff5b14);color:#fffaf0}
+.mealNav [data-nav-slot="Dinner"]{background:linear-gradient(135deg,#ff7a33,#f04412);color:#fffaf0}
+.mealNav [data-nav-slot="Snack 3"]{background:linear-gradient(135deg,#ff9a4c,#e85d04);color:#fffaf0}
+.topNav [data-nav-target="scale"]{background:linear-gradient(135deg,#eac7ff,#c084fc);color:#20102d}
+.topNav [data-nav-target="reminders"]{background:linear-gradient(135deg,#d8b4fe,#a78bfa);color:#1b1430}
+.topNav [data-nav-target="inventory"]{background:linear-gradient(135deg,#c4b5fd,#8b5cf6);color:#fffaf0}
 .topNav [data-nav-target="sync"]{background:linear-gradient(135deg,#75f0a2,#45bd82);color:#07140d}
 .navRule{
   grid-column:1 / -1;
@@ -541,7 +537,9 @@ li{margin:4px 0}
   border:2px dashed var(--ink);
   border-radius:14px;
   background:#e6f0f1;
+  color:#14110f;
 }
+.swapControls label{color:#14110f}
 .swapControls select{font-size:14px}
 .swapButtons{display:grid;grid-template-columns:1fr 1fr;gap:8px}
 .chosenNote{background:#dfc35f;border:2px solid var(--ink);border-radius:12px;padding:8px 10px;font-weight:1000;margin-top:8px}
@@ -740,6 +738,7 @@ li{margin:4px 0}
 .firebaseGrid{display:grid;grid-template-columns:1fr 1fr;gap:12px;align-items:end}
 .firebaseGrid .full{grid-column:1 / -1}
 .syncActions{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-top:12px}
+.syncActions .full{grid-column:1 / -1}
 .syncStatus{margin-top:10px;padding:10px;border:1px solid var(--line);border-radius:12px;background:#3b3534;font-weight:900}
 .firebaseHiddenStatus{display:block}
 .firebasePanel.signedIn{
@@ -778,9 +777,25 @@ li{margin:4px 0}
 .reminder:hover,.reminder:focus{background:#edf5f3;outline:3px solid rgba(40,119,122,.28)}
 .reminder.done{opacity:.45;filter:grayscale(.7);text-decoration:line-through}
 .footer{margin:28px 0 10px;text-align:center;font-weight:1000;letter-spacing:.05em}
+.siteDisclaimer{
+  max-width:860px;
+  margin:30px auto 10px;
+  padding:12px 16px;
+  border:1px solid rgba(213,169,95,.75);
+  border-radius:14px;
+  background:rgba(31,32,34,.86);
+  color:#fff1d7;
+  box-shadow:0 3px 0 rgba(10,9,8,.48);
+  font-size:12px;
+  line-height:1.45;
+  letter-spacing:.02em;
+  text-transform:none;
+}
+.siteDisclaimer strong{display:block;margin-bottom:4px;color:#fff6c2}
 .tape{display:inline-block;margin:5px;background:#dfc35f;padding:6px 12px}
 .warn{font-size:13px;color:#6b625b;margin-top:10px;line-height:1.35}
 .restBox{margin-top:14px;padding:16px;border:3px solid var(--ink);border-radius:20px;background:#e6f0f1;box-shadow:0 5px 0 var(--ink)}
+.restBox,.restBox h3,.restBox .micro,.restBox .restLine,.swapControls,.swapControls label,.exerciseEntry,.inventoryBox{color:#14110f}
 .moodBox{background:linear-gradient(135deg,#f4ead4,#dfe9e2)}
 .moodButton{
   margin:12px 0 0;
@@ -995,7 +1010,7 @@ select,input,button{
 <div class="app">
   <header class="appHeader">
     <section class="titleBar" data-info="hero">
-      <h1>ABS Diet Weekly App <button class="versionTag upgradeInfoBtn" type="button">8.10 ACL</button></h1>
+      <h1>ABS Diet Weekly App <button class="versionTag upgradeInfoBtn" type="button">9.0 ACL</button></h1>
     </section>
 
     <nav class="topNav" aria-label="App section shortcuts">
@@ -1225,6 +1240,7 @@ select,input,button{
     <div class="syncActions">
       <button id="connectFirebaseBtn">Sign In</button>
       <button id="createFirebaseAccountBtn" class="secondary">Create Account</button>
+      <button id="forgotPasswordBtn" class="light full" type="button">I forgot my password</button>
     </div>
     </div>
     <div class="firebaseSignedIn" aria-live="polite">
@@ -1246,7 +1262,10 @@ select,input,button{
     </div>
   </details>
 
-  <div class="footer"><button class="tape versionTag versionFooterBtn upgradeInfoBtn" type="button">8.10 ACL</button></div>
+  <div class="footer siteDisclaimer">
+    <strong>© 2026 aClan Buyukturkoglu.</strong>
+    This personal learning project is for education, organization, and self-tracking only. It is not medical advice, diet treatment, diagnosis, or a professional nutrition plan. Always rely on qualified health professionals for personal diet, weight, and medical decisions.
+  </div>
 </div>
 
 <div id="dayRewardModal" class="modal rewardModal" aria-hidden="true">
@@ -1650,6 +1669,7 @@ const INFO_WINDOWS = {
 };
 
 const UPGRADE_HISTORY = [
+  ["9.0 ACL","Removed visited-button dimming, refreshed navigation with fluorescent yellow/orange/light-purple groups, improved light-blue text contrast, moved meal status and Not in the Mood controls lower in each meal card, added password reset email support, and replaced the bottom version badge with a learning-purpose disclaimer."],
   ["8.10 ACL","Added bottom Home buttons to every page, brought back the divider idea horizontally inside navigation, refreshed the nav colors by section, and kept opened pages focused until Home is tapped."],
   ["8.9.9 ACL","Moved Today's Meals directly under Home, made Sign In a full-width bottom nav button that becomes Sign Out after login, added the signed-in username to Home, removed the landing Today's Meal List dropdown, enlarged the landing poster, and removed the blue meal-filter note from the Meals page."],
   ["8.9.8.8 ACL","Cleaned the landing page so it shows only the selected day poster and Today's Meal List button, removed the temporary nav divider, moved setup controls into Scale, and moved Tiny Wisdom into Sign In / Cloud Sync."],
@@ -1816,7 +1836,7 @@ function collectCloudData(){
   }
   return {
     app:"abs-diet-weekly-app",
-    version:"8.10 ACL Charming Navigation Return",
+    version:"9.0 ACL Fluorescent Navigation",
     updatedAt:Date.now(),
     entries
   };
@@ -1889,6 +1909,7 @@ function firebaseFriendlyError(err){
     "auth/user-not-found":"No Firebase account was found for that email. Use Create Account first.",
     "auth/wrong-password":"That password does not match this Firebase account.",
     "auth/weak-password":"Firebase passwords must be at least 6 characters.",
+    "auth/missing-email":"Enter the registered email address first.",
     "auth/operation-not-allowed":"Email/password sign-in is not enabled in Firebase Authentication.",
     "auth/unauthorized-domain":"This app address is not authorized in Firebase. Use the localhost/GitHub Pages address and add that domain in Firebase Authentication settings.",
     "permission-denied":"Firebase connected, but Firestore rules blocked saving. Check the Firestore security rules for absDietUsers/{userId}/data/{docId}."
@@ -1925,7 +1946,7 @@ async function connectFirebase(mode="signin"){
   const username = firebaseUsername.value.trim();
   const email = firebaseEmail.value.trim();
   const password = firebasePassword.value;
-  if(!username) throw new Error("Enter a username for this app.");
+  if(!username) throw new Error("A username is required. It helps identify your account and makes password recovery clearer later.");
   if(!email || !password) throw new Error("Enter Firebase email and password.");
   localStorage.setItem("aclFirebaseUsername",username);
   localStorage.setItem("aclFirebaseEmail",email);
@@ -1941,6 +1962,34 @@ async function connectFirebase(mode="signin"){
   }
   renderFirebaseAccountState();
   setSyncStatus(`Firebase connected as ${username}. Syncing now...`);
+}
+async function sendPasswordResetReminder(){
+  if(location.protocol === "file:") warnIfFileProtocol();
+  const username = firebaseUsername.value.trim();
+  const email = firebaseEmail.value.trim();
+  if(!username){
+    alert("Please enter your username first. A username is required so password recovery stays tied to the right account.");
+    return;
+  }
+  if(!email){
+    alert("Please enter the registered email address for this account first.");
+    return;
+  }
+  const savedUsername = (localStorage.getItem("aclFirebaseUsername") || "").trim();
+  const savedEmail = (localStorage.getItem("aclFirebaseEmail") || "").trim();
+  if(savedUsername && savedEmail && (savedUsername !== username || savedEmail !== email)){
+    alert("This username and email do not match the saved account on this device. Check both fields before requesting a reset email.");
+    return;
+  }
+  const api = await loadFirebaseApi();
+  const config = firebaseConfig();
+  firebaseApp = firebaseApp || (api.getApps().length ? api.getApp() : api.initializeApp(config));
+  firebaseAuth = firebaseAuth || api.getAuth(firebaseApp);
+  await api.sendPasswordResetEmail(firebaseAuth,email);
+  localStorage.setItem("aclFirebaseUsername",username);
+  localStorage.setItem("aclFirebaseEmail",email);
+  setSyncStatus(`Password reset email sent to ${email}. Check your inbox, then return here to sign in.`);
+  alert(`Password reset email sent to ${email}.`);
 }
 async function restoreFirebaseSession(){
   if(firebaseAuthWatcherStarted) return;
@@ -2065,9 +2114,8 @@ function resetLandingPage(){
   render();
 }
 function setActiveNavButton(button){
-  document.querySelectorAll(".topNav button").forEach(item=>item.classList.remove("navActive"));
+  document.querySelectorAll(".topNav button").forEach(item=>item.classList.remove("navActive","navVisited"));
   if(button){
-    button.classList.add("navVisited");
     button.classList.add("navActive");
   }
 }
@@ -2922,26 +2970,7 @@ function render(){
         <div><div class="slot">${m.time} • ${m.slot}</div><div class="name">${m.name}</div></div>
         <div class="cal">${m.cal} kcal</div>
       </div>
-      <button type="button" class="moodButton" data-mood-inline-id="${moodId}" aria-expanded="false">Not in the Mood? Show a cholesterol-free swap</button>
-      <div class="moodInline" data-mood-panel-id="${moodId}">
-        <div class="micro">A separate, cholesterol-free option close to this item’s calorie target.</div>
-        ${moodAlternativeHtml(m.slot,m)}
-      </div>
-      <div class="pills">
-        <span class="pill">${done ? "Completed" : "Unchecked"}</span>
-        ${m.isOverride ? `<span class="pill remaining">Alternative picked: ${m.source || "custom replacement"}</span>` : ""}
-        <span class="pill remaining">If eaten next: ${afterThisIfTaken >= 0 ? fmt(afterThisIfTaken) + " kcal still needed" : fmt(Math.abs(afterThisIfTaken)) + " kcal over target"}</span>
-        <span class="pill">Tap card for recipe</span>
-      </div>
       ${m.isOverride ? `<div class="chosenNote">Picked instead of scheduled: ${m.originalName}</div>` : ""}
-      <div class="swapControls">
-        <label>Switch or replace this ${m.slot}</label>
-        ${switchSelectHtml(m.slot,i)}
-        <div class="swapButtons">
-          <button class="applySwitch" data-apply-switch="${i}">Use selected meal</button>
-          <button class="light clearSwitch" data-clear-switch="${i}">Back to schedule</button>
-        </div>
-      </div>
       <div class="details">
         <div class="recipeGrid">
           <div class="recipeBox">
@@ -2953,12 +2982,33 @@ function render(){
             ${list(recipeData.steps,"ol")}
           </div>
         </div>
+      </div>
+      <div class="pills">
+        <span class="pill">${done ? "Completed" : "Unchecked"}</span>
+        ${m.isOverride ? `<span class="pill remaining">Alternative picked: ${m.source || "custom replacement"}</span>` : ""}
+        <span class="pill remaining">If eaten next: ${afterThisIfTaken >= 0 ? fmt(afterThisIfTaken) + " kcal still needed" : fmt(Math.abs(afterThisIfTaken)) + " kcal over target"}</span>
+        <span class="pill">Tap card for recipe</span>
+      </div>
+      <div class="swapControls">
+        <label>Switch or replace this ${m.slot}</label>
+        ${switchSelectHtml(m.slot,i)}
+        <div class="swapButtons">
+          <button class="applySwitch" data-apply-switch="${i}">Use selected meal</button>
+          <button class="light clearSwitch" data-clear-switch="${i}">Back to schedule</button>
+        </div>
+      </div>
+      <div class="details">
         <div class="swapBox">
           <h4>Replacement meal/snack</h4>
           ${m.replacements.map(o=>`<div class="option"><span>${o[0]}</span><b>${o[1]} kcal</b></div>`).join("")}
           <h4 style="margin-top:12px">Healthier alternative</h4>
           ${m.healthy.map(o=>`<div class="option healthy"><span>${o[0]}</span><b>${o[1]} kcal</b></div>`).join("")}
         </div>
+      </div>
+      <button type="button" class="moodButton" data-mood-inline-id="${moodId}" aria-expanded="false">Not in the Mood? Show a cholesterol-free swap</button>
+      <div class="moodInline" data-mood-panel-id="${moodId}">
+        <div class="micro">A separate, cholesterol-free option close to this item’s calorie target.</div>
+        ${moodAlternativeHtml(m.slot,m)}
       </div>`;
     const cb = div.querySelector(".check");
     cb.addEventListener("click",(ev)=>{
@@ -3060,6 +3110,10 @@ document.getElementById("connectFirebaseBtn").onclick = async()=>{
 };
 document.getElementById("createFirebaseAccountBtn").onclick = async()=>{
   try{
+    if(!firebaseUsername.value.trim()){
+      alert("Please choose a username before creating an account. It helps identify your account and makes password recovery clearer later.");
+      return;
+    }
     setSyncStatus("Creating Firebase account...");
     await connectFirebase("create");
     await syncCloudData();
@@ -3067,6 +3121,16 @@ document.getElementById("createFirebaseAccountBtn").onclick = async()=>{
     const friendly = firebaseFriendlyError(err);
     setSyncStatus(`Firebase account creation failed: ${friendly}`);
     alert(`Firebase account creation failed: ${friendly}`);
+  }
+};
+document.getElementById("forgotPasswordBtn").onclick = async()=>{
+  try{
+    setSyncStatus("Sending password reset email...");
+    await sendPasswordResetReminder();
+  } catch(err){
+    const friendly = firebaseFriendlyError(err);
+    setSyncStatus(`Password reset failed: ${friendly}`);
+    alert(`Password reset failed: ${friendly}`);
   }
 };
 document.getElementById("syncNowBtn").onclick = async()=>{
