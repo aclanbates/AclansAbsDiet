@@ -10,7 +10,7 @@
 <meta name="apple-mobile-web-app-title" content="ABS Diet">
 <meta name="application-name" content="ABS Diet">
 <meta name="theme-color" content="#202123">
-<title>ABS Diet Weekly Food Zine App 8.9.8.7 ACL Inline Mood Alternatives</title>
+<title>ABS Diet Weekly Food Zine App 8.9.8.8 ACL Clean Landing Navigation</title>
 <style>
 :root{
   --ink:#241f1c;
@@ -125,11 +125,10 @@ body{
 .versionFooterBtn{font-size:11px;padding:5px 10px}
 .topNav{
   display:grid;
-  grid-template-columns:minmax(0,.92fr) 1px minmax(0,1.18fr);
-  gap:10px;
+  gap:8px;
   align-items:stretch;
   margin:0;
-  padding:10px;
+  padding:9px;
   border:2px solid var(--line);
   border-radius:18px;
   background:rgba(31,32,34,.96);
@@ -137,29 +136,17 @@ body{
 }
 .navGroup{
   display:grid;
-  gap:8px;
+  gap:7px;
   align-items:stretch;
-}
-.mealNav{
-  grid-template-columns:repeat(3,minmax(0,1fr));
-}
-.toolNav{
-  grid-template-columns:repeat(2,minmax(0,1fr));
-}
-.navDivider{
-  width:1px;
-  min-height:100%;
-  border-radius:999px;
-  background:linear-gradient(180deg,transparent,rgba(213,169,95,.92),transparent);
-  box-shadow:0 0 12px rgba(213,169,95,.28);
+  grid-template-columns:repeat(4,minmax(0,1fr));
 }
 .topNav button{
   width:100%;
   min-width:0;
-  min-height:38px;
-  padding:9px 8px;
+  min-height:34px;
+  padding:8px 7px;
   border-radius:999px;
-  font-size:11px;
+  font-size:10px;
   text-transform:uppercase;
   white-space:normal;
   line-height:1.05;
@@ -189,21 +176,21 @@ body{
   box-shadow:inset 0 0 0 2px rgba(36,31,28,.8),0 3px 0 rgba(10,9,8,.58);
   filter:saturate(1.12);
 }
-.toolNav [data-nav-target="inventory"].inventoryWarnLow{
+.topNav [data-nav-target="inventory"].inventoryWarnLow{
   background:linear-gradient(135deg,#27efff,#0b43ff) !important;
   color:#fff !important;
   border-color:#baf9ff;
   animation:inventoryBlinkBlue .9s ease-in-out infinite;
   box-shadow:0 0 0 2px rgba(39,239,255,.42),0 0 18px rgba(39,239,255,.76),0 3px 0 rgba(10,9,8,.58) !important;
 }
-.toolNav [data-nav-target="inventory"].inventoryWarnOut{
+.topNav [data-nav-target="inventory"].inventoryWarnOut{
   background:linear-gradient(135deg,#ff315c,#ff073a) !important;
   color:#fff !important;
   border-color:#ffd2dc;
   animation:inventoryBlinkRed .72s ease-in-out infinite;
   box-shadow:0 0 0 2px rgba(255,49,92,.38),0 0 20px rgba(255,7,58,.8),0 3px 0 rgba(10,9,8,.58) !important;
 }
-.toolNav [data-nav-target="inventory"].inventoryWarnMixed{
+.topNav [data-nav-target="inventory"].inventoryWarnMixed{
   background:linear-gradient(90deg,#27efff 0 calc(50% - 1px),#fff4d8 calc(50% - 1px) calc(50% + 1px),#ff073a calc(50% + 1px) 100%);
   color:#fff !important;
   border-color:#fff4d8;
@@ -229,37 +216,37 @@ body{
   }
 }
 .topNav .homeNavBtn{
-  grid-column:span 3;
+  grid-column:1 / -1;
   background:linear-gradient(135deg,#f2ba61,#ef7f5b);
   color:#251b17;
 }
-.topNav .todayMealBtn{grid-column:span 3;background:linear-gradient(135deg,#f8c057,#f27f5b);color:#241f1c}
+.topNav .todayMealBtn{grid-column:1 / -1;background:linear-gradient(135deg,#f8c057,#f27f5b);color:#241f1c}
 .mealNav [data-nav-slot="Breakfast"]{background:linear-gradient(135deg,#ffd37e,#f0a04f);color:#241f1c}
 .mealNav [data-nav-slot="Snack 1"]{background:linear-gradient(135deg,#f49b72,#d86d67);color:#241f1c}
 .mealNav [data-nav-slot="Lunch"]{background:linear-gradient(135deg,#a5bd73,#4e9a83);color:#17211d}
 .mealNav [data-nav-slot="Snack 2"]{background:linear-gradient(135deg,#e9a1b1,#bd6c86);color:#241f1c}
 .mealNav [data-nav-slot="Dinner"]{background:linear-gradient(135deg,#559d98,#2d6d72);color:#fffaf0}
 .mealNav [data-nav-slot="Snack 3"]{background:linear-gradient(135deg,#8d7abd,#66548e);color:#fffaf0}
-.toolNav [data-nav-target="scale"]{background:linear-gradient(135deg,#dcb568,#7293a2);color:#241f1c}
-.toolNav [data-nav-target="reminders"]{background:linear-gradient(135deg,#b55d6b,#6f3948);color:#fffaf0}
-.toolNav [data-nav-target="inventory"]{background:linear-gradient(135deg,#8eaa67,#3f826b);color:#17211d}
-.toolNav [data-nav-target="sync"]{background:linear-gradient(135deg,#47ff9d,#10b981);color:#07140d}
+.topNav [data-nav-target="scale"]{background:linear-gradient(135deg,#dcb568,#7293a2);color:#241f1c}
+.topNav [data-nav-target="reminders"]{background:linear-gradient(135deg,#b55d6b,#6f3948);color:#fffaf0}
+.topNav [data-nav-target="inventory"]{background:linear-gradient(135deg,#8eaa67,#3f826b);color:#17211d}
+.topNav [data-nav-target="sync"]{background:linear-gradient(135deg,#47ff9d,#10b981);color:#07140d}
 @media(max-width:760px){
-  .topNav{grid-template-columns:minmax(0,.92fr) 1px minmax(0,1.08fr);gap:7px;padding:8px;border-radius:14px}
-  .mealNav,.toolNav{grid-template-columns:repeat(2,minmax(0,1fr));gap:6px}
-  .topNav .homeNavBtn,.topNav .todayMealBtn{grid-column:span 2}
-  .topNav button{font-size:8.4px;padding:7px 4px;line-height:1;min-height:34px}
+  .topNav{gap:6px;padding:8px;border-radius:14px}
+  .navGroup{grid-template-columns:repeat(3,minmax(0,1fr));gap:6px}
+  .topNav .homeNavBtn,.topNav .todayMealBtn{grid-column:1 / -1}
+  .topNav button{font-size:8.6px;padding:7px 4px;line-height:1;min-height:32px}
 }
 @media(max-width:390px){
   .topNav{gap:5px;padding:7px}
-  .mealNav,.toolNav{gap:5px}
+  .navGroup{gap:5px}
   .topNav button{font-size:7.8px;padding:7px 3px}
 }
 .heroPoster{
   width:100%;
-  max-width:420px;
+  max-width:340px;
   display:block;
-  margin:0 auto 18px;
+  margin:0 auto 12px;
   aspect-ratio:4 / 5;
   object-fit:cover;
   border:3px solid var(--ink);
@@ -270,6 +257,7 @@ body{
 .zoomable{cursor:zoom-in}
 .zoomHint{font-size:12px;color:var(--muted);font-weight:900;text-transform:uppercase;margin-top:8px}
 .topicPage{
+  display:none;
   scroll-margin-top:172px;
   margin:20px 0;
   border:3px solid var(--ink);
@@ -278,6 +266,9 @@ body{
   box-shadow:0 6px 0 rgba(18,14,12,.82);
   overflow:hidden;
 }
+.topicPage.landingTopic,
+.topicPage.navVisible{display:block}
+body.focusedTopic .topicPage.landingTopic:not(.navVisible){display:none}
 .topicPage > summary{
   list-style:none;
   cursor:pointer;
@@ -992,33 +983,30 @@ select,input,button{
 <div class="app">
   <header class="appHeader">
     <section class="titleBar" data-info="hero">
-      <h1>ABS Diet Weekly App <button class="versionTag upgradeInfoBtn" type="button">8.9.8.7 ACL</button></h1>
+      <h1>ABS Diet Weekly App <button class="versionTag upgradeInfoBtn" type="button">8.9.8.8 ACL</button></h1>
     </section>
 
     <nav class="topNav" aria-label="App section shortcuts">
-      <div class="navGroup toolNav" aria-label="Tracking tools">
-        <button data-nav-target="scale">Scale</button>
-        <button data-nav-target="reminders">Reminders</button>
-        <button data-nav-target="inventory">Inventory</button>
-        <button data-nav-target="sync">Sign In</button>
-      </div>
-      <div class="navDivider" aria-hidden="true"></div>
-      <div class="navGroup mealNav" aria-label="Meal flow">
+      <div class="navGroup mealNav" aria-label="App shortcuts">
         <button class="homeNavBtn" data-nav-target="hero">Home</button>
-        <button class="todayMealBtn" data-nav-target="quickPlan">Today's meals</button>
         <button data-nav-slot="Breakfast">Breakfast</button>
         <button data-nav-slot="Snack 1">Snack 1</button>
         <button data-nav-slot="Lunch">Lunch</button>
         <button data-nav-slot="Snack 2">Snack 2</button>
         <button data-nav-slot="Dinner">Dinner</button>
         <button data-nav-slot="Snack 3">Snack 3</button>
+        <button class="todayMealBtn" data-nav-target="quickPlan">Today's meals</button>
+        <button data-nav-target="scale">Scale</button>
+        <button data-nav-target="reminders">Reminders</button>
+        <button data-nav-target="inventory">Inventory</button>
+        <button data-nav-target="sync">Sign In</button>
       </div>
     </nav>
   </header>
 
   <img id="dayPoster" class="heroPoster zoomable" src="assets/monday.png" alt="Selected day ABS Diet food zine poster" data-zoom-title="Selected day recipe collage">
 
-  <details class="topicPage" id="quickPlanTopic">
+  <details class="topicPage landingTopic" id="quickPlanTopic">
     <summary>Today's Meal List</summary>
     <div class="topicPageContent">
       <section class="panel" data-info="mealPlan" id="quickPlanSection">
@@ -1031,30 +1019,6 @@ select,input,button{
           <div class="badge" id="dayNum"></div>
         </div>
         <div id="quickPlan" class="quickPlan"></div>
-      </section>
-    </div>
-  </details>
-
-  <details class="topicPage" id="setupTopic">
-    <summary>Setup + Daily Controls</summary>
-    <div class="topicPageContent">
-      <section class="controls">
-        <div class="card controlDate" data-info="calendarDate">
-          <label for="dateSelect">Calendar date</label>
-          <input id="dateSelect" type="date">
-        </div>
-        <div class="card controlDay" data-info="chooseDay">
-          <label for="daySelect">Choose day</label>
-          <select id="daySelect"></select>
-        </div>
-        <div class="card controlTarget" data-info="calorieTarget">
-          <label for="target">Daily calorie target</label>
-          <input id="target" type="number" min="1200" max="5000" step="50" value="2000">
-        </div>
-        <div class="card controlProgress" data-info="progressReset">
-          <label>Progress</label>
-          <button id="resetDayBtn" class="light">Reset selected date checkboxes</button>
-        </div>
       </section>
     </div>
   </details>
@@ -1093,6 +1057,24 @@ select,input,button{
   <details class="topicPage" id="scaleTopic">
     <summary>Scale</summary>
     <div class="topicPageContent">
+      <section class="controls scaleControls" aria-label="Setup and daily controls">
+        <div class="card controlDate" data-info="calendarDate">
+          <label for="dateSelect">Calendar date</label>
+          <input id="dateSelect" type="date">
+        </div>
+        <div class="card controlDay" data-info="chooseDay">
+          <label for="daySelect">Choose day</label>
+          <select id="daySelect"></select>
+        </div>
+        <div class="card controlTarget" data-info="calorieTarget">
+          <label for="target">Daily calorie target</label>
+          <input id="target" type="number" min="1200" max="5000" step="50" value="2000">
+        </div>
+        <div class="card controlProgress" data-info="progressReset">
+          <label>Progress</label>
+          <button id="resetDayBtn" class="light">Reset selected date checkboxes</button>
+        </div>
+      </section>
     <section class="panel" data-info="calorieMap" id="calorieMapSection">
       <h2 style="margin-top:0">Today's calorie map</h2>
       <div class="small">Consumed progress</div>
@@ -1208,20 +1190,6 @@ select,input,button{
     </div>
   </details>
 
-  <details class="topicPage">
-    <summary>Tiny Wisdom Corner</summary>
-    <div class="topicPageContent">
-  <section class="panel heroWisdom" data-info="tinyWisdom">
-    <b>Tiny Wisdom Corner</b>
-    <p class="wisdomQuote" id="wisdomQuote">Calories are data, not drama. Log the cheese, salute the truth, and move on like a scientist with snacks.</p>
-    <details class="wisdomArchive">
-      <summary>Past tiny wisdom</summary>
-      <div id="wisdomArchiveList" class="wisdomArchiveList"></div>
-    </details>
-  </section>
-    </div>
-  </details>
-
   <details class="topicPage" id="syncTopic">
     <summary>Sign In / Cloud Sync</summary>
     <div class="topicPageContent">
@@ -1254,10 +1222,18 @@ select,input,button{
     <div id="firebaseSyncStatus" class="syncStatus firebaseHiddenStatus" aria-live="polite">Enter your email and password, then choose Sign In or Create Account.</div>
     <p class="warn">For cloud sync, use the local web address or GitHub Pages address. Raw file:// pages can block Firebase sessions. Local address: <a href="http://127.0.0.1:8001/index.html?v=896-sync-mood">http://127.0.0.1:8001/index.html?v=896-sync-mood</a></p>
   </section>
+      <section class="panel heroWisdom" data-info="tinyWisdom">
+        <b>Tiny Wisdom Corner</b>
+        <p class="wisdomQuote" id="wisdomQuote">Calories are data, not drama. Log the cheese, salute the truth, and move on like a scientist with snacks.</p>
+        <details class="wisdomArchive">
+          <summary>Past tiny wisdom</summary>
+          <div id="wisdomArchiveList" class="wisdomArchiveList"></div>
+        </details>
+      </section>
     </div>
   </details>
 
-  <div class="footer"><button class="tape versionTag versionFooterBtn upgradeInfoBtn" type="button">8.9.8.7 ACL</button></div>
+  <div class="footer"><button class="tape versionTag versionFooterBtn upgradeInfoBtn" type="button">8.9.8.8 ACL</button></div>
 </div>
 
 <div id="dayRewardModal" class="modal rewardModal" aria-hidden="true">
@@ -1659,6 +1635,7 @@ const INFO_WINDOWS = {
 };
 
 const UPGRADE_HISTORY = [
+  ["8.9.8.8 ACL","Cleaned the landing page so it shows only the selected day poster and Today's Meal List button, removed the temporary nav divider, moved setup controls into Scale, and moved Tiny Wisdom into Sign In / Cloud Sync."],
   ["8.9.8.7 ACL","Moved Not in the Mood alternatives into each individual meal card and tightened Today's Meal List wrapping so long names stay inside their frames."],
   ["8.9.8.6 ACL","Combined Calories + Weight into Scale, Calendar + Reminders into Reminders, Low Stock + Inventory into Inventory, moved Today's Meal List directly under the poster, and added session-only visited nav dimming."],
   ["8.9.8.5 ACL","Moved the selected day poster to the landing page, removed posters from Calories, merged Reminder Engine into Reminders, renamed SYNC to Sign In, and reorganized the tool navigation."],
@@ -1818,7 +1795,7 @@ function collectCloudData(){
   }
   return {
     app:"abs-diet-weekly-app",
-    version:"8.9.8.7 ACL Inline Mood Alternatives",
+    version:"8.9.8.8 ACL Clean Landing Navigation",
     updatedAt:Date.now(),
     entries
   };
@@ -2030,7 +2007,22 @@ function scheduleCloudSave(){
 }
 function openTopic(topic){
   if(!topic) return;
+  document.body.classList.add("focusedTopic");
+  document.querySelectorAll(".topicPage").forEach(item=>{
+    item.classList.remove("navVisible");
+    if(item !== topic) item.open = false;
+  });
+  topic.classList.add("navVisible");
   topic.open = true;
+}
+function resetLandingPage(){
+  document.body.classList.remove("focusedTopic");
+  document.querySelectorAll(".topicPage").forEach(topic=>{
+    topic.classList.remove("navVisible");
+    topic.open = false;
+  });
+  activeMealSlot = "all";
+  render();
 }
 function setActiveNavButton(button){
   document.querySelectorAll(".topNav button").forEach(item=>item.classList.remove("navActive"));
@@ -2069,6 +2061,7 @@ function jumpToSlot(slot){
 }
 function navTo(targetName){
   if(targetName === "hero"){
+    resetLandingPage();
     window.scrollTo({top:0,behavior:"smooth"});
     return;
   }
@@ -2086,7 +2079,7 @@ function navTo(targetName){
   }
   if(targetName === "scale" || targetName === "calorieMap" || targetName === "weightTracker"){
     openTopic(document.getElementById("scaleTopic"));
-    window.setTimeout(()=>scrollToTarget(document.getElementById("calorieMapSection"),"start"),40);
+    window.setTimeout(()=>scrollToTarget(document.getElementById("scaleTopic"),"start"),40);
     return;
   }
   if(targetName === "reminders" || targetName === "calendar"){

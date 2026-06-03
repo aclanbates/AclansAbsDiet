@@ -1,4 +1,4 @@
-# ABS Diet Weekly Food Zine App 8.9.8.7 ACL Inline Mood Alternatives
+# ABS Diet Weekly Food Zine App 8.9.8.8 ACL Clean Landing Navigation
 
 Static one-page meal tracker for GitHub Pages.
 
@@ -60,6 +60,11 @@ Static one-page meal tracker for GitHub Pages.
 - Breakfast, Snack 1, Lunch, Snack 2, Dinner, and Snack 3 now sit directly under Today's Meals
 - Today's Meal List text wraps inside its frame on phone-sized screens
 - Opening dropdown sections manually no longer forces the page to scroll away
+- Landing page is simplified to the selected day poster plus the Today's Meal List button
+- Temporary split navigation divider removed for now, with the prior split layout preserved as a remembered design option
+- Setup + Daily Controls moved into the Scale page above calorie and weight tools
+- Tiny Wisdom Corner moved into the Sign In / Cloud Sync page
+- Hidden pages now appear only when opened from the top navigation, keeping the landing page from becoming a long scroll
 - Phone navigation uses shorter tool labels and balanced button groups for iPhone-sized screens
 - Split navigation swapped sides: tracking tools on the left, Home and meals on the right
 - Stuck fixed poster background removed; the normal clickable selected-day landing poster remains
