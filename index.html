@@ -10,7 +10,7 @@
 <meta name="apple-mobile-web-app-title" content="ABS Diet">
 <meta name="application-name" content="ABS Diet">
 <meta name="theme-color" content="#202123">
-<title>ABS Diet Weekly Food Zine App 9.1 ACL Tracker Units Reminder Timing</title>
+<title>ABS Diet Weekly Food Zine App 9.2 ACL Layout Tightening</title>
 <style>
 :root{
   --ink:#241f1c;
@@ -264,7 +264,7 @@ body{
 .zoomHint{font-size:12px;color:var(--muted);font-weight:900;text-transform:uppercase;margin-top:8px}
 .topicPage{
   display:none;
-  scroll-margin-top:172px;
+  scroll-margin-top:148px;
   margin:20px 0;
   border:3px solid var(--ink);
   border-radius:20px;
@@ -324,7 +324,7 @@ body{
 }
 .pageHomeButton:hover,.pageHomeButton:focus{outline:3px solid rgba(255,159,138,.38)}
 .controls{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px;margin:28px 0}
-.panel,.meal,.quickPlan,.calendarCard,.reminderList,.restBox{scroll-margin-top:172px}
+.panel,.meal,.quickPlan,.calendarCard,.reminderList,.restBox{scroll-margin-top:148px}
 .card,.meal,.panel{
   background:rgba(255,249,238,.92);
   border:3px solid var(--ink);
@@ -418,11 +418,13 @@ button.light{background:#ead7b9;color:var(--ink)}
   justify-content:space-between;
   gap:10px;
   align-items:center;
+  flex-wrap:wrap;
   font-size:13px;
   font-weight:1000;
   text-transform:uppercase;
   letter-spacing:.06em;
 }
+.quickPlanTitle span{min-width:0;overflow-wrap:anywhere}
 .quickPlanTitleLeft{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
 .quickRewardBadge{
   width:34px;
@@ -436,7 +438,7 @@ button.light{background:#ead7b9;color:var(--ink)}
 }
 .quickMeal{
   display:grid;
-  grid-template-columns:minmax(54px,68px) minmax(62px,82px) minmax(0,1fr) auto;
+  grid-template-columns:minmax(50px,.55fr) minmax(62px,.75fr) minmax(0,2.2fr) minmax(56px,.65fr);
   gap:8px;
   align-items:center;
   background:#fffaf1;
@@ -446,6 +448,7 @@ button.light{background:#ead7b9;color:var(--ink)}
   font-weight:900;
   cursor:pointer;
   overflow:hidden;
+  min-width:0;
 }
 .quickMeal:hover,.quickMeal:focus{background:#edf5f3;outline:3px solid rgba(40,119,122,.28)}
 .quickMeal.done{
@@ -460,17 +463,20 @@ button.light{background:#ead7b9;color:var(--ink)}
 .quickMealName{
   min-width:0;
   overflow-wrap:anywhere;
+  word-break:normal;
   line-height:1.18;
+  font-size:clamp(13px,3.3vw,16px);
 }
-.quickCal{white-space:nowrap;justify-self:end;font-size:15px}
+.quickCal{white-space:normal;justify-self:end;text-align:right;font-size:clamp(12px,3vw,15px);line-height:1.05}
 @media(max-width:620px){
   .quickMeal{
-    grid-template-columns:58px minmax(0,1fr);
+    grid-template-columns:minmax(46px,.45fr) minmax(0,1fr) minmax(52px,.45fr);
     align-items:start;
   }
-  .quickSlot{grid-column:1;grid-row:2;font-size:11px}
+  .quickTime{grid-column:1;grid-row:1}
+  .quickSlot{grid-column:1;grid-row:2;font-size:10px}
   .quickMealName{grid-column:2;grid-row:1 / 3}
-  .quickCal{grid-column:2;grid-row:3;justify-self:start;font-size:14px}
+  .quickCal{grid-column:3;grid-row:1 / 3;align-self:center;font-size:12px}
 }
 .meal{position:relative;overflow:hidden;transition:opacity .18s ease,filter .18s ease,transform .18s ease}
 .meal{padding-right:16px}
@@ -823,7 +829,9 @@ li{margin:4px 0}
   border-radius:16px;
   padding:12px;
   background:linear-gradient(135deg,#f6efe2,#dfe9e2);
+  color:#14110f;
 }
+.moodInline .micro{color:#241f1c}
 .moodInline.open{display:block}
 .moodSuggestion{
   background:#fffaf1;
@@ -1017,7 +1025,7 @@ select,input,button{
 <div class="app">
   <header class="appHeader">
     <section class="titleBar" data-info="hero">
-      <h1>ABS Diet Weekly App <button class="versionTag upgradeInfoBtn" type="button">9.1 ACL</button></h1>
+      <h1>ABS Diet Weekly App <button class="versionTag upgradeInfoBtn" type="button">9.2 ACL</button></h1>
     </section>
 
     <nav class="topNav" aria-label="App section shortcuts">
@@ -1682,6 +1690,7 @@ const INFO_WINDOWS = {
 };
 
 const UPGRADE_HISTORY = [
+  ["9.2 ACL","Tightened navigation jump spacing, balanced Today's Meals text wrapping, removed extra meal status chips, and improved Not in the Mood contrast."],
   ["9.1 ACL","Renamed Scale to Tracker, reordered the Tracker page, added metric/US unit switching for weights and recipe measurements, and changed reminders to alert 15 minutes before meals."],
   ["9.0 ACL","Removed visited-button dimming, refreshed navigation with fluorescent yellow/orange/light-purple groups, improved light-blue text contrast, moved meal status and Not in the Mood controls lower in each meal card, added password reset email support, and replaced the bottom version badge with a learning-purpose disclaimer."],
   ["8.10 ACL","Added bottom Home buttons to every page, brought back the divider idea horizontally inside navigation, refreshed the nav colors by section, and kept opened pages focused until Home is tapped."],
@@ -1888,7 +1897,7 @@ function collectCloudData(){
   }
   return {
     app:"abs-diet-weekly-app",
-    version:"9.1 ACL Tracker Units Reminder Timing",
+    version:"9.2 ACL Layout Tightening",
     updatedAt:Date.now(),
     entries
   };
@@ -2185,13 +2194,13 @@ function scrollToTarget(target,block="start"){
     return;
   }
   const header = document.querySelector(".appHeader");
-  const offset = (header ? header.getBoundingClientRect().height : 0) + 8;
+  const offset = (header ? header.getBoundingClientRect().height : 0) + 3;
   const top = target.getBoundingClientRect().top + window.scrollY - offset;
   window.scrollTo({top:Math.max(0,top),behavior:"smooth"});
 }
 function scrollToTopicContent(topic){
   if(!topic) return;
-  const content = topic.querySelector(".topicPageContent") || topic;
+  const content = topic.querySelector(".topicPageContent > section") || topic.querySelector(".topicPageContent") || topic;
   window.setTimeout(()=>scrollToTarget(content,"start"),40);
 }
 function jumpToSlot(slot){
@@ -3047,10 +3056,8 @@ function render(){
         </div>
       </div>
       <div class="pills">
-        <span class="pill">${done ? "Completed" : "Unchecked"}</span>
         ${m.isOverride ? `<span class="pill remaining">Alternative picked: ${m.source || "custom replacement"}</span>` : ""}
         <span class="pill remaining">If eaten next: ${afterThisIfTaken >= 0 ? fmt(afterThisIfTaken) + " kcal still needed" : fmt(Math.abs(afterThisIfTaken)) + " kcal over target"}</span>
-        <span class="pill">Tap card for recipe</span>
       </div>
       <div class="swapControls">
         <label>Switch or replace this ${m.slot}</label>
