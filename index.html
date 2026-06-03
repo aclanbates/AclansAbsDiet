@@ -10,7 +10,7 @@
 <meta name="apple-mobile-web-app-title" content="ABS Diet">
 <meta name="application-name" content="ABS Diet">
 <meta name="theme-color" content="#202123">
-<title>ABS Diet Weekly Food Zine App 9.2 ACL Layout Tightening</title>
+<title>ABS Diet Weekly Food Zine App 9.3 ACL Tracker Contrast</title>
 <style>
 :root{
   --ink:#241f1c;
@@ -438,13 +438,13 @@ button.light{background:#ead7b9;color:var(--ink)}
 }
 .quickMeal{
   display:grid;
-  grid-template-columns:minmax(50px,.55fr) minmax(62px,.75fr) minmax(0,2.2fr) minmax(56px,.65fr);
-  gap:8px;
+  grid-template-columns:minmax(48px,.5fr) minmax(56px,.62fr) minmax(0,2.6fr) minmax(50px,.52fr);
+  gap:6px;
   align-items:center;
   background:#fffaf1;
   border:2px solid var(--ink);
   border-radius:12px;
-  padding:8px 10px;
+  padding:8px;
   font-weight:900;
   cursor:pointer;
   overflow:hidden;
@@ -459,24 +459,25 @@ button.light{background:#ead7b9;color:var(--ink)}
   text-decoration:line-through;
 }
 .quickTime{color:var(--accent)}
-.quickSlot{text-transform:uppercase;font-size:12px;color:var(--muted)}
+.quickSlot{text-transform:uppercase;font-size:clamp(9px,2.2vw,11px);color:var(--muted);line-height:1.05}
 .quickMealName{
   min-width:0;
   overflow-wrap:anywhere;
   word-break:normal;
   line-height:1.18;
-  font-size:clamp(13px,3.3vw,16px);
+  font-size:clamp(12px,3vw,15px);
 }
-.quickCal{white-space:normal;justify-self:end;text-align:right;font-size:clamp(12px,3vw,15px);line-height:1.05}
+.quickCal{white-space:normal;justify-self:end;text-align:right;font-size:clamp(11px,2.7vw,14px);line-height:1.05}
 @media(max-width:620px){
   .quickMeal{
-    grid-template-columns:minmax(46px,.45fr) minmax(0,1fr) minmax(52px,.45fr);
+    grid-template-columns:minmax(42px,.38fr) minmax(0,1fr) minmax(46px,.36fr);
+    gap:5px;
     align-items:start;
   }
   .quickTime{grid-column:1;grid-row:1}
   .quickSlot{grid-column:1;grid-row:2;font-size:10px}
   .quickMealName{grid-column:2;grid-row:1 / 3}
-  .quickCal{grid-column:3;grid-row:1 / 3;align-self:center;font-size:12px}
+  .quickCal{grid-column:3;grid-row:1 / 3;align-self:center;font-size:11px}
 }
 .meal{position:relative;overflow:hidden;transition:opacity .18s ease,filter .18s ease,transform .18s ease}
 .meal{padding-right:16px}
@@ -925,6 +926,24 @@ body{
 .heroWisdom .micro,.heroWisdom .wisdomArchiveItem span{
   color:#ead3ad;
 }
+#scaleTopic .panel,
+#scaleTopic .restBox,
+#scaleTopic .micro,
+#scaleTopic .warn,
+#scaleTopic .small,
+#scaleTopic .restLine,
+#scaleTopic h2,
+#scaleTopic h3{
+  color:#fff1d7;
+}
+#scaleTopic input,
+#scaleTopic label,
+#scaleTopic button,
+#scaleTopic .summaryGrid .card,
+#scaleTopic .summaryGrid .small,
+#scaleTopic .bigNum{
+  color:#251b17;
+}
 .versionTag,.calendarDow{
   background:#1f2022;
   color:var(--sunrisePale);
@@ -1006,6 +1025,24 @@ select,input,button{
 .posterCaption,.small,.dateStamp,.quickSlot,.note,.zoomHint,.calendarLegend,.inventoryTop span,.inventoryMeta,.weightEntry span,.exerciseEntry span,.extraFoodEntry span,.warn,.micro,.rewardToast small{
   color:var(--muted);
 }
+#scaleTopic .panel,
+#scaleTopic .restBox,
+#scaleTopic .micro,
+#scaleTopic .warn,
+#scaleTopic .small,
+#scaleTopic .restLine,
+#scaleTopic h2,
+#scaleTopic h3{
+  color:#fff1d7;
+}
+#scaleTopic input,
+#scaleTopic label,
+#scaleTopic button,
+#scaleTopic .summaryGrid .card,
+#scaleTopic .summaryGrid .small,
+#scaleTopic .bigNum{
+  color:#251b17;
+}
 .modalBox{border:2px solid var(--line);background:#1f2022}
 .modalScroll{background:#202123}
 @media print{
@@ -1025,7 +1062,7 @@ select,input,button{
 <div class="app">
   <header class="appHeader">
     <section class="titleBar" data-info="hero">
-      <h1>ABS Diet Weekly App <button class="versionTag upgradeInfoBtn" type="button">9.2 ACL</button></h1>
+      <h1>ABS Diet Weekly App <button class="versionTag upgradeInfoBtn" type="button">9.3 ACL</button></h1>
     </section>
 
     <nav class="topNav" aria-label="App section shortcuts">
@@ -1690,6 +1727,7 @@ const INFO_WINDOWS = {
 };
 
 const UPGRADE_HISTORY = [
+  ["9.3 ACL","Improved Tracker contrast with light beige paragraph text and tightened Today's Meals rows for longer Wednesday meal names."],
   ["9.2 ACL","Tightened navigation jump spacing, balanced Today's Meals text wrapping, removed extra meal status chips, and improved Not in the Mood contrast."],
   ["9.1 ACL","Renamed Scale to Tracker, reordered the Tracker page, added metric/US unit switching for weights and recipe measurements, and changed reminders to alert 15 minutes before meals."],
   ["9.0 ACL","Removed visited-button dimming, refreshed navigation with fluorescent yellow/orange/light-purple groups, improved light-blue text contrast, moved meal status and Not in the Mood controls lower in each meal card, added password reset email support, and replaced the bottom version badge with a learning-purpose disclaimer."],
@@ -1897,7 +1935,7 @@ function collectCloudData(){
   }
   return {
     app:"abs-diet-weekly-app",
-    version:"9.2 ACL Layout Tightening",
+    version:"9.3 ACL Tracker Contrast",
     updatedAt:Date.now(),
     entries
   };
