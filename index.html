@@ -10,7 +10,7 @@
 <meta name="apple-mobile-web-app-title" content="ABS Diet">
 <meta name="application-name" content="ABS Diet">
 <meta name="theme-color" content="#202123">
-<title>ABS Diet Weekly Food Zine App 8.9.8.8 ACL Clean Landing Navigation</title>
+<title>ABS Diet Weekly Food Zine App 8.9.9 ACL Streamlined Sign-In Navigation</title>
 <style>
 :root{
   --ink:#241f1c;
@@ -221,6 +221,7 @@ body{
   color:#251b17;
 }
 .topNav .todayMealBtn{grid-column:1 / -1;background:linear-gradient(135deg,#f8c057,#f27f5b);color:#241f1c}
+.topNav .syncNavBtn{grid-column:1 / -1}
 .mealNav [data-nav-slot="Breakfast"]{background:linear-gradient(135deg,#ffd37e,#f0a04f);color:#241f1c}
 .mealNav [data-nav-slot="Snack 1"]{background:linear-gradient(135deg,#f49b72,#d86d67);color:#241f1c}
 .mealNav [data-nav-slot="Lunch"]{background:linear-gradient(135deg,#a5bd73,#4e9a83);color:#17211d}
@@ -234,7 +235,7 @@ body{
 @media(max-width:760px){
   .topNav{gap:6px;padding:8px;border-radius:14px}
   .navGroup{grid-template-columns:repeat(3,minmax(0,1fr));gap:6px}
-  .topNav .homeNavBtn,.topNav .todayMealBtn{grid-column:1 / -1}
+  .topNav .homeNavBtn,.topNav .todayMealBtn,.topNav .syncNavBtn{grid-column:1 / -1}
   .topNav button{font-size:8.6px;padding:7px 4px;line-height:1;min-height:32px}
 }
 @media(max-width:390px){
@@ -244,11 +245,12 @@ body{
 }
 .heroPoster{
   width:100%;
-  max-width:340px;
+  max-width:420px;
+  max-height:calc(100svh - 220px);
   display:block;
-  margin:0 auto 12px;
+  margin:0 auto 10px;
   aspect-ratio:4 / 5;
-  object-fit:cover;
+  object-fit:contain;
   border:3px solid var(--ink);
   border-radius:18px;
   box-shadow:0 8px 0 rgba(36,31,28,.92);
@@ -266,9 +268,7 @@ body{
   box-shadow:0 6px 0 rgba(18,14,12,.82);
   overflow:hidden;
 }
-.topicPage.landingTopic,
 .topicPage.navVisible{display:block}
-body.focusedTopic .topicPage.landingTopic:not(.navVisible){display:none}
 .topicPage > summary{
   list-style:none;
   cursor:pointer;
@@ -522,17 +522,6 @@ li{margin:4px 0}
 .swapControls select{font-size:14px}
 .swapButtons{display:grid;grid-template-columns:1fr 1fr;gap:8px}
 .chosenNote{background:#dfc35f;border:2px solid var(--ink);border-radius:12px;padding:8px 10px;font-weight:1000;margin-top:8px}
-.mealFilterNote{
-  display:none;
-  margin-bottom:12px;
-  padding:10px 12px;
-  border:2px solid var(--line);
-  border-radius:14px;
-  background:#d9e7ee;
-  color:#14110f;
-  font-weight:1000;
-}
-.slotFiltered .mealFilterNote{display:block}
 .meal.is-hidden,.slotFiltered .extraFoodTab{display:none}
 .progressWrap{background:var(--ink);border-radius:999px;overflow:hidden;border:3px solid var(--ink)}
 .progress{height:24px;background:linear-gradient(90deg,var(--green),var(--yellow),var(--pink));width:0%}
@@ -983,30 +972,30 @@ select,input,button{
 <div class="app">
   <header class="appHeader">
     <section class="titleBar" data-info="hero">
-      <h1>ABS Diet Weekly App <button class="versionTag upgradeInfoBtn" type="button">8.9.8.8 ACL</button></h1>
+      <h1>ABS Diet Weekly App <button class="versionTag upgradeInfoBtn" type="button">8.9.9 ACL</button></h1>
     </section>
 
     <nav class="topNav" aria-label="App section shortcuts">
       <div class="navGroup mealNav" aria-label="App shortcuts">
-        <button class="homeNavBtn" data-nav-target="hero">Home</button>
+        <button id="homeNavBtn" class="homeNavBtn" data-nav-target="hero">Home</button>
+        <button class="todayMealBtn" data-nav-target="quickPlan">Today's meals</button>
         <button data-nav-slot="Breakfast">Breakfast</button>
         <button data-nav-slot="Snack 1">Snack 1</button>
         <button data-nav-slot="Lunch">Lunch</button>
         <button data-nav-slot="Snack 2">Snack 2</button>
         <button data-nav-slot="Dinner">Dinner</button>
         <button data-nav-slot="Snack 3">Snack 3</button>
-        <button class="todayMealBtn" data-nav-target="quickPlan">Today's meals</button>
         <button data-nav-target="scale">Scale</button>
         <button data-nav-target="reminders">Reminders</button>
         <button data-nav-target="inventory">Inventory</button>
-        <button data-nav-target="sync">Sign In</button>
+        <button id="syncNavBtn" class="syncNavBtn" data-nav-target="sync">Sign In</button>
       </div>
     </nav>
   </header>
 
   <img id="dayPoster" class="heroPoster zoomable" src="assets/monday.png" alt="Selected day ABS Diet food zine poster" data-zoom-title="Selected day recipe collage">
 
-  <details class="topicPage landingTopic" id="quickPlanTopic">
+  <details class="topicPage" id="quickPlanTopic">
     <summary>Today's Meal List</summary>
     <div class="topicPageContent">
       <section class="panel" data-info="mealPlan" id="quickPlanSection">
@@ -1027,7 +1016,6 @@ select,input,button{
     <summary>Meals</summary>
     <div class="topicPageContent">
   <section class="panel" data-info="mealPlan" id="mealsSection">
-      <div id="mealFilterNote" class="mealFilterNote">Showing one meal. Use the Meals button to show all meal frames again.</div>
       <div id="timeline" class="timeline"></div>
       <section class="extraFoodTab" aria-labelledby="extraFoodTitle" data-info="extraFood">
         <h3 id="extraFoodTitle">What I ate extra</h3>
@@ -1233,7 +1221,7 @@ select,input,button{
     </div>
   </details>
 
-  <div class="footer"><button class="tape versionTag versionFooterBtn upgradeInfoBtn" type="button">8.9.8.8 ACL</button></div>
+  <div class="footer"><button class="tape versionTag versionFooterBtn upgradeInfoBtn" type="button">8.9.9 ACL</button></div>
 </div>
 
 <div id="dayRewardModal" class="modal rewardModal" aria-hidden="true">
@@ -1511,6 +1499,8 @@ const wisdomQuote = document.getElementById("wisdomQuote");
 const wisdomArchiveList = document.getElementById("wisdomArchiveList");
 const shoppingPrintList = document.getElementById("shoppingPrintList");
 const firebasePanel = document.getElementById("syncSection");
+const homeNavBtn = document.getElementById("homeNavBtn");
+const syncNavBtn = document.getElementById("syncNavBtn");
 const firebaseUsername = document.getElementById("firebaseUsername");
 const firebaseUsernameShow = document.getElementById("firebaseUsernameShow");
 const firebaseEmail = document.getElementById("firebaseEmail");
@@ -1635,6 +1625,7 @@ const INFO_WINDOWS = {
 };
 
 const UPGRADE_HISTORY = [
+  ["8.9.9 ACL","Moved Today's Meals directly under Home, made Sign In a full-width bottom nav button that becomes Sign Out after login, added the signed-in username to Home, removed the landing Today's Meal List dropdown, enlarged the landing poster, and removed the blue meal-filter note from the Meals page."],
   ["8.9.8.8 ACL","Cleaned the landing page so it shows only the selected day poster and Today's Meal List button, removed the temporary nav divider, moved setup controls into Scale, and moved Tiny Wisdom into Sign In / Cloud Sync."],
   ["8.9.8.7 ACL","Moved Not in the Mood alternatives into each individual meal card and tightened Today's Meal List wrapping so long names stay inside their frames."],
   ["8.9.8.6 ACL","Combined Calories + Weight into Scale, Calendar + Reminders into Reminders, Low Stock + Inventory into Inventory, moved Today's Meal List directly under the poster, and added session-only visited nav dimming."],
@@ -1795,7 +1786,7 @@ function collectCloudData(){
   }
   return {
     app:"abs-diet-weekly-app",
-    version:"8.9.8.8 ACL Clean Landing Navigation",
+    version:"8.9.9 ACL Streamlined Sign-In Navigation",
     updatedAt:Date.now(),
     entries
   };
@@ -1833,10 +1824,29 @@ function currentFirebaseUsername(){
 function renderFirebaseAccountState(){
   const signedIn = !!firebaseUser;
   firebasePanel.classList.toggle("signedIn",signedIn);
+  if(homeNavBtn){
+    homeNavBtn.textContent = signedIn ? `Home ${currentFirebaseUsername()}` : "Home";
+  }
+  if(syncNavBtn){
+    syncNavBtn.textContent = signedIn ? "Sign Out" : "Sign In";
+    syncNavBtn.setAttribute("aria-label",signedIn ? "Sign out of cloud sync" : "Open sign in and cloud sync");
+  }
   if(signedIn){
     const name = currentFirebaseUsername();
     firebaseUsernameShow.textContent = name;
     firebasePassword.value = "";
+  }
+}
+async function signOutFirebaseUser(){
+  try{
+    const api = await loadFirebaseApi();
+    if(firebaseAuth) await api.signOut(firebaseAuth);
+    firebaseUser = null;
+    renderFirebaseAccountState();
+    setSyncStatus("Signed out. Enter username, email, and password to sign in again.");
+  } catch(err){
+    const friendly = firebaseFriendlyError(err);
+    setSyncStatus(`Sign out failed: ${friendly}`);
   }
 }
 function firebaseFriendlyError(err){
@@ -2857,12 +2867,8 @@ function render(){
   timeline.innerHTML = "";
   renderQuickPlan(day,selectedDate);
   const mealsSection = document.getElementById("mealsSection");
-  const mealFilterNote = document.getElementById("mealFilterNote");
   const isFiltered = activeMealSlot !== "all";
   mealsSection.classList.toggle("slotFiltered",isFiltered);
-  mealFilterNote.textContent = isFiltered
-    ? `Showing ${activeMealSlot}. Use the Meals button to show all meal frames again.`
-    : "Showing all meal frames.";
   const eaten = consumed(day,selectedDate);
   const extraTotal = extraFoodTotal(selectedDate);
   const needRest = goal - eaten;
@@ -3044,16 +3050,7 @@ document.getElementById("syncNowBtn").onclick = async()=>{
   }
 };
 document.getElementById("firebaseSignOutBtn").onclick = async()=>{
-  try{
-    const api = await loadFirebaseApi();
-    if(firebaseAuth) await api.signOut(firebaseAuth);
-    firebaseUser = null;
-    renderFirebaseAccountState();
-    setSyncStatus("Signed out. Enter username, email, and password to sign in again.");
-  } catch(err){
-    const friendly = firebaseFriendlyError(err);
-    setSyncStatus(`Sign out failed: ${friendly}`);
-  }
+  await signOutFirebaseUser();
 };
 document.getElementById("calendarReminderBtn").onclick = ()=>{
   downloadSelectedDateCalendarReminders();
@@ -3289,6 +3286,10 @@ document.querySelector(".topNav").addEventListener("click",(ev)=>{
   const button = ev.target.closest("button");
   if(!button) return;
   setActiveNavButton(button);
+  if(button.dataset.navTarget === "sync" && firebaseUser){
+    signOutFirebaseUser();
+    return;
+  }
   if(button.dataset.navSlot){
     jumpToSlot(button.dataset.navSlot);
     return;

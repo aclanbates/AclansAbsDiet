@@ -1,4 +1,4 @@
-# ABS Diet Weekly Food Zine App 8.9.8.8 ACL Clean Landing Navigation
+# ABS Diet Weekly Food Zine App 8.9.9 ACL Streamlined Sign-In Navigation
 
 Static one-page meal tracker for GitHub Pages.
 
@@ -65,6 +65,11 @@ Static one-page meal tracker for GitHub Pages.
 - Setup + Daily Controls moved into the Scale page above calorie and weight tools
 - Tiny Wisdom Corner moved into the Sign In / Cloud Sync page
 - Hidden pages now appear only when opened from the top navigation, keeping the landing page from becoming a long scroll
+- Today's Meals moved directly under Home in the navigation menu
+- Sign In is now a full-width bottom nav button that becomes Sign Out after login
+- Signed-in usernames appear on the Home button, then disappear again after sign-out
+- Landing page no longer shows the Today's Meal List dropdown under the poster
+- Meals page no longer shows the blue filter explanation strip
 - Phone navigation uses shorter tool labels and balanced button groups for iPhone-sized screens
 - Split navigation swapped sides: tracking tools on the left, Home and meals on the right
 - Stuck fixed poster background removed; the normal clickable selected-day landing poster remains
