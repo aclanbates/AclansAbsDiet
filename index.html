@@ -10,7 +10,7 @@
 <meta name="apple-mobile-web-app-title" content="ABS Diet">
 <meta name="application-name" content="ABS Diet">
 <meta name="theme-color" content="#202123">
-<title>ABS Diet Weekly Food Zine App 9.7 ACL Typed Birthday</title>
+<title>ABS Diet Weekly Food Zine App 9.7 ACL Birthday Boxes</title>
 <style>
 :root{
   --ink:#241f1c;
@@ -789,6 +789,32 @@ li{margin:4px 0}
   font-weight:800;
 }
 .consentLine input{width:22px;height:22px;margin:1px 0 0}
+.birthdayHint{
+  display:block;
+  margin-top:5px;
+  color:#5c4437;
+  font-size:12px;
+  font-weight:800;
+  line-height:1.25;
+}
+.birthdayParts{
+  display:grid;
+  grid-template-columns:1.15fr .85fr .85fr;
+  gap:8px;
+}
+.birthdayParts input{
+  text-align:center;
+}
+.birthdayPartLabel{
+  display:block;
+  color:#5c4437;
+  font-size:11px;
+  font-weight:1000;
+  letter-spacing:.06em;
+  margin:0 0 4px;
+  text-align:center;
+  text-transform:uppercase;
+}
 .accessGateActions{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:10px}
 .accessGateActions .full{grid-column:1 / -1}
 @media(max-width:620px){.accessGateActions{grid-template-columns:1fr}}
@@ -1144,8 +1170,22 @@ select,input,button{
       <p id="accessGateDisclaimer">It is not medical advice, diet treatment, diagnosis, or a professional nutrition plan. Please rely on qualified health professionals for personal diet, weight, and medical decisions.</p>
       <div class="firebaseGrid">
         <div class="full" id="accessBirthdayWrap">
-          <label for="accessBirthday">Full birthday</label>
-          <input id="accessBirthday" type="text" inputmode="numeric" autocomplete="bday" placeholder="YYYY-MM-DD">
+          <label>Full birthday</label>
+          <div class="birthdayParts" aria-label="Full birthday">
+            <div>
+              <span class="birthdayPartLabel">Year</span>
+              <input id="accessBirthYear" type="text" inputmode="numeric" autocomplete="bday-year" maxlength="4" placeholder="YYYY">
+            </div>
+            <div>
+              <span class="birthdayPartLabel">Month</span>
+              <input id="accessBirthMonth" type="text" autocomplete="bday-month" maxlength="9" placeholder="MM or Jan">
+            </div>
+            <div>
+              <span class="birthdayPartLabel">Day</span>
+              <input id="accessBirthDay" type="text" inputmode="numeric" autocomplete="bday-day" maxlength="2" placeholder="DD">
+            </div>
+          </div>
+          <span class="birthdayHint">Example: Year 1980, Month 06 or June, Day 12.</span>
         </div>
         <div>
           <label for="accessUsername">Username</label>
@@ -1404,8 +1444,22 @@ select,input,button{
         <input id="firebaseUsername" type="text" autocomplete="username" placeholder="Your name in the app">
       </div>
       <div class="full">
-        <label for="firebaseBirthday">Full birthday for account setup</label>
-        <input id="firebaseBirthday" type="text" inputmode="numeric" autocomplete="bday" placeholder="YYYY-MM-DD">
+        <label>Full birthday for account setup</label>
+        <div class="birthdayParts" aria-label="Full birthday for account setup">
+          <div>
+            <span class="birthdayPartLabel">Year</span>
+            <input id="firebaseBirthYear" type="text" inputmode="numeric" autocomplete="bday-year" maxlength="4" placeholder="YYYY">
+          </div>
+          <div>
+            <span class="birthdayPartLabel">Month</span>
+            <input id="firebaseBirthMonth" type="text" autocomplete="bday-month" maxlength="9" placeholder="MM or Jan">
+          </div>
+          <div>
+            <span class="birthdayPartLabel">Day</span>
+            <input id="firebaseBirthDay" type="text" inputmode="numeric" autocomplete="bday-day" maxlength="2" placeholder="DD">
+          </div>
+        </div>
+        <span class="birthdayHint">Example: Year 1980, Month 06 or June, Day 12.</span>
       </div>
       <div>
         <label for="firebaseEmail">Firebase email</label>
@@ -1725,7 +1779,9 @@ const homeNavBtn = document.getElementById("homeNavBtn");
 const syncNavBtn = document.getElementById("syncNavBtn");
 const firebaseUsername = document.getElementById("firebaseUsername");
 const firebaseUsernameShow = document.getElementById("firebaseUsernameShow");
-const firebaseBirthday = document.getElementById("firebaseBirthday");
+const firebaseBirthYear = document.getElementById("firebaseBirthYear");
+const firebaseBirthMonth = document.getElementById("firebaseBirthMonth");
+const firebaseBirthDay = document.getElementById("firebaseBirthDay");
 const firebaseEmail = document.getElementById("firebaseEmail");
 const firebasePassword = document.getElementById("firebasePassword");
 const firebaseDisclaimerConsent = document.getElementById("firebaseDisclaimerConsent");
@@ -1737,7 +1793,9 @@ const startupDisclaimerModal = document.getElementById("startupDisclaimerModal")
 const accessGateMode = document.getElementById("accessGateMode");
 const accessGateIntro = document.getElementById("accessGateIntro");
 const accessBirthdayWrap = document.getElementById("accessBirthdayWrap");
-const accessBirthday = document.getElementById("accessBirthday");
+const accessBirthYear = document.getElementById("accessBirthYear");
+const accessBirthMonth = document.getElementById("accessBirthMonth");
+const accessBirthDay = document.getElementById("accessBirthDay");
 const accessUsername = document.getElementById("accessUsername");
 const accessEmail = document.getElementById("accessEmail");
 const accessPassword = document.getElementById("accessPassword");
@@ -1861,7 +1919,7 @@ const INFO_WINDOWS = {
 };
 
 const UPGRADE_HISTORY = [
-  ["9.7 ACL","Made birthday entry typeable across iPhone, Android, and web, tightened the access popup fit, and moved Tiny Wisdom to the end of Reminders."],
+  ["9.7 ACL","Changed birthday entry into separate year, month, and day boxes, tightened the access popup fit, and moved Tiny Wisdom to the end of Reminders."],
   ["9.6 ACL","Added the access gate with birthday-based 21+ validation, disclaimer acknowledgement, first-release re-check for previous users, and returning-user sign-in mode."],
   ["9.5 ACL","Made the startup disclaimer first-visit only after acceptance and fixed Tracker dark-surface text contrast, including the Units button."],
   ["9.4 ACL","Added a calming clickable startup disclaimer while keeping the footer disclaimer, and tightened Today’s Meals day/header text wrapping."],
@@ -1969,7 +2027,7 @@ daySelect.value = dayIndexForDate(selectedDate);
 target.value = localStorage.getItem("aclDailyCalorieTarget") || target.value;
 firebaseUsername.value = localStorage.getItem("aclFirebaseUsername") || "";
 firebaseEmail.value = localStorage.getItem("aclFirebaseEmail") || "";
-if(firebaseBirthday) firebaseBirthday.value = localStorage.getItem("aclFirebaseBirthday") || "";
+setBirthdayParts("firebase",localStorage.getItem("aclFirebaseBirthday") || "");
 if(profileAge) profileAge.value = localStorage.getItem("aclProfileAge") || "";
 if(profileWeight) profileWeight.value = localStorage.getItem("aclProfileWeightKg") || "";
 
@@ -2077,7 +2135,7 @@ function collectCloudData(){
   }
   return {
     app:"abs-diet-weekly-app",
-    version:"9.7 ACL Typed Birthday",
+    version:"9.7 ACL Birthday Boxes",
     updatedAt:Date.now(),
     entries
   };
@@ -2168,10 +2226,44 @@ function warnIfFileProtocol(){
 function accessVersion(){return "9.7";}
 function savedAccessIsCurrent(){return localStorage.getItem("aclAccessVersion") === accessVersion();}
 function hasPriorAccessEmail(){return !!(localStorage.getItem("aclFirebaseEmail") || "").trim();}
+function monthNumberFromName(value){
+  const clean = String(value || "").trim().toLowerCase().replace(/\./g,"");
+  if(!clean) return "";
+  if(/^\d{1,2}$/.test(clean)){
+    const n = Number(clean);
+    return n >= 1 && n <= 12 ? String(n).padStart(2,"0") : "";
+  }
+  const months = {
+    jan:"01", january:"01",
+    feb:"02", february:"02",
+    mar:"03", march:"03",
+    apr:"04", april:"04",
+    may:"05",
+    jun:"06", june:"06",
+    jul:"07", july:"07",
+    aug:"08", august:"08",
+    sep:"09", sept:"09", september:"09",
+    oct:"10", october:"10",
+    nov:"11", november:"11",
+    dec:"12", december:"12"
+  };
+  return months[clean] || "";
+}
 function normalizeBirthdayInput(value){
   const raw = String(value || "").trim();
   if(!raw) return "";
-  let match = raw.match(/^(\d{4})[-/.](\d{1,2})[-/.](\d{1,2})$/);
+  const compact = raw.replace(/\s+/g,"");
+
+  let match = compact.match(/^(\d{8})$/);
+  if(match){
+    const digits = match[1];
+    if(/^(19|20)/.test(digits)){
+      return `${digits.slice(0,4)}-${digits.slice(4,6)}-${digits.slice(6,8)}`;
+    }
+    return `${digits.slice(4,8)}-${digits.slice(0,2)}-${digits.slice(2,4)}`;
+  }
+
+  match = raw.match(/^(\d{4})[-/.](\d{1,2})[-/.](\d{1,2})$/);
   if(match){
     const [,year,month,day] = match;
     return `${year.padStart(4,"0")}-${month.padStart(2,"0")}-${day.padStart(2,"0")}`;
@@ -2181,7 +2273,51 @@ function normalizeBirthdayInput(value){
     const [,month,day,year] = match;
     return `${year.padStart(4,"0")}-${month.padStart(2,"0")}-${day.padStart(2,"0")}`;
   }
+  match = raw.match(/^([A-Za-z]+)\.?\s+(\d{1,2})(?:st|nd|rd|th)?[,]?\s+(\d{4})$/);
+  if(match){
+    const [,monthName,day,year] = match;
+    const month = monthNumberFromName(monthName);
+    if(month) return `${year.padStart(4,"0")}-${month}-${day.padStart(2,"0")}`;
+  }
+  match = raw.match(/^(\d{1,2})(?:st|nd|rd|th)?\s+([A-Za-z]+)\.?,?\s+(\d{4})$/);
+  if(match){
+    const [,day,monthName,year] = match;
+    const month = monthNumberFromName(monthName);
+    if(month) return `${year.padStart(4,"0")}-${month}-${day.padStart(2,"0")}`;
+  }
+
+  const named = new Date(raw);
+  if(!Number.isNaN(named.getTime()) && /\d{4}/.test(raw)){
+    return isoFromDate(named);
+  }
+
   return raw;
+}
+function birthdayPartElements(prefix){
+  return prefix === "access"
+    ? {year:accessBirthYear, month:accessBirthMonth, day:accessBirthDay}
+    : {year:firebaseBirthYear, month:firebaseBirthMonth, day:firebaseBirthDay};
+}
+function setBirthdayParts(prefix,value){
+  const parts = birthdayPartElements(prefix);
+  const iso = normalizeBirthdayInput(value);
+  const match = iso.match(/^(\d{4})-(\d{2})-(\d{2})$/);
+  if(parts.year) parts.year.value = match ? match[1] : "";
+  if(parts.month) parts.month.value = match ? match[2] : "";
+  if(parts.day) parts.day.value = match ? match[3] : "";
+}
+function birthdayFromParts(prefix){
+  const parts = birthdayPartElements(prefix);
+  const year = (parts.year ? parts.year.value : "").replace(/\D/g,"");
+  const rawMonth = (parts.month ? parts.month.value : "").trim();
+  const month = monthNumberFromName(rawMonth);
+  const day = (parts.day ? parts.day.value : "").replace(/\D/g,"");
+  if(parts.year) parts.year.value = year.slice(0,4);
+  if(parts.month && /^\d{1,2}$/.test(rawMonth)) parts.month.value = month;
+  if(parts.day) parts.day.value = day.slice(0,2);
+  if(!year && !month && !day) return "";
+  if(year.length !== 4 || !month || !day) return "incomplete";
+  return normalizeBirthdayInput(`${year}-${month}-${day}`);
 }
 function ageFromBirthday(value){
   const iso = normalizeBirthdayInput(value);
@@ -2232,7 +2368,7 @@ async function connectFirebase(mode="signin"){
   firebaseAuth = firebaseAuth || api.getAuth(firebaseApp);
   firebaseDb = firebaseDb || api.getFirestore(firebaseApp);
   const username = firebaseUsername.value.trim();
-  const birthday = normalizeBirthdayInput(firebaseBirthday ? firebaseBirthday.value : "");
+  const birthday = birthdayFromParts("firebase");
   const email = firebaseEmail.value.trim();
   const password = firebasePassword.value;
   validateAccessDetails({
@@ -3142,7 +3278,7 @@ function configureAccessGate(mode){
   accessSecondaryBtn.textContent = mode === "signin" ? "Create new access" : "I already have an account";
   accessUsername.value = localStorage.getItem("aclFirebaseUsername") || firebaseUsername.value || "";
   accessEmail.value = localStorage.getItem("aclFirebaseEmail") || firebaseEmail.value || "";
-  accessBirthday.value = localStorage.getItem("aclFirebaseBirthday") || (firebaseBirthday ? firebaseBirthday.value : "");
+  setBirthdayParts("access",localStorage.getItem("aclFirebaseBirthday") || birthdayFromParts("firebase"));
   accessPassword.value = "";
   accessConsent.checked = false;
 }
@@ -3788,7 +3924,7 @@ accessPrimaryBtn.onclick = async()=>{
     firebaseUsername.value = accessUsername.value.trim();
     firebaseEmail.value = accessEmail.value.trim();
     firebasePassword.value = accessPassword.value;
-    if(firebaseBirthday) firebaseBirthday.value = normalizeBirthdayInput(accessBirthday.value);
+    setBirthdayParts("firebase",birthdayFromParts("access"));
     if(firebaseDisclaimerConsent) firebaseDisclaimerConsent.checked = accessConsent.checked;
     setSyncStatus(accessGateModeState === "signin" ? "Signing in..." : "Creating account...");
     await connectFirebase(accessGateModeState === "signin" ? "signin" : "create");
