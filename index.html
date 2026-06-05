@@ -10,7 +10,7 @@
 <meta name="apple-mobile-web-app-title" content="ABS Diet">
 <meta name="application-name" content="ABS Diet">
 <meta name="theme-color" content="#202123">
-<title>ABS Diet Weekly Food Zine App 9.4 ACL Disclaimer Popup</title>
+<title>ABS Diet Weekly Food Zine App 9.5 ACL First Visit Disclaimer</title>
 <style>
 :root{
   --ink:#241f1c;
@@ -961,8 +961,14 @@ body{
   color:#fff1d7;
 }
 #scaleTopic input,
-#scaleTopic label,
+#scaleTopic select{
+  color:#251b17;
+}
 #scaleTopic button,
+#scaleTopic label{
+  color:#fff1d7;
+}
+#scaleTopic button.secondary,
 #scaleTopic .summaryGrid .card,
 #scaleTopic .summaryGrid .small,
 #scaleTopic .bigNum{
@@ -1060,8 +1066,14 @@ select,input,button{
   color:#fff1d7;
 }
 #scaleTopic input,
-#scaleTopic label,
+#scaleTopic select{
+  color:#251b17;
+}
 #scaleTopic button,
+#scaleTopic label{
+  color:#fff1d7;
+}
+#scaleTopic button.secondary,
 #scaleTopic .summaryGrid .card,
 #scaleTopic .summaryGrid .small,
 #scaleTopic .bigNum{
@@ -1083,7 +1095,7 @@ select,input,button{
 </style>
 </head>
 <body>
-<div id="startupDisclaimerModal" class="modal disclaimerModal open" aria-hidden="false">
+<div id="startupDisclaimerModal" class="modal disclaimerModal" aria-hidden="true">
   <div class="modalBox" role="dialog" aria-modal="true" aria-labelledby="startupDisclaimerTitle">
     <div class="disclaimerPanel">
       <h2 id="startupDisclaimerTitle">Gentle reminder</h2>
@@ -1096,7 +1108,7 @@ select,input,button{
 <div class="app">
   <header class="appHeader">
     <section class="titleBar" data-info="hero">
-      <h1>ABS Diet Weekly App <button class="versionTag upgradeInfoBtn" type="button">9.4 ACL</button></h1>
+      <h1>ABS Diet Weekly App <button class="versionTag upgradeInfoBtn" type="button">9.5 ACL</button></h1>
     </section>
 
     <nav class="topNav" aria-label="App section shortcuts">
@@ -1762,6 +1774,7 @@ const INFO_WINDOWS = {
 };
 
 const UPGRADE_HISTORY = [
+  ["9.5 ACL","Made the startup disclaimer first-visit only after acceptance and fixed Tracker dark-surface text contrast, including the Units button."],
   ["9.4 ACL","Added a calming clickable startup disclaimer while keeping the footer disclaimer, and tightened Today’s Meals day/header text wrapping."],
   ["9.3 ACL","Improved Tracker contrast with light beige paragraph text and tightened Today's Meals rows for longer Wednesday meal names."],
   ["9.2 ACL","Tightened navigation jump spacing, balanced Today's Meals text wrapping, removed extra meal status chips, and improved Not in the Mood contrast."],
@@ -1971,7 +1984,7 @@ function collectCloudData(){
   }
   return {
     app:"abs-diet-weekly-app",
-    version:"9.4 ACL Disclaimer Popup",
+    version:"9.5 ACL First Visit Disclaimer",
     updatedAt:Date.now(),
     entries
   };
@@ -2966,10 +2979,17 @@ function closeInfoModal(){
   infoModal.setAttribute("aria-hidden","true");
   infoBody.innerHTML = "";
 }
-function closeStartupDisclaimer(){
+function closeStartupDisclaimer(remember=true){
   if(!startupDisclaimerModal) return;
+  if(remember) localStorage.setItem("aclDisclaimerAccepted","1");
   startupDisclaimerModal.classList.remove("open");
   startupDisclaimerModal.setAttribute("aria-hidden","true");
+}
+function showStartupDisclaimerIfNeeded(){
+  if(!startupDisclaimerModal) return;
+  if(localStorage.getItem("aclDisclaimerAccepted") === "1") return;
+  startupDisclaimerModal.classList.add("open");
+  startupDisclaimerModal.setAttribute("aria-hidden","false");
 }
 
 function addExtraFoodInputRow(){
@@ -3592,7 +3612,7 @@ document.addEventListener("click",(ev)=>{
 
 document.getElementById("closeModalBtn").onclick = closeImageModal;
 document.getElementById("closeInfoBtn").onclick = closeInfoModal;
-document.getElementById("closeStartupDisclaimerBtn").onclick = closeStartupDisclaimer;
+document.getElementById("closeStartupDisclaimerBtn").onclick = ()=>closeStartupDisclaimer(true);
 document.getElementById("closeRewardBtn").onclick = closeDayReward;
 document.getElementById("dayRewardImage").onclick = closeDayReward;
 document.getElementById("closeInventoryAlertBtn").onclick = closeInventoryAlert;
@@ -3603,7 +3623,7 @@ infoModal.addEventListener("click",(ev)=>{
   if(ev.target === infoModal) closeInfoModal();
 });
 if(startupDisclaimerModal) startupDisclaimerModal.addEventListener("click",(ev)=>{
-  if(ev.target === startupDisclaimerModal) closeStartupDisclaimer();
+  if(ev.target === startupDisclaimerModal) closeStartupDisclaimer(false);
 });
 document.getElementById("dayRewardModal").addEventListener("click",(ev)=>{
   if(ev.target === document.getElementById("dayRewardModal")) closeDayReward();
@@ -3615,7 +3635,7 @@ document.addEventListener("keydown",(ev)=>{
   if(ev.key === "Escape"){
     closeImageModal();
     closeInfoModal();
-    closeStartupDisclaimer();
+    closeStartupDisclaimer(false);
     closeDayReward();
     closeInventoryAlert();
   }
@@ -3651,6 +3671,7 @@ setupInfoButtons();
 collapseLandingTopics();
 render();
 renderFirebaseAccountState();
+showStartupDisclaimerIfNeeded();
 restoreFirebaseSession();
 setInterval(()=>{
   const now = todayIso();
