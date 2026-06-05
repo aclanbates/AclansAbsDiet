@@ -10,7 +10,7 @@
 <meta name="apple-mobile-web-app-title" content="ABS Diet">
 <meta name="application-name" content="ABS Diet">
 <meta name="theme-color" content="#202123">
-<title>ABS Diet Weekly Food Zine App 9.6 ACL Access Gate</title>
+<title>ABS Diet Weekly Food Zine App 9.7 ACL Typed Birthday</title>
 <style>
 :root{
   --ink:#241f1c;
@@ -752,8 +752,15 @@ li{margin:4px 0}
   background:linear-gradient(135deg,#f6c96d,#ef8f77);
   color:#241f1c;
 }
-.accessGate .modalBox{width:min(94vw,680px)}
-.accessGate .firebaseGrid{margin-top:14px}
+.accessGate .modalBox{
+  width:min(94vw,680px);
+  max-height:calc(100svh - 24px);
+  display:block;
+  overflow:auto;
+}
+.accessGate .disclaimerPanel{padding:clamp(16px,4vw,24px)}
+.accessGate .disclaimerPanel p{font-size:clamp(13px,3.4vw,15px);line-height:1.35}
+.accessGate .firebaseGrid{margin-top:10px;gap:9px}
 .accessGateMode{
   display:inline-flex;
   align-items:center;
@@ -782,7 +789,7 @@ li{margin:4px 0}
   font-weight:800;
 }
 .consentLine input{width:22px;height:22px;margin:1px 0 0}
-.accessGateActions{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:14px}
+.accessGateActions{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:10px}
 .accessGateActions .full{grid-column:1 / -1}
 @media(max-width:620px){.accessGateActions{grid-template-columns:1fr}}
 .posterFrame{position:relative}
@@ -1131,14 +1138,14 @@ select,input,button{
 <div id="startupDisclaimerModal" class="modal disclaimerModal accessGate" aria-hidden="true">
   <div class="modalBox" role="dialog" aria-modal="true" aria-labelledby="startupDisclaimerTitle">
     <div class="disclaimerPanel">
-      <span class="accessGateMode" id="accessGateMode">9.6 ACL access check</span>
+      <span class="accessGateMode" id="accessGateMode">9.7 ACL access check</span>
       <h2 id="startupDisclaimerTitle">Welcome back</h2>
       <p id="accessGateIntro"><strong>ABS Diet Weekly App</strong> is a personal learning and self-tracking project built by aClan Buyukturkoglu. Please sign in or create your access before using this version.</p>
       <p id="accessGateDisclaimer">It is not medical advice, diet treatment, diagnosis, or a professional nutrition plan. Please rely on qualified health professionals for personal diet, weight, and medical decisions.</p>
       <div class="firebaseGrid">
         <div class="full" id="accessBirthdayWrap">
           <label for="accessBirthday">Full birthday</label>
-          <input id="accessBirthday" type="date">
+          <input id="accessBirthday" type="text" inputmode="numeric" autocomplete="bday" placeholder="YYYY-MM-DD">
         </div>
         <div>
           <label for="accessUsername">Username</label>
@@ -1167,7 +1174,7 @@ select,input,button{
 <div class="app">
   <header class="appHeader">
     <section class="titleBar" data-info="hero">
-      <h1>ABS Diet Weekly App <button class="versionTag upgradeInfoBtn" type="button">9.6 ACL</button></h1>
+      <h1>ABS Diet Weekly App <button class="versionTag upgradeInfoBtn" type="button">9.7 ACL</button></h1>
     </section>
 
     <nav class="topNav" aria-label="App section shortcuts">
@@ -1349,6 +1356,14 @@ select,input,button{
           <div class="calendarLegend"><span>Yellow: selected</span><span>Mint: today</span><span>Dot: saved progress</span></div>
         </div>
       </section>
+      <section class="panel heroWisdom" data-info="tinyWisdom">
+        <b>Tiny Wisdom Corner</b>
+        <p class="wisdomQuote" id="wisdomQuote">Calories are data, not drama. Log the cheese, salute the truth, and move on like a scientist with snacks.</p>
+        <details class="wisdomArchive">
+          <summary>Past tiny wisdom</summary>
+          <div id="wisdomArchiveList" class="wisdomArchiveList"></div>
+        </details>
+      </section>
     </div>
   </details>
 
@@ -1390,7 +1405,7 @@ select,input,button{
       </div>
       <div class="full">
         <label for="firebaseBirthday">Full birthday for account setup</label>
-        <input id="firebaseBirthday" type="date">
+        <input id="firebaseBirthday" type="text" inputmode="numeric" autocomplete="bday" placeholder="YYYY-MM-DD">
       </div>
       <div>
         <label for="firebaseEmail">Firebase email</label>
@@ -1419,14 +1434,6 @@ select,input,button{
     <div id="firebaseSyncStatus" class="syncStatus firebaseHiddenStatus" aria-live="polite">Enter your email and password, then choose Sign In or Create Account.</div>
     <p class="warn">For cloud sync, use the local web address or GitHub Pages address. Raw file:// pages can block Firebase sessions. Local address: <a href="http://127.0.0.1:8001/index.html?v=896-sync-mood">http://127.0.0.1:8001/index.html?v=896-sync-mood</a></p>
   </section>
-      <section class="panel heroWisdom" data-info="tinyWisdom">
-        <b>Tiny Wisdom Corner</b>
-        <p class="wisdomQuote" id="wisdomQuote">Calories are data, not drama. Log the cheese, salute the truth, and move on like a scientist with snacks.</p>
-        <details class="wisdomArchive">
-          <summary>Past tiny wisdom</summary>
-          <div id="wisdomArchiveList" class="wisdomArchiveList"></div>
-        </details>
-      </section>
     </div>
   </details>
 
@@ -1854,6 +1861,7 @@ const INFO_WINDOWS = {
 };
 
 const UPGRADE_HISTORY = [
+  ["9.7 ACL","Made birthday entry typeable across iPhone, Android, and web, tightened the access popup fit, and moved Tiny Wisdom to the end of Reminders."],
   ["9.6 ACL","Added the access gate with birthday-based 21+ validation, disclaimer acknowledgement, first-release re-check for previous users, and returning-user sign-in mode."],
   ["9.5 ACL","Made the startup disclaimer first-visit only after acceptance and fixed Tracker dark-surface text contrast, including the Units button."],
   ["9.4 ACL","Added a calming clickable startup disclaimer while keeping the footer disclaimer, and tightened Today’s Meals day/header text wrapping."],
@@ -2069,7 +2077,7 @@ function collectCloudData(){
   }
   return {
     app:"abs-diet-weekly-app",
-    version:"9.6 ACL Access Gate",
+    version:"9.7 ACL Typed Birthday",
     updatedAt:Date.now(),
     entries
   };
@@ -2157,13 +2165,29 @@ function warnIfFileProtocol(){
     setSyncStatus("Cloud sync works best from the localhost or GitHub Pages address, not the raw file:// page. Open http://127.0.0.1:8001/index.html?v=896-sync-mood, then sign in here.");
   }
 }
-function accessVersion(){return "9.6";}
+function accessVersion(){return "9.7";}
 function savedAccessIsCurrent(){return localStorage.getItem("aclAccessVersion") === accessVersion();}
 function hasPriorAccessEmail(){return !!(localStorage.getItem("aclFirebaseEmail") || "").trim();}
-function ageFromBirthday(iso){
+function normalizeBirthdayInput(value){
+  const raw = String(value || "").trim();
+  if(!raw) return "";
+  let match = raw.match(/^(\d{4})[-/.](\d{1,2})[-/.](\d{1,2})$/);
+  if(match){
+    const [,year,month,day] = match;
+    return `${year.padStart(4,"0")}-${month.padStart(2,"0")}-${day.padStart(2,"0")}`;
+  }
+  match = raw.match(/^(\d{1,2})[-/.](\d{1,2})[-/.](\d{4})$/);
+  if(match){
+    const [,month,day,year] = match;
+    return `${year.padStart(4,"0")}-${month.padStart(2,"0")}-${day.padStart(2,"0")}`;
+  }
+  return raw;
+}
+function ageFromBirthday(value){
+  const iso = normalizeBirthdayInput(value);
   if(!iso) return null;
   const birthday = dateFromIso(iso);
-  if(Number.isNaN(birthday.getTime())) return null;
+  if(Number.isNaN(birthday.getTime()) || isoFromDate(birthday) !== iso) return null;
   const today = new Date();
   let age = today.getFullYear() - birthday.getFullYear();
   const monthDiff = today.getMonth() - birthday.getMonth();
@@ -2208,7 +2232,7 @@ async function connectFirebase(mode="signin"){
   firebaseAuth = firebaseAuth || api.getAuth(firebaseApp);
   firebaseDb = firebaseDb || api.getFirestore(firebaseApp);
   const username = firebaseUsername.value.trim();
-  const birthday = firebaseBirthday ? firebaseBirthday.value : "";
+  const birthday = normalizeBirthdayInput(firebaseBirthday ? firebaseBirthday.value : "");
   const email = firebaseEmail.value.trim();
   const password = firebasePassword.value;
   validateAccessDetails({
@@ -3107,11 +3131,11 @@ let accessGateModeState = "create";
 function configureAccessGate(mode){
   accessGateModeState = mode;
   const needsFullAccess = mode === "create" || !savedAccessIsCurrent();
-  accessGateMode.textContent = mode === "signin" ? "Returning user sign in" : "9.6 ACL access check";
+  accessGateMode.textContent = mode === "signin" ? "Returning user sign in" : "9.7 ACL access check";
   document.getElementById("startupDisclaimerTitle").textContent = mode === "signin" ? "Sign in to continue" : "Create your access";
   accessGateIntro.innerHTML = mode === "signin"
     ? `<strong>Welcome back.</strong> Please sign in with your saved username, email, and password.`
-    : `<strong>ABS Diet Weekly App</strong> is a personal learning and self-tracking project built by aClan Buyukturkoglu. Version 9.6 requires access setup before use.`;
+    : `<strong>ABS Diet Weekly App</strong> is a personal learning and self-tracking project built by aClan Buyukturkoglu. Version 9.7 requires access setup before use.`;
   accessBirthdayWrap.style.display = needsFullAccess ? "" : "none";
   accessConsentWrap.style.display = needsFullAccess ? "grid" : "none";
   accessPrimaryBtn.textContent = mode === "signin" ? "Sign in" : "Create account + accept";
@@ -3764,7 +3788,7 @@ accessPrimaryBtn.onclick = async()=>{
     firebaseUsername.value = accessUsername.value.trim();
     firebaseEmail.value = accessEmail.value.trim();
     firebasePassword.value = accessPassword.value;
-    if(firebaseBirthday) firebaseBirthday.value = accessBirthday.value;
+    if(firebaseBirthday) firebaseBirthday.value = normalizeBirthdayInput(accessBirthday.value);
     if(firebaseDisclaimerConsent) firebaseDisclaimerConsent.checked = accessConsent.checked;
     setSyncStatus(accessGateModeState === "signin" ? "Signing in..." : "Creating account...");
     await connectFirebase(accessGateModeState === "signin" ? "signin" : "create");
