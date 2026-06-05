@@ -10,7 +10,7 @@
 <meta name="apple-mobile-web-app-title" content="ABS Diet">
 <meta name="application-name" content="ABS Diet">
 <meta name="theme-color" content="#202123">
-<title>ABS Diet Weekly Food Zine App 9.5 ACL First Visit Disclaimer</title>
+<title>ABS Diet Weekly Food Zine App 9.6 ACL Access Gate</title>
 <style>
 :root{
   --ink:#241f1c;
@@ -752,6 +752,39 @@ li{margin:4px 0}
   background:linear-gradient(135deg,#f6c96d,#ef8f77);
   color:#241f1c;
 }
+.accessGate .modalBox{width:min(94vw,680px)}
+.accessGate .firebaseGrid{margin-top:14px}
+.accessGateMode{
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+  margin:4px 0 8px;
+  padding:7px 10px;
+  border:1px solid rgba(84,66,43,.24);
+  border-radius:999px;
+  background:rgba(255,255,255,.42);
+  color:#4a332a;
+  font-size:12px;
+  font-weight:1000;
+  text-transform:uppercase;
+}
+.consentLine{
+  display:grid;
+  grid-template-columns:auto 1fr;
+  gap:10px;
+  align-items:start;
+  margin-top:12px;
+  padding:12px;
+  border:1px solid rgba(84,66,43,.24);
+  border-radius:14px;
+  background:rgba(255,255,255,.42);
+  color:#2b241f;
+  font-weight:800;
+}
+.consentLine input{width:22px;height:22px;margin:1px 0 0}
+.accessGateActions{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:14px}
+.accessGateActions .full{grid-column:1 / -1}
+@media(max-width:620px){.accessGateActions{grid-template-columns:1fr}}
 .posterFrame{position:relative}
 .extraFoodTab{
   margin-top:16px;
@@ -1095,20 +1128,46 @@ select,input,button{
 </style>
 </head>
 <body>
-<div id="startupDisclaimerModal" class="modal disclaimerModal" aria-hidden="true">
+<div id="startupDisclaimerModal" class="modal disclaimerModal accessGate" aria-hidden="true">
   <div class="modalBox" role="dialog" aria-modal="true" aria-labelledby="startupDisclaimerTitle">
     <div class="disclaimerPanel">
-      <h2 id="startupDisclaimerTitle">Gentle reminder</h2>
-      <p><strong>ABS Diet Weekly App</strong> is a personal learning and self-tracking project built by aClan Buyukturkoglu. It is here to help you organize meals, reminders, inventory, and progress with a calmer brain.</p>
-      <p>It is not medical advice, diet treatment, diagnosis, or a professional nutrition plan. Please rely on qualified health professionals for personal diet, weight, and medical decisions.</p>
-      <button id="closeStartupDisclaimerBtn" type="button">I understand. Take me to the app.</button>
+      <span class="accessGateMode" id="accessGateMode">9.6 ACL access check</span>
+      <h2 id="startupDisclaimerTitle">Welcome back</h2>
+      <p id="accessGateIntro"><strong>ABS Diet Weekly App</strong> is a personal learning and self-tracking project built by aClan Buyukturkoglu. Please sign in or create your access before using this version.</p>
+      <p id="accessGateDisclaimer">It is not medical advice, diet treatment, diagnosis, or a professional nutrition plan. Please rely on qualified health professionals for personal diet, weight, and medical decisions.</p>
+      <div class="firebaseGrid">
+        <div class="full" id="accessBirthdayWrap">
+          <label for="accessBirthday">Full birthday</label>
+          <input id="accessBirthday" type="date">
+        </div>
+        <div>
+          <label for="accessUsername">Username</label>
+          <input id="accessUsername" type="text" autocomplete="username" placeholder="Your name">
+        </div>
+        <div>
+          <label for="accessEmail">Email address</label>
+          <input id="accessEmail" type="email" autocomplete="email" placeholder="you@example.com">
+        </div>
+        <div class="full">
+          <label for="accessPassword">Password</label>
+          <input id="accessPassword" type="password" autocomplete="current-password" placeholder="Password">
+        </div>
+      </div>
+      <label class="consentLine" id="accessConsentWrap">
+        <input id="accessConsent" type="checkbox">
+        <span>I am 21 or older, I understand this app is for personal learning and tracking only, and I acknowledge the disclaimer.</span>
+      </label>
+      <div class="accessGateActions">
+        <button id="accessPrimaryBtn" type="button">Create account + accept</button>
+        <button id="accessSecondaryBtn" class="light" type="button">I already have an account</button>
+      </div>
     </div>
   </div>
 </div>
 <div class="app">
   <header class="appHeader">
     <section class="titleBar" data-info="hero">
-      <h1>ABS Diet Weekly App <button class="versionTag upgradeInfoBtn" type="button">9.5 ACL</button></h1>
+      <h1>ABS Diet Weekly App <button class="versionTag upgradeInfoBtn" type="button">9.6 ACL</button></h1>
     </section>
 
     <nav class="topNav" aria-label="App section shortcuts">
@@ -1329,6 +1388,10 @@ select,input,button{
         <label for="firebaseUsername">Username</label>
         <input id="firebaseUsername" type="text" autocomplete="username" placeholder="Your name in the app">
       </div>
+      <div class="full">
+        <label for="firebaseBirthday">Full birthday for account setup</label>
+        <input id="firebaseBirthday" type="date">
+      </div>
       <div>
         <label for="firebaseEmail">Firebase email</label>
         <input id="firebaseEmail" type="email" autocomplete="email" placeholder="you@example.com">
@@ -1338,6 +1401,10 @@ select,input,button{
         <input id="firebasePassword" type="password" autocomplete="current-password" placeholder="Password">
       </div>
     </div>
+    <label class="consentLine">
+      <input id="firebaseDisclaimerConsent" type="checkbox">
+      <span>I am 21 or older, and I acknowledge this app is for personal learning and tracking only, not medical or nutrition advice.</span>
+    </label>
     <div class="syncActions">
       <button id="connectFirebaseBtn">Sign In</button>
       <button id="createFirebaseAccountBtn" class="secondary">Create Account</button>
@@ -1651,13 +1718,26 @@ const homeNavBtn = document.getElementById("homeNavBtn");
 const syncNavBtn = document.getElementById("syncNavBtn");
 const firebaseUsername = document.getElementById("firebaseUsername");
 const firebaseUsernameShow = document.getElementById("firebaseUsernameShow");
+const firebaseBirthday = document.getElementById("firebaseBirthday");
 const firebaseEmail = document.getElementById("firebaseEmail");
 const firebasePassword = document.getElementById("firebasePassword");
+const firebaseDisclaimerConsent = document.getElementById("firebaseDisclaimerConsent");
 const firebaseSyncStatus = document.getElementById("firebaseSyncStatus");
 const infoModal = document.getElementById("infoModal");
 const infoTitle = document.getElementById("infoTitle");
 const infoBody = document.getElementById("infoBody");
 const startupDisclaimerModal = document.getElementById("startupDisclaimerModal");
+const accessGateMode = document.getElementById("accessGateMode");
+const accessGateIntro = document.getElementById("accessGateIntro");
+const accessBirthdayWrap = document.getElementById("accessBirthdayWrap");
+const accessBirthday = document.getElementById("accessBirthday");
+const accessUsername = document.getElementById("accessUsername");
+const accessEmail = document.getElementById("accessEmail");
+const accessPassword = document.getElementById("accessPassword");
+const accessConsentWrap = document.getElementById("accessConsentWrap");
+const accessConsent = document.getElementById("accessConsent");
+const accessPrimaryBtn = document.getElementById("accessPrimaryBtn");
+const accessSecondaryBtn = document.getElementById("accessSecondaryBtn");
 const profileAge = document.getElementById("profileAge");
 const profileWeight = document.getElementById("profileWeight");
 
@@ -1774,6 +1854,7 @@ const INFO_WINDOWS = {
 };
 
 const UPGRADE_HISTORY = [
+  ["9.6 ACL","Added the access gate with birthday-based 21+ validation, disclaimer acknowledgement, first-release re-check for previous users, and returning-user sign-in mode."],
   ["9.5 ACL","Made the startup disclaimer first-visit only after acceptance and fixed Tracker dark-surface text contrast, including the Units button."],
   ["9.4 ACL","Added a calming clickable startup disclaimer while keeping the footer disclaimer, and tightened Today’s Meals day/header text wrapping."],
   ["9.3 ACL","Improved Tracker contrast with light beige paragraph text and tightened Today's Meals rows for longer Wednesday meal names."],
@@ -1880,6 +1961,7 @@ daySelect.value = dayIndexForDate(selectedDate);
 target.value = localStorage.getItem("aclDailyCalorieTarget") || target.value;
 firebaseUsername.value = localStorage.getItem("aclFirebaseUsername") || "";
 firebaseEmail.value = localStorage.getItem("aclFirebaseEmail") || "";
+if(firebaseBirthday) firebaseBirthday.value = localStorage.getItem("aclFirebaseBirthday") || "";
 if(profileAge) profileAge.value = localStorage.getItem("aclProfileAge") || "";
 if(profileWeight) profileWeight.value = localStorage.getItem("aclProfileWeightKg") || "";
 
@@ -1968,6 +2050,9 @@ function isAppDataKey(key){
     || key === "aclProfileAge"
     || key === "aclProfileWeightKg"
     || key === "aclFirebaseUsername"
+    || key === "aclFirebaseBirthday"
+    || key === "aclAccessVersion"
+    || key === "aclDisclaimerAccepted"
     || key === "aclTinyWisdomHistory"
     || key === "aclDailyCalorieTarget"
     || key.startsWith("absDietDone:")
@@ -1984,7 +2069,7 @@ function collectCloudData(){
   }
   return {
     app:"abs-diet-weekly-app",
-    version:"9.5 ACL First Visit Disclaimer",
+    version:"9.6 ACL Access Gate",
     updatedAt:Date.now(),
     entries
   };
@@ -2072,6 +2157,37 @@ function warnIfFileProtocol(){
     setSyncStatus("Cloud sync works best from the localhost or GitHub Pages address, not the raw file:// page. Open http://127.0.0.1:8001/index.html?v=896-sync-mood, then sign in here.");
   }
 }
+function accessVersion(){return "9.6";}
+function savedAccessIsCurrent(){return localStorage.getItem("aclAccessVersion") === accessVersion();}
+function hasPriorAccessEmail(){return !!(localStorage.getItem("aclFirebaseEmail") || "").trim();}
+function ageFromBirthday(iso){
+  if(!iso) return null;
+  const birthday = dateFromIso(iso);
+  if(Number.isNaN(birthday.getTime())) return null;
+  const today = new Date();
+  let age = today.getFullYear() - birthday.getFullYear();
+  const monthDiff = today.getMonth() - birthday.getMonth();
+  if(monthDiff < 0 || (monthDiff === 0 && today.getDate() < birthday.getDate())) age--;
+  return age;
+}
+function validateAccessDetails({mode,username,birthday,email,password,consent}){
+  if(!username) throw new Error("Please enter a username. It helps identify your account and keeps password recovery clearer later.");
+  if(!email) throw new Error("Please enter your email address.");
+  if(!password) throw new Error("Please enter your password.");
+  if(mode === "create" || !savedAccessIsCurrent()){
+    const age = ageFromBirthday(birthday);
+    if(age === null) throw new Error("Please enter your full birthday.");
+    if(age < 21) throw new Error("This app is only available to users who are 21 or older.");
+    if(!consent) throw new Error("Please acknowledge the disclaimer before continuing.");
+  }
+}
+function markAccessAccepted(username,email,birthday=""){
+  localStorage.setItem("aclAccessVersion",accessVersion());
+  localStorage.setItem("aclDisclaimerAccepted","1");
+  if(username) localStorage.setItem("aclFirebaseUsername",username);
+  if(email) localStorage.setItem("aclFirebaseEmail",email);
+  if(birthday) localStorage.setItem("aclFirebaseBirthday",birthday);
+}
 function firebaseConfig(){
   return FIREBASE_CONFIG;
 }
@@ -2092,10 +2208,17 @@ async function connectFirebase(mode="signin"){
   firebaseAuth = firebaseAuth || api.getAuth(firebaseApp);
   firebaseDb = firebaseDb || api.getFirestore(firebaseApp);
   const username = firebaseUsername.value.trim();
+  const birthday = firebaseBirthday ? firebaseBirthday.value : "";
   const email = firebaseEmail.value.trim();
   const password = firebasePassword.value;
-  if(!username) throw new Error("A username is required. It helps identify your account and makes password recovery clearer later.");
-  if(!email || !password) throw new Error("Enter Firebase email and password.");
+  validateAccessDetails({
+    mode:mode === "create" ? "create" : "signin",
+    username,
+    birthday,
+    email,
+    password,
+    consent:!!(firebaseDisclaimerConsent && firebaseDisclaimerConsent.checked)
+  });
   localStorage.setItem("aclFirebaseUsername",username);
   localStorage.setItem("aclFirebaseEmail",email);
   if(api.setPersistence && api.browserLocalPersistence){
@@ -2108,6 +2231,7 @@ async function connectFirebase(mode="signin"){
   if(api.updateProfile && firebaseUser.displayName !== username){
     await api.updateProfile(firebaseUser,{displayName:username});
   }
+  if(mode === "create" || !savedAccessIsCurrent()) markAccessAccepted(username,email,birthday);
   renderFirebaseAccountState();
   setSyncStatus(`Firebase connected as ${username}. Syncing now...`);
 }
@@ -2979,17 +3103,40 @@ function closeInfoModal(){
   infoModal.setAttribute("aria-hidden","true");
   infoBody.innerHTML = "";
 }
-function closeStartupDisclaimer(remember=true){
+let accessGateModeState = "create";
+function configureAccessGate(mode){
+  accessGateModeState = mode;
+  const needsFullAccess = mode === "create" || !savedAccessIsCurrent();
+  accessGateMode.textContent = mode === "signin" ? "Returning user sign in" : "9.6 ACL access check";
+  document.getElementById("startupDisclaimerTitle").textContent = mode === "signin" ? "Sign in to continue" : "Create your access";
+  accessGateIntro.innerHTML = mode === "signin"
+    ? `<strong>Welcome back.</strong> Please sign in with your saved username, email, and password.`
+    : `<strong>ABS Diet Weekly App</strong> is a personal learning and self-tracking project built by aClan Buyukturkoglu. Version 9.6 requires access setup before use.`;
+  accessBirthdayWrap.style.display = needsFullAccess ? "" : "none";
+  accessConsentWrap.style.display = needsFullAccess ? "grid" : "none";
+  accessPrimaryBtn.textContent = mode === "signin" ? "Sign in" : "Create account + accept";
+  accessSecondaryBtn.textContent = mode === "signin" ? "Create new access" : "I already have an account";
+  accessUsername.value = localStorage.getItem("aclFirebaseUsername") || firebaseUsername.value || "";
+  accessEmail.value = localStorage.getItem("aclFirebaseEmail") || firebaseEmail.value || "";
+  accessBirthday.value = localStorage.getItem("aclFirebaseBirthday") || (firebaseBirthday ? firebaseBirthday.value : "");
+  accessPassword.value = "";
+  accessConsent.checked = false;
+}
+function closeStartupDisclaimer(){
   if(!startupDisclaimerModal) return;
-  if(remember) localStorage.setItem("aclDisclaimerAccepted","1");
   startupDisclaimerModal.classList.remove("open");
   startupDisclaimerModal.setAttribute("aria-hidden","true");
 }
-function showStartupDisclaimerIfNeeded(){
+function showAccessGate(mode){
   if(!startupDisclaimerModal) return;
-  if(localStorage.getItem("aclDisclaimerAccepted") === "1") return;
+  configureAccessGate(mode);
   startupDisclaimerModal.classList.add("open");
   startupDisclaimerModal.setAttribute("aria-hidden","false");
+}
+function showStartupDisclaimerIfNeeded(){
+  if(firebaseUser) return;
+  if(!savedAccessIsCurrent()) return showAccessGate("create");
+  if(hasPriorAccessEmail()) return showAccessGate("signin");
 }
 
 function addExtraFoodInputRow(){
@@ -3612,7 +3759,26 @@ document.addEventListener("click",(ev)=>{
 
 document.getElementById("closeModalBtn").onclick = closeImageModal;
 document.getElementById("closeInfoBtn").onclick = closeInfoModal;
-document.getElementById("closeStartupDisclaimerBtn").onclick = ()=>closeStartupDisclaimer(true);
+accessPrimaryBtn.onclick = async()=>{
+  try{
+    firebaseUsername.value = accessUsername.value.trim();
+    firebaseEmail.value = accessEmail.value.trim();
+    firebasePassword.value = accessPassword.value;
+    if(firebaseBirthday) firebaseBirthday.value = accessBirthday.value;
+    if(firebaseDisclaimerConsent) firebaseDisclaimerConsent.checked = accessConsent.checked;
+    setSyncStatus(accessGateModeState === "signin" ? "Signing in..." : "Creating account...");
+    await connectFirebase(accessGateModeState === "signin" ? "signin" : "create");
+    await syncCloudData();
+    closeStartupDisclaimer();
+  } catch(err){
+    const friendly = firebaseFriendlyError(err);
+    setSyncStatus(`Access failed: ${friendly}`);
+    alert(`Access failed: ${friendly}`);
+  }
+};
+accessSecondaryBtn.onclick = ()=>{
+  configureAccessGate(accessGateModeState === "signin" ? "create" : "signin");
+};
 document.getElementById("closeRewardBtn").onclick = closeDayReward;
 document.getElementById("dayRewardImage").onclick = closeDayReward;
 document.getElementById("closeInventoryAlertBtn").onclick = closeInventoryAlert;
@@ -3621,9 +3787,6 @@ imageModal.addEventListener("click",(ev)=>{
 });
 infoModal.addEventListener("click",(ev)=>{
   if(ev.target === infoModal) closeInfoModal();
-});
-if(startupDisclaimerModal) startupDisclaimerModal.addEventListener("click",(ev)=>{
-  if(ev.target === startupDisclaimerModal) closeStartupDisclaimer(false);
 });
 document.getElementById("dayRewardModal").addEventListener("click",(ev)=>{
   if(ev.target === document.getElementById("dayRewardModal")) closeDayReward();
@@ -3635,7 +3798,6 @@ document.addEventListener("keydown",(ev)=>{
   if(ev.key === "Escape"){
     closeImageModal();
     closeInfoModal();
-    closeStartupDisclaimer(false);
     closeDayReward();
     closeInventoryAlert();
   }
