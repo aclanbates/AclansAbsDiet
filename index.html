@@ -9,8 +9,8 @@
 <link rel="manifest" href="site.webmanifest">
 <meta name="apple-mobile-web-app-title" content="ABS Diet">
 <meta name="application-name" content="ABS Diet">
-<meta name="theme-color" content="#202123">
-<title>ABS Diet Weekly Food Zine App 9.7 ACL Birthday Boxes</title>
+<meta name="theme-color" content="#232323">
+<title>ABS Diet Weekly Food Zine App 9.8 ACL</title>
 <style>
 :root{
   --ink:#241f1c;
@@ -1147,6 +1147,212 @@ select,input,button{
 }
 .modalBox{border:2px solid var(--line);background:#1f2022}
 .modalScroll{background:#202123}
+
+/* 9.8 ACL palette: Burnt Sienna, Harvest Gold, Avocado, Teak, Natural, Blue Mustang.
+   Previous palette is remembered as "coffee house". */
+:root{
+  --ink:#fff5df;
+  --paper:#262523;
+  --muted:#e4c99a;
+  --teal:#347d8f;
+  --pink:#d34a17;
+  --yellow:#f8ad3d;
+  --green:#778f2f;
+  --cream:#fff5df;
+  --blue:#347d8f;
+  --wine:#9b5a11;
+  --accent:#f8ad3d;
+  --line:#d2b586;
+  --surface:#2b2926;
+  --surfaceSoft:#34312b;
+  --surfaceWarm:#4b321f;
+  --natural:#d2b586;
+  --burntSienna:#d34a17;
+  --harvestGold:#f8ad3d;
+  --avocado:#778f2f;
+  --teak:#9b5a11;
+  --blueMustang:#347d8f;
+}
+body{
+  background:
+    radial-gradient(circle at 9% 0%, rgba(211,74,23,.34), transparent 31%),
+    radial-gradient(circle at 92% 6%, rgba(52,125,143,.28), transparent 34%),
+    linear-gradient(135deg,#232323,#312d28 48%,#202225);
+  color:var(--ink);
+}
+.accessGate{display:none !important}
+.titleBar,
+.topNav,
+.topicPage > summary,
+.card,.meal,.panel,
+.heroWisdom,.heroProfile,.quickPlan,.extraFoodTab,.firebasePanel,.restBox,.inventoryPanel,.moodBox,.calendarCard,
+.modalBox{
+  border:1px solid var(--line);
+  box-shadow:0 3px 0 rgba(8,7,6,.44);
+}
+.titleBar{
+  background:linear-gradient(135deg,#2f302b,#24363a);
+  color:var(--ink);
+}
+.titleBar h1{color:var(--ink)}
+.versionTag{
+  background:linear-gradient(135deg,var(--teak),var(--burntSienna));
+  color:#fff9ec;
+  border:1px solid var(--line);
+}
+.topNav{
+  background:rgba(35,34,32,.97);
+  gap:7px;
+}
+.topNav button{
+  border:1px solid var(--line);
+  color:#1f1a12;
+  box-shadow:0 2px 0 rgba(8,7,6,.42);
+}
+.topNav .homeNavBtn,
+.topNav .todayMealBtn{
+  background:linear-gradient(135deg,#ffd770,var(--harvestGold));
+  color:#241806;
+}
+.mealNav [data-nav-slot="Breakfast"]{background:linear-gradient(135deg,#ffce6c,#f7a23b);color:#241806}
+.mealNav [data-nav-slot="Snack 1"]{background:linear-gradient(135deg,#f8ad3d,#d97924);color:#241806}
+.mealNav [data-nav-slot="Lunch"]{background:linear-gradient(135deg,#d2b586,#778f2f);color:#1e240d}
+.mealNav [data-nav-slot="Snack 2"]{background:linear-gradient(135deg,#d2b586,#d34a17);color:#fff8e8}
+.mealNav [data-nav-slot="Dinner"]{background:linear-gradient(135deg,#347d8f,#2b6979);color:#fff8e8}
+.mealNav [data-nav-slot="Snack 3"]{background:linear-gradient(135deg,#778f2f,#596d23);color:#fff8e8}
+.topNav [data-nav-target="scale"],
+.topNav [data-nav-target="reminders"],
+.topNav [data-nav-target="inventory"]{
+  background:linear-gradient(135deg,#d2b586,#347d8f);
+  color:#1a211d;
+}
+.topNav [data-nav-target="sync"]{
+  background:linear-gradient(135deg,#8ccf64,#778f2f);
+  color:#14200d;
+}
+.topNav button.active{
+  background:#ff2fb3 !important;
+  color:#111 !important;
+  border-color:#ffd6f2 !important;
+}
+.topicPage{
+  border:0;
+  background:transparent;
+  box-shadow:none;
+  padding:0;
+}
+.topicPage > summary{
+  background:linear-gradient(135deg,var(--teak),var(--blueMustang));
+  color:#fff8e8;
+}
+.topicPageContent{
+  background:transparent;
+  border:0;
+  padding:12px 0 0;
+}
+.card,.meal,.panel,
+.heroWisdom,.heroProfile,.quickPlan,.extraFoodTab,.firebasePanel,.restBox,.inventoryPanel,.moodBox,.calendarCard{
+  background:linear-gradient(135deg,#302d27,#3a3027);
+  color:#fff5df;
+}
+.meal{border-left:6px solid var(--accent)}
+.meal::before{display:none}
+.recipeBox,.swapBox,.moodInline,.inventoryBox,.restBox{
+  background:#d2b586;
+  color:#21170d;
+}
+.recipeBox h4,.swapBox h4,.recipeBox li,.swapBox li,.swapControls,.swapControls label,.moodInline .micro,.moodSuggestion,
+.restBox h3,.restBox .micro,.restBox .restLine{
+  color:#21170d;
+}
+.quickMeal,.reminder,.inventoryItem,.extraFoodEntry,.weightEntry,.exerciseEntry,.option,.pill,.moodSlot,.moodSuggestion,.moodBox .moodLine,.wisdomArchiveItem,.syncStatus{
+  background:#fff5df;
+  color:#241806;
+  border:1px solid var(--line);
+}
+.quickMeal.done{
+  background:#efe0bb !important;
+  color:#241806 !important;
+}
+.pill.remaining,.option.healthy,.calendarDay.today{
+  background:#778f2f;
+  color:#fff8e8;
+}
+.note,.small,.dateStamp,.quickSlot,.zoomHint,.calendarLegend,.inventoryTop span,.inventoryMeta,.weightEntry span,.exerciseEntry span,.extraFoodEntry span,.warn,.micro{
+  color:#e9d4aa;
+}
+.quickMeal .quickSlot,
+.quickMeal .quickName,
+.quickMeal .quickCal,
+.reminder,
+.inventoryItem,
+.extraFoodEntry,
+.weightEntry,
+.exerciseEntry{
+  color:#241806;
+}
+select,input,textarea{
+  background:#fff5df;
+  color:#241806;
+  border:1px solid var(--line);
+}
+label{color:#fff5df}
+.birthdayPartLabel,.birthdayHint,.consentLine,.consentLine span{
+  color:#241806;
+}
+button{
+  background:linear-gradient(135deg,var(--harvestGold),#d8742c);
+  color:#241806;
+  border:1px solid var(--line);
+}
+button.secondary{background:linear-gradient(135deg,var(--burntSienna),var(--teak));color:#fff8e8}
+button.light{background:#fff5df;color:#241806}
+.firebasePanel{
+  background:linear-gradient(135deg,#26363a,#302d27);
+}
+.firebaseSignedIn{
+  background:linear-gradient(135deg,#224f5d,#347d8f);
+  color:#fff8e8;
+}
+.firebaseSignedIn button{color:#241806}
+.siteDisclaimer{
+  background:rgba(36,31,28,.78);
+  color:#fff5df;
+}
+.siteDisclaimer strong{color:#f8d178}
+.modalTop,.posterCard,.rewardPanel{
+  background:#302d27;
+  color:#fff5df;
+}
+.posterCaption{color:#e9d4aa}
+#scaleTopic .panel,
+#scaleTopic .restBox,
+#scaleTopic .micro,
+#scaleTopic .warn,
+#scaleTopic .small,
+#scaleTopic .restLine,
+#scaleTopic h2,
+#scaleTopic h3,
+#scaleTopic button,
+#scaleTopic label{
+  color:#fff5df;
+}
+#scaleTopic input,
+#scaleTopic select,
+#scaleTopic button.light,
+#scaleTopic .summaryGrid .card,
+#scaleTopic .summaryGrid .small,
+#scaleTopic .bigNum{
+  color:#241806;
+}
+#scaleTopic .restBox,
+#scaleTopic .restBox .micro,
+#scaleTopic .restBox .restLine,
+#scaleTopic .restBox h3,
+#scaleTopic .restBox label,
+#scaleTopic .restBox .small{
+  color:#21170d;
+}
 @media print{
   .appHeader,.topicPage:not(.printShoppingOpen),.footer,.modal,.rewardToast,.heroPoster,.pageHomeButton{display:none !important}
   body{background:white}
@@ -1164,9 +1370,9 @@ select,input,button{
 <div id="startupDisclaimerModal" class="modal disclaimerModal accessGate" aria-hidden="true">
   <div class="modalBox" role="dialog" aria-modal="true" aria-labelledby="startupDisclaimerTitle">
     <div class="disclaimerPanel">
-      <span class="accessGateMode" id="accessGateMode">9.7 ACL access check</span>
+      <span class="accessGateMode" id="accessGateMode">9.8 ACL access check</span>
       <h2 id="startupDisclaimerTitle">Welcome back</h2>
-      <p id="accessGateIntro"><strong>ABS Diet Weekly App</strong> is a personal learning and self-tracking project built by aClan Buyukturkoglu. Please sign in or create your access before using this version.</p>
+      <p id="accessGateIntro"><strong>ABS Diet Weekly App</strong> is a personal learning and self-tracking project built by aClan Buyukturkoglu. Sign in is available from the Sync section.</p>
       <p id="accessGateDisclaimer">It is not medical advice, diet treatment, diagnosis, or a professional nutrition plan. Please rely on qualified health professionals for personal diet, weight, and medical decisions.</p>
       <div class="firebaseGrid">
         <div class="full" id="accessBirthdayWrap">
@@ -1178,14 +1384,14 @@ select,input,button{
             </div>
             <div>
               <span class="birthdayPartLabel">Month</span>
-              <input id="accessBirthMonth" type="text" autocomplete="bday-month" maxlength="9" placeholder="MM or Jan">
+              <input id="accessBirthMonth" type="text" autocomplete="bday-month" maxlength="9" placeholder="Month">
             </div>
             <div>
               <span class="birthdayPartLabel">Day</span>
               <input id="accessBirthDay" type="text" inputmode="numeric" autocomplete="bday-day" maxlength="2" placeholder="DD">
             </div>
           </div>
-          <span class="birthdayHint">Example: Year 1980, Month 06 or June, Day 12.</span>
+          <span class="birthdayHint">Example: Year 1980, Month 06, Jun, June, Day 12.</span>
         </div>
         <div>
           <label for="accessUsername">Username</label>
@@ -1214,7 +1420,7 @@ select,input,button{
 <div class="app">
   <header class="appHeader">
     <section class="titleBar" data-info="hero">
-      <h1>ABS Diet Weekly App <button class="versionTag upgradeInfoBtn" type="button">9.7 ACL</button></h1>
+      <h1>ABS Diet Weekly App <button class="versionTag upgradeInfoBtn" type="button">9.8 ACL</button></h1>
     </section>
 
     <nav class="topNav" aria-label="App section shortcuts">
@@ -1452,14 +1658,14 @@ select,input,button{
           </div>
           <div>
             <span class="birthdayPartLabel">Month</span>
-            <input id="firebaseBirthMonth" type="text" autocomplete="bday-month" maxlength="9" placeholder="MM or Jan">
+            <input id="firebaseBirthMonth" type="text" autocomplete="bday-month" maxlength="9" placeholder="Month">
           </div>
           <div>
             <span class="birthdayPartLabel">Day</span>
             <input id="firebaseBirthDay" type="text" inputmode="numeric" autocomplete="bday-day" maxlength="2" placeholder="DD">
           </div>
         </div>
-        <span class="birthdayHint">Example: Year 1980, Month 06 or June, Day 12.</span>
+        <span class="birthdayHint">Example: Year 1980, Month 06, Jun, June, Day 12.</span>
       </div>
       <div>
         <label for="firebaseEmail">Firebase email</label>
@@ -1919,6 +2125,7 @@ const INFO_WINDOWS = {
 };
 
 const UPGRADE_HISTORY = [
+  ["9.8 ACL","Returned app startup to the landing page, kept sign-in inside Sync only, applied the new Burnt Sienna / Harvest Gold / Avocado / Natural / Blue Mustang palette, and simplified section framing for better readability."],
   ["9.7 ACL","Changed birthday entry into separate year, month, and day boxes, tightened the access popup fit, and moved Tiny Wisdom to the end of Reminders."],
   ["9.6 ACL","Added the access gate with birthday-based 21+ validation, disclaimer acknowledgement, first-release re-check for previous users, and returning-user sign-in mode."],
   ["9.5 ACL","Made the startup disclaimer first-visit only after acceptance and fixed Tracker dark-surface text contrast, including the Units button."],
@@ -2135,7 +2342,7 @@ function collectCloudData(){
   }
   return {
     app:"abs-diet-weekly-app",
-    version:"9.7 ACL Birthday Boxes",
+    version:"9.8 ACL",
     updatedAt:Date.now(),
     entries
   };
@@ -2223,7 +2430,7 @@ function warnIfFileProtocol(){
     setSyncStatus("Cloud sync works best from the localhost or GitHub Pages address, not the raw file:// page. Open http://127.0.0.1:8001/index.html?v=896-sync-mood, then sign in here.");
   }
 }
-function accessVersion(){return "9.7";}
+function accessVersion(){return "9.8";}
 function savedAccessIsCurrent(){return localStorage.getItem("aclAccessVersion") === accessVersion();}
 function hasPriorAccessEmail(){return !!(localStorage.getItem("aclFirebaseEmail") || "").trim();}
 function monthNumberFromName(value){
@@ -3267,11 +3474,11 @@ let accessGateModeState = "create";
 function configureAccessGate(mode){
   accessGateModeState = mode;
   const needsFullAccess = mode === "create" || !savedAccessIsCurrent();
-  accessGateMode.textContent = mode === "signin" ? "Returning user sign in" : "9.7 ACL access check";
+  accessGateMode.textContent = mode === "signin" ? "Returning user sign in" : "9.8 ACL access check";
   document.getElementById("startupDisclaimerTitle").textContent = mode === "signin" ? "Sign in to continue" : "Create your access";
   accessGateIntro.innerHTML = mode === "signin"
     ? `<strong>Welcome back.</strong> Please sign in with your saved username, email, and password.`
-    : `<strong>ABS Diet Weekly App</strong> is a personal learning and self-tracking project built by aClan Buyukturkoglu. Version 9.7 requires access setup before use.`;
+    : `<strong>ABS Diet Weekly App</strong> is a personal learning and self-tracking project built by aClan Buyukturkoglu. Version 9.8 keeps sign-in inside the Sync section.`;
   accessBirthdayWrap.style.display = needsFullAccess ? "" : "none";
   accessConsentWrap.style.display = needsFullAccess ? "grid" : "none";
   accessPrimaryBtn.textContent = mode === "signin" ? "Sign in" : "Create account + accept";
@@ -3294,9 +3501,7 @@ function showAccessGate(mode){
   startupDisclaimerModal.setAttribute("aria-hidden","false");
 }
 function showStartupDisclaimerIfNeeded(){
-  if(firebaseUser) return;
-  if(!savedAccessIsCurrent()) return showAccessGate("create");
-  if(hasPriorAccessEmail()) return showAccessGate("signin");
+  return;
 }
 
 function addExtraFoodInputRow(){
